@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Main extends Game {
-    SpriteBatch batch;
-    Texture img;
 	
 	@Override
 	public void create () {
+		//Pantalla de menú inicial
 		setScreen(new PantallaMenu(this));
 
 	}
+
 }
