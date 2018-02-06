@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /*Hola Charly*/
 
 public class Main extends Game {
-    SpriteBatch batch;
-    Texture img;
 	
 	@Override
 	public void create () {
+		//Pantalla de menú inicial
 		setScreen(new PantallaMenu(this));
 
 	}
+
 }
