@@ -59,7 +59,6 @@ class PantallaMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                //Gdx.app.log("ClickListener", "Hizo click el man");
                 game.setScreen(new PantallaAjustes(game));
             }
         });
@@ -72,7 +71,7 @@ class PantallaMenu implements Screen {
         ImageButton btnArsenal = new ImageButton(trdArsenal,trdArsenalPress);
         btnArsenal.setPosition(ANCHO/2 - btnArsenal.getWidth()/2, ALTO/2 + btnArsenal.getHeight());
 
-        btnAjustes.addListener(new ClickListener(){
+        btnArsenal.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
