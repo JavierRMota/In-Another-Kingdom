@@ -52,8 +52,9 @@ class PantallaMenu implements Screen {
         //Botón Ajustes
         TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("ajustes.png")));
         TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("ajustesPress.png")));
+
         ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
-        btnAjustes.setPosition(ANCHO/2 - btnAjustes.getWidth()/2, ALTO/2 - btnAjustes.getHeight()/2);
+        btnAjustes.setPosition(0, 0);
 
         btnAjustes.addListener(new ClickListener(){
             @Override
