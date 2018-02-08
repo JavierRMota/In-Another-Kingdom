@@ -49,6 +49,39 @@ class PantallaMenu implements Screen {
 
     private void crearMenu() {
         escenaMenu = new Stage(view);
+
+        //Botón Play
+        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("play.png")));
+        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("Playpress.png")));
+
+        ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
+        btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight()/2);
+
+        btnPlay.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaMenu(game));
+            }
+        });
+        escenaMenu.addActor(btnPlay);
+
+        //Botón Levels
+        TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(new Texture("levels.png")));
+        TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(new Texture("levelsPress.png")));
+
+        ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
+        btnLevels.setPosition(ANCHO/2 - btnLevels.getWidth()/2, ALTO/2 - btnLevels.getHeight()*2);
+
+        btnLevels.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaMenu(game));
+            }
+        });
+        escenaMenu.addActor(btnLevels);
+
         //Botón Ajustes
         TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("ajustes.png")));
         TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("ajustesPress.png")));
@@ -64,13 +97,14 @@ class PantallaMenu implements Screen {
             }
         });
         escenaMenu.addActor(btnAjustes);
-        Gdx.input.setInputProcessor(escenaMenu);
+
+
 
         //Botón Arsenal
         TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(new Texture("arsenal.png")));
         TextureRegionDrawable trdArsenalPress = new TextureRegionDrawable(new TextureRegion(new Texture("arsenalPress.png")));
         ImageButton btnArsenal = new ImageButton(trdArsenal,trdArsenalPress);
-        btnArsenal.setPosition(ANCHO/2 - btnArsenal.getWidth()/2, ALTO/2 + btnArsenal.getHeight());
+        btnArsenal.setPosition(ANCHO/2 - btnArsenal.getWidth()/2, ALTO/2 - btnArsenal.getHeight()*3.5f);
 
         btnArsenal.addListener(new ClickListener(){
             @Override
