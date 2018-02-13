@@ -72,7 +72,7 @@ class PantallaMenu implements Screen {
 
         //Botón Play
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("play.png")));
-        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("Playpress.png")));
+        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("playpress.png")));
 
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
         btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight()/2);
