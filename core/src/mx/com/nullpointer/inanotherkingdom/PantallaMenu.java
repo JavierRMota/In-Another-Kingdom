@@ -53,35 +53,27 @@ class PantallaMenu implements Screen {
     @Override
     public void show() {
         crearCamara();
-        //cargarTexturas();
-        crearMenu();
+        cargarTexturas();
+        crearObjetos();
         batch = new SpriteBatch();
 
         //Reproduce la musica
         musicaMenus.play();
 
     }
-/*
+
     private void cargarTexturas() {
-        texturaFondo = new Texture("");
+        //texturaFondo = new Texture("");
         texturaTitulo = new Texture("logo.png");
 
-    }*/
+    }
 
-    private void crearMenu() {
+    private void crearObjetos() {
         escenaMenu = new Stage(view);
-
-
-        //Dibujando el fondo
-        //batch.draw(texturaFondo,0,0 );
-        //Dibujando el título
-        //batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 - texturaTitulo.getHeight()/3);
-
-
 
         //Botón Play
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("play.png")));
-        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("Playpress.png")));
+        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("playpress.png")));
 
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
         btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight()/2);
@@ -180,6 +172,17 @@ class PantallaMenu implements Screen {
 
         batch.setProjectionMatrix(camara.combined);
         escenaMenu.draw();
+
+
+
+        batch.begin();
+        //Dibujando el fondo
+        //batch.draw(texturaFondo,0,0 );
+
+        //Dibujando el título
+        batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 + texturaTitulo.getHeight()/2);
+        batch.end();
+
 
     }
 

@@ -29,6 +29,7 @@ class PantallaAcercade implements Screen {
     //Batch
     private SpriteBatch batch;
 
+    //Escena para acerca de
     private Stage escenaAcercade;
 
 
