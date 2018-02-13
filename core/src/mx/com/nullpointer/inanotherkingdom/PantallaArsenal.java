@@ -49,7 +49,7 @@ class PantallaArsenal implements Screen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(0,PantallaMenu.ALTO - btnBack.getHeight());
+        btnBack.setPosition(btnBack.getWidth()/2,PantallaMenu.ALTO - btnBack.getHeight());
 
         btnBack.addListener(new ClickListener(){
             @Override
