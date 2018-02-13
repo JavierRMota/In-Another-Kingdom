@@ -35,6 +35,12 @@ class PantallaMenu implements Screen {
     //MUNDO
     public static final float ANCHO = 1280, ALTO = 720;
 
+
+    //Texturas
+    private Texture texturaTitulo;
+    private Texture texturaFondo;
+
+
     public PantallaMenu(Main game) {
         this.game = game;
     }
@@ -42,13 +48,25 @@ class PantallaMenu implements Screen {
     @Override
     public void show() {
         crearCamara();
+        cargarTexturas();
         crearMenu();
         batch = new SpriteBatch();
+    }
 
+    private void cargarTexturas() {
+        //texturaTitulo = new Texture("");
+        //texturaFondo = new Texture("");
     }
 
     private void crearMenu() {
         escenaMenu = new Stage(view);
+
+
+        //Dibujando el fondo
+        //batch.draw(texturaFondo,0, 0 );
+
+        //Dibujando el título
+        //batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 - texturaTitulo.getHeight()/3);
 
         //Botón Play
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("play.png")));
@@ -82,23 +100,6 @@ class PantallaMenu implements Screen {
         });
         escenaMenu.addActor(btnLevels);
 
-        //Botón Ajustes
-        TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("ajustes.png")));
-        TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("ajustesPress.png")));
-
-        ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
-        btnAjustes.setPosition(0, 0);
-
-        btnAjustes.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                game.setScreen(new PantallaAjustes(game));
-            }
-        });
-        escenaMenu.addActor(btnAjustes);
-
-
 
         //Botón Arsenal
         TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(new Texture("arsenal.png")));
@@ -115,6 +116,39 @@ class PantallaMenu implements Screen {
         });
         escenaMenu.addActor(btnArsenal);
         Gdx.input.setInputProcessor(escenaMenu);
+
+        //Botón Ajustes
+        TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("ajustes.png")));
+        TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("ajustesPress.png")));
+
+        ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
+        btnAjustes.setPosition( btnAjustes.getWidth()/2, btnAjustes.getHeight()/2);
+
+        btnAjustes.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaAjustes(game));
+            }
+        });
+        escenaMenu.addActor(btnAjustes);
+
+        //Botón Pregunta
+        TextureRegionDrawable trdPregunta = new TextureRegionDrawable(new TextureRegion(new Texture("question.png")));
+        TextureRegionDrawable trdPreguntaPress = new TextureRegionDrawable(new TextureRegion(new Texture("questionPress.png")));
+
+        ImageButton btnPregunta = new ImageButton(trdPregunta,trdPreguntaPress);
+        btnPregunta.setPosition( ANCHO - 3*btnPregunta.getWidth()/2, btnPregunta.getHeight()/2);
+
+        btnPregunta.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaCreditos(game));
+            }
+        });
+        escenaMenu.addActor(btnPregunta);
+
     }
 
 
@@ -127,7 +161,7 @@ class PantallaMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(25/255f,158/255f,218/255f,1);
+        Gdx.gl.glClearColor(50/255f,158/255f,218/255f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camara.combined);
