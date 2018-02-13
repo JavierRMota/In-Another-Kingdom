@@ -32,8 +32,6 @@ class PantallaArsenal implements Screen {
 
     private Stage escenaArsenal;
 
-    //MUNDO
-    public static final float ANCHO = 1280, ALTO = 720;
 
     public PantallaArsenal(Main game) {this.game = game;}
 
@@ -51,7 +49,7 @@ class PantallaArsenal implements Screen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(0,ALTO - btnBack.getHeight());
+        btnBack.setPosition(0,PantallaMenu.ALTO - btnBack.getHeight());
 
         btnBack.addListener(new ClickListener(){
             @Override

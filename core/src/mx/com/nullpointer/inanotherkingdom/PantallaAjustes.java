@@ -32,8 +32,6 @@ class PantallaAjustes implements Screen {
 
     private Stage escenaAjustes;
 
-    //MUNDO
-    public static final float ANCHO = 1280, ALTO = 720;
 
     public PantallaAjustes(Main game) {this.game = game;}
 
@@ -51,7 +49,7 @@ class PantallaAjustes implements Screen {
         TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("vup.png")));
         TextureRegionDrawable trdVolumenPress = new TextureRegionDrawable(new TextureRegion(new Texture("vdown.png")));
         ImageButton btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
-        btnVolumen.setPosition(ANCHO - btnVolumen.getWidth(), ALTO - btnVolumen.getHeight());
+        btnVolumen.setPosition(PantallaMenu.ANCHO - btnVolumen.getWidth(), PantallaMenu.ALTO - btnVolumen.getHeight());
 
         btnVolumen.addListener(new ClickListener(){
             @Override
@@ -67,7 +65,7 @@ class PantallaAjustes implements Screen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth()/2,ALTO - btnBack.getHeight());
+        btnBack.setPosition(btnBack.getWidth()/2, PantallaMenu.ALTO - btnBack.getHeight());
 
         btnBack.addListener(new ClickListener(){
             @Override
