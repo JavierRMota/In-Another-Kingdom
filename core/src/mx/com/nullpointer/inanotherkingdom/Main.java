@@ -13,6 +13,5 @@ public class Main extends Game {
 		setScreen(new PantallaMenu(this));
 
 	}
-	//h
 
 }
