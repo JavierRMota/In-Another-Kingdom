@@ -1,28 +1,89 @@
 package mx.com.nullpointer.inanotherkingdom;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Created by Carlos Carbajal on 06-feb-18.
  */
 
 class PantallaArsenal implements Screen {
+
     private final Main game;
+
+    //Cámara
+    private OrthographicCamera camara;
+    private Viewport view;
+
+    //Batch
+    private SpriteBatch batch;
+
+    private Stage escenaArsenal;
+
+    //MUNDO
+    public static final float ANCHO = 1280, ALTO = 720;
+
     public PantallaArsenal(Main game) {this.game = game;}
 
     @Override
     public void show() {
+        crearCamara();
+        crearArsenal();
+        batch = new SpriteBatch();
+    }
 
+    private void crearArsenal() {
+        escenaArsenal = new Stage(view);
+
+        //Botón Back
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
+        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
+        ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
+        btnBack.setPosition(0,ALTO - btnBack.getHeight());
+
+        btnBack.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaMenu(game));
+
+            }
+        });
+        escenaArsenal.addActor(btnBack);
+        Gdx.input.setInputProcessor(escenaArsenal);
+    }
+
+    private void crearCamara() {
+        camara = new OrthographicCamera(PantallaMenu.ANCHO, PantallaMenu.ALTO);
+        camara.position.set(PantallaMenu.ANCHO/2, PantallaMenu.ALTO/2, 0);
+        camara.update();
+        view = new StretchViewport(PantallaMenu.ANCHO, PantallaMenu.ALTO, camara);
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(25/255f,158/255f,218/255f,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.setProjectionMatrix(camara.combined);
+        escenaArsenal.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        view.update(width,height);
     }
 
     @Override
