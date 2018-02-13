@@ -48,25 +48,27 @@ class PantallaMenu implements Screen {
     @Override
     public void show() {
         crearCamara();
-        cargarTexturas();
+        //cargarTexturas();
         crearMenu();
         batch = new SpriteBatch();
     }
-
+/*
     private void cargarTexturas() {
-        //texturaTitulo = new Texture("");
-        //texturaFondo = new Texture("");
-    }
+        texturaFondo = new Texture("");
+        texturaTitulo = new Texture("logo.png");
+
+    }*/
 
     private void crearMenu() {
         escenaMenu = new Stage(view);
 
 
         //Dibujando el fondo
-        //batch.draw(texturaFondo,0, 0 );
-
+        //batch.draw(texturaFondo,0,0 );
         //Dibujando el título
         //batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 - texturaTitulo.getHeight()/3);
+
+
 
         //Botón Play
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("play.png")));
