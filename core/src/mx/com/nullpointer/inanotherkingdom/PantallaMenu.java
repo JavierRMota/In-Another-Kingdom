@@ -143,7 +143,7 @@ class PantallaMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaCreditos(game));
+                game.setScreen(new PantallaAcercade(game));
             }
         });
         escenaMenu.addActor(btnPregunta);

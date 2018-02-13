@@ -1,7 +1,6 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,10 +16,10 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * Created by Carlos Carbajal on 06-feb-18.
+ * Created by Marina Haro on 12-feb-18.
  */
 
-class PantallaAjustes implements Screen {
+class PantallaAcercade implements Screen {
     private final Main game;
 
     //Cámara
@@ -30,12 +29,12 @@ class PantallaAjustes implements Screen {
     //Batch
     private SpriteBatch batch;
 
-    private Stage escenaAjustes;
+    private Stage escenaAcercade;
 
-    //MUNDO
-    public static final float ANCHO = 1280, ALTO = 720;
 
-    public PantallaAjustes(Main game) {this.game = game;}
+    public PantallaAcercade(Main game) {
+        this.game = game;
+    }
 
     @Override
     public void show() {
@@ -46,28 +45,13 @@ class PantallaAjustes implements Screen {
     }
 
     private void crearAjustes() {
-        escenaAjustes = new Stage(view);
-        //Botón Volumen
-        TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("vup.png")));
-        TextureRegionDrawable trdVolumenPress = new TextureRegionDrawable(new TextureRegion(new Texture("vdown.png")));
-        ImageButton btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
-        btnVolumen.setPosition(ANCHO - btnVolumen.getWidth(), ALTO - btnVolumen.getHeight());
-
-        btnVolumen.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-
-            }
-        });
-        escenaAjustes.addActor(btnVolumen);
-        Gdx.input.setInputProcessor(escenaAjustes);
+        escenaAcercade = new Stage(view);
 
         //Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth()/2,ALTO - btnBack.getHeight());
+        btnBack.setPosition(btnBack.getWidth()/2,PantallaMenu.ALTO - btnBack.getHeight());
 
         btnBack.addListener(new ClickListener(){
             @Override
@@ -77,8 +61,8 @@ class PantallaAjustes implements Screen {
 
             }
         });
-        escenaAjustes.addActor(btnBack);
-        Gdx.input.setInputProcessor(escenaAjustes);
+        escenaAcercade.addActor(btnBack);
+        Gdx.input.setInputProcessor(escenaAcercade);
     }
 
     private void crearCamara() {
@@ -94,11 +78,12 @@ class PantallaAjustes implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camara.combined);
-        escenaAjustes.draw();
+        escenaAcercade.draw();
     }
 
     @Override
     public void resize(int width, int height) {
+
         view.update(width,height);
     }
 
