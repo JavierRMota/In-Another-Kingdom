@@ -2,6 +2,8 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.*;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,6 +42,9 @@ class PantallaMenu implements Screen {
     private Texture texturaTitulo;
     private Texture texturaFondo;
 
+    //Musica
+    private com.badlogic.gdx.audio.Music musicaMenus;
+
 
     public PantallaMenu(Main game) {
         this.game = game;
@@ -51,6 +56,10 @@ class PantallaMenu implements Screen {
         cargarTexturas();
         crearObjetos();
         batch = new SpriteBatch();
+
+        //Reproduce la musica
+        musicaMenus.play();
+
     }
 
     private void cargarTexturas() {
@@ -142,6 +151,10 @@ class PantallaMenu implements Screen {
         });
         escenaMenu.addActor(btnPregunta);
 
+        //Añadiendo la musica
+        musicaMenus= Gdx.audio.newMusic(Gdx.files.internal("loop.mp3"));
+        musicaMenus.setLooping(true);
+        musicaMenus.setVolume(.5f);
     }
 
 
