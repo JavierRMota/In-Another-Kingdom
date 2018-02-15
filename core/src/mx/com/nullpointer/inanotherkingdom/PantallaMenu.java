@@ -18,27 +18,21 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.com.nullpointer.niveles.Nivel_Inicial;
+import mx.com.nullpointer.utils.GenericScreen;
 
 /**
  * Created by Carlos Carbajal on 05-feb-18.
  */
 
-public class PantallaMenu implements Screen {
+class PantallaMenu extends GenericScreen {
     private final Main game;
 
-    //Cámara
-    private OrthographicCamera camara;
-    private Viewport view;
 
     //ESCENA para el MENU
     private Stage escenaMenu;
 
     //Batch
     private SpriteBatch batch;
-
-    //MUNDO
-    public static final float ANCHO = 1280, ALTO = 720;
-
 
     //Texturas
     private Texture texturaTitulo;
@@ -57,7 +51,6 @@ public class PantallaMenu implements Screen {
         crearCamara();
         cargarTexturas();
         crearObjetos();
-        batch = new SpriteBatch();
 
         //Reproduce la musica
         musicaMenus.play();
@@ -161,18 +154,18 @@ public class PantallaMenu implements Screen {
 
 
     private void crearCamara() {
-        camara = new OrthographicCamera(ANCHO, ALTO);
-        camara.position.set(ANCHO/2, ALTO/2, 0);
-        camara.update();
-        view = new StretchViewport(ANCHO, ALTO, camara);
+        camera = new OrthographicCamera(ANCHO, ALTO);
+        camera.position.set(ANCHO/2, ALTO/2, 0);
+        camera.update();
+        view = new StretchViewport(ANCHO, ALTO, camera);
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(50/255f,158/255f,218/255f,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        clearScreen(50/255f,158/255f,218/255f);
 
-        batch.setProjectionMatrix(camara.combined);
+
+        batch.setProjectionMatrix(camera.combined);
         escenaMenu.draw();
 
 
@@ -188,29 +181,5 @@ public class PantallaMenu implements Screen {
 
     }
 
-    @Override
-    public void resize(int width, int height) {
-        view.update(width,height);
 
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }
