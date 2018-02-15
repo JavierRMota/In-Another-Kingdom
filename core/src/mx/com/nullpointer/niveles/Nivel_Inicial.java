@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
+import mx.com.nullpointer.inanotherkingdom.PantallaMenu;
 import mx.com.nullpointer.utils.MainCharacter;
 
 /**
@@ -36,7 +37,7 @@ public class Nivel_Inicial implements Screen {
     }
 
     private void createHUD() {
-
+        camera = new OrthographicCamera(PantallaMenu.ANCHO,PantallaMenu.ALTO);
 
     }
 

@@ -23,7 +23,7 @@ import mx.com.nullpointer.niveles.Nivel_Inicial;
  * Created by Carlos Carbajal on 05-feb-18.
  */
 
-class PantallaMenu implements Screen {
+public class PantallaMenu implements Screen {
     private final Main game;
 
     //Cámara
