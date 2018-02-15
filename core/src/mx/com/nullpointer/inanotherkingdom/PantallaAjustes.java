@@ -1,34 +1,27 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+
+
+import mx.com.nullpointer.utils.GenericScreen;
 
 /**
  * Created by Carlos Carbajal on 06-feb-18.
  */
 
-class PantallaAjustes implements Screen {
+class PantallaAjustes extends GenericScreen {
     private final Main game;
 
-    //Cámara
-    private OrthographicCamera camara;
-    private Viewport view;
 
-    //Batch
-    private SpriteBatch batch;
 
     private Stage escenaAjustes;
 
@@ -37,9 +30,8 @@ class PantallaAjustes implements Screen {
 
     @Override
     public void show() {
-        crearCamara();
         crearAjustes();
-        batch = new SpriteBatch();
+
         
     }
 
@@ -79,45 +71,16 @@ class PantallaAjustes implements Screen {
         Gdx.input.setInputProcessor(escenaAjustes);
     }
 
-    private void crearCamara() {
-        camara = new OrthographicCamera(PantallaMenu.ANCHO, PantallaMenu.ALTO);
-        camara.position.set(PantallaMenu.ANCHO/2, PantallaMenu.ALTO/2, 0);
-        camara.update();
-        view = new StretchViewport(PantallaMenu.ANCHO, PantallaMenu.ALTO, camara);
-    }
+
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(25/255f,158/255f,218/255f,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+       clearScreen(25/255f,158/255f,218/255f);
 
-        batch.setProjectionMatrix(camara.combined);
+        batch.setProjectionMatrix(camera.combined);
         escenaAjustes.draw();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        view.update(width,height);
-    }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
     
 }

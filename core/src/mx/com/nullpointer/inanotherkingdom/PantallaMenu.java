@@ -1,10 +1,6 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.*;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.com.nullpointer.niveles.Nivel_Inicial;
 import mx.com.nullpointer.utils.GenericScreen;
@@ -31,8 +26,6 @@ class PantallaMenu extends GenericScreen {
     //ESCENA para el MENU
     private Stage escenaMenu;
 
-    //Batch
-    private SpriteBatch batch;
 
     //Texturas
     private Texture texturaTitulo;
@@ -77,7 +70,7 @@ class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaMenu(game));
+                game.setScreen(new Nivel_Inicial(game));
             }
         });
         escenaMenu.addActor(btnPlay);
@@ -93,7 +86,7 @@ class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new Nivel_Inicial(game));
+                game.setScreen(new PantallaMenu(game));
             }
         });
         escenaMenu.addActor(btnLevels);
