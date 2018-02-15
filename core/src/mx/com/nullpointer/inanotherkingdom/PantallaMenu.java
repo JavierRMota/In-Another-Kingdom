@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import mx.com.nullpointer.niveles.Nivel_Inicial;
+
 /**
  * Created by Carlos Carbajal on 05-feb-18.
  */
@@ -98,7 +100,7 @@ class PantallaMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaMenu(game));
+                game.setScreen(new Nivel_Inicial(game));
             }
         });
         escenaMenu.addActor(btnLevels);
