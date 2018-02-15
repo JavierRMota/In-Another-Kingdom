@@ -31,6 +31,12 @@ public class Nivel_Inicial implements Screen {
     public Nivel_Inicial(Main game){this.game =game;}
     @Override
     public void show() {
+        createHUD();
+
+    }
+
+    private void createHUD() {
+
 
     }
 
