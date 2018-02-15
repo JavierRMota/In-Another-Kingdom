@@ -31,6 +31,10 @@ public class Nivel_Inicial extends GenericScreen {
     private Stage buttons;
     private Stage pause;
 
+    //Textura del mapa
+    private Texture background = new Texture("fondoN1.png");
+    private Texture path = new Texture("caminoN1.png");
+
     public Nivel_Inicial(Main game){this.game =game;}
     @Override
     public void show() {
@@ -62,6 +66,8 @@ public class Nivel_Inicial extends GenericScreen {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
+        batch.draw(background,0,0);
+        batch.draw(path,0,0);
         laurence.render(batch);
         batch.end();
 
@@ -80,7 +86,10 @@ public class Nivel_Inicial extends GenericScreen {
         } else {    // En 'medio' del mapa
             camera.position.set(posX,cameraHUD.position.y,0);
         }*/
+       if(posX>ANCHO/3)
        camera.position.set(posX+ ANCHO/3,camera.position.y,0);
+       //else
+        //   camera.position.set(posX+ANCHO/2,camera.position.y,0);
 
         camera.update();
     }
