@@ -1,6 +1,7 @@
 package mx.com.nullpointer.niveles;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -34,6 +35,7 @@ public class Nivel_Inicial extends GenericScreen {
     @Override
     public void show() {
         createHUD();
+        laurence = new MainCharacter(new Texture("laurence_running.png"));
 
     }
 
@@ -49,7 +51,9 @@ public class Nivel_Inicial extends GenericScreen {
 
     @Override
     public void render(float delta) {
+        laurence.move(2);
         updateHUD();
+
 
         //Borrar pantalla
         clearScreen();
@@ -68,15 +72,17 @@ public class Nivel_Inicial extends GenericScreen {
     private void updateHUD() {
         //Para que siga a Laurence
         float posX = laurence.getX();
-        if(posX<ANCHO/2)
+       /* if(posX < ANCHO/4)
         {
-            cameraHUD.position.set(ANCHO/2, ALTO/2, 0);
-        } else if (posX > ANCHO/2) {   // Última mitad de la pantalla
-            cameraHUD.position.set(ANCHO,cameraHUD.position.y,0);
+            camera.position.set(ANCHO/2, ALTO/2, 0);
+        } else if (posX > ANCHO/4) {   // Última mitad de la pantalla
+            camera.position.set(3*ANCHO/4,cameraHUD.position.y,0);
         } else {    // En 'medio' del mapa
-            cameraHUD.position.set(posX,cameraHUD.position.y,0);
-        }
-        cameraHUD.update();
+            camera.position.set(posX,cameraHUD.position.y,0);
+        }*/
+       camera.position.set(posX+ ANCHO/3,camera.position.y,0);
+
+        camera.update();
     }
 
     @Override

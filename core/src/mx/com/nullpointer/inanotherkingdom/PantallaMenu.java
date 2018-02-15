@@ -51,7 +51,7 @@ class PantallaMenu extends GenericScreen {
     }
 
     private void cargarTexturas() {
-        //texturaFondo = new Texture("");
+        texturaFondo = new Texture("background/menubg.png");
         texturaTitulo = new Texture("logo.png");
 
     }
@@ -60,8 +60,8 @@ class PantallaMenu extends GenericScreen {
         escenaMenu = new Stage(view);
 
         //Botón Play
-        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("play.png")));
-        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("playpress.png")));
+        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtn.png")));
+        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtnpress.png")));
 
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
         btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight()/2);
@@ -76,8 +76,8 @@ class PantallaMenu extends GenericScreen {
         escenaMenu.addActor(btnPlay);
 
         //Botón Levels
-        TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(new Texture("levels.png")));
-        TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(new Texture("levelsPress.png")));
+        TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(new Texture("btn/levelsbtn.png")));
+        TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/levelsbtnpress.png")));
 
         ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
         btnLevels.setPosition(ANCHO/2 - btnLevels.getWidth()/2, ALTO/2 - btnLevels.getHeight()*2);
@@ -93,8 +93,8 @@ class PantallaMenu extends GenericScreen {
 
 
         //Botón Arsenal
-        TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(new Texture("arsenal.png")));
-        TextureRegionDrawable trdArsenalPress = new TextureRegionDrawable(new TextureRegion(new Texture("arsenalPress.png")));
+        TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtn.png")));
+        TextureRegionDrawable trdArsenalPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtnpress.png")));
         ImageButton btnArsenal = new ImageButton(trdArsenal,trdArsenalPress);
         btnArsenal.setPosition(ANCHO/2 - btnArsenal.getWidth()/2, ALTO/2 - btnArsenal.getHeight()*3.5f);
 
@@ -109,8 +109,8 @@ class PantallaMenu extends GenericScreen {
         Gdx.input.setInputProcessor(escenaMenu);
 
         //Botón Ajustes
-        TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("ajustes.png")));
-        TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("ajustesPress.png")));
+        TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtn.png")));
+        TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtnpress.png")));
         ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
         btnAjustes.setPosition( btnAjustes.getWidth()/2, btnAjustes.getHeight()/2);
 
@@ -124,8 +124,8 @@ class PantallaMenu extends GenericScreen {
         escenaMenu.addActor(btnAjustes);
 
         //Botón Pregunta
-        TextureRegionDrawable trdPregunta = new TextureRegionDrawable(new TextureRegion(new Texture("question.png")));
-        TextureRegionDrawable trdPreguntaPress = new TextureRegionDrawable(new TextureRegion(new Texture("questionPress.png")));
+        TextureRegionDrawable trdPregunta = new TextureRegionDrawable(new TextureRegion(new Texture("btn/aboutbtn.png")));
+        TextureRegionDrawable trdPreguntaPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/aboutbtnpress.png")));
 
         ImageButton btnPregunta = new ImageButton(trdPregunta,trdPreguntaPress);
         btnPregunta.setPosition( ANCHO - 3*btnPregunta.getWidth()/2, btnPregunta.getHeight()/2);
@@ -138,6 +138,7 @@ class PantallaMenu extends GenericScreen {
             }
         });
         escenaMenu.addActor(btnPregunta);
+
 
         //Añadiendo la musica
         musicaMenus= Gdx.audio.newMusic(Gdx.files.internal("loop.mp3"));
@@ -155,21 +156,23 @@ class PantallaMenu extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        clearScreen(50/255f,158/255f,218/255f);
+        clearScreen();
 
 
         batch.setProjectionMatrix(camera.combined);
-        escenaMenu.draw();
+
 
 
 
         batch.begin();
+        batch.draw(texturaFondo,0 ,0);
         //Dibujando el fondo
         //batch.draw(texturaFondo,0,0 );
 
         //Dibujando el título
-        batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 + texturaTitulo.getHeight()/2);
+        batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 );
         batch.end();
+        escenaMenu.draw();
 
 
     }

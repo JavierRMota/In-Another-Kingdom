@@ -24,8 +24,12 @@ public class MainCharacter extends Objeto
     public MainCharacter(Texture texture)
     {
         TextureRegion region = new TextureRegion(texture);
-        TextureRegion[][] characterTexture = region.split(396,235);
-        animation = new Animation(0.15f,characterTexture[0][0],characterTexture[0][1],characterTexture[0][2]);
+        TextureRegion[][] characterTexture = region.split(396,228);
+        animation = new Animation(0.05f,
+                characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
+                characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
+                characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
+                characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation =0;
         // Quieto
