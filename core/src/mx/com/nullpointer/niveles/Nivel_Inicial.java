@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
-import mx.com.nullpointer.inanotherkingdom.PantallaMenu;
+
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.MainCharacter;
 
@@ -39,10 +39,10 @@ public class Nivel_Inicial extends GenericScreen {
     }
 
     private void createHUD() {
-        cameraHUD = new OrthographicCamera(PantallaMenu.ANCHO,PantallaMenu.ALTO);
-        cameraHUD.position.set(PantallaMenu.ANCHO/2,PantallaMenu.ALTO/2,0);
+        cameraHUD = new OrthographicCamera(ANCHO,ALTO);
+        cameraHUD.position.set(ANCHO/2,ALTO/2,0);
         cameraHUD.update();
-        viewHUD = new StretchViewport(PantallaMenu.ANCHO,PantallaMenu.ALTO,cameraHUD);
+        viewHUD = new StretchViewport(ANCHO,ALTO,cameraHUD);
 
 
 
@@ -87,23 +87,4 @@ public class Nivel_Inicial extends GenericScreen {
 
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }
