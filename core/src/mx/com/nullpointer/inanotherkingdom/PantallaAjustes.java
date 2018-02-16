@@ -56,6 +56,8 @@ class PantallaAjustes extends GenericScreen {
             }
         });
         escenaAjustes.addActor(btnVolumen);
+
+
         Gdx.input.setInputProcessor(escenaAjustes);
         //Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));

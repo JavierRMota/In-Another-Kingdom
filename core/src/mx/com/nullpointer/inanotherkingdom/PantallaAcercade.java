@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -14,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import javax.swing.text.View;
 
 import mx.com.nullpointer.utils.GenericScreen;
 
@@ -31,6 +34,8 @@ class PantallaAcercade extends GenericScreen {
 
     //Texturas
     private Texture texturaFondo;
+
+
 
     public PantallaAcercade(Main game) {
         this.game = game;
@@ -70,6 +75,7 @@ class PantallaAcercade extends GenericScreen {
 
     }
 
+    BitmapFont font = new BitmapFont();
 
     @Override
     public void render(float delta) {
@@ -79,6 +85,7 @@ class PantallaAcercade extends GenericScreen {
 
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
+        font.draw(batch, "Esta es la pantalla de información", ANCHO/2, ALTO/2);
         batch.end();
         escenaAcercade.draw();
 
