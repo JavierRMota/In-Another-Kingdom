@@ -112,7 +112,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtn.png")));
         TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtnpress.png")));
         ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
-        btnAjustes.setPosition( btnAjustes.getWidth()/2, btnAjustes.getHeight()/2);
+        btnAjustes.setPosition( 3*btnAjustes.getWidth()/2, 2.5f*btnAjustes.getHeight()/2);
 
         btnAjustes.addListener(new ClickListener(){
             @Override
@@ -128,7 +128,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdPreguntaPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/aboutbtnpress.png")));
 
         ImageButton btnPregunta = new ImageButton(trdPregunta,trdPreguntaPress);
-        btnPregunta.setPosition( ANCHO - 3*btnPregunta.getWidth()/2, btnPregunta.getHeight()/2);
+        btnPregunta.setPosition( ANCHO - 5*btnPregunta.getWidth()/2, 2.5f*btnPregunta.getHeight()/2);
 
         btnPregunta.addListener(new ClickListener(){
             @Override
