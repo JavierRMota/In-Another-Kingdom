@@ -57,10 +57,9 @@ class PantallaAjustes extends GenericScreen {
         });
         escenaAjustes.addActor(btnVolumen);
         Gdx.input.setInputProcessor(escenaAjustes);
-
-        /*Botón Back
-        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
-        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
+        //Botón Back
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
+        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
         btnBack.setPosition(btnBack.getWidth()/2, PantallaMenu.ALTO - btnBack.getHeight());
 
@@ -73,7 +72,7 @@ class PantallaAjustes extends GenericScreen {
             }
         });
         escenaAjustes.addActor(btnBack);
-        */
+
     }
 
 
