@@ -43,10 +43,10 @@ class PantallaAjustes extends GenericScreen {
     private void crearObjetos() {
         escenaAjustes = new Stage(view);
         //Botón Volumen
-        TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("vup.png")));
-        TextureRegionDrawable trdVolumenPress = new TextureRegionDrawable(new TextureRegion(new Texture("vdown.png")));
+        TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
+        TextureRegionDrawable trdVolumenPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
         ImageButton btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
-        btnVolumen.setPosition(PantallaMenu.ANCHO - btnVolumen.getWidth(), PantallaMenu.ALTO - btnVolumen.getHeight());
+        btnVolumen.setPosition(PantallaMenu.ANCHO /2 - btnVolumen.getWidth()/2, PantallaMenu.ALTO /2 + btnVolumen.getHeight()*1.5f);
 
         btnVolumen.addListener(new ClickListener(){
             @Override
@@ -57,6 +57,35 @@ class PantallaAjustes extends GenericScreen {
         });
         escenaAjustes.addActor(btnVolumen);
 
+        //Botón Rate
+        TextureRegionDrawable trdRate = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
+        TextureRegionDrawable trdRatePress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
+        ImageButton btnRate = new ImageButton(trdRate,trdRatePress);
+        btnRate.setPosition(PantallaMenu.ANCHO /2 - btnRate.getWidth()/2, PantallaMenu.ALTO /2);
+
+        btnRate.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+
+            }
+        });
+        escenaAjustes.addActor(btnRate);
+
+        //Botón SFX
+        TextureRegionDrawable trdSfx = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxxOn.png")));
+        TextureRegionDrawable trdSfxPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxOff.png")));
+        ImageButton btnSfx = new ImageButton(trdSfx,trdSfxPress);
+        btnSfx.setPosition(PantallaMenu.ANCHO /2 - btnSfx.getWidth()/2, PantallaMenu.ALTO /2 -btnSfx.getHeight()*1.5f);
+
+        btnSfx.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+
+            }
+        });
+        escenaAjustes.addActor(btnSfx);
 
         Gdx.input.setInputProcessor(escenaAjustes);
         //Botón Back
