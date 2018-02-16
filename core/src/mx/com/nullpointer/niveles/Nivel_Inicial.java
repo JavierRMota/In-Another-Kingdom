@@ -55,7 +55,7 @@ public class Nivel_Inicial extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        laurence.move(2);
+        laurence.move(4);
         updateHUD();
 
 

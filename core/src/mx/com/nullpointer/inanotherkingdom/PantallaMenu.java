@@ -46,7 +46,7 @@ class PantallaMenu extends GenericScreen {
         crearObjetos();
 
         //Reproduce la musica
-        musicaMenus.play();
+        //musicaMenus.play();
 
     }
 

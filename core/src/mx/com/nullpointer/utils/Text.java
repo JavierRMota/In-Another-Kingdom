@@ -13,7 +13,7 @@ public class Text {
     private BitmapFont font;
     public Text()
     {
-        font = new BitmapFont(Gdx.files.internal("oldEngFont.fnt"));
+        font = new BitmapFont(Gdx.files.internal("fonts/oldEngFont.fnt"));
     }
     public void showMsg(SpriteBatch batch, String msg, float x, float y)
     {
