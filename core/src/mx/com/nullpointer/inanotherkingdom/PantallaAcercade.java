@@ -41,7 +41,6 @@ class PantallaAcercade extends GenericScreen {
         cargarTexturas();
         crearObjetos();
 
-
     }
 
     private void cargarTexturas() {
