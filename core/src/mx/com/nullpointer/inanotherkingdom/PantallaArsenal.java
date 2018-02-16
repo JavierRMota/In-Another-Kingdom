@@ -2,6 +2,7 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,7 +20,8 @@ class PantallaArsenal extends GenericScreen {
 
     private final Main game;
 
-
+    //Texturas
+    private Texture texturaFondo;
 
     private Stage escenaArsenal;
 
@@ -28,8 +30,13 @@ class PantallaArsenal extends GenericScreen {
 
     @Override
     public void show() {
-
+        cargarTexturas();
         crearArsenal();
+    }
+
+    private void cargarTexturas() {
+        texturaFondo = new Texture("background/menubg.png");
+
     }
 
     private void crearArsenal() {
@@ -54,12 +61,16 @@ class PantallaArsenal extends GenericScreen {
     }
 
 
-
+    BitmapFont font= new BitmapFont();
     @Override
     public void render(float delta) {
         clearScreen(25/255f,158/255f,218/255f);
 
         batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(texturaFondo,0 ,0);
+        font.draw(batch, "Esta es la pantalla dónde se personaliza a Laurence", ANCHO/2, ALTO/2);
+        batch.end();
         escenaArsenal.draw();
     }
 
