@@ -143,7 +143,7 @@ class PantallaMenu extends GenericScreen {
 
 
         //Añadiendo la musica
-        musicaMenus= Gdx.audio.newMusic(Gdx.files.internal("loop.mp3"));
+        musicaMenus= Gdx.audio.newMusic(Gdx.files.internal("music/loop.mp3"));
         musicaMenus.setLooping(true);
         musicaMenus.setVolume(.5f);
     }
