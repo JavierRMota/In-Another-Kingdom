@@ -15,23 +15,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import mx.com.nullpointer.utils.GenericScreen;
+
 /**
- * Created by Marina Haro on 12-feb-18.
+ * Created by MarinaHaro on 12/02/18.
  */
 
-class PantallaAcercade implements Screen {
+class PantallaAcercade extends GenericScreen {
     private final Main game;
 
-    //Cámara
-    private OrthographicCamera camara;
-    private Viewport view;
 
-    //Batch
-    private SpriteBatch batch;
-
-    //Escena para acerca de
+    //Escena para la pantalla Acercade
     private Stage escenaAcercade;
 
+
+    //Texturas
+    private Texture texturaFondo;
 
     public PantallaAcercade(Main game) {
         this.game = game;
@@ -39,16 +38,21 @@ class PantallaAcercade implements Screen {
 
     @Override
     public void show() {
-        crearCamara();
-        crearAjustes();
-        batch = new SpriteBatch();
-        
+        cargarTexturas();
+        crearObjetos();
+
+
     }
 
-    private void crearAjustes() {
+    private void cargarTexturas() {
+        texturaFondo = new Texture("background/menubg.png");
+
+    }
+
+    private void crearObjetos() {
         escenaAcercade = new Stage(view);
 
-        //Botón Back
+        /*Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
@@ -62,50 +66,26 @@ class PantallaAcercade implements Screen {
 
             }
         });
-        escenaAcercade.addActor(btnBack);
+        escenaAcercade.addActor(btnBack);*/
         Gdx.input.setInputProcessor(escenaAcercade);
+
     }
 
-    private void crearCamara() {
-        camara = new OrthographicCamera(PantallaMenu.ANCHO, PantallaMenu.ALTO);
-        camara.position.set(PantallaMenu.ANCHO/2, PantallaMenu.ALTO/2, 0);
-        camara.update();
-        view = new StretchViewport(PantallaMenu.ANCHO, PantallaMenu.ALTO, camara);
-    }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(25/255f,158/255f,218/255f,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        clearScreen();
 
-        batch.setProjectionMatrix(camara.combined);
+        batch.setProjectionMatrix(camera.combined);
+
+        batch.begin();
+        batch.draw(texturaFondo,0 ,0);
+        batch.end();
         escenaAcercade.draw();
-    }
 
-    @Override
-    public void resize(int width, int height) {
-
-        view.update(width,height);
-    }
-
-    @Override
-    public void pause() {
 
     }
 
-    @Override
-    public void resume() {
 
-    }
 
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-    
 }

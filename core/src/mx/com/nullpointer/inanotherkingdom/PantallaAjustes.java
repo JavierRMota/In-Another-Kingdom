@@ -21,21 +21,26 @@ import mx.com.nullpointer.utils.GenericScreen;
 class PantallaAjustes extends GenericScreen {
     private final Main game;
 
-
-
     private Stage escenaAjustes;
 
+    //Texturas
+    private Texture texturaFondo;
 
     public PantallaAjustes(Main game) {this.game = game;}
 
     @Override
     public void show() {
-        crearAjustes();
+        crearObjetos();
+        cargarTexturas();
 
-        
     }
 
-    private void crearAjustes() {
+    private void cargarTexturas() {
+        texturaFondo = new Texture("background/menubg.png");
+
+    }
+
+    private void crearObjetos() {
         escenaAjustes = new Stage(view);
         //Botón Volumen
         TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("vup.png")));
@@ -53,7 +58,7 @@ class PantallaAjustes extends GenericScreen {
         escenaAjustes.addActor(btnVolumen);
         Gdx.input.setInputProcessor(escenaAjustes);
 
-        //Botón Back
+        /*Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("back.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("backPress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
@@ -68,17 +73,22 @@ class PantallaAjustes extends GenericScreen {
             }
         });
         escenaAjustes.addActor(btnBack);
-        Gdx.input.setInputProcessor(escenaAjustes);
+        */
     }
 
 
 
     @Override
     public void render(float delta) {
-       clearScreen(25/255f,158/255f,218/255f);
+        clearScreen();
 
         batch.setProjectionMatrix(camera.combined);
+
+        batch.begin();
+        batch.draw(texturaFondo,0 ,0);
+        batch.end();
         escenaAjustes.draw();
+
     }
 
 

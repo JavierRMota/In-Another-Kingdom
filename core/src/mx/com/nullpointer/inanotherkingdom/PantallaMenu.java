@@ -64,7 +64,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtnpress.png")));
 
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
-        btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight()/2);
+        btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight());
 
         btnPlay.addListener(new ClickListener(){
             @Override
@@ -80,7 +80,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/levelsbtnpress.png")));
 
         ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
-        btnLevels.setPosition(ANCHO/2 - btnLevels.getWidth()/2, ALTO/2 - btnLevels.getHeight()*2);
+        btnLevels.setPosition(ANCHO/2 - btnLevels.getWidth()/2, ALTO/2 - btnLevels.getHeight()*2.5f);
 
         btnLevels.addListener(new ClickListener(){
             @Override
@@ -96,7 +96,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtn.png")));
         TextureRegionDrawable trdArsenalPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtnpress.png")));
         ImageButton btnArsenal = new ImageButton(trdArsenal,trdArsenalPress);
-        btnArsenal.setPosition(ANCHO/2 - btnArsenal.getWidth()/2, ALTO/2 - btnArsenal.getHeight()*3.5f);
+        btnArsenal.setPosition(ANCHO/2 - btnArsenal.getWidth()/2, ALTO/2 - btnArsenal.getHeight()*4f);
 
         btnArsenal.addListener(new ClickListener(){
             @Override
@@ -106,7 +106,7 @@ class PantallaMenu extends GenericScreen {
             }
         });
         escenaMenu.addActor(btnArsenal);
-        Gdx.input.setInputProcessor(escenaMenu);
+
 
         //Botón Ajustes
         TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtn.png")));
@@ -139,6 +139,8 @@ class PantallaMenu extends GenericScreen {
         });
         escenaMenu.addActor(btnPregunta);
 
+        Gdx.input.setInputProcessor(escenaMenu);
+
 
         //Añadiendo la musica
         musicaMenus= Gdx.audio.newMusic(Gdx.files.internal("loop.mp3"));
@@ -166,9 +168,6 @@ class PantallaMenu extends GenericScreen {
 
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
-        //Dibujando el fondo
-        //batch.draw(texturaFondo,0,0 );
-
         //Dibujando el título
         batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 );
         batch.end();
