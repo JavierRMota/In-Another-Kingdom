@@ -14,7 +14,7 @@ import mx.com.nullpointer.inanotherkingdom.Main;
  * Created by mota on 2/15/18.
  */
 
-public class GenericScreen implements Screen
+public abstract class GenericScreen implements Screen
 {
 
         //Dimensiones
