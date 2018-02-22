@@ -41,7 +41,7 @@ public class MainCharacter extends Objeto
     public void render(SpriteBatch batch) {
         if (movementState==MovementState.STANDING) {
             //batch.draw(marioQuieto.getTexture(),x,y);
-            sprite.draw(batch);
+            this.draw(batch);
         } else {
             timerAnimation += Gdx.graphics.getDeltaTime();
             TextureRegion region = (TextureRegion) animation.getKeyFrame(timerAnimation);
