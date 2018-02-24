@@ -39,7 +39,7 @@ public class Nivel_Inicial extends GenericScreen {
     @Override
     public void show() {
         createHUD();
-        laurence = new MainCharacter(new Texture("characters/laurence_running.png"),new Texture("characters/tira_salto.png"));
+        laurence = new MainCharacter(new Texture("characters/laurence_running.png"), new Texture("characters/tira_salto.png"));
 
     }
 
