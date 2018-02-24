@@ -13,25 +13,34 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MainCharacter extends Objeto
 {
-    private Animation animation;
-    private float timerAnimation;
+    private Animation runningAnimation,jumpingAnimation;
+    private float timerRunning, timerJumping;
     private float x,y; //Coordenadas de dónde se moverá
     //Tamaño frames: 13.97cm * 8.29cm
 
     //Estados de movimiento
     MovementState movementState = MovementState.RUNNING;
     private static final float VX = 240;
-    public MainCharacter(Texture texture)
+    public MainCharacter(Texture runningTexture,Texture jumpingTexture)
     {
-        TextureRegion region = new TextureRegion(texture);
+        TextureRegion region = new TextureRegion(runningTexture);
         TextureRegion[][] characterTexture = region.split(396,228);
-        animation = new Animation(0.05f,
+        runningAnimation = new Animation(0.05f,
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
                 characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
-        animation.setPlayMode(Animation.PlayMode.LOOP);
-        timerAnimation =0;
+        runningAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        region = new TextureRegion(jumpingTexture);
+        characterTexture = region.split(396,228);
+        jumpingAnimation = new Animation(0.05f,
+                characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
+                characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
+                characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
+                characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
+        timerRunning =0;
+        timerJumping =0;
         // Quieto
         sprite = new Sprite(characterTexture[0][0]);
         sprite.setPosition(0,64);
@@ -39,13 +48,22 @@ public class MainCharacter extends Objeto
         y = 64;
     }
     public void render(SpriteBatch batch) {
-        if (movementState==MovementState.STANDING) {
+        if (movementState==MovementState.STANDING)
+        {
             //batch.draw(marioQuieto.getTexture(),x,y);
             this.draw(batch);
-        } else {
-            timerAnimation += Gdx.graphics.getDeltaTime();
-            TextureRegion region = (TextureRegion) animation.getKeyFrame(timerAnimation);
+        }
+        else if(movementState == MovementState.RUNNING)
+        {
+            timerRunning += Gdx.graphics.getDeltaTime();
+            TextureRegion region = (TextureRegion) runningAnimation.getKeyFrame(timerRunning);
             batch.draw(region, x, y);
+        }
+        else if (movementState == MovementState.JUMPING)
+        {
+            timerJumping+=Gdx.graphics.getDeltaTime();
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(timerJumping);
+            batch.draw(region,x,y);
         }
     }
     public float getX()
@@ -68,10 +86,12 @@ public class MainCharacter extends Objeto
     {
         this.y =y;
     }
-    public void move(float dx) {
+    public void move(float dx,float dy) {
         this.x += dx;
+        this.y +=dy;
         sprite.setPosition(x, y);
     }
+
 
     public enum MovementState
     {
