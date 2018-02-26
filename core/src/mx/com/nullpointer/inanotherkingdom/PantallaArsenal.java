@@ -46,7 +46,7 @@ class PantallaArsenal extends GenericScreen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth()/2,PantallaMenu.ALTO - btnBack.getHeight());
+        btnBack.setPosition(btnBack.getWidth()*2,PantallaMenu.ALTO/2 - btnBack.getHeight()/2);
 
         btnBack.addListener(new ClickListener(){
             @Override
