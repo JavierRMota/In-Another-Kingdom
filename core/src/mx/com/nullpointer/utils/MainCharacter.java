@@ -34,16 +34,16 @@ public class MainCharacter extends Objeto
         runningAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         region = new TextureRegion(jumpingTexture);
-        characterTexture = region.split(396,228);
-        /*jumpingAnimation = new Animation(0.05f,
+        characterTexture = region.split(141,275);
+        jumpingAnimation = new Animation(0.05f,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
-                characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);*/
+                characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
         timerRunning = 0;
         timerJumping = 0;
         // Quieto
-        sprite = new Sprite(characterTexture[0][0]);
+        sprite = new Sprite(new Texture("characters/laurence_descanso.png"));
         sprite.setPosition(0,64);
         x = 0;
         y = 64;
@@ -75,9 +75,9 @@ public class MainCharacter extends Objeto
     {
         return y;
     }
-    public void setMovementState(MovementState movment)
+    public void setMovementState(MovementState movement)
     {
-        this.movementState = movment;
+        this.movementState = movement;
     }
     public void setX(float x)
     {
@@ -87,7 +87,8 @@ public class MainCharacter extends Objeto
     {
         this.y =y;
     }
-    public void move(float dx,float dy) {
+    public void move(float dx,float dy)
+    {
         this.x += dx;
         this.y +=dy;
         sprite.setPosition(x, y);

@@ -11,7 +11,7 @@ public class Enemy extends Objeto
     private Animation animation;
     private float timerAnimation;
     private float x,y;
-    //Frame 616*131
+    //Frame 154*131
     public Enemy(Texture texture)
     {
 
