@@ -99,7 +99,7 @@ class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaMenu(game));
+                game.setScreen(new PantallaNiveles(game));
             }
         });
         escenaMenu.addActor(btnLevels);

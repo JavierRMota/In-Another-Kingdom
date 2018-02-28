@@ -1,35 +1,27 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
-import javax.swing.text.View;
 
 import mx.com.nullpointer.utils.GenericScreen;
 
 /**
- * Created by MarinaHaro on 12/02/18.
+ * Created by MarinaHaro on 25/02/18.
  */
 
-class PantallaAcercade extends GenericScreen {
+class PantallaNiveles extends GenericScreen{
     private final Main game;
 
 
-    //Escena para la pantalla Acercade
-    private Stage escenaAcercade;
+    //Escena para la pantalla Niveles
+    private Stage escenaNiveles;
 
 
     //Texturas
@@ -37,7 +29,7 @@ class PantallaAcercade extends GenericScreen {
 
 
 
-    public PantallaAcercade(Main game) {
+    public PantallaNiveles(Main game) {
         this.game = game;
     }
 
@@ -54,7 +46,7 @@ class PantallaAcercade extends GenericScreen {
     }
 
     private void crearObjetos() {
-        escenaAcercade = new Stage(view);
+        escenaNiveles = new Stage(view);
 
         //Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
@@ -70,8 +62,8 @@ class PantallaAcercade extends GenericScreen {
 
             }
         });
-        escenaAcercade.addActor(btnBack);
-        Gdx.input.setInputProcessor(escenaAcercade);
+        escenaNiveles.addActor(btnBack);
+        Gdx.input.setInputProcessor(escenaNiveles);
 
     }
 
@@ -85,12 +77,13 @@ class PantallaAcercade extends GenericScreen {
 
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
-        font.draw(batch, "Esta es la pantalla de información", ANCHO/2, ALTO/2);
+        font.draw(batch, "Esta es la pantalla de niveles", ANCHO/2, ALTO/2);
         batch.end();
-        escenaAcercade.draw();
+        escenaNiveles.draw();
 
 
     }
+
 
 
 

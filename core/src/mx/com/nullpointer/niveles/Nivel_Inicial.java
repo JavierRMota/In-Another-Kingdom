@@ -86,7 +86,7 @@ public class Nivel_Inicial extends GenericScreen {
         } else {    // En 'medio' del mapa
             camera.position.set(posX,cameraHUD.position.y,0);
         }*/
-       if(posX>ANCHO/3)
+       if(posX > ANCHO/3)
        camera.position.set(posX+ ANCHO/3,camera.position.y,0);
        //else
         //   camera.position.set(posX+ANCHO/2,camera.position.y,0);
