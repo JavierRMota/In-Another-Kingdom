@@ -1,6 +1,7 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,6 +31,7 @@ class PantallaMenu extends GenericScreen {
     //Texturas
     private Texture texturaTitulo;
     private Texture texturaFondo;
+    private Texture texturaFrente;
 
     //Musica
     private com.badlogic.gdx.audio.Music musicaMenus;
@@ -51,8 +53,19 @@ class PantallaMenu extends GenericScreen {
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture("background/menubg.png");
+        Preferences prefs = Gdx.app.getPreferences("Progress");
+        int lastLevel = prefs.getInteger("lastLevel", 0);
+        String levelTextureName;
+        switch(lastLevel)
+        {
+            default:
+                levelTextureName= "background/menu_bg_1.png";
+
+        }
+
+        texturaFondo = new Texture(levelTextureName);
         texturaTitulo = new Texture("logo.png");
+        texturaFrente = new Texture("background/menu_bg_cover.png");
 
     }
 
@@ -64,7 +77,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtnpress.png")));
 
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
-        btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight());
+        btnPlay.setPosition(4*ANCHO/5 - btnPlay.getWidth()/2, 9*ALTO/16 - btnPlay.getHeight());
 
         btnPlay.addListener(new ClickListener(){
             @Override
@@ -80,7 +93,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/levelsbtnpress.png")));
 
         ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
-        btnLevels.setPosition(ANCHO/2 - btnLevels.getWidth()/2, ALTO/2 - btnLevels.getHeight()*2.5f);
+        btnLevels.setPosition(ANCHO-30 - 3*btnLevels.getWidth(), ALTO/2 - btnLevels.getHeight()*2.5f);
 
         btnLevels.addListener(new ClickListener(){
             @Override
@@ -96,7 +109,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtn.png")));
         TextureRegionDrawable trdArsenalPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtnpress.png")));
         ImageButton btnArsenal = new ImageButton(trdArsenal,trdArsenalPress);
-        btnArsenal.setPosition(ANCHO/2 - btnArsenal.getWidth()/2, ALTO/2 - btnArsenal.getHeight()*4f);
+        btnArsenal.setPosition(ANCHO - 40 -4*btnArsenal.getWidth(), ALTO/2 - btnArsenal.getHeight()*2.5f );
 
         btnArsenal.addListener(new ClickListener(){
             @Override
@@ -112,7 +125,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtn.png")));
         TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtnpress.png")));
         ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
-        btnAjustes.setPosition( 3*btnAjustes.getWidth()/2, 2.5f*btnAjustes.getHeight()/2);
+        btnAjustes.setPosition( ANCHO -20- 2*btnAjustes.getWidth(), ALTO/2 - btnAjustes.getHeight()*2.5f);
 
         btnAjustes.addListener(new ClickListener(){
             @Override
@@ -128,7 +141,7 @@ class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdPreguntaPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/aboutbtnpress.png")));
 
         ImageButton btnPregunta = new ImageButton(trdPregunta,trdPreguntaPress);
-        btnPregunta.setPosition( ANCHO - 5*btnPregunta.getWidth()/2, 2.5f*btnPregunta.getHeight()/2);
+        btnPregunta.setPosition( ANCHO-10-btnPregunta.getWidth(), ALTO/2 - btnPregunta.getHeight()*2.5f);
 
         btnPregunta.addListener(new ClickListener(){
             @Override
@@ -168,8 +181,9 @@ class PantallaMenu extends GenericScreen {
 
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
+        batch.draw(texturaFrente,0,0);
         //Dibujando el título
-        batch.draw(texturaTitulo, ANCHO/2 - texturaTitulo.getWidth()/2, ALTO/2 );
+        batch.draw(texturaTitulo, 4*ANCHO/5 - texturaTitulo.getWidth()/2, 5*ALTO/8 );
         batch.end();
         escenaMenu.draw();
 
