@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import javax.swing.text.View;
 
 import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.utils.Text;
 
 /**
  * Created by MarinaHaro on 12/02/18.
@@ -34,7 +35,7 @@ class PantallaAcercade extends GenericScreen {
 
     //Texturas
     private Texture texturaFondo;
-
+    private Text msg;
 
 
     public PantallaAcercade(Main game) {
@@ -50,6 +51,7 @@ class PantallaAcercade extends GenericScreen {
 
     private void cargarTexturas() {
         texturaFondo = new Texture("background/menubg.png");
+        msg = new Text();
 
     }
 
@@ -75,7 +77,6 @@ class PantallaAcercade extends GenericScreen {
 
     }
 
-    BitmapFont font = new BitmapFont();
 
     @Override
     public void render(float delta) {
@@ -85,7 +86,8 @@ class PantallaAcercade extends GenericScreen {
 
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
-        font.draw(batch, "Esta es la pantalla de información", ANCHO/2, ALTO/2);
+        msg.showMsg(batch,"Informacion",ANCHO/2,3*ALTO/4,2);
+        msg.showMsg(batch,"Proximamente",ANCHO/2,ALTO/2,1);
         batch.end();
         escenaAcercade.draw();
 

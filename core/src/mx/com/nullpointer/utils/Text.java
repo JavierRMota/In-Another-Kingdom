@@ -14,13 +14,15 @@ public class Text {
     public Text()
     {
         font = new BitmapFont(Gdx.files.internal("fonts/oldEngFont.fnt"));
+        font.setColor(225,213,116,1);
     }
-    public void showMsg(SpriteBatch batch, String msg, float x, float y)
+    public void showMsg(SpriteBatch batch, String msg, float x, float y, float size)
     {
+        font.getData().setScale(size);
         GlyphLayout glyph = new GlyphLayout();
         glyph.setText(font, msg);
-        float textWidth = glyph.width;
 
+        float textWidth = glyph.width;
         font.draw(batch, glyph,x-textWidth/2, y);
 
 

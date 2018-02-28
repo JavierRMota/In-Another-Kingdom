@@ -12,6 +12,7 @@ import mx.com.nullpointer.inanotherkingdom.Main;
 
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.MainCharacter;
+import mx.com.nullpointer.utils.MusicController;
 
 /**
  * Created by mota on 2/12/18.
@@ -40,6 +41,7 @@ public class Nivel_Inicial extends GenericScreen {
     public void show() {
         createHUD();
         laurence = new MainCharacter(new Texture("characters/laurence_running.png"), new Texture("characters/tira_salto.png"));
+        MusicController.stopMusic();
 
     }
 

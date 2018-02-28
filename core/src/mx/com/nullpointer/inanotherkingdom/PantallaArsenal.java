@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.utils.Text;
 
 /**
  * Created by Carlos Carbajal on 06-feb-18.
@@ -24,6 +25,7 @@ class PantallaArsenal extends GenericScreen {
     private Texture texturaFondo;
 
     private Stage escenaArsenal;
+    private Text msg;
 
 
     public PantallaArsenal(Main game) {this.game = game;}
@@ -36,6 +38,7 @@ class PantallaArsenal extends GenericScreen {
 
     private void cargarTexturas() {
         texturaFondo = new Texture("background/menubg.png");
+        msg = new Text();
 
     }
 
@@ -60,8 +63,6 @@ class PantallaArsenal extends GenericScreen {
         Gdx.input.setInputProcessor(escenaArsenal);
     }
 
-
-    BitmapFont font= new BitmapFont();
     @Override
     public void render(float delta) {
         clearScreen(25/255f,158/255f,218/255f);
@@ -69,7 +70,8 @@ class PantallaArsenal extends GenericScreen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
-        font.draw(batch, "Esta es la pantalla dónde se personaliza a Laurence", ANCHO/2, ALTO/2);
+        msg.showMsg(batch,"Arsenal",ANCHO/2,3*ALTO/4,2);
+        msg.showMsg(batch,"Proximamente",ANCHO/2,ALTO/2,1);
         batch.end();
         escenaArsenal.draw();
     }

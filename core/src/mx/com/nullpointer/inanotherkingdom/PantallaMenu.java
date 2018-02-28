@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.com.nullpointer.niveles.Nivel_Inicial;
 import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.utils.MusicController;
 
 /**
  * Created by Carlos Carbajal on 05-feb-18.
@@ -32,9 +33,9 @@ class PantallaMenu extends GenericScreen {
     private Texture texturaTitulo;
     private Texture texturaFondo;
     private Texture texturaFrente;
+    private MusicController music;
 
-    //Musica
-    private com.badlogic.gdx.audio.Music musicaMenus;
+
 
 
     public PantallaMenu(Main game) {
@@ -47,8 +48,7 @@ class PantallaMenu extends GenericScreen {
         cargarTexturas();
         crearObjetos();
 
-        //Reproduce la musica
-        //musicaMenus.play();
+
 
     }
 
@@ -154,11 +154,9 @@ class PantallaMenu extends GenericScreen {
 
         Gdx.input.setInputProcessor(escenaMenu);
 
+        //Creamos la música
+        music = new MusicController("music/loop.mp3");
 
-        //Añadiendo la musica
-        musicaMenus= Gdx.audio.newMusic(Gdx.files.internal("music/loop.mp3"));
-        musicaMenus.setLooping(true);
-        musicaMenus.setVolume(.5f);
     }
 
 
