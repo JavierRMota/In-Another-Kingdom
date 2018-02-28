@@ -33,8 +33,8 @@ public class Nivel_Inicial extends GenericScreen {
     private Stage pause;
 
     //Textura del mapa
-    private Texture background = new Texture("fondoN1.png");
-    private Texture path = new Texture("caminoN1.png");
+    private Texture background = new Texture("fondoN1Temp.png");
+
 
     public Nivel_Inicial(Main game){this.game =game;}
     @Override
@@ -58,7 +58,7 @@ public class Nivel_Inicial extends GenericScreen {
     @Override
     public void render(float delta) {
         laurence.move(4,0);
-        updateHUD();
+        updateAll();
 
 
         //Borrar pantalla
@@ -69,7 +69,6 @@ public class Nivel_Inicial extends GenericScreen {
 
         batch.begin();
         batch.draw(background,0,0);
-        batch.draw(path,0,0);
         laurence.render(batch);
         batch.end();
 
@@ -77,7 +76,7 @@ public class Nivel_Inicial extends GenericScreen {
 
     }
 
-    private void updateHUD() {
+    private void updateAll() {
         //Para que siga a Laurence
         float posX = laurence.getX();
        /* if(posX < ANCHO/4)
