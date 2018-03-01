@@ -16,7 +16,8 @@ public class MainCharacter extends Objeto
     private Animation runningAnimation,jumpingAnimation;
     private float timerRunning, timerJumping;
     private float x,y; //Coordenadas de dónde se moverá
-    //Tamaño frames: 13.97cm * 8.29cm
+    private float DY = 12, DX=4,G=22;
+
 
     //Estados de movimiento
     MovementState movementState = MovementState.RUNNING;
@@ -34,12 +35,13 @@ public class MainCharacter extends Objeto
         runningAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         region = new TextureRegion(jumpingTexture);
-        characterTexture = region.split(141,275);
-        jumpingAnimation = new Animation(0.05f,
+        characterTexture = region.split(266,275);
+        jumpingAnimation = new Animation(0.1f,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
                 characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
+        jumpingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
         timerRunning = 0;
         timerJumping = 0;
         // Quieto
@@ -51,18 +53,24 @@ public class MainCharacter extends Objeto
     public void render(SpriteBatch batch) {
         if (movementState == MovementState.STANDING)
         {
-            //batch.draw(marioQuieto.getTexture(),x,y);
             this.draw(batch);
         }
         else if(movementState == MovementState.RUNNING)
         {
             timerRunning += Gdx.graphics.getDeltaTime();
+            move();
             TextureRegion region = (TextureRegion) runningAnimation.getKeyFrame(timerRunning);
             batch.draw(region, x, y);
         }
         else if (movementState == MovementState.JUMPING)
         {
             timerJumping+=Gdx.graphics.getDeltaTime();
+            move();
+            if(timerJumping>=0.1*16)
+            {
+                movementState = MovementState.RUNNING;
+                timerJumping=0;
+            }
             TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(timerJumping);
             batch.draw(region,x,y);
         }
@@ -87,11 +95,16 @@ public class MainCharacter extends Objeto
     {
         this.y =y;
     }
-    public void move(float dx,float dy)
+    public void move()
     {
-        this.x += dx;
-        this.y +=dy;
+        if(movementState == MovementState.JUMPING)
+            this.y+= timerJumping*DY - 0.5*G*timerJumping*timerJumping;
+        this.x += DX;
         sprite.setPosition(x, y);
+    }
+
+    public MovementState getMovementState() {
+        return movementState;
     }
 
 

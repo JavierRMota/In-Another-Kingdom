@@ -1,7 +1,11 @@
 package mx.com.nullpointer.niveles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,6 +15,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.com.nullpointer.inanotherkingdom.Main;
 
 import mx.com.nullpointer.utils.GenericScreen;
+
+import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
 import mx.com.nullpointer.utils.MusicController;
 
@@ -25,12 +31,12 @@ public class Nivel_Inicial extends GenericScreen {
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer render;
     private MainCharacter laurence;
+    private static final float ANCHO_MAPA = 3840;
 
     //Cámaras
     private OrthographicCamera cameraHUD;
     private Viewport viewHUD;
-    private Stage buttons;
-    private Stage pause;
+    private Stage buttonScene;
 
     //Textura del mapa
     private Texture background = new Texture("fondoN1Temp.png");
@@ -42,6 +48,40 @@ public class Nivel_Inicial extends GenericScreen {
         createHUD();
         laurence = new MainCharacter(new Texture("characters/laurence_running.png"), new Texture("characters/tira_salto.png"));
         MusicController.stopMusic();
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
+
+            @Override
+            public void onUp() {
+                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
+                    laurence.setMovementState(MainCharacter.MovementState.JUMPING);
+            }
+
+            @Override
+            public void onRight() {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onLeft() {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onDown() {
+                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
+                    laurence.setMovementState(MainCharacter.MovementState.DODGING);
+
+            }
+        });
+        inputMultiplexer.addProcessor(gestureDetector);
+        buttonScene = new Stage(view);
+        inputMultiplexer.addProcessor(buttonScene);
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
     }
 
@@ -57,8 +97,8 @@ public class Nivel_Inicial extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        laurence.move(4,0);
-        updateAll();
+
+        updateAllCameras();
 
 
         //Borrar pantalla
@@ -76,22 +116,18 @@ public class Nivel_Inicial extends GenericScreen {
 
     }
 
-    private void updateAll() {
+
+    private void updateAllCameras() {
         //Para que siga a Laurence
         float posX = laurence.getX();
-       /* if(posX < ANCHO/4)
-        {
+        // Primera mitad de la pantalla
+        if (posX < ANCHO/2 ) {
             camera.position.set(ANCHO/2, ALTO/2, 0);
-        } else if (posX > ANCHO/4) {   // Última mitad de la pantalla
-            camera.position.set(3*ANCHO/4,cameraHUD.position.y,0);
+        } else if (posX > ANCHO_MAPA - ANCHO/2) {   // Última mitad de la pantalla
+            camera.position.set(ANCHO_MAPA-ANCHO/2,camera.position.y,0);
         } else {    // En 'medio' del mapa
-            camera.position.set(posX,cameraHUD.position.y,0);
-        }*/
-       if(posX > ANCHO/3)
-       camera.position.set(posX+ ANCHO/3,camera.position.y,0);
-       //else
-        //   camera.position.set(posX+ANCHO/2,camera.position.y,0);
-
+            camera.position.set(posX,camera.position.y,0);
+        }
         camera.update();
     }
 
@@ -101,5 +137,6 @@ public class Nivel_Inicial extends GenericScreen {
     view.update(width,height);
 
     }
+
 
 }
