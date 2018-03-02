@@ -21,7 +21,7 @@ import mx.com.nullpointer.utils.MusicController;
  * Created by Carlos Carbajal on 05-feb-18.
  */
 
-class PantallaMenu extends GenericScreen {
+public class PantallaMenu extends GenericScreen {
     private final Main game;
 
 

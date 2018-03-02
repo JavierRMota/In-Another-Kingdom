@@ -2,18 +2,22 @@ package mx.com.nullpointer.niveles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
 
+import mx.com.nullpointer.inanotherkingdom.PantallaMenu;
 import mx.com.nullpointer.utils.GenericScreen;
 
 import mx.com.nullpointer.utils.GestureController;
@@ -46,7 +50,11 @@ public class Nivel_Inicial extends GenericScreen {
     @Override
     public void show() {
         createHUD();
-        laurence = new MainCharacter(new Texture("characters/laurence_running.png"), new Texture("characters/tira_salto.png"));
+        laurence = new MainCharacter(
+                new Texture("characters/laurence_descanso.png"),
+                new Texture("characters/laurence_running.png"),
+                new Texture("characters/tira_salto.png"),
+                new Texture("characters/tira_marometa.png"));
         MusicController.stopMusic();
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
@@ -55,7 +63,7 @@ public class Nivel_Inicial extends GenericScreen {
             public void onUp() {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
                         || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
-                    laurence.setMovementState(MainCharacter.MovementState.JUMPING);
+                    laurence.setMovementState(MainCharacter.MovementState.JUMPING_PREPARE);
             }
 
             @Override
@@ -79,7 +87,22 @@ public class Nivel_Inicial extends GenericScreen {
             }
         });
         inputMultiplexer.addProcessor(gestureDetector);
-        buttonScene = new Stage(view);
+        buttonScene = new Stage(viewHUD);
+        //Botón Play
+        TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(new Texture("btn/pausebtn.png")));
+        TextureRegionDrawable trdPausePress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/pausebtnpress.png")));
+
+        ImageButton btnPause = new ImageButton(trdPause,trdPausePress);
+        btnPause.setPosition(ANCHO/2 - btnPause.getWidth()/2, ALTO - 1.5f*btnPause.getHeight());
+
+        btnPause.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaMenu(game));
+            }
+        });
+        buttonScene.addActor(btnPause);
         inputMultiplexer.addProcessor(buttonScene);
         Gdx.input.setInputProcessor(inputMultiplexer);
 
@@ -112,6 +135,12 @@ public class Nivel_Inicial extends GenericScreen {
         laurence.render(batch);
         batch.end();
 
+        batch.setProjectionMatrix(cameraHUD.combined);
+        batch.begin();
+        buttonScene.draw();
+        batch.end();
+
+
 
 
     }
@@ -136,6 +165,11 @@ public class Nivel_Inicial extends GenericScreen {
     viewHUD.update(width,height);
     view.update(width,height);
 
+    }
+    @Override
+    public void dispose()
+    {
+        buttonScene.dispose();
     }
 
 
