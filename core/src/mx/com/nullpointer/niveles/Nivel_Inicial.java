@@ -2,10 +2,13 @@ package mx.com.nullpointer.niveles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -50,6 +53,7 @@ public class Nivel_Inicial extends GenericScreen {
     @Override
     public void show() {
         createHUD();
+        loadMap();
         laurence = new MainCharacter(
                 new Texture("characters/laurence_descanso.png"),
                 new Texture("characters/laurence_running.png"),
@@ -108,13 +112,20 @@ public class Nivel_Inicial extends GenericScreen {
 
     }
 
+    private void loadMap() {
+        AssetManager manager = new AssetManager();
+        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        manager.load("map/nivelCero.tmx", TiledMap.class);
+        manager.finishLoading();
+        tiledMap = manager.get("map/nivelCero.tmx");
+        render = new OrthogonalTiledMapRenderer(tiledMap);
+    }
+
     private void createHUD() {
         cameraHUD = new OrthographicCamera(ANCHO,ALTO);
         cameraHUD.position.set(ANCHO/2,ALTO/2,0);
         cameraHUD.update();
         viewHUD = new StretchViewport(ANCHO,ALTO,cameraHUD);
-
-
 
     }
 
@@ -129,9 +140,11 @@ public class Nivel_Inicial extends GenericScreen {
 
         //Projection matrix
         batch.setProjectionMatrix(camera.combined);
+        render.setView(camera);
+        render.render();
 
         batch.begin();
-        batch.draw(background,0,0);
+        //batch.draw(background,0,0);
         laurence.render(batch);
         batch.end();
 

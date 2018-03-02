@@ -31,7 +31,7 @@ public class MainCharacter extends Objeto
         TextureRegion region = new TextureRegion(runningTexture);
         //Tamaño
         TextureRegion[][] characterTexture = region.split(396,228);
-        runningAnimation = new Animation(0.05f,
+        runningAnimation = new Animation(0.04f,
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
@@ -53,7 +53,7 @@ public class MainCharacter extends Objeto
         region = new TextureRegion(dodgingTexture);
         //Tamaño
         characterTexture = region.split(241,254);
-        dodgingAnimation = new Animation(0.08f,
+        dodgingAnimation = new Animation(0.05f,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11]);
@@ -101,7 +101,7 @@ public class MainCharacter extends Objeto
         {
             timerAction += Gdx.graphics.getDeltaTime();
             move();
-            if(timerAction>=0.08*12)
+            if(timerAction>=0.05*12)
             {
                 movementState = MovementState.RUNNING;
                 timerAction=0;
