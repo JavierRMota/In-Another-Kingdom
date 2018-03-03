@@ -69,7 +69,7 @@ public class MainCharacter extends Objeto
 
         //Posición
         x = 0;
-        y = 64;
+        y = 70;
     }
     public void render(SpriteBatch batch) {
         if (movementState == MovementState.STANDING)
