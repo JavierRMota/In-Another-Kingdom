@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="80" height="11" tilewidth="70" tileheight="70" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="plataformas" tilewidth="70" tileheight="70" tilecount="10" columns="5">
-  <image source="plataformas.png" width="350" height="141"/>
+  <image source="plataformas.png" width="350" height="140"/>
   <tile id="0" type="Platesquina1"/>
   <tile id="1" type="Plataforma"/>
   <tile id="2" type="EsquinaAgua1"/>
@@ -20,10 +20,10 @@
   <tile id="2" type="Llave"/>
   <tile id="3" type="Espada1"/>
  </tileset>
- <imagelayer name="Image Layer 2" offsetx="3237.07" offsety="16.836">
+ <imagelayer name="Image Layer 2" offsetx="3237" offsety="17">
   <image source="fondo.png" width="3840" height="720"/>
  </imagelayer>
- <imagelayer name="Image Layer 1" offsetx="-0.46733" offsety="14.4851">
+ <imagelayer name="Image Layer 1" offsetx="0" offsety="15">
   <image source="fondo.png" width="3840" height="720"/>
  </imagelayer>
  <layer name="Tile Layer 1" width="80" height="11">

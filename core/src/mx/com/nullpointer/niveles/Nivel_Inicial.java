@@ -117,6 +117,7 @@ public class Nivel_Inicial extends GenericScreen {
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load("map/nivelCero.tmx", TiledMap.class);
         manager.finishLoading();
+
         tiledMap = manager.get("map/nivelCero.tmx");
         render = new OrthogonalTiledMapRenderer(tiledMap);
     }
