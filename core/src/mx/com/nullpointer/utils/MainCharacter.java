@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 /**
  * Created by mota on 2/13/18.
@@ -16,7 +17,8 @@ public class MainCharacter extends Objeto
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float DY = 40, DX=400,G=85;
+    private float VY = 50, VX=400,G=40;
+    private boolean checkRun=false;
 
 
     //Estados de movimiento
@@ -30,7 +32,7 @@ public class MainCharacter extends Objeto
         //Animación de correr
         TextureRegion region = new TextureRegion(runningTexture);
         //Tamaño
-        TextureRegion[][] characterTexture = region.split(396,228);
+        TextureRegion[][] characterTexture = region.split(198,114);
         runningAnimation = new Animation(0.04f,
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
@@ -41,7 +43,7 @@ public class MainCharacter extends Objeto
         //Animación de saltar
         region = new TextureRegion(jumpingTexture);
         //Tamaño
-        characterTexture = region.split(266,275);
+        characterTexture = region.split(133,137);
         jumpingAnimation = new Animation(0.08f,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
@@ -52,7 +54,7 @@ public class MainCharacter extends Objeto
         //Animación de agacharse
         region = new TextureRegion(dodgingTexture);
         //Tamaño
-        characterTexture = region.split(241,254);
+        characterTexture = region.split(120,127);
         dodgingAnimation = new Animation(0.05f,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
@@ -68,47 +70,54 @@ public class MainCharacter extends Objeto
         sprite.setPosition(0,64);
 
         //Posición
-        x = 0;
+        x = GenericScreen.ANCHO/4;
         y = 70;
     }
+
+    public  float getVelocity() {
+        return VX;
+    }
+
     public void render(SpriteBatch batch) {
         if (movementState == MovementState.STANDING)
         {
+            timerRunning=0;
+            timerAction=0;
             this.draw(batch);
         }
         else if(movementState == MovementState.RUNNING)
         {
-            timerRunning += Gdx.graphics.getDeltaTime();
-            move();
-            TextureRegion region = (TextureRegion) runningAnimation.getKeyFrame(timerRunning);
-            batch.draw(region, x, y);
+            run(batch);
+            timerAction=0;
+
         }
-        else if (movementState == MovementState.JUMPING_UP || movementState == MovementState.JUMPING_PREPARE || movementState == MovementState.JUMPING_DOWN )
+        else if (movementState == MovementState.JUMPING
+                        || movementState == MovementState.JUMPING_PREPARE
+                        || movementState == MovementState.FALLING
+                        || movementState == MovementState.JUMPING_END )
         {
-            timerAction+=Gdx.graphics.getDeltaTime();
-            if(timerAction> 0.08*6 && timerAction<0.08*11) movementState= MovementState.JUMPING_UP;
-            else if (timerAction> 0.08*11) movementState=MovementState.JUMPING_DOWN;
-            move();
-            if(timerAction>=0.08*16)
+            if( movementState == MovementState.JUMPING_PREPARE && timerRunning%16< 15*0.04f)
             {
-                movementState = MovementState.RUNNING;
-                timerAction=0;
+                run(batch);
             }
-            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(timerAction);
-            batch.draw(region,x,y);
+            else
+            {
+                jump(batch);
+
+            }
         }
         else if(movementState == MovementState.DODGING)
         {
-            timerAction += Gdx.graphics.getDeltaTime();
-            move();
-            if(timerAction>=0.05*12)
+            if(timerRunning%16< 15*0.04f)
             {
-                movementState = MovementState.RUNNING;
-                timerAction=0;
+                run(batch);
             }
-            TextureRegion region = (TextureRegion) dodgingAnimation.getKeyFrame(timerAction);
-            batch.draw(region, x, y);
+            else
+            {
+                checkRun=true;
+                dodge(batch);
 
+            }
         }
     }
     public float getX()
@@ -131,18 +140,116 @@ public class MainCharacter extends Objeto
     {
         this.y =y;
     }
-    public void move()
+    public  void move(TiledMapTileLayer layer, float delta, int cx,int cy)
     {
 
-        if(movementState == MovementState.JUMPING_UP|| movementState ==MovementState.JUMPING_DOWN)
-        {
+        /*if(movementState==MovementState.JUMPING_PREPARE
+                ||movementState==MovementState.JUMPING_END
+                ||movementState==MovementState.JUMPING
+                ||movementState==MovementState.FALLING
+                ||movementState==MovementState.DODGING)timerAction+=delta;
+        else if(movementState==MovementState.RUNNING)timerRunning+=delta;*/
 
-            this.y+= timerAction*DY - 0.5*G*timerAction*timerAction;
-            this.x+= 1.5*DX*Gdx.graphics.getDeltaTime();
+        TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy-1);
+        TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+1);
+        if(movementState == MovementState.JUMPING && currentCellUp!=null
+                && (currentCellUp.getTile().getId()==2
+                ||currentCellUp.getTile().getId()== 3
+                ||currentCellUp.getTile().getId() == 5
+                ||currentCellUp.getTile().getId() == 1
+                ||currentCellUp.getTile().getId() == 7))
+        {
+            this.movementState=MovementState.FALLING;
+            timerAction=0;
+
         }
-        else if(movementState == MovementState.RUNNING || movementState == MovementState.JUMPING_PREPARE || movementState == MovementState.DODGING)
-            this.x += DX*Gdx.graphics.getDeltaTime();
+        else if(movementState == MovementState.JUMPING)
+        {
+            this.y+=timerAction*VY-0.5f*G*timerAction*timerAction;
+
+        }
+        if(currentCellDown !=null
+               && (currentCellDown.getTile().getId()==2
+                ||currentCellDown.getTile().getId()== 3
+                ||currentCellDown.getTile().getId() == 5
+                ||currentCellDown.getTile().getId() == 1
+                ||currentCellDown.getTile().getId() == 7))
+        {
+            if(movementState == MovementState.FALLING)
+            {
+                movementState = MovementState.JUMPING_END;
+                timerAction= 0.08f*12;
+                this.y = (cy)*70;
+            }
+        }
+        else if(currentCellDown!=null && this.movementState == MovementState.FALLING)
+        {
+            this.y -=0.5*G*timerAction*timerAction;
+        }
+        else if(currentCellDown==null &&this.movementState!=MovementState.JUMPING &&this.movementState!=MovementState.JUMPING_PREPARE)
+        {
+            this.movementState = MovementState.FALLING;
+            this.y -=0.5*G*timerAction*timerAction;
+        }
+
+
+        if(canMove(layer,cx,cy))
+            this.x+=VX*delta;
         sprite.setPosition(x, y);
+    }
+    public boolean canMove(TiledMapTileLayer layer, int cx, int cy)
+    {
+        TiledMapTileLayer.Cell nextCell = layer.getCell(cx+1,cy);
+        if(nextCell!= null && nextCell.getTile().getId() != 11 && nextCell.getTile().getId() !=13)
+        {
+            this.VX =300;
+            return false;
+        }
+        this.VX =400;
+        return true;
+
+    }
+    public void run(SpriteBatch batch)
+    {
+        timerRunning += Gdx.graphics.getDeltaTime();
+        TextureRegion region = (TextureRegion) runningAnimation.getKeyFrame(timerRunning);
+        batch.draw(region, x, y);
+    }
+    public void jump(SpriteBatch batch)
+    {
+        timerAction+=Gdx.graphics.getDeltaTime();
+        if(timerAction>0.08*6 && movementState==MovementState.JUMPING_PREPARE) movementState=MovementState.JUMPING;
+        else if (timerAction>0.08*11  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
+        if(movementState== MovementState.FALLING)
+        {
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(0.08f*12);
+            batch.draw(region,x,y);
+
+        }
+        else
+        {
+            if(movementState== MovementState.JUMPING_END && timerAction >0.08f*15)
+            {
+                movementState =MovementState.RUNNING;
+                timerAction=0;
+                timerRunning=0;
+            }
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(timerAction);
+            batch.draw(region,x,y);
+        }
+
+    }
+   public void dodge(SpriteBatch batch)
+    {
+        timerAction += Gdx.graphics.getDeltaTime();
+        if(timerAction>=0.05*12)
+        {
+            movementState = MovementState.RUNNING;
+            timerAction=0;
+            timerRunning=0;
+        }
+        TextureRegion region = (TextureRegion) dodgingAnimation.getKeyFrame(timerAction);
+        batch.draw(region, x, y);
     }
 
     public MovementState getMovementState() {
@@ -153,9 +260,10 @@ public class MainCharacter extends Objeto
     public enum MovementState
     {
         RUNNING,
-        JUMPING_UP,
+        JUMPING,
         JUMPING_PREPARE,
-        JUMPING_DOWN,
+        FALLING,
+        JUMPING_END,
         DODGING,
         STANDING
     }

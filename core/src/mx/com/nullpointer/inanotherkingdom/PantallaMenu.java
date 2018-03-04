@@ -173,10 +173,6 @@ public class PantallaMenu extends GenericScreen {
 
 
         batch.setProjectionMatrix(camera.combined);
-
-
-
-
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
         batch.draw(texturaFrente,0,0);

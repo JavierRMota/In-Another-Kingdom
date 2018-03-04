@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.com.nullpointer.inanotherkingdom.Main;
 
 import mx.com.nullpointer.inanotherkingdom.PantallaMenu;
+import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericScreen;
 
 import mx.com.nullpointer.utils.GestureController;
@@ -50,6 +52,9 @@ public class Nivel_Inicial extends GenericScreen {
     private OrthographicCamera cameraHUD;
     private Viewport viewHUD;
     private Stage buttonScene;
+    private Stage pauseScene;
+    //Controlador de juego
+    private GameState gameState;
     //Constructor
     public Nivel_Inicial(Main game)
     {
@@ -117,7 +122,7 @@ public class Nivel_Inicial extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaMenu(game));
+                pause();
             }
         });
         //Add to the scene
@@ -126,6 +131,8 @@ public class Nivel_Inicial extends GenericScreen {
         inputMultiplexer.addProcessor(buttonScene);
         //Begin input processor
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        gameState= GameState.PLAY;
 
     }
 
@@ -148,7 +155,10 @@ public class Nivel_Inicial extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        update(delta);
+        if(gameState!=GameState.PAUSE)
+        {
+            update(delta);
+        }
         //Borrar pantalla
         clearScreen();
         //Projection matrix
@@ -178,6 +188,64 @@ public class Nivel_Inicial extends GenericScreen {
     }
 
     private void updateState(float delta) {
+        int cx = (int)(laurence.getX()+70)/70;
+        int cy = (int)(laurence.getY())/70;
+        winOrLoose();
+        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
+        checkCoins(cx,cy,layer);
+        laurence.move(layer,delta, cx, cy);
+
+    }
+
+    private void winOrLoose() {
+        if(laurence.getX()< camera.position.x-3*ANCHO/4 || laurence.getY()<0)
+        {
+            gameState=GameState.LOOSE;
+        }
+        if(laurence.getX()>MAP_WIDTH)
+            gameState=GameState.WIN;
+        if(gameState== GameState.WIN || gameState== GameState.LOOSE)
+        {
+            Gdx.app.log("Estado: ", gameState+"");
+            game.setScreen(new PantallaMenu(game));
+        }
+    }
+
+    private void checkCoins(int cx, int cy,TiledMapTileLayer layer)
+    {
+        TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy);
+        TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+1);
+
+        if(currentCellDown != null)
+        {
+            int idCell = currentCellDown.getTile().getId();
+            if(idCell ==11)
+            {
+                coins++;
+                layer.setCell(cx,cy,null);
+            }
+            if(idCell ==13)
+            {
+                keys++;
+                layer.setCell(cx,cy,null);
+            }
+
+        }
+        if(currentCellUp!=null)
+        {
+            int idCell = currentCellUp.getTile().getId();
+            if(idCell ==11)
+            {
+                coins++;
+                layer.setCell(cx,cy+1,null);
+            }
+            if(idCell ==13)
+            {
+                keys++;
+                layer.setCell(cx,cy+1,null);
+            }
+        }
+
     }
 
     private void updateScore() {
@@ -186,7 +254,8 @@ public class Nivel_Inicial extends GenericScreen {
 
     private void updateCamera(float delta) {
         //Para que la cámara avance sola hasta el final de la pantalla
-        float posX = camera.position.x+delta*400;
+
+        float posX = camera.position.x+delta*laurence.getVelocity();
         if (posX > MAP_WIDTH - ANCHO/2) {   // Última mitad de la pantalla
             camera.position.set(MAP_WIDTH-ANCHO/2,camera.position.y,0);
         } else {    // En 'medio' del mapa
@@ -204,6 +273,13 @@ public class Nivel_Inicial extends GenericScreen {
     public void dispose()
     {
         buttonScene.dispose();
+    }
+    @Override
+    public void pause() {
+        gameState=GameState.PAUSE;
+        laurence.setMovementState(MainCharacter.MovementState.STANDING);
+        game.setScreen(new PantallaMenu(game));
+
     }
 
 
