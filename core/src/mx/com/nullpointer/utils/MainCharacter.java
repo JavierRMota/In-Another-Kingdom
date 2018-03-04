@@ -17,7 +17,7 @@ public class MainCharacter extends Objeto
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float VY = 50, VX=400,G=40;
+    private float VY = 9, VX=400,G=10;
     private boolean checkRun=false;
 
 
@@ -44,7 +44,7 @@ public class MainCharacter extends Objeto
         region = new TextureRegion(jumpingTexture);
         //Tamaño
         characterTexture = region.split(133,137);
-        jumpingAnimation = new Animation(0.08f,
+        jumpingAnimation = new Animation(0.04f,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
@@ -55,7 +55,7 @@ public class MainCharacter extends Objeto
         region = new TextureRegion(dodgingTexture);
         //Tamaño
         characterTexture = region.split(120,127);
-        dodgingAnimation = new Animation(0.05f,
+        dodgingAnimation = new Animation(0.04f,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11]);
@@ -70,7 +70,7 @@ public class MainCharacter extends Objeto
         sprite.setPosition(0,64);
 
         //Posición
-        x = GenericScreen.ANCHO/4;
+        x = GenericScreen.ANCHO/8;
         y = 70;
     }
 
@@ -165,7 +165,7 @@ public class MainCharacter extends Objeto
         }
         else if(movementState == MovementState.JUMPING)
         {
-            this.y+=timerAction*VY-0.5f*G*timerAction*timerAction;
+            this.y+=timerAction*VY-0.5*G*timerAction*timerAction;
 
         }
         if(currentCellDown !=null
@@ -218,17 +218,17 @@ public class MainCharacter extends Objeto
     public void jump(SpriteBatch batch)
     {
         timerAction+=Gdx.graphics.getDeltaTime();
-        if(timerAction>0.08*6 && movementState==MovementState.JUMPING_PREPARE) movementState=MovementState.JUMPING;
-        else if (timerAction>0.08*11  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
+        if(timerAction>0.04*6 && movementState==MovementState.JUMPING_PREPARE) movementState=MovementState.JUMPING;
+        else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
         if(movementState== MovementState.FALLING)
         {
-            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(0.08f*12);
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*12);
             batch.draw(region,x,y);
 
         }
         else
         {
-            if(movementState== MovementState.JUMPING_END && timerAction >0.08f*15)
+            if(movementState== MovementState.JUMPING_END && timerAction >0.04*15)
             {
                 movementState =MovementState.RUNNING;
                 timerAction=0;
@@ -242,7 +242,7 @@ public class MainCharacter extends Objeto
    public void dodge(SpriteBatch batch)
     {
         timerAction += Gdx.graphics.getDeltaTime();
-        if(timerAction>=0.05*12)
+        if(timerAction>=0.04f*12)
         {
             movementState = MovementState.RUNNING;
             timerAction=0;

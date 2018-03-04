@@ -255,7 +255,7 @@ public class Nivel_Inicial extends GenericScreen {
     private void updateCamera(float delta) {
         //Para que la cámara avance sola hasta el final de la pantalla
 
-        float posX = camera.position.x+delta*laurence.getVelocity();
+        float posX = camera.position.x+delta*laurence.getVelocity()*0.9f;
         if (posX > MAP_WIDTH - ANCHO/2) {   // Última mitad de la pantalla
             camera.position.set(MAP_WIDTH-ANCHO/2,camera.position.y,0);
         } else {    // En 'medio' del mapa
