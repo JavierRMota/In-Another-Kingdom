@@ -157,7 +157,8 @@ public class MainCharacter extends Objeto
                 ||currentCellUp.getTile().getId()== 3
                 ||currentCellUp.getTile().getId() == 5
                 ||currentCellUp.getTile().getId() == 1
-                ||currentCellUp.getTile().getId() == 7))
+                ||currentCellUp.getTile().getId() == 7
+                ||currentCellUp.getTile().getId() == 6))
         {
             this.movementState=MovementState.FALLING;
             timerAction=0;
@@ -173,7 +174,8 @@ public class MainCharacter extends Objeto
                 ||currentCellDown.getTile().getId()== 3
                 ||currentCellDown.getTile().getId() == 5
                 ||currentCellDown.getTile().getId() == 1
-                ||currentCellDown.getTile().getId() == 7))
+                ||currentCellDown.getTile().getId() == 7
+                ||currentCellDown.getTile().getId()== 6))
         {
             if(movementState == MovementState.FALLING)
             {
@@ -234,7 +236,12 @@ public class MainCharacter extends Objeto
                 timerAction=0;
                 timerRunning=0;
             }
-            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(timerAction);
+
+            TextureRegion region;
+            if(timerAction>=0.04*12 && movementState == MovementState.JUMPING)
+                region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*12);
+            else
+                region = (TextureRegion) jumpingAnimation.getKeyFrame(timerAction);
             batch.draw(region,x,y);
         }
 
