@@ -184,8 +184,9 @@ public class MainCharacter extends Objeto
                 this.y = (cy)*70;
             }
         }
-        else if(currentCellDown!=null && this.movementState == MovementState.FALLING)
+        else if(currentCellDown!=null && this.movementState!= MovementState.JUMPING)
         {
+            this.movementState = MovementState.FALLING;
             this.y -=0.5*G*timerAction*timerAction;
         }
         else if(currentCellDown==null &&this.movementState!=MovementState.JUMPING &&this.movementState!=MovementState.JUMPING_PREPARE)
