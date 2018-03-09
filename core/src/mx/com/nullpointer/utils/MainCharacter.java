@@ -17,7 +17,7 @@ public class MainCharacter extends Objeto
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float VY = 9, VX=400,G=10;
+    private float VY = 8, VX=400,G=10;
     private boolean checkRun=false;
 
 
@@ -227,7 +227,7 @@ public class MainCharacter extends Objeto
         else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
         if(movementState== MovementState.FALLING)
         {
-            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*12);
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*9);
             batch.draw(region,x,y);
 
         }
@@ -241,8 +241,8 @@ public class MainCharacter extends Objeto
             }
 
             TextureRegion region;
-            if(timerAction>=0.04*12 && movementState == MovementState.JUMPING)
-                region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*12);
+            if(timerAction>=0.04*9 && movementState == MovementState.JUMPING)
+                region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*9);
             else
                 region = (TextureRegion) jumpingAnimation.getKeyFrame(timerAction);
             batch.draw(region,x,y);

@@ -2,6 +2,7 @@ package mx.com.nullpointer.niveles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -54,6 +55,7 @@ public class Nivel_Inicial extends GenericScreen {
     private Viewport viewHUD;
     private Stage buttonScene;
     private Stage pauseScene;
+    private InputProcessor inputProcessor;
     //Controlador de juego
     private GameState gameState;
     //Constructor
@@ -142,8 +144,38 @@ public class Nivel_Inicial extends GenericScreen {
         buttonScene.addActor(btnPause);
         //Set button processor
         inputMultiplexer.addProcessor(buttonScene);
+        //Pause Scene
+        pauseScene = new Stage(viewHUD);
+        //Button play
+        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtn.png")));
+        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtnpress.png")));
+        ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
+        btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight()/2);
+        btnPlay.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                resume();
+            }
+        });
+        pauseScene.addActor(btnPlay);
+        //Button back
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
+        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
+        ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
+        btnBack.setPosition(ANCHO/4 - btnBack.getWidth()/2, ALTO/2 - btnBack.getHeight()/2);
+        btnBack.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaMenu(game));
+            }
+        });
+        pauseScene.addActor(btnBack);
+
         //Begin input processor
         Gdx.input.setInputProcessor(inputMultiplexer);
+        inputProcessor = inputMultiplexer;
     }
 
     private void loadMap() {
@@ -188,7 +220,15 @@ public class Nivel_Inicial extends GenericScreen {
         batch.draw(emptyKeyTexture,4*ANCHO/5+0.8f*fullKeyTexture.getWidth(),ALTO-5*fullKeyTexture.getHeight());
         scoreDisplay.showMsg(batch, coinScore,9*ANCHO/10,ALTO,2);
         batch.end();
-        buttonScene.draw();
+
+        if(gameState == GameState.PLAY)
+        {
+            buttonScene.draw();
+        }
+        else
+        {
+                pauseScene.draw();
+        }
     }
 
     private void update(float delta) {
@@ -288,8 +328,15 @@ public class Nivel_Inicial extends GenericScreen {
     @Override
     public void pause() {
         gameState=GameState.PAUSE;
-        laurence.setMovementState(MainCharacter.MovementState.STANDING);
-        game.setScreen(new PantallaMenu(game));
+        Gdx.input.setInputProcessor(pauseScene);
+        //laurence.setMovementState(MainCharacter.MovementState.STANDING);
+
+    }
+    @Override
+    public void resume() {
+        Gdx.input.setInputProcessor(inputProcessor);
+        gameState = GameState.PLAY;
+        //laurence.setMovementState(MainCharacter.MovementState.RUNNING);
 
     }
 
