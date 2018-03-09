@@ -1,6 +1,9 @@
 package mx.com.nullpointer.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+
+import mx.com.nullpointer.inanotherkingdom.PantallaAjustes;
 
 /**
  * Created by mota on 2/27/18.
@@ -34,9 +37,12 @@ public class MusicController {
         }
         else if(currentlyPlaying!= null && currentlyPlaying.songName.equalsIgnoreCase(playSong.songName)) return;
         //Reproduce la musica
-        playSong.music.play();
-        currentlyPlaying = playSong;
-
+        Preferences prefsMusic = Gdx.app.getPreferences("Musica");
+        boolean playMusic = prefsMusic.getBoolean("play", true);
+        if(playMusic) {
+            playSong.music.play();
+            currentlyPlaying = playSong;
+        }
 
     }
     public static void stopMusic()
