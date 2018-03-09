@@ -48,6 +48,7 @@ public class Nivel_Inicial extends GenericScreen {
     private String coinScore;
     private Text  scoreDisplay;
     private Texture coinTexture;
+    private Texture emptyKeyTexture, fullKeyTexture;
     //Camera and scene
     private OrthographicCamera cameraHUD;
     private Viewport viewHUD;
@@ -66,21 +67,33 @@ public class Nivel_Inicial extends GenericScreen {
         createHUD();
         //Load TiledMap
         loadMap();
+
         //Load Character
         laurence = new MainCharacter(
                 new Texture("characters/laurence_descanso.png"), //Standing Position
                 new Texture("characters/laurence_running.png"), //Running Position
                 new Texture("characters/tira_salto.png"), //Jumping Position
                 new Texture("characters/tira_marometa.png")); //Dodging Position
+
         //Music adjustments
         MusicController.stopMusic();
+
         //Score initialization
         coinScore="00";
         coins=0;
         keys=0;
         scoreDisplay = new Text();
         coinTexture=new Texture("gameObjects/moneda.png");
+        fullKeyTexture = new Texture("gameObjects/llaveFull.png");
+        emptyKeyTexture = new Texture("gameObjects/llaveEmpty.png");
         //Input Processors
+        loadInputProcessor();
+        //Begin game
+        gameState= GameState.PLAY;
+
+    }
+    private void loadInputProcessor()
+    {
         //Multiple inputs
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         //Gesture detection
@@ -131,9 +144,6 @@ public class Nivel_Inicial extends GenericScreen {
         inputMultiplexer.addProcessor(buttonScene);
         //Begin input processor
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-        gameState= GameState.PLAY;
-
     }
 
     private void loadMap() {
@@ -175,6 +185,7 @@ public class Nivel_Inicial extends GenericScreen {
         batch.setProjectionMatrix(cameraHUD.combined);
         batch.begin();
         batch.draw(coinTexture,4*ANCHO/5+0.8f*coinTexture.getWidth(),ALTO-1.2f*coinTexture.getHeight());
+        batch.draw(emptyKeyTexture,4*ANCHO/5+0.8f*fullKeyTexture.getWidth(),ALTO-5*fullKeyTexture.getHeight());
         scoreDisplay.showMsg(batch, coinScore,9*ANCHO/10,ALTO,2);
         batch.end();
         buttonScene.draw();
