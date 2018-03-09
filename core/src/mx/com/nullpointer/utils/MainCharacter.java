@@ -108,7 +108,7 @@ public class MainCharacter extends Objeto
         }
         else if(movementState == MovementState.DODGING)
         {
-            if(timerRunning%16< 15*0.04f)
+            if(timerRunning%16< 15*0.04f && !checkRun)
             {
                 run(batch);
             }
@@ -197,7 +197,9 @@ public class MainCharacter extends Objeto
 
 
         if(canMove(layer,cx,cy))
+        {
             this.x+=VX*delta;
+        }
         sprite.setPosition(x, y);
     }
     public boolean canMove(TiledMapTileLayer layer, int cx, int cy)
