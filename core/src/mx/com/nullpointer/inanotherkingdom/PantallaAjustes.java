@@ -2,6 +2,7 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,18 +14,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
 import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.utils.MusicController;
 
 /**
  * Created by Carlos Carbajal on 06-feb-18.
  */
 
-class PantallaAjustes extends GenericScreen {
+public class PantallaAjustes extends GenericScreen {
     private final Main game;
 
     private Stage escenaAjustes;
 
     //Texturas
     private Texture texturaFondo;
+
+    private Preferences prefsMusic = Gdx.app.getPreferences("Musica");
+
 
     public PantallaAjustes(Main game) {this.game = game;}
 
@@ -36,6 +41,7 @@ class PantallaAjustes extends GenericScreen {
     }
 
     private void cargarTexturas() {
+
         texturaFondo = new Texture("background/menubg.png");
 
     }
@@ -43,15 +49,40 @@ class PantallaAjustes extends GenericScreen {
     private void crearObjetos() {
         escenaAjustes = new Stage(view);
         //Botón Volumen
+
         TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
         TextureRegionDrawable trdVolumenPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
-        ImageButton btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
+        ImageButton btnVolumen;
+
+
+        if(prefsMusic.getBoolean("play", true)){
+            btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
+        }
+
+        else{
+            btnVolumen = new ImageButton(trdVolumenPress,trdVolumen);
+        }
+
         btnVolumen.setPosition(PantallaMenu.ANCHO /2 - btnVolumen.getWidth()/2, PantallaMenu.ALTO /2 + btnVolumen.getHeight()*1.5f);
 
         btnVolumen.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                if(prefsMusic.getBoolean("play", true)){
+                    prefsMusic.putBoolean("play", false);
+                    MusicController.stopMusic();
+                    prefsMusic.flush();
+                    Gdx.app.log("bool: ","false");
+
+                }
+                else {
+                    prefsMusic.putBoolean("play", true);
+                    MusicController.playMusic(new MusicController("music/loop.mp3"));
+                    prefsMusic.flush();
+                    Gdx.app.log("bool: ","true");
+                }
+                crearObjetos();
 
             }
         });

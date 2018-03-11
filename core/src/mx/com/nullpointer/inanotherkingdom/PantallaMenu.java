@@ -170,8 +170,6 @@ public class PantallaMenu extends GenericScreen {
     @Override
     public void render(float delta) {
         clearScreen();
-
-
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
@@ -180,8 +178,6 @@ public class PantallaMenu extends GenericScreen {
         batch.draw(texturaTitulo, 4*ANCHO/5 - texturaTitulo.getWidth()/2, 5*ALTO/8 );
         batch.end();
         escenaMenu.draw();
-
-
     }
 
 
