@@ -2,6 +2,7 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -35,11 +36,12 @@ public class PantallaMenu extends GenericScreen {
     private Texture texturaFrente;
     private MusicController music;
 
-
-
+    private final AssetManager assetManager;
 
     public PantallaMenu(Main game) {
+
         this.game = game;
+        assetManager = game.getAssetManager();
     }
 
     @Override
@@ -59,10 +61,13 @@ public class PantallaMenu extends GenericScreen {
         switch(lastLevel)
         {
             default:
-                levelTextureName= "background/menu_bg_1.png";
+                levelTextureName = "background/menu_bg_1.png";
 
         }
 
+        /*
+        assetManager.load("logo.png",
+        */
         texturaFondo = new Texture(levelTextureName);
         texturaTitulo = new Texture("logo.png");
         texturaFrente = new Texture("background/menu_bg_cover.png");
@@ -156,6 +161,7 @@ public class PantallaMenu extends GenericScreen {
 
         //Creamos la música
         music = new MusicController("music/loop.mp3");
+
 
     }
 
