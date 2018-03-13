@@ -26,8 +26,8 @@ class PantallaNiveles extends GenericScreen{
     //Escena para la pantalla Niveles
     private Stage escenaNiveles;
     private Stage escenaNivel1;
-    //private Stage escenaNivel2;
-    //private Stage escenaNivel3;
+    private Stage escenaNivel2;
+    private Stage escenaNivel3;
     private Stage currentScene;
 
     //Texturas
@@ -58,6 +58,8 @@ class PantallaNiveles extends GenericScreen{
     private void crearObjetos() {
         escenaNiveles = new Stage(view);
         escenaNivel1 = new Stage(view);
+        escenaNivel2 = new Stage(view);
+        escenaNivel3 = new Stage(view);
 
         Gdx.input.setInputProcessor(escenaNiveles);
 
@@ -77,7 +79,6 @@ class PantallaNiveles extends GenericScreen{
         });
         escenaNiveles.addActor(btnBack);
 
-
         //Botón Primer Nivel
         TextureRegionDrawable trdFirst = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOneBook.png")));
         TextureRegionDrawable trdFirstPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOneBook.png")));
@@ -96,7 +97,7 @@ class PantallaNiveles extends GenericScreen{
 
         //Botón Segundo Nivel
         TextureRegionDrawable trdSec = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
-        TextureRegionDrawable trdSecPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lock.png")));
+        TextureRegionDrawable trdSecPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
         ImageButton btnSec = new ImageButton(trdSec,trdSecPress);
         btnSec.setPosition(3*btnSec.getWidth(),PantallaMenu.ALTO/2 - btnSec.getHeight()/2);
 
@@ -104,7 +105,7 @@ class PantallaNiveles extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaNiveles(game));
+                changeScene(escenaNivel2);
 
             }
         });
@@ -113,7 +114,7 @@ class PantallaNiveles extends GenericScreen{
 
         //Botón Tercer Nivel
         TextureRegionDrawable trdThird = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
-        TextureRegionDrawable trdThirdPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lock.png")));
+        TextureRegionDrawable trdThirdPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
         ImageButton btnThird = new ImageButton(trdThird,trdThirdPress);
         btnThird.setPosition(5*btnThird.getWidth(),PantallaMenu.ALTO/2 - btnThird.getHeight()/2);
 
@@ -121,14 +122,19 @@ class PantallaNiveles extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaNiveles(game));
+                changeScene(escenaNivel3);
+                //game.setScreen(new PantallaNiveles(game));
 
             }
         });
         escenaNiveles.addActor(btnThird);
         currentScene = escenaNiveles;
 
-        //Botón Back Subniveles
+
+        //Objetos sibniveles primer nivel
+
+        //Boton back subnivel 1
+        //Botón Back
         ImageButton btnBackSub = new ImageButton(trdBack,trdBackPress);
         btnBackSub.setPosition(btnBackSub.getWidth()*2,PantallaMenu.ALTO/2 - btnBackSub.getHeight()/2);
 
@@ -140,12 +146,8 @@ class PantallaNiveles extends GenericScreen{
 
             }
         });
-
-
-        //OBJETOS SUBNIVEL 1: Primer nivel
-
-        //Boton back subnivel 1
         escenaNivel1.addActor(btnBackSub);
+
 
         //Botón Subnivel 1 primer nivel
         TextureRegionDrawable trdFirstSub1 = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
@@ -195,14 +197,26 @@ class PantallaNiveles extends GenericScreen{
         });
         escenaNivel1.addActor(btnThirdSub1);
 
-        /*OBJETOS SUBNIVEL 2: Segundo nivel
 
-        //Boton back subnivel 2
-        escenaNivel2.addActor(btnBackSub);
+        //Objetos subniveles segundo nivel
+
+        //Boton back
+        ImageButton btnBackSub2 = new ImageButton(trdBack,trdBackPress);
+        btnBackSub2.setPosition(btnBackSub2.getWidth()*2,PantallaMenu.ALTO/2 - btnBackSub2.getHeight()/2);
+
+        btnBackSub2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaNiveles(game));
+
+            }
+        });
+        escenaNivel2.addActor(btnBackSub2);
 
         //Botón Subnivel 1 segundo nivel
         TextureRegionDrawable trdFirstSub2 = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
-        TextureRegionDrawable trdFirstSub2Press = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
+        TextureRegionDrawable trdFirstSub2Press = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lock.png")));
         ImageButton btnFirstSub2 = new ImageButton(trdFirstSub2,trdFirstSub2Press);
         btnFirstSub2.setPosition(btnFirstSub2.getWidth(),PantallaMenu.ALTO/2 - btnFirstSub2.getHeight()/2);
 
@@ -246,7 +260,23 @@ class PantallaNiveles extends GenericScreen{
 
             }
         });
-        escenaNivel2.addActor(btnThirdSub2);*/
+        escenaNivel2.addActor(btnThirdSub2);
+
+        //Objetos subniveles tercer nivel
+
+        //Boton back
+        ImageButton btnBackSub3 = new ImageButton(trdBack,trdBackPress);
+        btnBackSub3.setPosition(btnBackSub3.getWidth()*2,PantallaMenu.ALTO/2 - btnBackSub3.getHeight()/2);
+
+        btnBackSub3.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new PantallaNiveles(game));
+
+            }
+        });
+        escenaNivel3.addActor(btnBackSub3);
 
 
     }
