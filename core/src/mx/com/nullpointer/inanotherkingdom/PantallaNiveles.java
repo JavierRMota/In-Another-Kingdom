@@ -278,10 +278,6 @@ class PantallaNiveles extends GenericScreen{
         });
         escenaNivel3.addActor(btnBackSub3);
 
-        
-
-
-
 
     }
 
