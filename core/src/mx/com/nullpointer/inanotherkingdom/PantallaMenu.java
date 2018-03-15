@@ -2,6 +2,7 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import mx.com.nullpointer.niveles.Nivel_Inicial;
+import mx.com.nullpointer.utils.Enemy;
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.MusicController;
 
@@ -33,13 +35,17 @@ public class PantallaMenu extends GenericScreen {
     private Texture texturaTitulo;
     private Texture texturaFondo;
     private Texture texturaFrente;
+    private Enemy bigDragon;
+
+    private Texture texturaBtnPlay;
     private MusicController music;
 
-
-
+    private final AssetManager assetManager;
 
     public PantallaMenu(Main game) {
+
         this.game = game;
+        assetManager = game.getAssetManager();
     }
 
     @Override
@@ -47,8 +53,6 @@ public class PantallaMenu extends GenericScreen {
         crearCamara();
         cargarTexturas();
         crearObjetos();
-
-
 
     }
 
@@ -59,13 +63,23 @@ public class PantallaMenu extends GenericScreen {
         switch(lastLevel)
         {
             default:
-                levelTextureName= "background/menu_bg_1.png";
+                levelTextureName = "background/menu_bg_1.png";
 
         }
 
-        texturaFondo = new Texture(levelTextureName);
-        texturaTitulo = new Texture("logo.png");
-        texturaFrente = new Texture("background/menu_bg_cover.png");
+        assetManager.load(levelTextureName, Texture.class);
+        assetManager.load("logo.png", Texture.class);
+        assetManager.load("background/menu_bg_cover.png", Texture.class);
+
+
+        assetManager.finishLoading();
+
+
+
+        texturaFondo = assetManager.get(levelTextureName);
+        texturaTitulo = assetManager.get("logo.png");
+        texturaFrente = assetManager.get("background/menu_bg_cover.png");
+        bigDragon = new Enemy(new Texture("characters/dragon_volando_tira.png"));
 
     }
 
@@ -157,6 +171,7 @@ public class PantallaMenu extends GenericScreen {
         //Creamos la música
         music = new MusicController("music/loop.mp3");
 
+
     }
 
 
@@ -173,6 +188,7 @@ public class PantallaMenu extends GenericScreen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(texturaFondo,0 ,0);
+        bigDragon.moveEnemy(delta,batch);
         batch.draw(texturaFrente,0,0);
         //Dibujando el título
         batch.draw(texturaTitulo, 4*ANCHO/5 - texturaTitulo.getWidth()/2, 5*ALTO/8 );
@@ -180,5 +196,16 @@ public class PantallaMenu extends GenericScreen {
         escenaMenu.draw();
     }
 
+    @Override
+    public void dispose() {
+        texturaFondo.dispose();
+        texturaTitulo.dispose();
+        texturaFrente.dispose();
+        escenaMenu.dispose();
 
+        //AssetManager libera los recursos
+        assetManager.unload("background/menu_bg_1.png");
+        assetManager.unload("logo.png");
+        assetManager.unload("background/menu_bg_cover.png");
+    }
 }

@@ -17,7 +17,7 @@ public class MainCharacter extends Objeto
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float VY = 8, VX=400,G=10;
+    private float VY = 25, VX=200,G=40;
     private boolean checkRun=false;
 
 
@@ -151,7 +151,7 @@ public class MainCharacter extends Objeto
         else if(movementState==MovementState.RUNNING)timerRunning+=delta;*/
 
         TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy-1);
-        TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+1);
+        TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+2);
         if(movementState == MovementState.JUMPING && currentCellUp!=null
                 && (currentCellUp.getTile().getId()==2
                 ||currentCellUp.getTile().getId()== 3
@@ -222,7 +222,7 @@ public class MainCharacter extends Objeto
     }
     public void jump(SpriteBatch batch)
     {
-        timerAction+=Gdx.graphics.getDeltaTime();
+        timerAction+=Gdx.graphics.getDeltaTime()*2f;
         if(timerAction>0.04*6 && movementState==MovementState.JUMPING_PREPARE) movementState=MovementState.JUMPING;
         else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
         if(movementState== MovementState.FALLING)
