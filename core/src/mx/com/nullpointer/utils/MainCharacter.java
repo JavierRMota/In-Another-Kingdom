@@ -17,7 +17,7 @@ public class MainCharacter extends Objeto
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float VY = 25, VX=200,G=40;
+    private float VY = 30, VX=300,G=50;
     private boolean checkRun=false;
 
 
@@ -222,7 +222,7 @@ public class MainCharacter extends Objeto
     }
     public void jump(SpriteBatch batch)
     {
-        timerAction+=Gdx.graphics.getDeltaTime()*2f;
+        timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
         if(timerAction>0.04*6 && movementState==MovementState.JUMPING_PREPARE) movementState=MovementState.JUMPING;
         else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
         if(movementState== MovementState.FALLING)

@@ -15,7 +15,7 @@ public class Enemy extends Objeto
     private Animation animation;
     private float timerAnimation;
     private float x,y;
-    private float VX =200;
+    private float VX =500;
     //Frame 154*131
     public Enemy(Texture texture)
     {
@@ -23,7 +23,7 @@ public class Enemy extends Objeto
         TextureRegion region = new TextureRegion(texture);
         //Tamaño
         TextureRegion[][] characterTexture = region.split(399,412);
-        animation = new Animation(0.2f,
+        animation = new Animation(0.1f,
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][3],characterTexture[0][2],characterTexture[0][1]);
         animation.setPlayMode(Animation.PlayMode.LOOP);
