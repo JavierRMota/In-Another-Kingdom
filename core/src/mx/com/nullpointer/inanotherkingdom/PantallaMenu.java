@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import mx.com.nullpointer.niveles.Nivel_Inicial;
+import mx.com.nullpointer.niveles.*;
 import mx.com.nullpointer.utils.Enemy;
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.MusicController;
@@ -97,7 +97,7 @@ public class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new Nivel_Inicial(game));
+                game.setScreen(new Nivel_Uno(game));
             }
         });
         escenaMenu.addActor(btnPlay);
