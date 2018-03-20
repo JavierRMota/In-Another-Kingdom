@@ -242,7 +242,7 @@ public class Nivel_Inicial extends GenericScreen {
         int cx = (int)(laurence.getX()+70)/70;
         int cy = (int)(laurence.getY())/70;
         winOrLoose();
-        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(2);
+        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
         laurence.move(layer,delta, cx, cy);
 

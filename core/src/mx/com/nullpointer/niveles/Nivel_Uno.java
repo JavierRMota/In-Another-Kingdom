@@ -229,7 +229,6 @@ public class Nivel_Uno extends GenericScreen {
         {
             pauseScene.draw();
         }
-        Gdx.app.log("Y: ", laurence.getY()+"");
     }
 
     private void update(float delta) {
@@ -243,7 +242,7 @@ public class Nivel_Uno extends GenericScreen {
         int cx = (int)(laurence.getX()+70)/70;
         int cy = (int)(laurence.getY())/70;
         winOrLoose();
-        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(5);
+        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
         laurence.move(layer,delta, cx, cy);
 
