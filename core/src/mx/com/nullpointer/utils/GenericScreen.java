@@ -80,6 +80,7 @@ public abstract class GenericScreen implements Screen
 
         @Override
         public void hide() {
+
             dispose();
         }
 
