@@ -179,13 +179,14 @@ public class Nivel_Inicial extends GenericScreen {
     }
 
     private void loadMap() {
-        AssetManager manager = new AssetManager();
+        /*AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load("map/nivelCero.tmx", TiledMap.class);
-        manager.finishLoading();
-        //AssetManager manager = game.getAssetManager();
+        manager.finishLoading();*/
+        AssetManager manager = game.getAssetManager();
         tiledMap = manager.get("map/nivelCero.tmx");
         render = new OrthogonalTiledMapRenderer(tiledMap);
+
     }
 
     private void createHUD() {
@@ -324,7 +325,9 @@ public class Nivel_Inicial extends GenericScreen {
     @Override
     public void dispose()
     {
+        game.getAssetManager().unload("map/nivelCero.tmx");
         buttonScene.dispose();
+        tiledMap.dispose();
     }
     @Override
     public void pause() {

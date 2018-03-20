@@ -15,7 +15,7 @@ public class Enemy extends Objeto
     private Animation animation;
     private float timerAnimation;
     private float x,y;
-    private float VX =500;
+    private float VX =-500;
     //Frame 154*131
     public Enemy(Texture texture)
     {
@@ -33,12 +33,20 @@ public class Enemy extends Objeto
     }
     public void moveEnemy(float delta, SpriteBatch batch)
     {
-        x-=delta*VX;
-        if(x<-500)
-            x= 2*GenericScreen.ANCHO;
+
+        x+=delta*VX;
+
         timerAnimation+=delta;
         TextureRegion region = (TextureRegion) animation.getKeyFrame(timerAnimation);
-        batch.draw(region, x, y);
+        if(x<-1000||x>2000)
+        {
+            VX=-VX;
+        }
+        if(VX>0)
+            batch.draw(region,x,y,-region.getRegionWidth(),region.getRegionHeight());
+        else
+            batch.draw(region, x, y);
+
 
     }
 }

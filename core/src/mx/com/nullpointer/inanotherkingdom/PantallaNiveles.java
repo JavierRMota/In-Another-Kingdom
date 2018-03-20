@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import mx.com.nullpointer.niveles.Nivel_Inicial;
+import mx.com.nullpointer.niveles.Nivel_Uno;
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.Text;
 
@@ -50,7 +51,6 @@ class PantallaNiveles extends GenericScreen{
 
     private void cargarTexturas() {
         texturaFondo = new Texture("background/menubg.png");
-        //msg = new Text();
         texturaTitulo = new Texture("logo_alargado.png");
 
     }
@@ -175,7 +175,7 @@ class PantallaNiveles extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(currentScene);
+                game.setScreen(new Nivel_Uno(game));
 
             }
         });

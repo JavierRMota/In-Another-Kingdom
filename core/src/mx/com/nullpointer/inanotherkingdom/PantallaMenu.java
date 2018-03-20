@@ -38,7 +38,7 @@ public class PantallaMenu extends GenericScreen {
     private Enemy bigDragon;
 
     private Texture texturaBtnPlay;
-    private MusicController music;
+
 
     private final AssetManager assetManager;
 
@@ -79,7 +79,7 @@ public class PantallaMenu extends GenericScreen {
         texturaFondo = assetManager.get(levelTextureName);
         texturaTitulo = assetManager.get("logo.png");
         texturaFrente = assetManager.get("background/menu_bg_cover.png");
-        bigDragon = new Enemy(new Texture("characters/dragon_volando_tira.png"));
+         bigDragon = new Enemy(new Texture("characters/dragon_volando_tira.png"));
 
     }
 
@@ -97,7 +97,7 @@ public class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new Nivel_Uno(game));
+                game.setScreen(new PantallaCargando(game));
             }
         });
         escenaMenu.addActor(btnPlay);
@@ -169,7 +169,7 @@ public class PantallaMenu extends GenericScreen {
         Gdx.input.setInputProcessor(escenaMenu);
 
         //Creamos la música
-        music = new MusicController("music/loop.mp3");
+        music = new MusicController("music/menu.mp3");
 
 
     }

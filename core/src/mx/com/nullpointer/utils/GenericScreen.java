@@ -28,6 +28,9 @@ public abstract class GenericScreen implements Screen
         //Batch
         protected SpriteBatch batch;
 
+        //Music
+        protected MusicController music;
+
         public GenericScreen()
         {
             camera = new OrthographicCamera(ANCHO, ALTO);

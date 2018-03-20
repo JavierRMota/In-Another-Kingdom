@@ -46,11 +46,9 @@ public class PantallaCargando extends GenericScreen {
 
     //Rescursos de la siguiente pantalla
     private void cargarRecursos() {
-        AssetManager manager = new AssetManager();
-        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load("map/nivelCero.tmx", TiledMap.class);
-        manager.finishLoading();
-
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        assetManager.load("map/nivelCero.tmx", TiledMap.class);
+        assetManager.finishLoading();
     }
 
 
@@ -72,10 +70,14 @@ public class PantallaCargando extends GenericScreen {
 
     //Revisa como va la carga de los assets
     private void actualizarCarga() {
+
+
         if(assetManager.update()){
             game.setScreen(new Nivel_Inicial(game));
+
         } else{
             float avance = assetManager.getProgress();
+            Gdx.app.log("Avance:",avance+"");
         }
     }
 
