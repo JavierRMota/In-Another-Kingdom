@@ -5,12 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import mx.com.nullpointer.inanotherkingdom.PantallaMenu;
-
 /**
  * Created by mota on 2/20/18.
  */
-public class Enemy extends Objeto
+public class Enemy extends GameObject
 {
     private Animation animation;
     private float timerAnimation;

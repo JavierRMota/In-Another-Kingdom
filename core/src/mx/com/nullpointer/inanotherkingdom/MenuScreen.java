@@ -5,7 +5,6 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import mx.com.nullpointer.niveles.*;
 import mx.com.nullpointer.utils.Enemy;
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.MusicController;
@@ -23,7 +21,7 @@ import mx.com.nullpointer.utils.MusicController;
  * Created by Carlos Carbajal on 05-feb-18.
  */
 
-public class PantallaMenu extends GenericScreen {
+public class MenuScreen extends GenericScreen {
     private final Main game;
 
 
@@ -42,7 +40,7 @@ public class PantallaMenu extends GenericScreen {
 
     private final AssetManager assetManager;
 
-    public PantallaMenu(Main game) {
+    public MenuScreen(Main game) {
 
         this.game = game;
         assetManager = game.getAssetManager();
@@ -97,7 +95,7 @@ public class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaCargando(game));
+                game.setScreen(new LoadingScreen(game));
             }
         });
         escenaMenu.addActor(btnPlay);
@@ -113,7 +111,7 @@ public class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaNiveles(game));
+                game.setScreen(new LevelsScreen(game));
             }
         });
         escenaMenu.addActor(btnLevels);
@@ -145,7 +143,7 @@ public class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaAjustes(game));
+                game.setScreen(new SettingsScreen(game));
             }
         });
         escenaMenu.addActor(btnAjustes);
@@ -161,7 +159,7 @@ public class PantallaMenu extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaAcercade(game));
+                game.setScreen(new AboutScreen(game));
             }
         });
         escenaMenu.addActor(btnPregunta);

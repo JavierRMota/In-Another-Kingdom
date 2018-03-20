@@ -1,23 +1,21 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import mx.com.nullpointer.niveles.Nivel_Inicial;
+import mx.com.nullpointer.niveles.LevelZero;
 import mx.com.nullpointer.utils.GenericScreen;
 
 /**
  * Created by MarinaHaro on 13/03/18.
  */
 
-public class PantallaCargando extends GenericScreen {
+public class LoadingScreen extends GenericScreen {
 
     private Main game;
 
@@ -26,7 +24,7 @@ public class PantallaCargando extends GenericScreen {
 
     private AssetManager assetManager;
 
-    public PantallaCargando(Main game){
+    public LoadingScreen(Main game){
         this.game = game;
         this.assetManager = game.getAssetManager();
     }
@@ -73,7 +71,7 @@ public class PantallaCargando extends GenericScreen {
 
 
         if(assetManager.update()){
-            game.setScreen(new Nivel_Inicial(game));
+            game.setScreen(new LevelZero(game));
 
         } else{
             float avance = assetManager.getProgress();

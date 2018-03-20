@@ -20,7 +20,7 @@ import mx.com.nullpointer.utils.MusicController;
  * Created by Carlos Carbajal on 06-feb-18.
  */
 
-public class PantallaAjustes extends GenericScreen {
+public class SettingsScreen extends GenericScreen {
     private final Main game;
 
     private Stage escenaAjustes;
@@ -31,7 +31,7 @@ public class PantallaAjustes extends GenericScreen {
     private Preferences prefsMusic = Gdx.app.getPreferences("Musica");
 
 
-    public PantallaAjustes(Main game) {this.game = game;}
+    public SettingsScreen(Main game) {this.game = game;}
 
     @Override
     public void show() {
@@ -63,7 +63,7 @@ public class PantallaAjustes extends GenericScreen {
             btnVolumen = new ImageButton(trdVolumenPress,trdVolumen);
         }
 
-        btnVolumen.setPosition(PantallaMenu.ANCHO /2 - btnVolumen.getWidth()/2, PantallaMenu.ALTO /2 + btnVolumen.getHeight()*1.5f);
+        btnVolumen.setPosition(MenuScreen.ANCHO /2 - btnVolumen.getWidth()/2, MenuScreen.ALTO /2 + btnVolumen.getHeight()*1.5f);
 
         btnVolumen.addListener(new ClickListener(){
             @Override
@@ -92,7 +92,7 @@ public class PantallaAjustes extends GenericScreen {
         TextureRegionDrawable trdRate = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
         TextureRegionDrawable trdRatePress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
         ImageButton btnRate = new ImageButton(trdRate,trdRatePress);
-        btnRate.setPosition(PantallaMenu.ANCHO /2 - btnRate.getWidth()/2, PantallaMenu.ALTO /2);
+        btnRate.setPosition(MenuScreen.ANCHO /2 - btnRate.getWidth()/2, MenuScreen.ALTO /2);
 
         btnRate.addListener(new ClickListener(){
             @Override
@@ -107,7 +107,7 @@ public class PantallaAjustes extends GenericScreen {
         TextureRegionDrawable trdSfx = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxxOn.png")));
         TextureRegionDrawable trdSfxPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxOff.png")));
         ImageButton btnSfx = new ImageButton(trdSfx,trdSfxPress);
-        btnSfx.setPosition(PantallaMenu.ANCHO /2 - btnSfx.getWidth()/2, PantallaMenu.ALTO /2 -btnSfx.getHeight()*1.5f);
+        btnSfx.setPosition(MenuScreen.ANCHO /2 - btnSfx.getWidth()/2, MenuScreen.ALTO /2 -btnSfx.getHeight()*1.5f);
 
         btnSfx.addListener(new ClickListener(){
             @Override
@@ -123,13 +123,13 @@ public class PantallaAjustes extends GenericScreen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth()*2,PantallaMenu.ALTO/2 - btnBack.getHeight()/2);
+        btnBack.setPosition(btnBack.getWidth()*2, MenuScreen.ALTO/2 - btnBack.getHeight()/2);
 
         btnBack.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaMenu(game));
+                game.setScreen(new MenuScreen(game));
 
             }
         });

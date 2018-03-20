@@ -4,13 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,7 +20,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
 
-import mx.com.nullpointer.inanotherkingdom.PantallaMenu;
+import mx.com.nullpointer.inanotherkingdom.MenuScreen;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericScreen;
 
@@ -35,13 +33,13 @@ import mx.com.nullpointer.utils.Text;
  * Created by mota on 2/12/18.
  */
 
-public class Nivel_Uno extends GenericScreen {
+public class LevelZero extends GenericScreen {
     //Game object
     private final Main game;
     //Maps
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer render;
-    private static final float MAP_WIDTH = 200*70;
+    private static final float MAP_WIDTH = 80*70;
     //Character
     private MainCharacter laurence;
     //Scores
@@ -59,7 +57,7 @@ public class Nivel_Uno extends GenericScreen {
     //Controlador de juego
     private GameState gameState;
     //Constructor
-    public Nivel_Uno(Main game)
+    public LevelZero(Main game)
     {
         this.game =game;
     }
@@ -168,7 +166,7 @@ public class Nivel_Uno extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new PantallaMenu(game));
+                game.setScreen(new MenuScreen(game));
             }
         });
         pauseScene.addActor(btnBack);
@@ -179,12 +177,14 @@ public class Nivel_Uno extends GenericScreen {
     }
 
     private void loadMap() {
-        AssetManager manager = new AssetManager();
+        /*AssetManager manager = new AssetManager();
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load("map/nivelUno.tmx", TiledMap.class);
-        manager.finishLoading();
-        tiledMap = manager.get("map/nivelUno.tmx");
+        manager.load("map/nivelCero.tmx", TiledMap.class);
+        manager.finishLoading();*/
+        AssetManager manager = game.getAssetManager();
+        tiledMap = manager.get("map/nivelCero.tmx");
         render = new OrthogonalTiledMapRenderer(tiledMap);
+
     }
 
     private void createHUD() {
@@ -227,7 +227,7 @@ public class Nivel_Uno extends GenericScreen {
         }
         else
         {
-            pauseScene.draw();
+                pauseScene.draw();
         }
     }
 
@@ -258,7 +258,7 @@ public class Nivel_Uno extends GenericScreen {
         if(gameState== GameState.WIN || gameState== GameState.LOOSE)
         {
             Gdx.app.log("Estado: ", gameState+"");
-            game.setScreen(new PantallaMenu(game));
+            game.setScreen(new MenuScreen(game));
         }
     }
 
@@ -317,13 +317,15 @@ public class Nivel_Uno extends GenericScreen {
 
     @Override
     public void resize(int width, int height) {
-        viewHUD.update(width,height);
-        view.update(width,height);
+    viewHUD.update(width,height);
+    view.update(width,height);
     }
     @Override
     public void dispose()
     {
+        game.getAssetManager().unload("map/nivelCero.tmx");
         buttonScene.dispose();
+        tiledMap.dispose();
     }
     @Override
     public void pause() {

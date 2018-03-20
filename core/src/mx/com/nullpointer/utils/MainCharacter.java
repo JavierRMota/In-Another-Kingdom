@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
  * Created by mota on 2/13/18.
  */
 
-public class MainCharacter extends Objeto
+public class MainCharacter extends GameObject
 {
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;

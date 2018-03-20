@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
@@ -27,7 +25,7 @@ public class Main extends Game {
 		if(lastLevel ==0)
 			prefs.putInteger("lastLevel", 1);
 
-		setScreen(new PantallaMenu(this));
+		setScreen(new MenuScreen(this));
 
 	}
 
