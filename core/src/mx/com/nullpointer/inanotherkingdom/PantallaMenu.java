@@ -91,7 +91,7 @@ public class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtnpress.png")));
 
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
-        btnPlay.setPosition(4*ANCHO/5 - btnPlay.getWidth()/2, 9*ALTO/16 - btnPlay.getHeight());
+        btnPlay.setPosition(ANCHO - ANCHO/4 - btnPlay.getWidth()/2 + btnPlay.getWidth()/4, 9*ALTO/16 - btnPlay.getHeight());
 
         btnPlay.addListener(new ClickListener(){
             @Override
@@ -107,7 +107,7 @@ public class PantallaMenu extends GenericScreen {
         TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/levelsbtnpress.png")));
 
         ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
-        btnLevels.setPosition(ANCHO-30 - 3*btnLevels.getWidth(), ALTO/2 - btnLevels.getHeight()*2.5f);
+        btnLevels.setPosition(ANCHO - 2*(ANCHO/6)- btnLevels.getWidth(), ALTO/2 - btnLevels.getHeight()*2.5f);
 
         btnLevels.addListener(new ClickListener(){
             @Override
@@ -132,14 +132,14 @@ public class PantallaMenu extends GenericScreen {
                 game.setScreen(new PantallaArsenal(game));
             }
         });
-        escenaMenu.addActor(btnArsenal);
+        //escenaMenu.addActor(btnArsenal);
 
 
         //Botón Ajustes
         TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtn.png")));
         TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtnpress.png")));
         ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
-        btnAjustes.setPosition( ANCHO -20- 2*btnAjustes.getWidth(), ALTO/2 - btnAjustes.getHeight()*2.5f);
+        btnAjustes.setPosition( ANCHO - ANCHO/6 - btnAjustes.getWidth(), ALTO/2 - btnAjustes.getHeight()*2.5f);
 
         btnAjustes.addListener(new ClickListener(){
             @Override

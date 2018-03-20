@@ -97,7 +97,7 @@ class PantallaNiveles extends GenericScreen{
 
         //Botón Segundo Nivel
         TextureRegionDrawable trdSec = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
-        TextureRegionDrawable trdSecPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
+        TextureRegionDrawable trdSecPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lock.png")));
         ImageButton btnSec = new ImageButton(trdSec,trdSecPress);
         btnSec.setPosition(3*btnSec.getWidth(),PantallaMenu.ALTO/2 - btnSec.getHeight()/2);
 
@@ -105,7 +105,7 @@ class PantallaNiveles extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(escenaNivel2);
+                changeScene(currentScene);
 
             }
         });
@@ -114,7 +114,7 @@ class PantallaNiveles extends GenericScreen{
 
         //Botón Tercer Nivel
         TextureRegionDrawable trdThird = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
-        TextureRegionDrawable trdThirdPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
+        TextureRegionDrawable trdThirdPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lock.png")));
         ImageButton btnThird = new ImageButton(trdThird,trdThirdPress);
         btnThird.setPosition(5*btnThird.getWidth(),PantallaMenu.ALTO/2 - btnThird.getHeight()/2);
 
@@ -122,7 +122,7 @@ class PantallaNiveles extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(escenaNivel3);
+                changeScene(currentScene);
                 //game.setScreen(new PantallaNiveles(game));
 
             }
