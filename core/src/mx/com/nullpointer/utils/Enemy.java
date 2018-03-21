@@ -26,7 +26,7 @@ public class Enemy extends GameObject
                 characterTexture[0][4],characterTexture[0][3],characterTexture[0][2],characterTexture[0][1]);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation=0;
-        x= GenericScreen.ANCHO;
+        x= GenericScreen.WIDTH;
         y=300;
     }
     public void moveEnemy(float delta, SpriteBatch batch)

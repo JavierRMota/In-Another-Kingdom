@@ -130,7 +130,7 @@ public class LevelZero extends GenericScreen {
         TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(new Texture("btn/pausebtn.png")));
         TextureRegionDrawable trdPausePress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/pausebtnpress.png")));
         ImageButton btnPause = new ImageButton(trdPause,trdPausePress);
-        btnPause.setPosition(ANCHO/2 - btnPause.getWidth()/2, ALTO - 1.5f*btnPause.getHeight());
+        btnPause.setPosition(WIDTH /2 - btnPause.getWidth()/2, HEIGHT - 1.5f*btnPause.getHeight());
         btnPause.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -148,7 +148,7 @@ public class LevelZero extends GenericScreen {
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtn.png")));
         TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtnpress.png")));
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
-        btnPlay.setPosition(ANCHO/2 - btnPlay.getWidth()/2, ALTO/2 - btnPlay.getHeight()/2);
+        btnPlay.setPosition(WIDTH /2 - btnPlay.getWidth()/2, HEIGHT /2 - btnPlay.getHeight()/2);
         btnPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -161,7 +161,7 @@ public class LevelZero extends GenericScreen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(ANCHO/4 - btnBack.getWidth()/2, ALTO/2 - btnBack.getHeight()/2);
+        btnBack.setPosition(WIDTH /4 - btnBack.getWidth()/2, HEIGHT /2 - btnBack.getHeight()/2);
         btnBack.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -188,10 +188,10 @@ public class LevelZero extends GenericScreen {
     }
 
     private void createHUD() {
-        cameraHUD = new OrthographicCamera(ANCHO,ALTO);
-        cameraHUD.position.set(ANCHO/2,ALTO/2,0);
+        cameraHUD = new OrthographicCamera(WIDTH, HEIGHT);
+        cameraHUD.position.set(WIDTH /2, HEIGHT /2,0);
         cameraHUD.update();
-        viewHUD = new StretchViewport(ANCHO,ALTO,cameraHUD);
+        viewHUD = new StretchViewport(WIDTH, HEIGHT,cameraHUD);
 
     }
 
@@ -216,9 +216,9 @@ public class LevelZero extends GenericScreen {
         //Draw buttons and information
         batch.setProjectionMatrix(cameraHUD.combined);
         batch.begin();
-        batch.draw(coinTexture,4*ANCHO/5+0.8f*coinTexture.getWidth(),ALTO-1.2f*coinTexture.getHeight());
-        batch.draw(emptyKeyTexture,4*ANCHO/5+0.8f*fullKeyTexture.getWidth(),ALTO-5*fullKeyTexture.getHeight());
-        scoreDisplay.showMsg(batch, coinScore,9*ANCHO/10,ALTO,2);
+        batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
+        batch.draw(emptyKeyTexture,4* WIDTH /5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
         batch.end();
 
         if(gameState == GameState.PLAY)
@@ -249,7 +249,7 @@ public class LevelZero extends GenericScreen {
     }
 
     private void winOrLoose() {
-        if(laurence.getX()< camera.position.x-3*ANCHO/4 || laurence.getY()<0)
+        if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
         {
             gameState=GameState.LOOSE;
         }
@@ -307,8 +307,8 @@ public class LevelZero extends GenericScreen {
         //Para que la cámara avance sola hasta el final de la pantalla
 
         float posX = camera.position.x+delta*laurence.getVelocity()*0.9f;
-        if (posX > MAP_WIDTH - ANCHO/2) {   // Última mitad de la pantalla
-            camera.position.set(MAP_WIDTH-ANCHO/2,camera.position.y,0);
+        if (posX > MAP_WIDTH - WIDTH /2) {   // Última mitad de la pantalla
+            camera.position.set(MAP_WIDTH- WIDTH /2,camera.position.y,0);
         } else {    // En 'medio' del mapa
             camera.position.set(posX,camera.position.y,0);
         }

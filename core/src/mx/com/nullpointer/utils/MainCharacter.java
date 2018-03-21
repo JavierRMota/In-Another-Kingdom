@@ -70,7 +70,7 @@ public class MainCharacter extends GameObject
         sprite.setPosition(0,64);
 
         //Posición
-        x = GenericScreen.ANCHO/8;
+        x = GenericScreen.WIDTH /8;
         y = 70;
     }
 

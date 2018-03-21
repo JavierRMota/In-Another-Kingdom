@@ -1,6 +1,7 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,19 +19,22 @@ import mx.com.nullpointer.utils.Text;
 
 class AboutScreen extends GenericScreen {
     private final Main game;
+    private final AssetManager assetManager;
 
 
     //Escena para la pantalla Acercade
-    private Stage escenaAcercade;
+    private Stage aboutStage;
 
 
     //Texturas
-    private Texture texturaFondo;
+    private Texture backgroundTexture;
     private Text msg;
 
 
-    public AboutScreen(Main game) {
+    public AboutScreen(Main game)
+    {
         this.game = game;
+        this.assetManager = this.game.getAssetManager();
     }
 
     @Override
@@ -41,19 +45,19 @@ class AboutScreen extends GenericScreen {
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture("background/menubg.png");
+        backgroundTexture = new Texture("background/menubg.png");
         msg = new Text();
 
     }
 
     private void crearObjetos() {
-        escenaAcercade = new Stage(view);
+        aboutStage = new Stage(view);
 
         //Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth()*2, MenuScreen.ALTO/2 - btnBack.getHeight()/2);
+        btnBack.setPosition(btnBack.getWidth()*2, MenuScreen.HEIGHT /2 - btnBack.getHeight()/2);
 
         btnBack.addListener(new ClickListener(){
             @Override
@@ -63,8 +67,8 @@ class AboutScreen extends GenericScreen {
 
             }
         });
-        escenaAcercade.addActor(btnBack);
-        Gdx.input.setInputProcessor(escenaAcercade);
+        aboutStage.addActor(btnBack);
+        Gdx.input.setInputProcessor(aboutStage);
 
     }
 
@@ -76,11 +80,11 @@ class AboutScreen extends GenericScreen {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        batch.draw(texturaFondo,0 ,0);
-        msg.showMsg(batch,"Informacion",ANCHO/2,3*ALTO/4,2);
-        msg.showMsg(batch,"Proximamente",ANCHO/2,ALTO/2,1);
+        batch.draw(backgroundTexture,0 ,0);
+        msg.showMsg(batch,"Informacion", WIDTH /2,3* HEIGHT /4,2);
+        msg.showMsg(batch,"Proximamente", WIDTH /2, HEIGHT /2,1);
         batch.end();
-        escenaAcercade.draw();
+        aboutStage.draw();
 
 
     }

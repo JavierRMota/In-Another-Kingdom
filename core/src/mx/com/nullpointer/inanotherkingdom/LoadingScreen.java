@@ -17,33 +17,33 @@ import mx.com.nullpointer.utils.GenericScreen;
 
 public class LoadingScreen extends GenericScreen {
 
-    private Main game;
+    private final Main game;
+    private Texture loadingTexture;
+    private Sprite loadingSprite;
+    private final AssetManager assetManager;
+    private int screen;
 
-    private Texture texturaCargando;
-    private Sprite spriteCargando;
-
-    private AssetManager assetManager;
-
-    public LoadingScreen(Main game){
+    public LoadingScreen(Main game, int screen){
         this.game = game;
         this.assetManager = game.getAssetManager();
+        this.screen = screen;
     }
 
     @Override
     public void show() {
-
-        assetManager.load("cargando.png", Texture.class);
-        assetManager.finishLoading();
-        texturaCargando = assetManager.get("cargando.png");
-        spriteCargando = new Sprite(texturaCargando);
-        spriteCargando.setPosition(ANCHO/2- spriteCargando.getWidth()/2, ALTO/2-spriteCargando.getHeight()/2);
-
-        cargarRecursos();
+        loadingTexture = new Texture("cargando.png");
+        loadingSprite = new Sprite(loadingTexture);
+        loadingSprite.setPosition(WIDTH /2- loadingSprite.getWidth()/2, HEIGHT /2- loadingSprite.getHeight()/2);
+        loadResources();
 
     }
 
     //Rescursos de la siguiente pantalla
-    private void cargarRecursos() {
+    private void loadResources() {
+        switch (screen)
+        {
+
+        }
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         assetManager.load("map/nivelCero.tmx", TiledMap.class);
         assetManager.finishLoading();
@@ -56,12 +56,12 @@ public class LoadingScreen extends GenericScreen {
         actualizarCarga();
 
         clearScreen();
-        spriteCargando.setRotation(spriteCargando.getRotation()+10);
+        loadingSprite.setRotation(loadingSprite.getRotation()+10);
 
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        spriteCargando.draw(batch);
+        loadingSprite.draw(batch);
         batch.end();
     }
 
@@ -81,7 +81,7 @@ public class LoadingScreen extends GenericScreen {
 
     @Override
     public void dispose() {
-        texturaCargando.dispose();
+        loadingTexture.dispose();
         assetManager.unload("cargando.png");
     }
 

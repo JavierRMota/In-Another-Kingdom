@@ -1,6 +1,7 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -16,18 +17,23 @@ import mx.com.nullpointer.utils.Text;
  * Created by Carlos Carbajal on 06-feb-18.
  */
 
-class PantallaArsenal extends GenericScreen {
+class ArmoryScreen extends GenericScreen {
 
     private final Main game;
+    private final AssetManager assetManager;
 
     //Texturas
-    private Texture texturaFondo;
+    private Texture backgroundTexture;
 
-    private Stage escenaArsenal;
+    private Stage armoryStage;
     private Text msg;
 
 
-    public PantallaArsenal(Main game) {this.game = game;}
+    public ArmoryScreen(Main game)
+    {
+        this.game = game;
+        this.assetManager = this.game.getAssetManager();
+    }
 
     @Override
     public void show() {
@@ -36,19 +42,19 @@ class PantallaArsenal extends GenericScreen {
     }
 
     private void cargarTexturas() {
-        texturaFondo = new Texture("background/menubg.png");
+        backgroundTexture = new Texture("background/menubg.png");
         msg = new Text();
 
     }
 
     private void crearArsenal() {
-        escenaArsenal = new Stage(view);
+        armoryStage = new Stage(view);
 
         //Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth()*2, MenuScreen.ALTO/2 - btnBack.getHeight()/2);
+        btnBack.setPosition(btnBack.getWidth()*2, MenuScreen.HEIGHT /2 - btnBack.getHeight()/2);
 
         btnBack.addListener(new ClickListener(){
             @Override
@@ -58,8 +64,8 @@ class PantallaArsenal extends GenericScreen {
 
             }
         });
-        escenaArsenal.addActor(btnBack);
-        Gdx.input.setInputProcessor(escenaArsenal);
+        armoryStage.addActor(btnBack);
+        Gdx.input.setInputProcessor(armoryStage);
     }
 
     @Override
@@ -68,11 +74,11 @@ class PantallaArsenal extends GenericScreen {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(texturaFondo,0 ,0);
-        msg.showMsg(batch,"Arsenal",ANCHO/2,3*ALTO/4,2);
-        msg.showMsg(batch,"Proximamente",ANCHO/2,ALTO/2,1);
+        batch.draw(backgroundTexture,0 ,0);
+        msg.showMsg(batch,"Arsenal", WIDTH /2,3* HEIGHT /4,2);
+        msg.showMsg(batch,"Proximamente", WIDTH /2, HEIGHT /2,1);
         batch.end();
-        escenaArsenal.draw();
+        armoryStage.draw();
     }
 
 }
