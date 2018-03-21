@@ -50,17 +50,16 @@ public class PantallaAjustes extends GenericScreen {
         escenaAjustes = new Stage(view);
         //Botón Volumen
 
-        TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
-        TextureRegionDrawable trdVolumenPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
+        TextureRegionDrawable trdSonido = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
+        TextureRegionDrawable trdSonidoFx = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
         ImageButton btnVolumen;
 
 
         if(prefsMusic.getBoolean("play", true)){
-            btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
+            btnVolumen = new ImageButton(trdSonido,trdSonidoFx);
         }
-
         else{
-            btnVolumen = new ImageButton(trdVolumenPress,trdVolumen);
+            btnVolumen = new ImageButton(trdSonidoFx,trdSonido);
         }
 
         btnVolumen.setPosition(PantallaMenu.ANCHO /2 - btnVolumen.getWidth()/2, PantallaMenu.ALTO /2 + btnVolumen.getHeight()*1.5f);
@@ -98,25 +97,11 @@ public class PantallaAjustes extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-
+                Gdx.net.openURI("http://nullpointer.com.mx");
             }
         });
         escenaAjustes.addActor(btnRate);
 
-        //Botón SFX
-        TextureRegionDrawable trdSfx = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxxOn.png")));
-        TextureRegionDrawable trdSfxPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxOff.png")));
-        ImageButton btnSfx = new ImageButton(trdSfx,trdSfxPress);
-        btnSfx.setPosition(PantallaMenu.ANCHO /2 - btnSfx.getWidth()/2, PantallaMenu.ALTO /2 -btnSfx.getHeight()*1.5f);
-
-        btnSfx.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-
-            }
-        });
-        escenaAjustes.addActor(btnSfx);
 
         Gdx.input.setInputProcessor(escenaAjustes);
         //Botón Back
