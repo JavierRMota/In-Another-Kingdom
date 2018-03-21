@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
  * Created by mota on 2/13/18.
  */
 
-public class MainCharacter extends Objeto
+public class MainCharacter extends GameObject
 {
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;
@@ -70,7 +70,7 @@ public class MainCharacter extends Objeto
         sprite.setPosition(0,64);
 
         //Posición
-        x = GenericScreen.ANCHO/8;
+        x = GenericScreen.WIDTH /8;
         y = 70;
     }
 

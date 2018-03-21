@@ -3,8 +3,6 @@ package mx.com.nullpointer.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
-import mx.com.nullpointer.inanotherkingdom.PantallaAjustes;
-
 /**
  * Created by mota on 2/27/18.
  */

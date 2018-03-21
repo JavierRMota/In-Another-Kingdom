@@ -12,16 +12,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 
-public class Objeto
+public class GameObject
 {
     protected Sprite sprite;    // Imagen
 
-    public Objeto(Texture texture, float x, float y) {
+    public GameObject(Texture texture, float x, float y) {
         sprite = new Sprite(texture);
         sprite.setPosition(x, y);
     }
 
-    public Objeto() {
+    public GameObject() {
 
     }
 

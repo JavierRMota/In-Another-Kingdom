@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import mx.com.nullpointer.inanotherkingdom.Main;
-
 /**
  * Created by mota on 2/15/18.
  */
@@ -18,8 +16,9 @@ public abstract class GenericScreen implements Screen
 {
 
         //Dimensiones
-        public static final float ANCHO = 1280;
-        public static final float ALTO = 720;
+        public static final float WIDTH = 1280;
+        public static final float HEIGHT = 720;
+        public static final int MENU = 0,ABOUT = 1, LEVELS = 2, ARMORY = 3, LVLZERO = 4, LVLONE = 5;
 
         //Cámara
         protected OrthographicCamera camera;
@@ -28,12 +27,15 @@ public abstract class GenericScreen implements Screen
         //Batch
         protected SpriteBatch batch;
 
+        //Music
+        protected MusicController music;
+
         public GenericScreen()
         {
-            camera = new OrthographicCamera(ANCHO, ALTO);
-            camera.position.set(ANCHO / 2, ALTO / 2, 0);
+            camera = new OrthographicCamera(WIDTH, HEIGHT);
+            camera.position.set(WIDTH / 2, HEIGHT / 2, 0);
             camera.update();
-            view = new StretchViewport(ANCHO, ALTO, camera);
+            view = new StretchViewport(WIDTH, HEIGHT, camera);
             batch = new SpriteBatch();
         }
         //Black
