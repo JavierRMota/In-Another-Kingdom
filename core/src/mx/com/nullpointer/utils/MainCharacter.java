@@ -17,8 +17,9 @@ public class MainCharacter extends GameObject
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float VY = 30, VX=300,G=50;
+    private float VY = 20, VX=300,G=30;
     private boolean checkRun=false;
+    private float animationSpeed = 0.04f;
 
 
     //Estados de movimiento
@@ -33,7 +34,7 @@ public class MainCharacter extends GameObject
         TextureRegion region = new TextureRegion(runningTexture);
         //Tamaño
         TextureRegion[][] characterTexture = region.split(198,114);
-        runningAnimation = new Animation(0.04f,
+        runningAnimation = new Animation(animationSpeed,
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
@@ -44,8 +45,7 @@ public class MainCharacter extends GameObject
         region = new TextureRegion(jumpingTexture);
         //Tamaño
         characterTexture = region.split(133,137);
-        jumpingAnimation = new Animation(0.04f,
-                characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
+        jumpingAnimation = new Animation(animationSpeed,
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
                 characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
@@ -55,7 +55,7 @@ public class MainCharacter extends GameObject
         region = new TextureRegion(dodgingTexture);
         //Tamaño
         characterTexture = region.split(120,127);
-        dodgingAnimation = new Animation(0.04f,
+        dodgingAnimation = new Animation(animationSpeed,
                 characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11]);
@@ -96,7 +96,7 @@ public class MainCharacter extends GameObject
                         || movementState == MovementState.FALLING
                         || movementState == MovementState.JUMPING_END )
         {
-            if( movementState == MovementState.JUMPING_PREPARE && timerRunning%16< 15*0.04f)
+            if( movementState == MovementState.JUMPING_PREPARE && timerRunning%16< 14*animationSpeed)
             {
                 run(batch);
             }
@@ -108,7 +108,7 @@ public class MainCharacter extends GameObject
         }
         else if(movementState == MovementState.DODGING)
         {
-            if(timerRunning%16< 15*0.04f && !checkRun)
+            if(timerRunning%16< 15*animationSpeed && !checkRun)
             {
                 run(batch);
             }
@@ -143,13 +143,6 @@ public class MainCharacter extends GameObject
     public  void move(TiledMapTileLayer layer, float delta, int cx,int cy)
     {
 
-        /*if(movementState==MovementState.JUMPING_PREPARE
-                ||movementState==MovementState.JUMPING_END
-                ||movementState==MovementState.JUMPING
-                ||movementState==MovementState.FALLING
-                ||movementState==MovementState.DODGING)timerAction+=delta;
-        else if(movementState==MovementState.RUNNING)timerRunning+=delta;*/
-
         TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy-1);
         TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+2);
         if(movementState == MovementState.JUMPING && currentCellUp!=null
@@ -180,7 +173,7 @@ public class MainCharacter extends GameObject
             if(movementState == MovementState.FALLING)
             {
                 movementState = MovementState.JUMPING_END;
-                timerAction= 0.08f*12;
+                timerAction= animationSpeed*12;
                 this.y = (cy)*70;
             }
         }
@@ -194,7 +187,6 @@ public class MainCharacter extends GameObject
             this.movementState = MovementState.FALLING;
             this.y -=0.5*G*timerAction*timerAction;
         }
-
 
         if(canMove(layer,cx,cy))
         {
@@ -212,7 +204,6 @@ public class MainCharacter extends GameObject
         }
         this.VX =400;
         return true;
-
     }
     public void run(SpriteBatch batch)
     {
@@ -223,26 +214,30 @@ public class MainCharacter extends GameObject
     public void jump(SpriteBatch batch)
     {
         timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
-        if(timerAction>0.04*6 && movementState==MovementState.JUMPING_PREPARE) movementState=MovementState.JUMPING;
+        if(timerAction>animationSpeed*3
+                && movementState==MovementState.JUMPING_PREPARE)
+        {
+            movementState=MovementState.JUMPING;
+            timerAction=0;
+        }
         else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
         if(movementState== MovementState.FALLING)
         {
-            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*9);
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*6);
             batch.draw(region,x,y);
 
         }
         else
         {
-            if(movementState== MovementState.JUMPING_END && timerAction >0.04*15)
+            if(movementState== MovementState.JUMPING_END && timerAction >animationSpeed*15)
             {
                 movementState =MovementState.RUNNING;
                 timerAction=0;
                 timerRunning=0;
             }
-
             TextureRegion region;
-            if(timerAction>=0.04*9 && movementState == MovementState.JUMPING)
-                region = (TextureRegion) jumpingAnimation.getKeyFrame(0.04f*9);
+            if(timerAction>=animationSpeed*9 && movementState == MovementState.JUMPING)
+                region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*9);
             else
                 region = (TextureRegion) jumpingAnimation.getKeyFrame(timerAction);
             batch.draw(region,x,y);
@@ -252,7 +247,7 @@ public class MainCharacter extends GameObject
    public void dodge(SpriteBatch batch)
     {
         timerAction += Gdx.graphics.getDeltaTime();
-        if(timerAction>=0.04f*12)
+        if(timerAction>=animationSpeed*12)
         {
             movementState = MovementState.RUNNING;
             timerAction=0;
@@ -265,7 +260,10 @@ public class MainCharacter extends GameObject
     public MovementState getMovementState() {
         return movementState;
     }
-
+    public void resetTimerAction()
+    {
+        timerAction=0;
+    }
 
     public enum MovementState
     {

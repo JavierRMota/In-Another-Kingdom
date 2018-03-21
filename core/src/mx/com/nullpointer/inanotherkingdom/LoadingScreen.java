@@ -87,15 +87,45 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 assetManager.load("map/nivelCero.tmx", TiledMap.class);
                 assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("map/bookOneBg.png",Texture.class);
+                assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("characters/laurence_descanso.png",Texture.class);
+                assetManager.load("characters/laurence_running.png",Texture.class);
+                assetManager.load("characters/tira_salto.png",Texture.class);
+                assetManager.load("characters/tira_marometa.png",Texture.class);
+                assetManager.load("gameObjects/llaveFull.png",Texture.class);
+                assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
+                assetManager.load("btn/playbtn.png",Texture.class);
+                assetManager.load("btn/playbtnpress.png",Texture.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/pausebtn.png",Texture.class);
+                assetManager.load("btn/pausebtnpress.png",Texture.class);
+                assetManager.load("gameObjects/moneda.png",Texture.class);
                 assetManager.finishLoading();
                 break;
             case LVLONE:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 assetManager.load("map/nivelUno.tmx", TiledMap.class);
                 assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("map/bookOneBg.png",Texture.class);
+                assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("characters/laurence_descanso.png",Texture.class);
+                assetManager.load("characters/laurence_running.png",Texture.class);
+                assetManager.load("characters/tira_salto.png",Texture.class);
+                assetManager.load("characters/tira_marometa.png",Texture.class);
+                assetManager.load("gameObjects/llaveFull.png",Texture.class);
+                assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
+                assetManager.load("btn/playbtn.png",Texture.class);
+                assetManager.load("btn/playbtnpress.png",Texture.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/pausebtn.png",Texture.class);
+                assetManager.load("btn/pausebtnpress.png",Texture.class);
+                assetManager.load("gameObjects/moneda.png",Texture.class);
                 break;
             default:
-                Gdx.app.log("ERROR:","Screen not implemented");
+                Gdx.app.log("ERROR","Screen not implemented");
 
         }
 
@@ -125,11 +155,14 @@ public class LoadingScreen extends GenericScreen {
                 case MENU:
                     game.setScreen(new MenuScreen(game));
                     break;
-                case ABOUT:
-                    game.setScreen(new AboutScreen(game));
+                case SETTINGS:
+                    game.setScreen(new SettingsScreen(game));
                     break;
                 case LEVELS:
                     game.setScreen(new LevelsScreen(game));
+                    break;
+                case ABOUT:
+                    game.setScreen(new AboutScreen(game));
                     break;
                 case ARMORY:
                     game.setScreen(new ArmoryScreen(game));
