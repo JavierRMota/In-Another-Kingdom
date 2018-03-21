@@ -104,7 +104,7 @@ public class SettingsScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-
+                Gdx.net.openURI("http://nullpointer.com.mx");
             }
         });
         escenaAjustes.addActor(btnRate);
