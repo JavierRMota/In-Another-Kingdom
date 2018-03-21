@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
 import mx.com.nullpointer.utils.GenericScreen;
-import mx.com.nullpointer.utils.MusicController;
 
 /**
  * Created by Carlos Carbajal on 06-feb-18.
@@ -77,14 +76,14 @@ public class SettingsScreen extends GenericScreen {
                 super.clicked(event, x, y);
                 if(prefsMusic.getBoolean("play", true)){
                     prefsMusic.putBoolean("play", false);
-                    MusicController.stopMusic();
+                    game.stopMusic();
                     prefsMusic.flush();
                     Gdx.app.log("bool: ","false");
 
                 }
                 else {
                     prefsMusic.putBoolean("play", true);
-                    MusicController.playMusic(new MusicController("music/loop.mp3"));
+                    game.changeMusic(SETTINGS);
                     prefsMusic.flush();
                     Gdx.app.log("bool: ","true");
                 }

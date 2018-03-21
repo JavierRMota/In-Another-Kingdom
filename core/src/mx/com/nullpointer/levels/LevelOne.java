@@ -1,4 +1,4 @@
-package mx.com.nullpointer.niveles;
+package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -28,7 +28,6 @@ import mx.com.nullpointer.utils.GenericScreen;
 
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
-import mx.com.nullpointer.utils.MusicController;
 import mx.com.nullpointer.utils.Text;
 
 /**
@@ -78,7 +77,7 @@ public class LevelOne extends GenericScreen {
                 new Texture("characters/tira_marometa.png")); //Dodging Position
 
         //Music adjustments
-        MusicController.stopMusic();
+        this.game.changeMusic(LVLONE);
 
         //Score initialization
         coinScore="00";
