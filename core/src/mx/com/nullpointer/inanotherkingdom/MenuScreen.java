@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import mx.com.nullpointer.utils.Enemy;
 import mx.com.nullpointer.utils.GenericScreen;
-import mx.com.nullpointer.utils.MusicController;
 
 /**
  * Created by Carlos Carbajal on 05-feb-18.
@@ -165,7 +164,7 @@ public class MenuScreen extends GenericScreen {
         bigDragon = new Enemy(bigDragonTexture);
 
         //Creamos la música
-        music = new MusicController("music/menu.mp3");
+        this.game.changeMusic(MENU);
 
 
     }
@@ -214,6 +213,5 @@ public class MenuScreen extends GenericScreen {
         assetManager.unload("btn/arsenalbtnpress.png");
         assetManager.unload("btn/levelsbtn.png");
         assetManager.unload("btn/levelsbtnpress.png");
-        assetManager.unload("music/menu.mp3");
     }
 }

@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import mx.com.nullpointer.niveles.LevelZero;
-import mx.com.nullpointer.niveles.LevelOne;
+import mx.com.nullpointer.levels.LevelZero;
+import mx.com.nullpointer.levels.LevelOne;
 import mx.com.nullpointer.utils.GenericScreen;
 
 /**

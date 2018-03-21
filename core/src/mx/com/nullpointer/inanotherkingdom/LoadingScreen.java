@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import mx.com.nullpointer.niveles.LevelOne;
-import mx.com.nullpointer.niveles.LevelZero;
+import mx.com.nullpointer.levels.LevelOne;
+import mx.com.nullpointer.levels.LevelZero;
 import mx.com.nullpointer.utils.GenericScreen;
 
 /**
@@ -72,12 +72,16 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.finishLoading();
                 break;
             case SETTINGS:
+                assetManager.load("music/menu.mp3",Music.class);
                 break;
             case LEVELS:
+                assetManager.load("music/menu.mp3",Music.class);
                 break;
             case ABOUT:
+                assetManager.load("music/menu.mp3",Music.class);
                 break;
             case ARMORY:
+                assetManager.load("music/menu.mp3",Music.class);
                 break;
             case LVLZERO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -86,6 +90,9 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.finishLoading();
                 break;
             case LVLONE:
+                assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+                assetManager.load("map/nivelUno.tmx", TiledMap.class);
+                assetManager.load("music/nivelUno.mp3",Music.class);
                 break;
             default:
                 Gdx.app.log("ERROR:","Screen not implemented");
@@ -99,12 +106,9 @@ public class LoadingScreen extends GenericScreen {
     public void render(float delta) {
 
         updateLoad();
-
         clearScreen();
-        loadingSprite.setRotation(loadingSprite.getRotation()+10);
-
+        loadingSprite.setRotation(loadingSprite.getRotation()+10*delta);
         batch.setProjectionMatrix(camera.combined);
-
         batch.begin();
         loadingSprite.draw(batch);
         batch.end();

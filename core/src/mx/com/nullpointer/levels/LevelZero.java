@@ -1,4 +1,4 @@
-package mx.com.nullpointer.niveles;
+package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -27,7 +27,6 @@ import mx.com.nullpointer.utils.GenericScreen;
 
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
-import mx.com.nullpointer.utils.MusicController;
 import mx.com.nullpointer.utils.Text;
 
 /**
@@ -77,7 +76,7 @@ public class LevelZero extends GenericScreen {
                 new Texture("characters/tira_marometa.png")); //Dodging Position
 
         //Music adjustments
-        MusicController.stopMusic();
+        this.game.changeMusic(LVLZERO);
 
         //Score initialization
         coinScore="00";
@@ -102,7 +101,7 @@ public class LevelZero extends GenericScreen {
             @Override
             public void onUp() {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
-                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
                     laurence.setMovementState(MainCharacter.MovementState.JUMPING_PREPARE);
             }
             @Override
