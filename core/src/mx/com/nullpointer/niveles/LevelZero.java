@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 
 import mx.com.nullpointer.inanotherkingdom.MenuScreen;
@@ -258,7 +259,7 @@ public class LevelZero extends GenericScreen {
         if(gameState== GameState.WIN || gameState== GameState.LOOSE)
         {
             Gdx.app.log("Estado: ", gameState+"");
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new LoadingScreen(game,MENU));
         }
     }
 

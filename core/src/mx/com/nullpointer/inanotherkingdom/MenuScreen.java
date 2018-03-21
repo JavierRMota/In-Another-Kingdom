@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-
 import mx.com.nullpointer.utils.Enemy;
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.MusicController;
@@ -28,25 +27,29 @@ public class MenuScreen extends GenericScreen {
 
     //ESCENA para el MENU
     private Stage menuStage;
+    private int lastLevel;
 
 
     //Texturas
     private Texture titleTexture;
     private Texture backgroundTexture;
     private Texture frontTexture;
+
+    //Enemigo
     private Enemy bigDragon;
 
 
 
 
     public MenuScreen(Main game) {
-
         this.game = game;
         assetManager = game.getAssetManager();
     }
 
     @Override
     public void show() {
+        Preferences prefs = Gdx.app.getPreferences("Progress");
+        lastLevel = prefs.getInteger("lastLevel", 0);
         crearCamara();
         cargarTexturas();
         crearObjetos();
@@ -54,8 +57,6 @@ public class MenuScreen extends GenericScreen {
     }
 
     private void cargarTexturas() {
-        Preferences prefs = Gdx.app.getPreferences("Progress");
-        int lastLevel = prefs.getInteger("lastLevel", 0);
         String levelTextureName;
         switch(lastLevel)
         {
@@ -63,20 +64,10 @@ public class MenuScreen extends GenericScreen {
                 levelTextureName = "background/menu_bg_1.png";
 
         }
-
-        assetManager.load(levelTextureName, Texture.class);
-        assetManager.load("logo.png", Texture.class);
-        assetManager.load("background/menu_bg_cover.png", Texture.class);
-
-
-        assetManager.finishLoading();
-
-
-
         backgroundTexture = assetManager.get(levelTextureName);
         titleTexture = assetManager.get("logo.png");
         frontTexture = assetManager.get("background/menu_bg_cover.png");
-         bigDragon = new Enemy(new Texture("characters/dragon_volando_tira.png"));
+
 
     }
 
@@ -84,41 +75,44 @@ public class MenuScreen extends GenericScreen {
         menuStage = new Stage(view);
 
         //Botón Play
-        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtn.png")));
-        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/playbtnpress.png")));
-
+        Texture playTexture=assetManager.get("btn/playbtn.png");
+        Texture playPressTexture= assetManager.get("btn/playbtnpress.png");
+        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(playTexture));
+        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(playPressTexture));
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
         btnPlay.setPosition(WIDTH - WIDTH /4 - btnPlay.getWidth()/2 + btnPlay.getWidth()/4, 9* HEIGHT /16 - btnPlay.getHeight());
-
         btnPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game));
+                game.setScreen(new LoadingScreen(game,lastLevel+5));
             }
         });
         menuStage.addActor(btnPlay);
 
         //Botón Levels
-        TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(new Texture("btn/levelsbtn.png")));
-        TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/levelsbtnpress.png")));
-
+        Texture levelsTexture=assetManager.get("btn/levelsbtn.png");
+        Texture levelsPressTexture= assetManager.get("btn/levelsbtnpress.png");
+        TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(levelsTexture));
+        TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(levelsPressTexture));
         ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
         btnLevels.setPosition(WIDTH - 2*(WIDTH /6)- btnLevels.getWidth(), HEIGHT /2 - btnLevels.getHeight()*2.5f);
-
         btnLevels.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LevelsScreen(game));
+                game.setScreen(new LoadingScreen(game,LEVELS));
             }
         });
         menuStage.addActor(btnLevels);
 
 
         //Botón Arsenal
-        TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtn.png")));
-        TextureRegionDrawable trdArsenalPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/arsenalbtnpress.png")));
+        /*
+        Texture arsenalTexture=assetManager.get("btn/arsenalbtn.png");
+        Texture arsenalPressTexture= assetManager.get("btn/arsenalbtnpress.png");
+        TextureRegionDrawable trdArsenal = new TextureRegionDrawable(new TextureRegion(arsenalTexture));
+        TextureRegionDrawable trdArsenalPress = new TextureRegionDrawable(new TextureRegion(arsenalPressTexture));
         ImageButton btnArsenal = new ImageButton(trdArsenal,trdArsenalPress);
         btnArsenal.setPosition(WIDTH - 40 -4*btnArsenal.getWidth(), HEIGHT /2 - btnArsenal.getHeight()*2.5f );
 
@@ -129,41 +123,46 @@ public class MenuScreen extends GenericScreen {
                 game.setScreen(new ArmoryScreen(game));
             }
         });
-        //menuStage.addActor(btnArsenal);
+        menuStage.addActor(btnArsenal);
+        */
 
 
         //Botón Ajustes
-        TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtn.png")));
-        TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/ajustesbtnpress.png")));
+        Texture settingsTexture=assetManager.get("btn/ajustesbtn.png");
+        Texture settingsPressTexture= assetManager.get("btn/ajustesbtnpress.png");
+        TextureRegionDrawable trdAjustes = new TextureRegionDrawable(new TextureRegion(settingsTexture));
+        TextureRegionDrawable trdAjustesPress = new TextureRegionDrawable(new TextureRegion(settingsPressTexture));
         ImageButton btnAjustes = new ImageButton(trdAjustes,trdAjustesPress);
         btnAjustes.setPosition( WIDTH - WIDTH /6 - btnAjustes.getWidth(), HEIGHT /2 - btnAjustes.getHeight()*2.5f);
-
         btnAjustes.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new SettingsScreen(game));
+                game.setScreen(new LoadingScreen(game,SETTINGS));
             }
         });
         menuStage.addActor(btnAjustes);
 
         //Botón Pregunta
-        TextureRegionDrawable trdPregunta = new TextureRegionDrawable(new TextureRegion(new Texture("btn/aboutbtn.png")));
-        TextureRegionDrawable trdPreguntaPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/aboutbtnpress.png")));
-
-        ImageButton btnPregunta = new ImageButton(trdPregunta,trdPreguntaPress);
-        btnPregunta.setPosition( WIDTH -10-btnPregunta.getWidth(), HEIGHT /2 - btnPregunta.getHeight()*2.5f);
-
-        btnPregunta.addListener(new ClickListener(){
+        Texture aboutTexture=assetManager.get("btn/aboutbtn.png");
+        Texture aboutPressTexture= assetManager.get("btn/aboutbtnpress.png");
+        TextureRegionDrawable trdAbout = new TextureRegionDrawable(new TextureRegion(aboutTexture));
+        TextureRegionDrawable trdAboutPress = new TextureRegionDrawable(new TextureRegion(aboutPressTexture));
+        ImageButton btnAbout = new ImageButton(trdAbout,trdAboutPress);
+        btnAbout.setPosition( WIDTH -10-btnAbout.getWidth(), HEIGHT /2 - btnAbout.getHeight()*2.5f);
+        btnAbout.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
                 game.setScreen(new AboutScreen(game));
             }
         });
-        menuStage.addActor(btnPregunta);
+        menuStage.addActor(btnAbout);
 
         Gdx.input.setInputProcessor(menuStage);
+
+        Texture bigDragonTexture = assetManager.get("characters/dragon_volando_tira.png");
+        bigDragon = new Enemy(bigDragonTexture);
 
         //Creamos la música
         music = new MusicController("music/menu.mp3");
@@ -204,5 +203,17 @@ public class MenuScreen extends GenericScreen {
         assetManager.unload("background/menu_bg_1.png");
         assetManager.unload("logo.png");
         assetManager.unload("background/menu_bg_cover.png");
+        assetManager.unload("characters/dragon_volando_tira.png");
+        assetManager.unload("btn/aboutbtn.png");
+        assetManager.unload("btn/aboutbtnpress.png");
+        assetManager.unload("btn/playbtn.png");
+        assetManager.unload("btn/playbtnpress.png");
+        assetManager.unload("btn/ajustesbtn.png");
+        assetManager.unload("btn/ajustesbtnpress.png");
+        assetManager.unload("btn/arsenalbtn.png");
+        assetManager.unload("btn/arsenalbtnpress.png");
+        assetManager.unload("btn/levelsbtn.png");
+        assetManager.unload("btn/levelsbtnpress.png");
+        assetManager.unload("music/menu.mp3");
     }
 }

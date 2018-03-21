@@ -18,7 +18,7 @@ public abstract class GenericScreen implements Screen
         //Dimensiones
         public static final float WIDTH = 1280;
         public static final float HEIGHT = 720;
-        public static final int MENU = 0,ABOUT = 1, LEVELS = 2, ARMORY = 3, LVLZERO = 4, LVLONE = 5;
+        public static final int MENU = 0,SETTINGS = 1, LEVELS = 2, ABOUT = 3, ARMORY = 4, LVLZERO = 5, LVLONE = 6;
 
         //Cámara
         protected OrthographicCamera camera;
@@ -82,7 +82,6 @@ public abstract class GenericScreen implements Screen
 
         @Override
         public void hide() {
-
             dispose();
         }
 
