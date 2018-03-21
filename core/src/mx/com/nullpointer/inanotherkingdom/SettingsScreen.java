@@ -108,7 +108,7 @@ public class SettingsScreen extends GenericScreen {
         });
         escenaAjustes.addActor(btnRate);
 
-        //Botón SFX
+        /*/Botón SFX
         TextureRegionDrawable trdSfx = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxxOn.png")));
         TextureRegionDrawable trdSfxPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxOff.png")));
         ImageButton btnSfx = new ImageButton(trdSfx,trdSfxPress);
@@ -121,7 +121,7 @@ public class SettingsScreen extends GenericScreen {
 
             }
         });
-        escenaAjustes.addActor(btnSfx);
+        escenaAjustes.addActor(btnSfx);*/
 
         Gdx.input.setInputProcessor(escenaAjustes);
         //Botón Back
