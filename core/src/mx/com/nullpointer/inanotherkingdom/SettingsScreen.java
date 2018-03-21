@@ -134,7 +134,7 @@ public class SettingsScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new MenuScreen(game));
+                game.setScreen(new LoadingScreen(game, MENU));
 
             }
         });
