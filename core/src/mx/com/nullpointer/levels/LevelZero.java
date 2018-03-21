@@ -20,8 +20,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
-
-import mx.com.nullpointer.inanotherkingdom.MenuScreen;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericScreen;
 
@@ -48,6 +46,9 @@ public class LevelZero extends GenericScreen {
     private Text  scoreDisplay;
     private Texture coinTexture;
     private Texture emptyKeyTexture, fullKeyTexture;
+    private boolean recolectedKeys[];
+    private int middleKey;
+
     //Camera and scene
     private OrthographicCamera cameraHUD;
     private Viewport viewHUD;
@@ -56,6 +57,7 @@ public class LevelZero extends GenericScreen {
     private InputProcessor inputProcessor;
     //Controlador de juego
     private GameState gameState;
+
     //Constructor
     public LevelZero(Main game)
     {
@@ -82,6 +84,8 @@ public class LevelZero extends GenericScreen {
         coinScore="00";
         coins=0;
         keys=0;
+        recolectedKeys = new boolean[3];
+        middleKey=34;
         scoreDisplay = new Text();
         coinTexture=new Texture("gameObjects/moneda.png");
         fullKeyTexture = new Texture("gameObjects/llaveFull.png");
@@ -101,8 +105,13 @@ public class LevelZero extends GenericScreen {
             @Override
             public void onUp() {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
-                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING
+                        || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
+                {
+                    laurence.resetTimerAction();
                     laurence.setMovementState(MainCharacter.MovementState.JUMPING_PREPARE);
+                }
+
             }
             @Override
             public void onRight() {
@@ -166,7 +175,7 @@ public class LevelZero extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new MenuScreen(game));
+                game.setScreen(new LoadingScreen(game,MENU));
             }
         });
         pauseScene.addActor(btnBack);
@@ -217,7 +226,18 @@ public class LevelZero extends GenericScreen {
         batch.setProjectionMatrix(cameraHUD.combined);
         batch.begin();
         batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
-        batch.draw(emptyKeyTexture,4* WIDTH /5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        if(recolectedKeys[0])
+            batch.draw(fullKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        else
+            batch.draw(emptyKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        if(recolectedKeys[1])
+            batch.draw(fullKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        else
+            batch.draw(emptyKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        if(recolectedKeys[2])
+            batch.draw(fullKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        else
+            batch.draw(emptyKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
         batch.end();
 
@@ -277,8 +297,15 @@ public class LevelZero extends GenericScreen {
             }
             if(idCell ==13)
             {
+                if(cx<middleKey)
+                    recolectedKeys[0]=true;
+                else if(cx>middleKey)
+                    recolectedKeys[2]=true;
+                else
+                    recolectedKeys[1] = true;
                 keys++;
                 layer.setCell(cx,cy,null);
+
             }
 
         }
@@ -292,6 +319,12 @@ public class LevelZero extends GenericScreen {
             }
             if(idCell ==13)
             {
+                if(cx<middleKey)
+                    recolectedKeys[0]=true;
+                else if(cx>middleKey)
+                    recolectedKeys[2]=true;
+                else
+                    recolectedKeys[1] = true;
                 keys++;
                 layer.setCell(cx,cy+1,null);
             }

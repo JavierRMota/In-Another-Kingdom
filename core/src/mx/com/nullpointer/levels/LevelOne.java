@@ -19,13 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
+import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
-
-import mx.com.nullpointer.inanotherkingdom.MenuScreen;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericScreen;
-
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
 import mx.com.nullpointer.utils.Text;
@@ -120,6 +117,8 @@ public class LevelOne extends GenericScreen {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
                         || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
                     laurence.setMovementState(MainCharacter.MovementState.DODGING);
+                else if(laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
+                    laurence.setMovementState(MainCharacter.MovementState.FALLING);
 
             }
         });
@@ -167,7 +166,7 @@ public class LevelOne extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new MenuScreen(game));
+                game.setScreen(new LoadingScreen(game,MENU));
             }
         });
         pauseScene.addActor(btnBack);
@@ -216,7 +215,9 @@ public class LevelOne extends GenericScreen {
         batch.setProjectionMatrix(cameraHUD.combined);
         batch.begin();
         batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
-        batch.draw(emptyKeyTexture,4* WIDTH /5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        batch.draw(emptyKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        batch.draw(emptyKeyTexture,4* WIDTH/5+1.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        batch.draw(emptyKeyTexture,4* WIDTH/5+2.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
         batch.end();
 
@@ -257,7 +258,7 @@ public class LevelOne extends GenericScreen {
         if(gameState== GameState.WIN || gameState== GameState.LOOSE)
         {
             Gdx.app.log("Estado: ", gameState+"");
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new LoadingScreen(game,MENU));
         }
     }
 
