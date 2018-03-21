@@ -268,10 +268,6 @@ public class LevelZero extends GenericScreen {
         render.render();
         //Draw objects
         batch.begin();
-
-        //Background
-
-
         //Laurence
         laurence.render(batch);
         batch.end();
@@ -296,7 +292,6 @@ public class LevelZero extends GenericScreen {
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
         //End batch
         batch.end();
-
         if(gameState == GameState.PLAY)
         {
             buttonScene.draw();
