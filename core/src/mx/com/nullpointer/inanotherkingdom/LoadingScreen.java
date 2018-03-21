@@ -95,7 +95,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("music/nivelUno.mp3",Music.class);
                 break;
             default:
-                Gdx.app.log("ERROR:","Screen not implemented");
+                Gdx.app.log("ERROR","Screen not implemented");
 
         }
 
@@ -125,11 +125,14 @@ public class LoadingScreen extends GenericScreen {
                 case MENU:
                     game.setScreen(new MenuScreen(game));
                     break;
-                case ABOUT:
-                    game.setScreen(new AboutScreen(game));
+                case SETTINGS:
+                    game.setScreen(new SettingsScreen(game));
                     break;
                 case LEVELS:
                     game.setScreen(new LevelsScreen(game));
+                    break;
+                case ABOUT:
+                    game.setScreen(new AboutScreen(game));
                     break;
                 case ARMORY:
                     game.setScreen(new ArmoryScreen(game));
