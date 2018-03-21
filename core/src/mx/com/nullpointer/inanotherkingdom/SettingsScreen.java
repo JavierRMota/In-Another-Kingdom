@@ -29,7 +29,7 @@ public class SettingsScreen extends GenericScreen {
     //Texturas
     private Texture texturaFondo;
 
-    private Preferences prefsMusic = Gdx.app.getPreferences("Musica");
+    private Preferences prefsMusic = Gdx.app.getPreferences("Settings");
 
 
     public SettingsScreen(Main game)
@@ -60,7 +60,7 @@ public class SettingsScreen extends GenericScreen {
         ImageButton btnVolumen;
 
 
-        if(prefsMusic.getBoolean("play", true)){
+        if(prefsMusic.getInteger("music", 0)<1){
             btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
         }
 
@@ -74,18 +74,16 @@ public class SettingsScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                if(prefsMusic.getBoolean("play", true)){
-                    prefsMusic.putBoolean("play", false);
+                if(prefsMusic.getInteger("music", 0)<1){
+                    prefsMusic.putInteger("music", (prefsMusic.getInteger("music", 0)+1)%3);
                     game.stopMusic();
                     prefsMusic.flush();
-                    Gdx.app.log("bool: ","false");
 
                 }
                 else {
-                    prefsMusic.putBoolean("play", true);
+                    prefsMusic.putInteger("music", (prefsMusic.getInteger("music", 0)+1)%3);
                     game.changeMusic(SETTINGS);
                     prefsMusic.flush();
-                    Gdx.app.log("bool: ","true");
                 }
                 crearObjetos();
 

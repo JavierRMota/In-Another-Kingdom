@@ -1,6 +1,8 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 
@@ -26,30 +28,38 @@ public class Main extends Game {
 	}
 	public void changeMusic(int screen)
 	{
-		switch (screen)
+		Preferences prefs = Gdx.app.getPreferences("Settings");
+		if(prefs.getInteger("music",0)<1)
 		{
-			case GenericScreen.MENU:
-				if(music!= null && music != assetManager.get("music/menu.mp3"))
-				{
-					music.stop();
-				}
-				else if(music != null)
-				{
+			switch (screen)
+			{
+				case GenericScreen.MENU:
+					if(music!= null && music != assetManager.get("music/menu.mp3"))
+					{
+						music.stop();
+					}
+					else if(music != null)
+					{
+						break;
+					}
+					music = assetManager.get("music/menu.mp3");
+					music.setLooping(true);
+					music.play();
 					break;
-				}
-				music = assetManager.get("music/menu.mp3");
-				music.play();
-				break;
-			case GenericScreen.LVLZERO:
-			case GenericScreen.LVLONE:
-				if(music!=null)
-				{
-					music.stop();
-				}
-				music = assetManager.get("music/nivelUno.mp3");
-				music.play();
-				break;
+				case GenericScreen.LVLZERO:
+				case GenericScreen.LVLONE:
+					if(music!=null)
+					{
+						music.stop();
+					}
+					music = assetManager.get("music/nivelUno.mp3");
+					music.play();
+					music.setLooping(true);
+					break;
+			}
+
 		}
+
 	}
 
 	@Override
@@ -63,5 +73,9 @@ public class Main extends Game {
 		{
 			music.stop();
 		}
+	}
+	public void playSound(Music sound)
+	{
+		sound.play();
 	}
 }
