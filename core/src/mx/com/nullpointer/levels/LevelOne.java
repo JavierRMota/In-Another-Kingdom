@@ -34,6 +34,7 @@ import mx.com.nullpointer.utils.Text;
 public class LevelOne extends GenericScreen {
     //Game object
     private final Main game;
+    private final AssetManager assetManager;
     //Maps
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer render;
@@ -58,6 +59,7 @@ public class LevelOne extends GenericScreen {
     public LevelOne(Main game)
     {
         this.game =game;
+        this.assetManager = this.game.getAssetManager();
     }
     @Override
     public void show() {
@@ -323,7 +325,25 @@ public class LevelOne extends GenericScreen {
     @Override
     public void dispose()
     {
+        assetManager.unload("map/nivelUno.tmx");
+        assetManager.unload("music/nivelUno.mp3");
+        assetManager.unload("characters/laurence_descanso.png");
+        assetManager.unload("characters/laurence_running.png");
+        assetManager.unload("characters/tira_salto.png");
+        assetManager.unload("characters/tira_marometa.png");
+        assetManager.unload("gameObjects/llaveFull.png");
+        assetManager.unload("gameObjects/llaveEmpty.png");
+        assetManager.unload("gameObjects/moneda.png");
+        assetManager.unload("btn/playbtn.png");
+        assetManager.unload("btn/playbtnpress.png");
+        assetManager.unload("btn/backbtn.png");
+        assetManager.unload("btn/backbtnpress.png");
+        assetManager.unload("btn/pausebtn.png");
+        assetManager.unload("btn/pausebtnpress.png");
+        assetManager.unload("map/bookOneBg.png");
+        assetManager.unload("map/clouds.png");
         buttonScene.dispose();
+        tiledMap.dispose();
     }
     @Override
     public void pause() {
