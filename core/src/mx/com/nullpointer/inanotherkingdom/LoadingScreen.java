@@ -102,6 +102,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/pausebtn.png",Texture.class);
                 assetManager.load("btn/pausebtnpress.png",Texture.class);
                 assetManager.load("gameObjects/moneda.png",Texture.class);
+                assetManager.load("tutorial/swipeUp.png",Texture.class);
+                assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.finishLoading();
                 break;
             case LVLONE:
@@ -123,6 +125,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/pausebtn.png",Texture.class);
                 assetManager.load("btn/pausebtnpress.png",Texture.class);
                 assetManager.load("gameObjects/moneda.png",Texture.class);
+                assetManager.load("gameObjects/actionbtn.png",Texture.class);
+                assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
                 break;
             default:
                 Gdx.app.log("ERROR","Screen not implemented");

@@ -64,6 +64,12 @@ public class LevelZero extends GenericScreen {
     private Sprite cloudsOne;
     private Sprite cloudsTwo;
 
+    //Tutorial
+    private Sprite swipeUp;
+    private Sprite swordSprite;
+    private int VSWIPE= 150;
+    private boolean sword =false;
+
 
     //Camera and scene
     private OrthographicCamera cameraHUD;
@@ -123,6 +129,14 @@ public class LevelZero extends GenericScreen {
         recolectedKeys = new boolean[3];
         middleKey=34;
         scoreDisplay = new Text();
+
+        //Tutorial
+        Texture swipeUpTexture = assetManager.get("tutorial/swipeUp.png");
+        swipeUp = new Sprite(swipeUpTexture);
+        swipeUp.setPosition(13*70,50);
+        Texture swordTexture = assetManager.get("gameObjects/actionbtn.png");
+        swordSprite = new Sprite(swordTexture);
+        swordSprite.setPosition(3*WIDTH/4,HEIGHT/4);
 
         //Input Processors
         loadInputProcessor();
@@ -248,58 +262,76 @@ public class LevelZero extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        if(gameState!=GameState.PAUSE)
-        {
-            update(delta);
-        }
-        //Borrar pantalla
-        clearScreen();
-        //Projection matrix
-        batch.setProjectionMatrix(camera.combined);
-        //Background
-        batch.begin();
-        backgroundOne.draw(batch);
-        backgroundTwo.draw(batch);
-        cloudsOne.draw(batch);
-        cloudsTwo.draw(batch);
-        batch.end();
-        //View for the map
-        render.setView(camera);
-        render.render();
-        //Draw objects
-        batch.begin();
-        //Laurence
-        laurence.render(batch);
-        batch.end();
-        //Draw buttons and information
-        batch.setProjectionMatrix(cameraHUD.combined);
-        batch.begin();
-        batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
-        //Draw keys
-        if(recolectedKeys[0])
-            batch.draw(fullKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        else
-            batch.draw(emptyKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        if(recolectedKeys[1])
-            batch.draw(fullKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        else
-            batch.draw(emptyKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        if(recolectedKeys[2])
-            batch.draw(fullKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        else
-            batch.draw(emptyKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        //Display score
-        scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
-        //End batch
-        batch.end();
-        if(gameState == GameState.PLAY)
-        {
-            buttonScene.draw();
-        }
-        else
-        {
-            pauseScene.draw();
-        }
+        int cx = (int)(laurence.getX()+70)/70;
+
+            if(gameState!=GameState.PAUSE && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING))
+            {
+                update(delta);
+            }
+            //Borrar pantalla
+            clearScreen();
+            //Projection matrix
+            batch.setProjectionMatrix(camera.combined);
+            //Background
+            batch.begin();
+            backgroundOne.draw(batch);
+            backgroundTwo.draw(batch);
+            cloudsOne.draw(batch);
+            cloudsTwo.draw(batch);
+            batch.end();
+            //View for the map
+            render.setView(camera);
+            render.render();
+            //Draw objects
+            batch.begin();
+            //Laurence
+            laurence.render(batch);
+            if(cx==13)
+            {
+                swipeUp.setY(swipeUp.getY()+delta*VSWIPE);
+                if(swipeUp.getY()>200 ||swipeUp.getY()<50)
+                    VSWIPE=-VSWIPE;
+                swipeUp.draw(batch);
+            }
+            batch.end();
+            //Draw buttons and information
+            batch.setProjectionMatrix(cameraHUD.combined);
+            batch.begin();
+            batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
+            //Draw keys
+            if(recolectedKeys[0])
+                batch.draw(fullKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+            else
+                batch.draw(emptyKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+            if(recolectedKeys[1])
+                batch.draw(fullKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+            else
+                batch.draw(emptyKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+            if(recolectedKeys[2])
+                batch.draw(fullKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+            else
+                batch.draw(emptyKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+            //Display score
+            scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
+            if(sword)
+            {
+                if(swordSprite.getY()>0)
+                {
+                    swordSprite.setPosition(swordSprite.getX(),swordSprite.getY()-300*delta);
+                }
+                swordSprite.draw(batch);
+            }
+            //End batch
+            batch.end();
+            if(gameState == GameState.PLAY)
+            {
+                buttonScene.draw();
+            }
+            else
+            {
+                pauseScene.draw();
+            }
+
     }
 
     private void update(float delta) {
@@ -369,6 +401,20 @@ public class LevelZero extends GenericScreen {
                 layer.setCell(cx,cy,null);
 
             }
+            if(idCell == 12)
+            {
+                layer.setCell(cx,cy,null);
+                layer.setCell(cx,cy-1,null);
+                sword=true;
+
+            }
+            if(idCell == 14)
+            {
+                layer.setCell(cx,cy+1,null);
+                layer.setCell(cx,cy,null);
+                sword=true;
+
+            }
 
         }
         if(currentCellUp!=null)
@@ -389,6 +435,20 @@ public class LevelZero extends GenericScreen {
                     recolectedKeys[1] = true;
                 keys++;
                 layer.setCell(cx,cy+1,null);
+            }
+            if(idCell == 12)
+            {
+                layer.setCell(cx,cy+1,null);
+                layer.setCell(cx,cy,null);
+                sword=true;
+
+            }
+            if(idCell == 14)
+            {
+                layer.setCell(cx,cy+1,null);
+                layer.setCell(cx,cy+2,null);
+                sword=true;
+
             }
         }
 
@@ -435,6 +495,8 @@ public class LevelZero extends GenericScreen {
         assetManager.unload("btn/pausebtnpress.png");
         assetManager.unload("map/bookOneBg.png");
         assetManager.unload("map/clouds.png");
+        assetManager.unload("tutorial/swipeUp.png");
+        assetManager.unload("gameObjects/actionbtn.png");
         buttonScene.dispose();
         tiledMap.dispose();
     }

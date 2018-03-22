@@ -40,7 +40,7 @@ public class LevelOne extends GenericScreen {
     //Maps
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer render;
-    private static final float MAP_WIDTH = 80*70;
+    private static final float MAP_WIDTH = 200*70;
 
     //Character
     private MainCharacter laurence;
@@ -314,6 +314,14 @@ public class LevelOne extends GenericScreen {
         {
             cloudsTwo.setX(cloudsOne.getX()+cloudsOne.getWidth());
         }
+        if(camera.position.x - 3*backgroundOne.getWidth()/2>backgroundOne.getX())
+        {
+            backgroundOne.setX(backgroundTwo.getX()+backgroundTwo.getWidth());
+        }
+        else if(camera.position.x - 3*backgroundTwo.getWidth()/2>backgroundTwo.getX())
+        {
+            backgroundTwo.setX(backgroundOne.getX()+backgroundOne.getWidth());
+        }
 
     }
 
@@ -432,6 +440,8 @@ public class LevelOne extends GenericScreen {
         assetManager.unload("btn/pausebtnpress.png");
         assetManager.unload("map/bookOneBg.png");
         assetManager.unload("map/clouds.png");
+        assetManager.unload("gameObjects/actionbtn.png");
+        assetManager.unload("gameObjects/actionbtnpress.png");
         buttonScene.dispose();
         tiledMap.dispose();
     }
