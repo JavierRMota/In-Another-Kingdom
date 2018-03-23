@@ -50,7 +50,7 @@ public class MainCharacter extends GameObject
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
                 characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);*/
         jumpingAnimation = new Animation(animationSpeed,
-                characterTexture[0][6],characterTexture[0][7],
+                characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
                 characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
         jumpingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
@@ -230,22 +230,20 @@ public class MainCharacter extends GameObject
     public void jump(SpriteBatch batch)
     {
         timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
-        if(timerAction>animationSpeed*2
-                && movementState==MovementState.JUMPING_PREPARE)
+        if(movementState==MovementState.JUMPING_PREPARE)
         {
             movementState=MovementState.JUMPING;
-            timerAction=0;
         }
         else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
         if(movementState== MovementState.FALLING)
         {
-            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*4);
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*3);
             batch.draw(region,x,y);
 
         }
         else
         {
-            if(movementState== MovementState.JUMPING_END && timerAction >animationSpeed*15)
+            if(movementState== MovementState.JUMPING_END && timerAction >animationSpeed*6)
             {
                 movementState =MovementState.RUNNING;
                 timerAction=0;

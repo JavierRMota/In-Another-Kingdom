@@ -325,7 +325,7 @@ public class LevelZero extends GenericLevel {
         if(gameState== GameState.WIN || gameState== GameState.LOOSE)
         {
             Gdx.app.log("Estado: ", gameState+"");
-            game.setScreen(new LoadingScreen(game,MENU));
+            pause();
         }
     }
 
