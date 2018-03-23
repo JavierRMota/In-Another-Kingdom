@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.GameState;
+import mx.com.nullpointer.utils.GenericLevel;
 import mx.com.nullpointer.utils.GenericScreen;
 
 import mx.com.nullpointer.utils.GestureController;
@@ -33,53 +34,19 @@ import mx.com.nullpointer.utils.Text;
  * Created by mota on 2/12/18.
  */
 
-public class LevelZero extends GenericScreen {
+public class LevelZero extends GenericLevel {
     //Game object
     private final Main game;
     private final AssetManager assetManager;
 
     //Maps
-    private TiledMap tiledMap;
-    private OrthogonalTiledMapRenderer render;
     private static final float MAP_WIDTH = 80*70;
-
-    //Character
-    private MainCharacter laurence;
-
-    //Scores
-    private int coins,keys;
-    private String coinScore;
-    private Text  scoreDisplay;
-    private boolean recolectedKeys[];
-    private int middleKey;
-
-    //Textures
-    private Texture coinTexture;
-    private Texture emptyKeyTexture;
-    private Texture fullKeyTexture;
-
-    //Sprites
-    private Sprite backgroundOne;
-    private Sprite backgroundTwo;
-    private Sprite cloudsOne;
-    private Sprite cloudsTwo;
 
     //Tutorial
     private Sprite swipeUp;
     private Sprite swordSprite;
     private int VSWIPE= 150;
     private boolean sword =false;
-
-
-    //Camera and scene
-    private OrthographicCamera cameraHUD;
-    private Viewport viewHUD;
-    private Stage buttonScene;
-    private Stage pauseScene;
-    private InputProcessor inputProcessor;
-
-    //Controlador de juego
-    private GameState gameState;
 
     //Constructor
     public LevelZero(Main game)
@@ -158,6 +125,10 @@ public class LevelZero extends GenericScreen {
         //Gesture detection
         GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
             @Override
+            public void onLeft() {}
+            @Override
+            public void onRight() {}
+            @Override
             public void onUp() {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
                         || laurence.getMovementState() == MainCharacter.MovementState.STANDING
@@ -166,16 +137,6 @@ public class LevelZero extends GenericScreen {
                     laurence.resetTimerAction();
                     laurence.setMovementState(MainCharacter.MovementState.JUMPING_PREPARE);
                 }
-
-            }
-            @Override
-            public void onRight() {
-                // TODO Auto-generated method stub
-
-            }
-            @Override
-            public void onLeft() {
-                // TODO Auto-generated method stub
 
             }
             @Override
@@ -249,14 +210,6 @@ public class LevelZero extends GenericScreen {
     private void loadMap() {
         tiledMap = assetManager.get("map/nivelCero.tmx");
         render = new OrthogonalTiledMapRenderer(tiledMap);
-
-    }
-
-    private void createHUD() {
-        cameraHUD = new OrthographicCamera(WIDTH, HEIGHT);
-        cameraHUD.position.set(WIDTH /2, HEIGHT /2,0);
-        cameraHUD.update();
-        viewHUD = new StretchViewport(WIDTH, HEIGHT,cameraHUD);
 
     }
 
@@ -362,7 +315,7 @@ public class LevelZero extends GenericScreen {
 
     }
 
-    private void winOrLoose() {
+    protected void winOrLoose() {
         if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
         {
             gameState=GameState.LOOSE;
@@ -454,9 +407,7 @@ public class LevelZero extends GenericScreen {
 
     }
 
-    private void updateScore() {
-        coinScore = String.format("%02d", coins);
-    }
+
 
     private void updateCamera(float delta) {
         //Para que la cámara avance sola hasta el final de la pantalla
@@ -470,11 +421,7 @@ public class LevelZero extends GenericScreen {
         camera.update();
     }
 
-    @Override
-    public void resize(int width, int height) {
-    viewHUD.update(width,height);
-    view.update(width,height);
-    }
+    //Get rid of all loaded assets
     @Override
     public void dispose()
     {
@@ -500,20 +447,7 @@ public class LevelZero extends GenericScreen {
         buttonScene.dispose();
         tiledMap.dispose();
     }
-    @Override
-    public void pause() {
-        gameState=GameState.PAUSE;
-        Gdx.input.setInputProcessor(pauseScene);
-        //laurence.setMovementState(MainCharacter.MovementState.STANDING);
 
-    }
-    @Override
-    public void resume() {
-        Gdx.input.setInputProcessor(inputProcessor);
-        gameState = GameState.PLAY;
-        //laurence.setMovementState(MainCharacter.MovementState.RUNNING);
-
-    }
 
 
 }

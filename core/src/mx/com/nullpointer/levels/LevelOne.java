@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.GameState;
+import mx.com.nullpointer.utils.GenericLevel;
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
@@ -32,47 +33,14 @@ import mx.com.nullpointer.utils.Text;
  * Created by mota on 2/12/18.
  */
 
-public class LevelOne extends GenericScreen {
+public class LevelOne extends GenericLevel {
     //Game object
     private final Main game;
     private final AssetManager assetManager;
 
-    //Maps
-    private TiledMap tiledMap;
-    private OrthogonalTiledMapRenderer render;
     private static final float MAP_WIDTH = 200*70;
 
-    //Character
-    private MainCharacter laurence;
 
-    //Scores
-    private int coins,keys;
-    private String coinScore;
-    private Text  scoreDisplay;
-    private boolean recolectedKeys[];
-    private int middleKey;
-
-    //Textures
-    private Texture coinTexture;
-    private Texture emptyKeyTexture;
-    private Texture fullKeyTexture;
-
-    //Sprites
-    private Sprite backgroundOne;
-    private Sprite backgroundTwo;
-    private Sprite cloudsOne;
-    private Sprite cloudsTwo;
-
-
-    //Camera and scene
-    private OrthographicCamera cameraHUD;
-    private Viewport viewHUD;
-    private Stage buttonScene;
-    private Stage pauseScene;
-    private InputProcessor inputProcessor;
-
-    //Controlador de juego
-    private GameState gameState;
     //Constructor
     public LevelOne(Main game)
     {
@@ -119,7 +87,7 @@ public class LevelOne extends GenericScreen {
         coins=0;
         keys=0;
         recolectedKeys = new boolean[3];
-        middleKey=34;
+        middleKey=61;
         scoreDisplay = new Text();
 
         //Input Processors
@@ -143,6 +111,10 @@ public class LevelOne extends GenericScreen {
         //Gesture detection
         GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
             @Override
+            public void onLeft() {}
+            @Override
+            public void onRight() {}
+            @Override
             public void onUp() {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
                         || laurence.getMovementState() == MainCharacter.MovementState.STANDING
@@ -151,16 +123,6 @@ public class LevelOne extends GenericScreen {
                     laurence.resetTimerAction();
                     laurence.setMovementState(MainCharacter.MovementState.JUMPING_PREPARE);
                 }
-
-            }
-            @Override
-            public void onRight() {
-                // TODO Auto-generated method stub
-
-            }
-            @Override
-            public void onLeft() {
-                // TODO Auto-generated method stub
 
             }
             @Override
@@ -173,9 +135,9 @@ public class LevelOne extends GenericScreen {
         });
         //Set gesture input
         inputMultiplexer.addProcessor(gestureDetector);
-        //Create scene
+        //Create scene for all buttons
         buttonScene = new Stage(viewHUD);
-        //Botón Pause
+        //Pause Button
         Texture pauseTexture = assetManager.get("btn/pausebtn.png");
         Texture pausePressTexture = assetManager.get("btn/pausebtnpress.png");
         TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseTexture));
@@ -189,10 +151,26 @@ public class LevelOne extends GenericScreen {
                 pause();
             }
         });
-        //Add to the scene
         buttonScene.addActor(btnPause);
-        //Set button processor
+        //Action Button
+        Texture actionTexture = assetManager.get("gameObjects/actionbtn.png");
+        Texture actionPressTexture = assetManager.get("gameObjects/actionbtnpress.png");
+        TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
+        TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
+        ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
+        btnAction.setPosition(3*WIDTH/4, 0);
+        btnAction.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+
+            }
+        });
+        buttonScene.addActor(btnAction);
         inputMultiplexer.addProcessor(buttonScene);
+
+
         //Pause Scene
         pauseScene = new Stage(viewHUD);
         //Button play
@@ -210,7 +188,7 @@ public class LevelOne extends GenericScreen {
             }
         });
         pauseScene.addActor(btnPlay);
-        //Button back
+        //Back Button
         Texture backTexture = assetManager.get("btn/backbtn.png");
         Texture backPressTexture = assetManager.get("btn/backbtnpress.png");
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backTexture));
@@ -236,13 +214,6 @@ public class LevelOne extends GenericScreen {
         render = new OrthogonalTiledMapRenderer(tiledMap);
     }
 
-    private void createHUD() {
-        cameraHUD = new OrthographicCamera(WIDTH, HEIGHT);
-        cameraHUD.position.set(WIDTH /2, HEIGHT /2,0);
-        cameraHUD.update();
-        viewHUD = new StretchViewport(WIDTH, HEIGHT,cameraHUD);
-
-    }
 
     @Override
     public void render(float delta) {
@@ -332,20 +303,19 @@ public class LevelOne extends GenericScreen {
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
         laurence.move(layer,delta, cx, cy);
-
     }
 
-    private void winOrLoose() {
+    protected void winOrLoose() {
         if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
         {
             gameState=GameState.LOOSE;
         }
-        if(laurence.getX()>MAP_WIDTH)
+        else if(laurence.getX()>MAP_WIDTH)
             gameState=GameState.WIN;
         if(gameState== GameState.WIN || gameState== GameState.LOOSE)
         {
             Gdx.app.log("Estado: ", gameState+"");
-            game.setScreen(new LoadingScreen(game,MENU));
+            pause();
         }
     }
 
@@ -399,13 +369,9 @@ public class LevelOne extends GenericScreen {
 
     }
 
-    private void updateScore() {
-        coinScore = String.format("%02d", coins);
-    }
 
     private void updateCamera(float delta) {
         //Para que la cámara avance sola hasta el final de la pantalla
-
         float posX = camera.position.x+delta*laurence.getVelocity()*0.9f;
         if (posX > MAP_WIDTH - WIDTH /2) {   // Última mitad de la pantalla
             camera.position.set(MAP_WIDTH- WIDTH /2,camera.position.y,0);
@@ -415,11 +381,7 @@ public class LevelOne extends GenericScreen {
         camera.update();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        viewHUD.update(width,height);
-        view.update(width,height);
-    }
+    //Get rid of all loaded assets
     @Override
     public void dispose()
     {
@@ -445,20 +407,7 @@ public class LevelOne extends GenericScreen {
         buttonScene.dispose();
         tiledMap.dispose();
     }
-    @Override
-    public void pause() {
-        gameState=GameState.PAUSE;
-        Gdx.input.setInputProcessor(pauseScene);
-        //laurence.setMovementState(MainCharacter.MovementState.STANDING);
 
-    }
-    @Override
-    public void resume() {
-        Gdx.input.setInputProcessor(inputProcessor);
-        gameState = GameState.PLAY;
-        //laurence.setMovementState(MainCharacter.MovementState.RUNNING);
-
-    }
 
 
 }

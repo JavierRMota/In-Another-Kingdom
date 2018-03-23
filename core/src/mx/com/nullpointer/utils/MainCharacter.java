@@ -83,50 +83,45 @@ public class MainCharacter extends GameObject
     }
 
     public void render(SpriteBatch batch) {
-        if (movementState == MovementState.STANDING)
-        {
-            timerRunning=0;
-            timerAction=0;
-            this.draw(batch);
-        }
-        else if(movementState == MovementState.RUNNING)
+        //If running we just call the proper function
+        if (movementState == MovementState.RUNNING)
         {
             run(batch);
             timerAction=0;
-
         }
+        //If jumping or at any jumping state we call the proper function
         else if (movementState == MovementState.JUMPING
                         || movementState == MovementState.JUMPING_PREPARE
                         || movementState == MovementState.FALLING
                         || movementState == MovementState.JUMPING_END )
         {
-            /*if( movementState == MovementState.JUMPING_PREPARE && timerRunning%16< 12*animationSpeed && !checkRun)
-            {
-                checkRun=true;
-                run(batch);
-            }
-            else
-            {
-                timerRunning=0;*/
-                jump(batch);
+            jump(batch);
+            timerRunning=0;
 
-            //}
         }
+        //If attacking we just print and change back
+        else if(movementState == MovementState.ATTACKING)
+        {
+            timerRunning=0;
+            Gdx.app.log("STATUS","ATTACKING");
+            this.movementState = MovementState.RUNNING;
+        }
+        //If dodging we just call the proper function
         else if(movementState == MovementState.DODGING)
         {
-            if(timerRunning%16< 12*animationSpeed && !checkRun)
-            {
-                run(batch);
-            }
-            else
-            {
-                timerRunning=0;
-                checkRun=true;
-                dodge(batch);
+            timerRunning=0;
+            dodge(batch);
+        }
+        //If standing we just draw the character
+        else if(movementState == MovementState.STANDING)
+        {
+            timerRunning=0;
+            timerAction=0;
+            this.draw(batch);
 
-            }
         }
     }
+    //Getters
     public float getX()
     {
         return x;
@@ -135,6 +130,7 @@ public class MainCharacter extends GameObject
     {
         return y;
     }
+    //Setters
     public void setMovementState(MovementState movement)
     {
         this.movementState = movement;
@@ -147,6 +143,8 @@ public class MainCharacter extends GameObject
     {
         this.y =y;
     }
+
+    //Complex function for moving, recieves the layer, the time and the two squares
     public  void move(TiledMapTileLayer layer, float delta, int cx,int cy)
     {
 
@@ -204,10 +202,18 @@ public class MainCharacter extends GameObject
         }
         sprite.setPosition(x, y);
     }
+
+    //Boolean to know if there is a block in front
     public boolean canMove(TiledMapTileLayer layer, int cx, int cy)
     {
         TiledMapTileLayer.Cell nextCell = layer.getCell(cx+1,cy);
-        if(nextCell!= null && nextCell.getTile().getId() != 11 && nextCell.getTile().getId() !=13 && nextCell.getTile().getId() !=14 && nextCell.getTile().getId() !=12)
+        if(nextCell!= null
+                && nextCell.getTile().getId() != 11
+                && nextCell.getTile().getId() !=13
+                &&  nextCell.getTile().getId() !=14
+                && nextCell.getTile().getId() !=12
+                && nextCell.getTile().getId() != 15
+                && nextCell.getTile().getId() !=23)
         {
             this.VX =300;
             return false;
@@ -283,7 +289,8 @@ public class MainCharacter extends GameObject
         FALLING,
         JUMPING_END,
         DODGING,
-        STANDING
+        STANDING,
+        ATTACKING
     }
 
 
