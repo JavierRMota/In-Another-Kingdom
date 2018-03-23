@@ -21,8 +21,6 @@ import mx.com.nullpointer.utils.GenericScreen;
  */
 
 public class SettingsScreen extends GenericScreen {
-    private final Main game;
-    private final AssetManager assetManager;
 
     private Stage escenaAjustes;
 
@@ -34,8 +32,7 @@ public class SettingsScreen extends GenericScreen {
 
     public SettingsScreen(Main game)
     {
-        this.game = game;
-        this.assetManager= this.game.getAssetManager();
+        super(game);
     }
 
     @Override

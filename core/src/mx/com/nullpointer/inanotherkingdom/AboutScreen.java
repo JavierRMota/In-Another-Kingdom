@@ -1,7 +1,6 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,9 +17,6 @@ import mx.com.nullpointer.utils.Text;
  */
 
 class AboutScreen extends GenericScreen {
-    private final Main game;
-    private final AssetManager assetManager;
-
 
     //Escena para la pantalla Acercade
     private Stage aboutStage;
@@ -33,8 +29,7 @@ class AboutScreen extends GenericScreen {
 
     public AboutScreen(Main game)
     {
-        this.game = game;
-        this.assetManager = this.game.getAssetManager();
+        super(game);
     }
 
     @Override

@@ -159,7 +159,7 @@ public class MainCharacter extends GameObject
                 ||currentCellUp.getTile().getId() == 6))
         {
             this.movementState=MovementState.FALLING;
-            timerAction=0;
+            timerAction=Gdx.graphics.getDeltaTime()*1.4f;
 
         }
         else if(movementState == MovementState.JUMPING)
@@ -234,7 +234,11 @@ public class MainCharacter extends GameObject
         {
             movementState=MovementState.JUMPING;
         }
-        else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END) movementState= MovementState.FALLING;
+        else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END)
+        {
+            timerAction=Gdx.graphics.getDeltaTime()*1.4f;
+            movementState= MovementState.FALLING;
+        }
         if(movementState== MovementState.FALLING)
         {
             TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*3);

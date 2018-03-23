@@ -10,8 +10,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
+import mx.com.nullpointer.inanotherkingdom.Main;
 
 /**
  * Created by mota on 3/22/18.
@@ -53,6 +52,10 @@ public abstract class GenericLevel extends GenericScreen {
 
     //Controlador de juego
     protected GameState gameState;
+
+    public GenericLevel(Main game) {
+        super(game);
+    }
 
     //Create STATIC Camera
     protected void createHUD() {

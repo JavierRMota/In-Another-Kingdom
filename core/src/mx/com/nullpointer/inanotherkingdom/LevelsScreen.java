@@ -1,7 +1,6 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,9 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
-import mx.com.nullpointer.levels.LevelZero;
-import mx.com.nullpointer.levels.LevelOne;
 import mx.com.nullpointer.utils.GenericScreen;
 
 /**
@@ -19,9 +15,6 @@ import mx.com.nullpointer.utils.GenericScreen;
  */
 
 class LevelsScreen extends GenericScreen{
-    private final Main game;
-    private final AssetManager assetManager;
-
 
     //Escena para la pantalla Niveles
     private Stage levelsStage;
@@ -37,8 +30,7 @@ class LevelsScreen extends GenericScreen{
 
 
     public LevelsScreen(Main game) {
-        this.game = game;
-        this.assetManager = this.game.getAssetManager();
+        super(game);
     }
 
     @Override

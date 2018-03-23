@@ -2,8 +2,6 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import mx.com.nullpointer.utils.Enemy;
 import mx.com.nullpointer.utils.GenericScreen;
 
@@ -20,8 +17,6 @@ import mx.com.nullpointer.utils.GenericScreen;
  */
 
 public class MenuScreen extends GenericScreen {
-    private final Main game;
-    private final AssetManager assetManager;
 
 
     //ESCENA para el MENU
@@ -41,15 +36,13 @@ public class MenuScreen extends GenericScreen {
 
 
     public MenuScreen(Main game) {
-        this.game = game;
-        assetManager = game.getAssetManager();
+       super(game);
     }
 
     @Override
     public void show() {
         Preferences prefs = Gdx.app.getPreferences("Progress");
         lastLevel = prefs.getInteger("lastLevel", 0);
-        crearCamara();
         cargarTexturas();
         crearObjetos();
 
@@ -169,13 +162,6 @@ public class MenuScreen extends GenericScreen {
 
     }
 
-
-    private void crearCamara() {
-        camera = new OrthographicCamera(WIDTH, HEIGHT);
-        camera.position.set(WIDTH /2, HEIGHT /2, 0);
-        camera.update();
-        view = new StretchViewport(WIDTH, HEIGHT, camera);
-    }
 
     @Override
     public void render(float delta) {

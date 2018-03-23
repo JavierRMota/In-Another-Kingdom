@@ -2,7 +2,6 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,15 +18,12 @@ import mx.com.nullpointer.utils.GenericScreen;
 
 public class LoadingScreen extends GenericScreen {
 
-    private final Main game;
     private Texture loadingTexture;
     private Sprite loadingSprite;
-    private final AssetManager assetManager;
     private int screen;
 
     public LoadingScreen(Main game, int screen){
-        this.game = game;
-        this.assetManager = game.getAssetManager();
+        super(game);
         this.screen = screen;
     }
 

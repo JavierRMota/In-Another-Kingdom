@@ -1,12 +1,15 @@
 package mx.com.nullpointer.utils;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import mx.com.nullpointer.inanotherkingdom.Main;
 
 /**
  * Created by mota on 2/15/18.
@@ -14,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public abstract class GenericScreen implements Screen
 {
+        protected final Main game;
+        protected final AssetManager assetManager;
 
         //Dimensiones
         public static final float WIDTH = 1280;
@@ -27,12 +32,14 @@ public abstract class GenericScreen implements Screen
         //Batch
         protected SpriteBatch batch;
 
-        public GenericScreen()
+        public GenericScreen(Main game)
         {
+            this.game=game;
+            this.assetManager = game.getAssetManager();
             camera = new OrthographicCamera(WIDTH, HEIGHT);
             camera.position.set(WIDTH / 2, HEIGHT / 2, 0);
             camera.update();
-            view = new StretchViewport(WIDTH, HEIGHT, camera);
+            view = new FitViewport(WIDTH, HEIGHT, camera);
             batch = new SpriteBatch();
         }
         //Black

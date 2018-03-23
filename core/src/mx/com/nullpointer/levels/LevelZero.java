@@ -2,14 +2,9 @@ package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,15 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
 import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericLevel;
-import mx.com.nullpointer.utils.GenericScreen;
-
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
 import mx.com.nullpointer.utils.Text;
@@ -35,9 +25,6 @@ import mx.com.nullpointer.utils.Text;
  */
 
 public class LevelZero extends GenericLevel {
-    //Game object
-    private final Main game;
-    private final AssetManager assetManager;
 
     //Maps
     private static final float MAP_WIDTH = 80*70;
@@ -51,8 +38,8 @@ public class LevelZero extends GenericLevel {
     //Constructor
     public LevelZero(Main game)
     {
-        this.game =game;
-        this.assetManager = this.game.getAssetManager();
+       super(game);
+
     }
     @Override
     public void show() {

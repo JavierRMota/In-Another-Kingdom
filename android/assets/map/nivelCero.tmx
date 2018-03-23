@@ -2,16 +2,16 @@
 <map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="80" height="11" tilewidth="70" tileheight="70" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="plataformas" tilewidth="70" tileheight="70" tilecount="10" columns="5">
   <image source="plataformas.png" width="350" height="140"/>
-  <tile id="0" type="Platesquina1"/>
-  <tile id="1" type="Plataforma"/>
-  <tile id="2" type="EsquinaAgua1"/>
-  <tile id="3" type="Agua"/>
-  <tile id="4" type="EsquinaAgua2"/>
-  <tile id="5" type="Subsuelo"/>
-  <tile id="6" type="Platesquina2"/>
-  <tile id="7" type="SubsueloA1"/>
-  <tile id="8" type="Agua"/>
-  <tile id="9" type="SubsueloA2"/>
+  <tile id="0" type="plataforma"/>
+  <tile id="1" type="plataforma"/>
+  <tile id="2" type="plataforma"/>
+  <tile id="3" type="agua"/>
+  <tile id="4" type="plataforma"/>
+  <tile id="5" type="plataforma"/>
+  <tile id="6" type="plataforma"/>
+  <tile id="7" type="agua"/>
+  <tile id="8" type="agua"/>
+  <tile id="9" type="agua"/>
  </tileset>
  <tileset firstgid="11" name="objetos" tilewidth="70" tileheight="70" tilecount="4" columns="2">
   <image source="objetos.png" width="140" height="140"/>
