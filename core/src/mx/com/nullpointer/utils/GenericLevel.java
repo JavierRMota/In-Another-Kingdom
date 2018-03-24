@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -72,6 +73,87 @@ public abstract class GenericLevel extends GenericScreen {
     //Updating scores
     protected void updateScore() {
         coinScore = String.format("%02d", coins);
+    }
+
+    protected void drawKeys() {
+        if(recolectedKeys[0])
+            batch.draw(fullKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        else
+            batch.draw(emptyKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        if(recolectedKeys[1])
+            batch.draw(fullKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        else
+            batch.draw(emptyKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        if(recolectedKeys[2])
+            batch.draw(fullKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        else
+            batch.draw(emptyKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+    }
+
+    protected void drawBackground() {
+        backgroundOne.draw(batch);
+        backgroundTwo.draw(batch);
+        cloudsOne.draw(batch);
+        cloudsTwo.draw(batch);
+    }
+
+    protected void checkCoins(int cx, int cy,TiledMapTileLayer layer)
+    {
+        TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy);
+        TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+1);
+
+        if(currentCellDown != null)
+        {
+            checkCellForItem(cx, cy, layer, currentCellDown);
+
+        }
+        if(currentCellUp!=null)
+        {
+            checkCellForItem(cx, cy+1, layer, currentCellUp);
+        }
+
+    }
+
+    protected void checkCellForItem(int cx, int cy, TiledMapTileLayer layer, TiledMapTileLayer.Cell currentCell) {
+        String cellType = (String) currentCell.getTile().getProperties().get("type");
+        if(cellType.equals("coin"))
+        {
+            coins++;
+            layer.setCell(cx,cy,null);
+            updateScore();
+        }
+        if(cellType.equals("key"))
+        {
+            if(cx<middleKey)
+                recolectedKeys[0]=true;
+            else if(cx>middleKey)
+                recolectedKeys[2]=true;
+            else
+                recolectedKeys[1] = true;
+            keys++;
+            layer.setCell(cx,cy,null);
+        }
+    }
+
+    protected void updateBackground(float delta) {
+        cloudsOne.setX(cloudsOne.getX()-100*delta);
+        cloudsTwo.setX(cloudsTwo.getX()-100*delta);
+        if(camera.position.x - 3*cloudsOne.getWidth()/2>cloudsOne.getX())
+        {
+            cloudsOne.setX(cloudsTwo.getX()+cloudsTwo.getWidth());
+        }
+        else if(camera.position.x - 3*cloudsTwo.getWidth()/2>cloudsTwo.getX())
+        {
+            cloudsTwo.setX(cloudsOne.getX()+cloudsOne.getWidth());
+        }
+        if(camera.position.x - 3*backgroundOne.getWidth()/2>backgroundOne.getX())
+        {
+            backgroundOne.setX(backgroundTwo.getX()+backgroundTwo.getWidth());
+        }
+        else if(camera.position.x - 3*backgroundTwo.getWidth()/2>backgroundTwo.getX())
+        {
+            backgroundTwo.setX(backgroundOne.getX()+backgroundOne.getWidth());
+        }
     }
 
     //Change proportion of the views

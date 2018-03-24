@@ -108,7 +108,7 @@ public class LevelOne extends GenericLevel {
                         || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
                 {
                     laurence.resetTimerAction();
-                    laurence.setMovementState(MainCharacter.MovementState.JUMPING_PREPARE);
+                    laurence.setMovementState(MainCharacter.MovementState.JUMPING);
                 }
 
             }
@@ -204,6 +204,7 @@ public class LevelOne extends GenericLevel {
 
     @Override
     public void render(float delta) {
+        //Check if paused
         if(gameState!=GameState.PAUSE)
         {
             update(delta);
@@ -214,10 +215,7 @@ public class LevelOne extends GenericLevel {
         batch.setProjectionMatrix(camera.combined);
         //Background
         batch.begin();
-        backgroundOne.draw(batch);
-        backgroundTwo.draw(batch);
-        cloudsOne.draw(batch);
-        cloudsTwo.draw(batch);
+        drawBackground();
         batch.end();
         //View for the map
         render.setView(camera);
@@ -232,18 +230,7 @@ public class LevelOne extends GenericLevel {
         batch.begin();
         batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
         //Draw keys
-        if(recolectedKeys[0])
-            batch.draw(fullKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        else
-            batch.draw(emptyKeyTexture,4* WIDTH/5+0.8f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        if(recolectedKeys[1])
-            batch.draw(fullKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        else
-            batch.draw(emptyKeyTexture,4* WIDTH/5+2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        if(recolectedKeys[2])
-            batch.draw(fullKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
-        else
-            batch.draw(emptyKeyTexture,4* WIDTH/5+3.2f*fullKeyTexture.getWidth(), HEIGHT -5*fullKeyTexture.getHeight());
+        drawKeys();
         //Display score
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
         //End batch
@@ -258,32 +245,18 @@ public class LevelOne extends GenericLevel {
         }
     }
 
+
     private void update(float delta) {
         updateState(delta);
         updateCamera(delta);
-        updateScore();
-        cloudsOne.setX(cloudsOne.getX()-100*delta);
-        cloudsTwo.setX(cloudsTwo.getX()-100*delta);
-        if(camera.position.x - 3*cloudsOne.getWidth()/2>cloudsOne.getX())
-        {
-            cloudsOne.setX(cloudsTwo.getX()+cloudsTwo.getWidth());
-        }
-        else if(camera.position.x - 3*cloudsTwo.getWidth()/2>cloudsTwo.getX())
-        {
-            cloudsTwo.setX(cloudsOne.getX()+cloudsOne.getWidth());
-        }
-        if(camera.position.x - 3*backgroundOne.getWidth()/2>backgroundOne.getX())
-        {
-            backgroundOne.setX(backgroundTwo.getX()+backgroundTwo.getWidth());
-        }
-        else if(camera.position.x - 3*backgroundTwo.getWidth()/2>backgroundTwo.getX())
-        {
-            backgroundTwo.setX(backgroundOne.getX()+backgroundOne.getWidth());
-        }
+        updateBackground(delta);
 
     }
 
-    private void updateState(float delta) {
+
+
+    private void updateState(float delta)
+    {
         int cx = (int)(laurence.getX()+70)/70;
         int cy = (int)(laurence.getY())/70;
         winOrLoose();
@@ -304,56 +277,6 @@ public class LevelOne extends GenericLevel {
             Gdx.app.log("Estado: ", gameState+"");
             pause();
         }
-    }
-
-    private void checkCoins(int cx, int cy,TiledMapTileLayer layer)
-    {
-        TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy);
-        TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+1);
-
-        if(currentCellDown != null)
-        {
-            int idCell = currentCellDown.getTile().getId();
-            if(idCell ==11)
-            {
-                coins++;
-                layer.setCell(cx,cy,null);
-            }
-            if(idCell ==13)
-            {
-                if(cx<middleKey)
-                    recolectedKeys[0]=true;
-                else if(cx>middleKey)
-                    recolectedKeys[2]=true;
-                else
-                    recolectedKeys[1] = true;
-                keys++;
-                layer.setCell(cx,cy,null);
-
-            }
-
-        }
-        if(currentCellUp!=null)
-        {
-            int idCell = currentCellUp.getTile().getId();
-            if(idCell ==11)
-            {
-                coins++;
-                layer.setCell(cx,cy+1,null);
-            }
-            if(idCell ==13)
-            {
-                if(cx<middleKey)
-                    recolectedKeys[0]=true;
-                else if(cx>middleKey)
-                    recolectedKeys[2]=true;
-                else
-                    recolectedKeys[1] = true;
-                keys++;
-                layer.setCell(cx,cy+1,null);
-            }
-        }
-
     }
 
 

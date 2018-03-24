@@ -18,7 +18,6 @@ public class MainCharacter extends GameObject
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
     private float VY = 20, VX=300,G=30;
-    private boolean checkRun=false;
     private float animationSpeed = 0.04f;
 
 
@@ -87,30 +86,35 @@ public class MainCharacter extends GameObject
         if (movementState == MovementState.RUNNING)
         {
             run(batch);
-            timerAction=0;
+            if(timerAction!=0)
+                timerAction=0;
         }
         //If jumping or at any jumping state we call the proper function
         else if (movementState == MovementState.JUMPING
-                        || movementState == MovementState.JUMPING_PREPARE
                         || movementState == MovementState.FALLING
                         || movementState == MovementState.JUMPING_END )
         {
             jump(batch);
-            timerRunning=0;
+            if(timerRunning!=0)
+                timerRunning=0;
 
         }
         //If attacking we just print and change back
         else if(movementState == MovementState.ATTACKING)
         {
-            timerRunning=0;
+            if(timerRunning!=0)
+                timerRunning=0;
             Gdx.app.log("STATUS","ATTACKING");
             this.movementState = MovementState.RUNNING;
         }
         //If dodging we just call the proper function
         else if(movementState == MovementState.DODGING)
         {
-            timerRunning=0;
+
             dodge(batch);
+            if(timerRunning!=0)
+            timerRunning=0;
+
         }
         //If standing we just draw the character
         else if(movementState == MovementState.STANDING)
@@ -151,15 +155,11 @@ public class MainCharacter extends GameObject
         TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy-1);
         TiledMapTileLayer.Cell currentCellUp = layer.getCell(cx,cy+2);
         if(movementState == MovementState.JUMPING && currentCellUp!=null
-                && (currentCellUp.getTile().getId()==2
-                ||currentCellUp.getTile().getId()== 3
-                ||currentCellUp.getTile().getId() == 5
-                ||currentCellUp.getTile().getId() == 1
-                ||currentCellUp.getTile().getId() == 7
-                ||currentCellUp.getTile().getId() == 6))
+               && currentCellUp.getTile().getProperties().get("type").equals("platform")
+        )
         {
             this.movementState=MovementState.FALLING;
-            timerAction=Gdx.graphics.getDeltaTime()*1.4f;
+            timerAction=2*VY/G;
 
         }
         else if(movementState == MovementState.JUMPING)
@@ -167,55 +167,48 @@ public class MainCharacter extends GameObject
             this.y+=timerAction*VY-0.5*G*timerAction*timerAction;
 
         }
+
+        //Si hay suelo abajo
         if(currentCellDown !=null
-               && (currentCellDown.getTile().getId()==2
-                ||currentCellDown.getTile().getId()== 3
-                ||currentCellDown.getTile().getId() == 5
-                ||currentCellDown.getTile().getId() == 1
-                ||currentCellDown.getTile().getId() == 7
-                ||currentCellDown.getTile().getId()== 6
-                ||currentCellDown.getTile().getId()== 3
-                ||currentCellDown.getTile().getId()== 5
-        ))
+               && currentCellDown.getTile().getProperties().get("type").equals("platform")
+                )
         {
             if(movementState == MovementState.FALLING)
             {
                 movementState = MovementState.JUMPING_END;
-                timerAction= animationSpeed*12;
+                timerAction= animationSpeed*3;
                 this.y = (cy)*70;
             }
         }
-        else if(currentCellDown!=null && this.movementState!= MovementState.JUMPING)
+        //Si  no es cualquiera de los puede caer
+        else if(this.movementState != MovementState.JUMPING && this.movementState != MovementState.FALLING)
         {
             this.movementState = MovementState.FALLING;
-            this.y -=0.5*G*timerAction*timerAction;
+            timerAction=2*VY/G;
         }
-        else if(currentCellDown==null &&this.movementState!=MovementState.JUMPING &&this.movementState!=MovementState.JUMPING_PREPARE)
+
+
+        if(this.movementState==MovementState.FALLING)
         {
-            this.movementState = MovementState.FALLING;
-            this.y -=0.5*G*timerAction*timerAction;
+            this.y+=timerAction*VY-0.5*G*timerAction*timerAction;
         }
+
 
         if(canMove(layer,cx,cy))
         {
             this.x+=VX*delta;
         }
+
+        //Al final ponemos el sprite donde va
         sprite.setPosition(x, y);
     }
-
     //Boolean to know if there is a block in front
     public boolean canMove(TiledMapTileLayer layer, int cx, int cy)
     {
         TiledMapTileLayer.Cell nextCell = layer.getCell(cx+1,cy);
-        if(nextCell!= null
-                && nextCell.getTile().getId() != 11
-                && nextCell.getTile().getId() !=13
-                &&  nextCell.getTile().getId() !=14
-                && nextCell.getTile().getId() !=12
-                && nextCell.getTile().getId() != 15
-                && nextCell.getTile().getId() !=23)
+        if(nextCell!= null && nextCell.getTile().getProperties().get("type").equals("platform"))
         {
-            this.VX =300;
+            this.VX = 300;
             return false;
         }
         this.VX =400;
@@ -230,13 +223,8 @@ public class MainCharacter extends GameObject
     public void jump(SpriteBatch batch)
     {
         timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
-        if(movementState==MovementState.JUMPING_PREPARE)
+        if (VY*timerAction-timerAction*G*0.5*timerAction<0  && movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END)
         {
-            movementState=MovementState.JUMPING;
-        }
-        else if (VY*timerAction-timerAction*G*0.5*timerAction<0  &&movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END)
-        {
-            timerAction=Gdx.graphics.getDeltaTime()*1.4f;
             movementState= MovementState.FALLING;
         }
         if(movementState== MovementState.FALLING)
@@ -287,7 +275,6 @@ public class MainCharacter extends GameObject
     {
         RUNNING,
         JUMPING,
-        JUMPING_PREPARE,
         FALLING,
         JUMPING_END,
         DODGING,

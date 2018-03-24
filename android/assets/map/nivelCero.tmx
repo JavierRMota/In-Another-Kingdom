@@ -2,23 +2,79 @@
 <map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="80" height="11" tilewidth="70" tileheight="70" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="plataformas" tilewidth="70" tileheight="70" tilecount="10" columns="5">
   <image source="plataformas.png" width="350" height="140"/>
-  <tile id="0" type="plataforma"/>
-  <tile id="1" type="plataforma"/>
-  <tile id="2" type="plataforma"/>
-  <tile id="3" type="agua"/>
-  <tile id="4" type="plataforma"/>
-  <tile id="5" type="plataforma"/>
-  <tile id="6" type="plataforma"/>
-  <tile id="7" type="agua"/>
-  <tile id="8" type="agua"/>
-  <tile id="9" type="agua"/>
+  <tile id="0" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="1" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="2" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="3" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="4" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="5" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="6" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="7" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="8" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="9" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="11" name="objetos" tilewidth="70" tileheight="70" tilecount="4" columns="2">
   <image source="objetos.png" width="140" height="140"/>
-  <tile id="0" type="Moneda"/>
-  <tile id="1" type="Espada2"/>
-  <tile id="2" type="Llave"/>
-  <tile id="3" type="Espada1"/>
+  <tile id="0" type="Moneda">
+   <properties>
+    <property name="type" value="coin"/>
+   </properties>
+  </tile>
+  <tile id="1" type="Espada2">
+   <properties>
+    <property name="type" value="sword2"/>
+   </properties>
+  </tile>
+  <tile id="2" type="Llave">
+   <properties>
+    <property name="type" value="key"/>
+   </properties>
+  </tile>
+  <tile id="3" type="Espada1">
+   <properties>
+    <property name="type" value="sword1"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="80" height="11">
   <data encoding="csv">

@@ -2,27 +2,81 @@
 <map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="200" height="11" tilewidth="70" tileheight="70" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="plataformas" tilewidth="70" tileheight="70" tilecount="10" columns="5">
   <image source="plataformas.png" width="350" height="140"/>
-  <tile id="0" type="plataforma"/>
-  <tile id="1" type="plataforma"/>
-  <tile id="2" type="plataforma"/>
-  <tile id="3" type="agua"/>
-  <tile id="4" type="plataforma"/>
-  <tile id="5" type="plataforma"/>
-  <tile id="6" type="plataforma"/>
-  <tile id="7" type="agua"/>
-  <tile id="8" type="agua"/>
-  <tile id="9" type="agua"/>
+  <tile id="0" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="1" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="2" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="3" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="4" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="5" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="6" type="plataforma">
+   <properties>
+    <property name="type" value="platform"/>
+   </properties>
+  </tile>
+  <tile id="7" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="8" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
+  <tile id="9" type="agua">
+   <properties>
+    <property name="type" value="water"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="11" name="objetos" tilewidth="70" tileheight="70" tilecount="4" columns="2">
   <image source="objetos.png" width="140" height="140"/>
-  <tile id="0" type="moneda"/>
+  <tile id="0" type="moneda">
+   <properties>
+    <property name="type" value="coin"/>
+   </properties>
+  </tile>
   <tile id="1" type="espada2"/>
-  <tile id="2" type="llave"/>
+  <tile id="2" type="llave">
+   <properties>
+    <property name="type" value="key"/>
+   </properties>
+  </tile>
   <tile id="3" type="espada1"/>
  </tileset>
  <tileset firstgid="15" name="EnemigosUno" tilewidth="70" tileheight="70" tilecount="16" columns="8">
+  <properties>
+   <property name="type" value="dragon1"/>
+  </properties>
   <image source="tira_dragon.png" width="560" height="140"/>
   <tile id="0" type="Dragon">
+   <properties>
+    <property name="type" value="dragon1"/>
+   </properties>
    <animation>
     <frame tileid="0" duration="150"/>
     <frame tileid="2" duration="150"/>
@@ -31,6 +85,9 @@
    </animation>
   </tile>
   <tile id="1" type="Dragon">
+   <properties>
+    <property name="type" value="dragon2"/>
+   </properties>
    <animation>
     <frame tileid="1" duration="150"/>
     <frame tileid="3" duration="150"/>
@@ -39,6 +96,9 @@
    </animation>
   </tile>
   <tile id="8" type="Dragon">
+   <properties>
+    <property name="type" value="dragon3"/>
+   </properties>
    <animation>
     <frame tileid="8" duration="150"/>
     <frame tileid="10" duration="150"/>
@@ -47,6 +107,9 @@
    </animation>
   </tile>
   <tile id="9" type="Dragon">
+   <properties>
+    <property name="type" value="dragon4"/>
+   </properties>
    <animation>
     <frame tileid="9" duration="150"/>
     <frame tileid="11" duration="150"/>
