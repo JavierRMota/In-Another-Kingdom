@@ -89,6 +89,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_running.png",Texture.class);
                 assetManager.load("characters/tira_salto.png",Texture.class);
                 assetManager.load("characters/tira_marometa.png",Texture.class);
+                assetManager.load("characters/laurence_attacking.png", Texture.class);
                 assetManager.load("gameObjects/llaveFull.png",Texture.class);
                 assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
                 assetManager.load("btn/playbtn.png",Texture.class);
@@ -112,6 +113,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_running.png",Texture.class);
                 assetManager.load("characters/tira_salto.png",Texture.class);
                 assetManager.load("characters/tira_marometa.png",Texture.class);
+                assetManager.load("characters/laurence_attacking.png", Texture.class);
                 assetManager.load("gameObjects/llaveFull.png",Texture.class);
                 assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
                 assetManager.load("btn/playbtn.png",Texture.class);

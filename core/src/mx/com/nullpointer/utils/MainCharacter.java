@@ -14,7 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class MainCharacter extends GameObject
 {
-    private Animation runningAnimation,jumpingAnimation,dodgingAnimation;
+    private Animation runningAnimation,jumpingAnimation,dodgingAnimation, attackingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
     private float VY = 20, VX=300,G=30;
@@ -25,7 +25,7 @@ public class MainCharacter extends GameObject
     MovementState movementState = MovementState.RUNNING;
 
 
-    public MainCharacter(Texture standingTexture,Texture runningTexture,Texture jumpingTexture, Texture dodgingTexture)
+    public MainCharacter(Texture standingTexture,Texture runningTexture,Texture jumpingTexture, Texture dodgingTexture, Texture attackingTexture)
     {
         //Cargamos las animaciones
 
@@ -63,6 +63,16 @@ public class MainCharacter extends GameObject
                 characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11]);
         dodgingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
+
+        //Animación de atacar
+        region = new TextureRegion(attackingTexture);
+        //Tamaño
+        characterTexture = region.split(175,155);
+        attackingAnimation = new Animation(animationSpeed,
+                characterTexture[0][0], characterTexture[0][1],characterTexture[0][2],
+                characterTexture[0][3], characterTexture[0][4],characterTexture[0][5],
+                characterTexture[0][6],characterTexture[0][7],characterTexture[0][8]);
+        attackingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
         //Inicializamos timers
         timerRunning = 0;
@@ -102,10 +112,9 @@ public class MainCharacter extends GameObject
         //If attacking we just print and change back
         else if(movementState == MovementState.ATTACKING)
         {
+            attack(batch);
             if(timerRunning!=0)
                 timerRunning=0;
-            Gdx.app.log("STATUS","ATTACKING");
-            this.movementState = MovementState.RUNNING;
         }
         //If dodging we just call the proper function
         else if(movementState == MovementState.DODGING)
@@ -113,7 +122,7 @@ public class MainCharacter extends GameObject
 
             dodge(batch);
             if(timerRunning!=0)
-            timerRunning=0;
+                timerRunning=0;
 
         }
         //If standing we just draw the character
@@ -260,6 +269,18 @@ public class MainCharacter extends GameObject
             timerRunning=0;
         }
         TextureRegion region = (TextureRegion) dodgingAnimation.getKeyFrame(timerAction);
+        batch.draw(region, x, y);
+    }
+    public void attack(SpriteBatch batch)
+    {
+        timerAction += Gdx.graphics.getDeltaTime();
+        if(timerAction>=animationSpeed*9)
+        {
+            movementState = MovementState.RUNNING;
+            timerAction=0;
+            timerRunning=0;
+        }
+        TextureRegion region = (TextureRegion) attackingAnimation.getKeyFrame(timerAction);
         batch.draw(region, x, y);
     }
 

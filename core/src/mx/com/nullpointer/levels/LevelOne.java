@@ -46,13 +46,15 @@ public class LevelOne extends GenericLevel {
         Texture running = assetManager.get("characters/laurence_running.png");
         Texture jumping = assetManager.get("characters/tira_salto.png");
         Texture dodging = assetManager.get("characters/tira_marometa.png");
+        Texture attacking = assetManager.get("characters/laurence_attacking.png");
 
         //Load Character
         laurence = new MainCharacter(
                 standing, //Standing Position
                 running, //Running Position
                 jumping, //Jumping Position
-                dodging); //Dodging Position
+                dodging,//Dodging Position
+                attacking);//Attacking position
 
         //Load background sprite
         Texture backgroundTexture = assetManager.get("map/bookOneBg.png");
@@ -150,7 +152,12 @@ public class LevelOne extends GenericLevel {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+                if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
+                {
+                    laurence.resetTimerAction();
+                    laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+                }
+
 
             }
         });
@@ -259,10 +266,16 @@ public class LevelOne extends GenericLevel {
     {
         int cx = (int)(laurence.getX()+70)/70;
         int cy = (int)(laurence.getY())/70;
-        winOrLoose();
+
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
+        checkEnemies(cx,cy,layer);
         laurence.move(layer,delta, cx, cy);
+        winOrLoose();
+    }
+
+    private void checkEnemies(int cx, int cy, TiledMapTileLayer layer) {
+
     }
 
     protected void winOrLoose() {
@@ -314,6 +327,7 @@ public class LevelOne extends GenericLevel {
         assetManager.unload("map/clouds.png");
         assetManager.unload("gameObjects/actionbtn.png");
         assetManager.unload("gameObjects/actionbtnpress.png");
+        assetManager.unload("characters/laurence_attacking.png");
         buttonScene.dispose();
         tiledMap.dispose();
     }

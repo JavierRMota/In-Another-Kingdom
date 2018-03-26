@@ -53,13 +53,15 @@ public class LevelZero extends GenericLevel {
         Texture running = assetManager.get("characters/laurence_running.png");
         Texture jumping = assetManager.get("characters/tira_salto.png");
         Texture dodging = assetManager.get("characters/tira_marometa.png");
+        Texture attacking = assetManager.get("characters/laurence_attacking.png");
 
         //Load Character
         laurence = new MainCharacter(
                 standing, //Standing Position
                 running, //Running Position
                 jumping, //Jumping Position
-                dodging); //Dodging Position
+                dodging, //Dodging Position
+                attacking);//Attacking position
 
         //Load background sprite
         Texture backgroundTexture = assetManager.get("map/bookOneBg.png");
@@ -368,6 +370,7 @@ public class LevelZero extends GenericLevel {
         assetManager.unload("map/clouds.png");
         assetManager.unload("tutorial/swipeUp.png");
         assetManager.unload("gameObjects/actionbtn.png");
+        assetManager.unload("characters/laurence_attacking.png");
         buttonScene.dispose();
         tiledMap.dispose();
     }
