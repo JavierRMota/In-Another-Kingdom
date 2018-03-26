@@ -49,31 +49,10 @@ public class LevelZero extends GenericLevel {
         loadMap();
         //Load Textures
         loadTextures();
-        Texture standing = assetManager.get("characters/laurence_descanso.png");
-        Texture running = assetManager.get("characters/laurence_running.png");
-        Texture jumping = assetManager.get("characters/tira_salto.png");
-        Texture dodging = assetManager.get("characters/tira_marometa.png");
-        Texture attacking = assetManager.get("characters/laurence_attacking.png");
-
-        //Load Character
-        laurence = new MainCharacter(
-                standing, //Standing Position
-                running, //Running Position
-                jumping, //Jumping Position
-                dodging, //Dodging Position
-                attacking);//Attacking position
-
-        //Load background sprite
-        Texture backgroundTexture = assetManager.get("map/bookOneBg.png");
-        backgroundOne = new Sprite(backgroundTexture);
-        backgroundTwo = new Sprite(backgroundTexture);
-        backgroundOne.setPosition(0,0);
-        backgroundTwo.setPosition(backgroundOne.getWidth(),0);
-        Texture cloudsTexture = assetManager.get("map/clouds.png");
-        cloudsOne = new Sprite(cloudsTexture);
-        cloudsTwo = new Sprite(cloudsTexture);
-        cloudsOne.setPosition(0,0);
-        cloudsTwo.setPosition(cloudsOne.getWidth(),0);
+        //loadCharacter
+        loadCharacter();
+        //Load background
+        loadBackground();
 
         //Music adjustments
         this.game.changeMusic(LVLZERO);
@@ -101,12 +80,26 @@ public class LevelZero extends GenericLevel {
         gameState= GameState.PLAY;
 
     }
-    private void loadTextures()
-    {
-        coinTexture=assetManager.get("gameObjects/moneda.png");
-        fullKeyTexture = assetManager.get("gameObjects/llaveFull.png");
-        emptyKeyTexture = assetManager.get("gameObjects/llaveEmpty.png");
+
+    protected void loadBackground() {
+        Texture backgroundTexture = assetManager.get("map/bookOneBg.png");
+        backgroundOne = new Sprite(backgroundTexture);
+        backgroundTwo = new Sprite(backgroundTexture);
+        backgroundOne.setPosition(0,0);
+        backgroundTwo.setPosition(backgroundOne.getWidth(),0);
+        Texture cloudsTexture = assetManager.get("map/clouds.png");
+        cloudsOne = new Sprite(cloudsTexture);
+        cloudsTwo = new Sprite(cloudsTexture);
+        cloudsOne.setPosition(0,0);
+        cloudsTwo.setPosition(cloudsOne.getWidth(),0);
+        Texture objectTexture = assetManager.get("map/bookOneT.png");
+        objectsOne = new Sprite(objectTexture);
+        objectsTwo = new Sprite(objectTexture);
+        objectsOne.setPosition(0,-130);
+        objectsTwo.setPosition(objectsOne.getWidth(),-130);
     }
+
+
     private void loadInputProcessor()
     {
         //Multiple inputs
@@ -353,6 +346,7 @@ public class LevelZero extends GenericLevel {
     {
         assetManager.unload("map/nivelCero.tmx");
         assetManager.unload("music/nivelUno.mp3");
+        assetManager.unload("map/bookOneT.png");
         assetManager.unload("characters/laurence_descanso.png");
         assetManager.unload("characters/laurence_running.png");
         assetManager.unload("characters/tira_salto.png");

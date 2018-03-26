@@ -42,21 +42,28 @@ public class LevelOne extends GenericLevel {
         loadMap();
         //Load Textures
         loadTextures();
-        Texture standing = assetManager.get("characters/laurence_descanso.png");
-        Texture running = assetManager.get("characters/laurence_running.png");
-        Texture jumping = assetManager.get("characters/tira_salto.png");
-        Texture dodging = assetManager.get("characters/tira_marometa.png");
-        Texture attacking = assetManager.get("characters/laurence_attacking.png");
 
         //Load Character
-        laurence = new MainCharacter(
-                standing, //Standing Position
-                running, //Running Position
-                jumping, //Jumping Position
-                dodging,//Dodging Position
-                attacking);//Attacking position
+        loadCharacter();
 
-        //Load background sprite
+        //Load background
+        loadBackground();
+
+        //Music adjustments
+        this.game.changeMusic(LVLZERO);
+
+        //Score initialization
+        scoreInit(61);
+
+        //Input Processors
+        loadInputProcessor();
+
+        //Begin game
+        gameState= GameState.PLAY;
+
+    }
+    protected void loadBackground()
+    {
         Texture backgroundTexture = assetManager.get("map/bookOneBg.png");
         backgroundOne = new Sprite(backgroundTexture);
         backgroundTwo = new Sprite(backgroundTexture);
@@ -67,31 +74,14 @@ public class LevelOne extends GenericLevel {
         cloudsTwo = new Sprite(cloudsTexture);
         cloudsOne.setPosition(0,0);
         cloudsTwo.setPosition(cloudsOne.getWidth(),0);
-
-        //Music adjustments
-        this.game.changeMusic(LVLZERO);
-
-        //Score initialization
-        coinScore="00";
-        coins=0;
-        keys=0;
-        recolectedKeys = new boolean[3];
-        middleKey=61;
-        scoreDisplay = new Text();
-
-        //Input Processors
-        loadInputProcessor();
-
-        //Begin game
-        gameState= GameState.PLAY;
+        Texture objectTexture = assetManager.get("map/bookOneT.png");
+        objectsOne = new Sprite(objectTexture);
+        objectsTwo = new Sprite(objectTexture);
+        objectsOne.setPosition(0,-130);
+        objectsTwo.setPosition(objectsOne.getWidth(),-130);
 
     }
 
-    private void loadTextures() {
-        coinTexture=assetManager.get("gameObjects/moneda.png");
-        fullKeyTexture = assetManager.get("gameObjects/llaveFull.png");
-        emptyKeyTexture = assetManager.get("gameObjects/llaveEmpty.png");
-    }
 
     private void loadInputProcessor()
     {
@@ -310,6 +300,7 @@ public class LevelOne extends GenericLevel {
     {
         assetManager.unload("map/nivelUno.tmx");
         assetManager.unload("music/nivelUno.mp3");
+        assetManager.unload("map/bookOneT.png");
         assetManager.unload("characters/laurence_descanso.png");
         assetManager.unload("characters/laurence_running.png");
         assetManager.unload("characters/tira_salto.png");

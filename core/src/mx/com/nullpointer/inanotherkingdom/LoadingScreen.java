@@ -85,6 +85,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("music/nivelUno.mp3",Music.class);
                 assetManager.load("map/bookOneBg.png",Texture.class);
                 assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("map/bookOneT.png",Texture.class);
                 assetManager.load("characters/laurence_descanso.png",Texture.class);
                 assetManager.load("characters/laurence_running.png",Texture.class);
                 assetManager.load("characters/tira_salto.png",Texture.class);
@@ -109,6 +110,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("music/nivelUno.mp3",Music.class);
                 assetManager.load("map/bookOneBg.png",Texture.class);
                 assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("map/bookOneT.png",Texture.class);
                 assetManager.load("characters/laurence_descanso.png",Texture.class);
                 assetManager.load("characters/laurence_running.png",Texture.class);
                 assetManager.load("characters/tira_salto.png",Texture.class);

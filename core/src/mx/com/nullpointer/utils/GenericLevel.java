@@ -42,6 +42,9 @@ public abstract class GenericLevel extends GenericScreen {
     protected Sprite backgroundTwo;
     protected Sprite cloudsOne;
     protected Sprite cloudsTwo;
+    //Trees pyramids or whatever
+    protected Sprite objectsOne;
+    protected Sprite objectsTwo;
 
 
     //Camera and scene
@@ -67,9 +70,44 @@ public abstract class GenericLevel extends GenericScreen {
 
     }
 
+    //Character loading
+    protected void loadCharacter() {
+        Texture standing = assetManager.get("characters/laurence_descanso.png");
+        Texture running = assetManager.get("characters/laurence_running.png");
+        Texture jumping = assetManager.get("characters/tira_salto.png");
+        Texture dodging = assetManager.get("characters/tira_marometa.png");
+        Texture attacking = assetManager.get("characters/laurence_attacking.png");
+
+        //Load Character
+        laurence = new MainCharacter(
+                standing, //Standing Position
+                running, //Running Position
+                jumping, //Jumping Position
+                dodging, //Dodging Position
+                attacking);//Attacking position
+    }
+
+    //Method to load score textures
+    protected void loadTextures()
+    {
+        coinTexture=assetManager.get("gameObjects/moneda.png");
+        fullKeyTexture = assetManager.get("gameObjects/llaveFull.png");
+        emptyKeyTexture = assetManager.get("gameObjects/llaveEmpty.png");
+    }
+
     //Method to decide if the character wins or looses (depends on the level)
     protected abstract void winOrLoose();
-
+    //Method to load the background (Assets depend on the level)
+    protected abstract void loadBackground();
+    //Method to start scores
+    protected void scoreInit(int midKey) {
+        coinScore="00";
+        coins=0;
+        keys=0;
+        recolectedKeys = new boolean[3];
+        middleKey=midKey;
+        scoreDisplay = new Text();
+    }
     //Updating scores
     protected void updateScore() {
         coinScore = String.format("%02d", coins);
@@ -93,8 +131,12 @@ public abstract class GenericLevel extends GenericScreen {
     protected void drawBackground() {
         backgroundOne.draw(batch);
         backgroundTwo.draw(batch);
+
         cloudsOne.draw(batch);
         cloudsTwo.draw(batch);
+        objectsOne.draw(batch);
+        objectsTwo.draw(batch);
+
     }
 
     protected void checkCoins(int cx, int cy,TiledMapTileLayer layer)
@@ -138,6 +180,7 @@ public abstract class GenericLevel extends GenericScreen {
     protected void updateBackground(float delta) {
         cloudsOne.setX(cloudsOne.getX()-100*delta);
         cloudsTwo.setX(cloudsTwo.getX()-100*delta);
+        //Set clouds
         if(camera.position.x - 3*cloudsOne.getWidth()/2>cloudsOne.getX())
         {
             cloudsOne.setX(cloudsTwo.getX()+cloudsTwo.getWidth());
@@ -146,6 +189,7 @@ public abstract class GenericLevel extends GenericScreen {
         {
             cloudsTwo.setX(cloudsOne.getX()+cloudsOne.getWidth());
         }
+        //Set background
         if(camera.position.x - 3*backgroundOne.getWidth()/2>backgroundOne.getX())
         {
             backgroundOne.setX(backgroundTwo.getX()+backgroundTwo.getWidth());
@@ -153,6 +197,15 @@ public abstract class GenericLevel extends GenericScreen {
         else if(camera.position.x - 3*backgroundTwo.getWidth()/2>backgroundTwo.getX())
         {
             backgroundTwo.setX(backgroundOne.getX()+backgroundOne.getWidth());
+        }
+        //Set objetcs
+        if(camera.position.x - 3*objectsOne.getWidth()/2>objectsOne.getX())
+        {
+            objectsOne.setX(objectsTwo.getX()+objectsTwo.getWidth());
+        }
+        else if(camera.position.x - 3*objectsTwo.getWidth()/2>objectsTwo.getX())
+        {
+            objectsTwo.setX(objectsOne.getX()+objectsOne.getWidth());
         }
     }
 
