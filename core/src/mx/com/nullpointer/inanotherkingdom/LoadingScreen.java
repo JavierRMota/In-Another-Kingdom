@@ -5,7 +5,9 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import mx.com.nullpointer.levels.LevelOne;
@@ -18,8 +20,14 @@ import mx.com.nullpointer.utils.GenericScreen;
 
 public class LoadingScreen extends GenericScreen {
 
+
+    //private Sprite loadingSprite;
+    private Texture backgroundTexture;
     private Texture loadingTexture;
-    private Sprite loadingSprite;
+    private Animation animationLoading;
+    private float timerAnimation;
+    private float x;
+    private float y;
     private int screen;
 
     public LoadingScreen(Main game, int screen){
@@ -29,9 +37,16 @@ public class LoadingScreen extends GenericScreen {
 
     @Override
     public void show() {
-        loadingTexture = new Texture("cargando.png");
-        loadingSprite = new Sprite(loadingTexture);
-        loadingSprite.setPosition(WIDTH /2- loadingSprite.getWidth()/2, HEIGHT /2- loadingSprite.getHeight()/2);
+        backgroundTexture = new Texture("background/menubg.png");
+        loadingTexture = new Texture("background/pantallaCarga.png");
+        /*loadingSprite = new Sprite(loadingTexture);
+        loadingSprite.setPosition(WIDTH /2- loadingSprite.getWidth()/2, HEIGHT /2- loadingSprite.getHeight()/2);*/
+        TextureRegion region = new TextureRegion(loadingTexture);
+        TextureRegion[][] frames = region.split(loadingTexture.getWidth()/6, loadingTexture.getHeight());
+        animationLoading = new Animation(0.2f, frames[0][5], frames[0][2], frames[0][1]);
+        animationLoading.setPlayMode(Animation.PlayMode.LOOP);
+        x = HEIGHT/3*2+30f;
+        y = WIDTH/4f;
         loadResources();
 
     }
@@ -140,12 +155,15 @@ public class LoadingScreen extends GenericScreen {
     public void render(float delta) {
 
         updateLoad();
-        clearScreen();
-        loadingSprite.setRotation(loadingSprite.getRotation()+10*delta);
-        batch.setProjectionMatrix(camera.combined);
+        //loadingSprite.setRotation(loadingSprite.getRotation()+10*delta);
+        //batch.setProjectionMatrix(camera.combined);
+        timerAnimation += Gdx.graphics.getDeltaTime();
+        TextureRegion frame = (TextureRegion) animationLoading.getKeyFrame(timerAnimation);
         batch.begin();
-        loadingSprite.draw(batch);
+        batch.draw(backgroundTexture,0 ,0);
+        batch.draw(frame, x, y);
         batch.end();
+        //loadingSprite.draw(batch);
     }
 
 
