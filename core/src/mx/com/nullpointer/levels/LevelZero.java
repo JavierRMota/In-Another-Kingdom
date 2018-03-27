@@ -58,12 +58,7 @@ public class LevelZero extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        coinScore="00";
-        coins=0;
-        keys=0;
-        recolectedKeys = new boolean[3];
-        middleKey=34;
-        scoreDisplay = new Text();
+        scoreInit(34);
 
         //Tutorial
         Texture swipeUpTexture = assetManager.get("tutorial/swipeUp.png");
@@ -245,17 +240,11 @@ public class LevelZero extends GenericLevel {
                 }
                 swordSprite.draw(batch);
             }
+
             //End batch
             batch.end();
             //Check which scene to draw
-            if(gameState == GameState.PLAY)
-            {
-                buttonScene.draw();
-            }
-            else
-            {
-                pauseScene.draw();
-            }
+            drawInputScene();
 
     }
 
