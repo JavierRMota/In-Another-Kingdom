@@ -240,17 +240,11 @@ public class LevelZero extends GenericLevel {
                 }
                 swordSprite.draw(batch);
             }
+
             //End batch
             batch.end();
             //Check which scene to draw
-            if(gameState == GameState.PLAY)
-            {
-                buttonScene.draw();
-            }
-            else
-            {
-                pauseScene.draw();
-            }
+            drawInputScene();
 
     }
 

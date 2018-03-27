@@ -232,15 +232,11 @@ public class LevelOne extends GenericLevel {
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
         //End batch
         batch.end();
-        if(gameState == GameState.PLAY)
-        {
-            buttonScene.draw();
-        }
-        else
-        {
-            pauseScene.draw();
-        }
+        //Draw current input scene
+        drawInputScene();
     }
+
+
 
 
     private void update(float delta) {
@@ -265,6 +261,24 @@ public class LevelOne extends GenericLevel {
     }
 
     private void checkEnemies(int cx, int cy, TiledMapTileLayer layer) {
+        TiledMapTileLayer.Cell currentCell = layer.getCell(cx,cy);
+        if(currentCell!=null)
+        {
+            String cellType = (String) currentCell.getTile().getProperties().get("type");
+            if(cellType.equals("enemy"))
+            {
+                if(laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING)
+                {
+                    gameState= GameState.LOOSE;
+                }
+                else
+                {
+
+                }
+
+            }
+        }
+
 
     }
 

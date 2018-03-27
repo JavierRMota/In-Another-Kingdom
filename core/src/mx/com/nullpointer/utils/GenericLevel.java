@@ -140,6 +140,17 @@ public abstract class GenericLevel extends GenericScreen {
 
     }
 
+    protected void drawInputScene() {
+        if(gameState == GameState.PLAY)
+        {
+            buttonScene.draw();
+        }
+        else
+        {
+            pauseScene.draw();
+        }
+    }
+
     protected void checkCoins(int cx, int cy,TiledMapTileLayer layer)
     {
         TiledMapTileLayer.Cell currentCellDown = layer.getCell(cx,cy);
