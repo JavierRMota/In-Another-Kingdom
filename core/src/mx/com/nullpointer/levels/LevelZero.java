@@ -58,12 +58,7 @@ public class LevelZero extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        coinScore="00";
-        coins=0;
-        keys=0;
-        recolectedKeys = new boolean[3];
-        middleKey=34;
-        scoreDisplay = new Text();
+        scoreInit(34);
 
         //Tutorial
         Texture swipeUpTexture = assetManager.get("tutorial/swipeUp.png");

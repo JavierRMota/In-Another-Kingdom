@@ -26,7 +26,7 @@ public abstract class GenericLevel extends GenericScreen {
     protected MainCharacter laurence;
 
     //Scores
-    protected int coins,keys;
+    protected int coins,keys, enemies;
     protected String coinScore;
     protected Text  scoreDisplay;
     protected boolean recolectedKeys[];
@@ -104,6 +104,7 @@ public abstract class GenericLevel extends GenericScreen {
         coinScore="00";
         coins=0;
         keys=0;
+        enemies=0;
         recolectedKeys = new boolean[3];
         middleKey=midKey;
         scoreDisplay = new Text();
