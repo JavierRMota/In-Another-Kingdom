@@ -45,8 +45,8 @@ public class LoadingScreen extends GenericScreen {
         TextureRegion[][] frames = region.split(loadingTexture.getWidth()/6, loadingTexture.getHeight());
         animationLoading = new Animation(0.2f, frames[0][5], frames[0][2], frames[0][1]);
         animationLoading.setPlayMode(Animation.PlayMode.LOOP);
-        x = HEIGHT/3*2+30f;
-        y = WIDTH/4f;
+        x = HEIGHT/3*2;
+        y = WIDTH/5;
         loadResources();
 
     }
@@ -207,6 +207,7 @@ public class LoadingScreen extends GenericScreen {
     @Override
     public void dispose() {
         loadingTexture.dispose();
+        backgroundTexture.dispose();
     }
 
 
