@@ -90,8 +90,8 @@ public class LevelZero extends GenericLevel {
         Texture objectTexture = assetManager.get("map/bookOneT.png");
         objectsOne = new Sprite(objectTexture);
         objectsTwo = new Sprite(objectTexture);
-        objectsOne.setPosition(0,-130);
-        objectsTwo.setPosition(objectsOne.getWidth(),-130);
+        objectsOne.setPosition(0,-40);
+        objectsTwo.setPosition(objectsOne.getWidth(),-40);
     }
 
 
@@ -121,7 +121,7 @@ public class LevelZero extends GenericLevel {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
                         || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
                     laurence.setMovementState(MainCharacter.MovementState.DODGING);
-                if(laurence.getMovementState() == MainCharacter.MovementState.FALLING)
+                if(laurence.getMovementState() == MainCharacter.MovementState.FALLING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
                     laurence.quickFall();
 
             }

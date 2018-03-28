@@ -17,7 +17,7 @@ public class MainCharacter extends GameObject
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation, attackingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float VY = 20, VX=300,G=30;
+    private float VY = 20, VX=400,G=30;
     private float animationSpeed = 0.04f;
 
 
@@ -81,6 +81,9 @@ public class MainCharacter extends GameObject
         // Quieto
         sprite = new Sprite(standingTexture);
         sprite.setPosition(0,64);
+
+        //Start speed
+        //TODO after we get the preferences
 
         //Posición
         x = GenericScreen.WIDTH /8;
