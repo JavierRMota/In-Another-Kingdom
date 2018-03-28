@@ -39,7 +39,7 @@ public class LevelOne extends GenericLevel {
         //Create the camera for all game information and buttons
         createHUD();
         //Load TiledMap
-        loadMap();
+        loadMap("map/nivelUno.tmx");
         //Load Textures
         loadTextures();
 
@@ -109,93 +109,24 @@ public class LevelOne extends GenericLevel {
                 if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
                         || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
                     laurence.setMovementState(MainCharacter.MovementState.DODGING);
+                if(laurence.getMovementState() == MainCharacter.MovementState.FALLING)
+                    laurence.quickFall();
 
             }
         });
         //Set gesture input
         inputMultiplexer.addProcessor(gestureDetector);
-        //Create scene for all buttons
-        buttonScene = new Stage(viewHUD);
-        //Pause Button
-        Texture pauseTexture = assetManager.get("btn/pausebtn.png");
-        Texture pausePressTexture = assetManager.get("btn/pausebtnpress.png");
-        TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseTexture));
-        TextureRegionDrawable trdPausePress = new TextureRegionDrawable(new TextureRegion(pausePressTexture));
-        ImageButton btnPause = new ImageButton(trdPause,trdPausePress);
-        btnPause.setPosition(WIDTH /2 - btnPause.getWidth()/2, HEIGHT - 1.5f*btnPause.getHeight());
-        btnPause.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                pause();
-            }
-        });
-        buttonScene.addActor(btnPause);
-        //Action Button
-        Texture actionTexture = assetManager.get("gameObjects/actionbtn.png");
-        Texture actionPressTexture = assetManager.get("gameObjects/actionbtnpress.png");
-        TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
-        TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
-        ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
-        btnAction.setPosition(3*WIDTH/4, 0);
-        btnAction.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
-                {
-                    laurence.resetTimerAction();
-                    laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
-                }
-
-
-            }
-        });
-        buttonScene.addActor(btnAction);
+        //Create stage for all buttons
+        createButtonStage();
         inputMultiplexer.addProcessor(buttonScene);
 
+        //Create Pause Stage
+        createPauseStage();
 
-        //Pause Scene
-        pauseScene = new Stage(viewHUD);
-        //Button play
-        Texture playTexture = assetManager.get("btn/playbtn.png");
-        Texture playPressTexture = assetManager.get("btn/playbtnpress.png");
-        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(playTexture));
-        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(playPressTexture));
-        ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
-        btnPlay.setPosition(WIDTH /2 - btnPlay.getWidth()/2, HEIGHT /2 - btnPlay.getHeight()/2);
-        btnPlay.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                resume();
-            }
-        });
-        pauseScene.addActor(btnPlay);
-        //Back Button
-        Texture backTexture = assetManager.get("btn/backbtn.png");
-        Texture backPressTexture = assetManager.get("btn/backbtnpress.png");
-        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backTexture));
-        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(backPressTexture));
-        ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(WIDTH /4 - btnBack.getWidth()/2, HEIGHT /2 - btnBack.getHeight()/2);
-        btnBack.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,MENU));
-            }
-        });
-        pauseScene.addActor(btnBack);
 
         //Begin input processor
         Gdx.input.setInputProcessor(inputMultiplexer);
         inputProcessor = inputMultiplexer;
-    }
-
-    private void loadMap() {
-        tiledMap = assetManager.get("map/nivelUno.tmx");
-        render = new OrthogonalTiledMapRenderer(tiledMap);
     }
 
 
@@ -252,7 +183,6 @@ public class LevelOne extends GenericLevel {
     {
         int cx = (int)(laurence.getX()+70)/70;
         int cy = (int)(laurence.getY())/70;
-
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
         checkEnemies(cx,cy,layer);
@@ -267,13 +197,40 @@ public class LevelOne extends GenericLevel {
             String cellType = (String) currentCell.getTile().getProperties().get("type");
             if(cellType.equals("enemy"))
             {
-                if(laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING)
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
                 {
-                    gameState= GameState.LOOSE;
+                    Integer number = Integer.parseInt((String) currentCell.getTile().getProperties().get("number"));
+                    switch (number)
+                    {
+                        case 1:
+                            layer.setCell(cx,cy,null);
+                            layer.setCell(cx,cy-1,null);
+                            layer.setCell(cx+1,cy,null);
+                            layer.setCell(cx+1,cy-1,null);
+                            break;
+                        case 2:
+                            layer.setCell(cx,cy,null);
+                            layer.setCell(cx,cy-1,null);
+                            layer.setCell(cx-1,cy,null);
+                            layer.setCell(cx-1,cy-1,null);
+                            break;
+                        case 3:
+                            layer.setCell(cx,cy,null);
+                            layer.setCell(cx,cy+1,null);
+                            layer.setCell(cx+1,cy,null);
+                            layer.setCell(cx+1,cy+1,null);
+                            break;
+                        case 4:
+                            layer.setCell(cx,cy,null);
+                            layer.setCell(cx,cy+1,null);
+                            layer.setCell(cx-1,cy,null);
+                            layer.setCell(cx-1,cy+1,null);
+                            break;
+                    }
                 }
                 else
                 {
-
+                    gameState= GameState.LOOSE;
                 }
 
             }
@@ -299,7 +256,13 @@ public class LevelOne extends GenericLevel {
 
     private void updateCamera(float delta) {
         //Para que la cámara avance sola hasta el final de la pantalla
-        float posX = camera.position.x+delta*laurence.getVelocity()*0.9f;
+        float posX;
+        if(laurence.getX()>= camera.position.x-3*WIDTH/8)
+            posX = camera.position.x+delta*laurence.getVelocity();
+        else if(laurence.getX()>=camera.position.x-WIDTH/2)
+            posX =camera.position.x+delta*laurence.getVelocity()*0.8f;
+        else
+            posX=camera.position.x+delta*laurence.getVelocity()*0.6f;
         if (posX > MAP_WIDTH - WIDTH /2) {   // Última mitad de la pantalla
             camera.position.set(MAP_WIDTH- WIDTH /2,camera.position.y,0);
         } else {    // En 'medio' del mapa

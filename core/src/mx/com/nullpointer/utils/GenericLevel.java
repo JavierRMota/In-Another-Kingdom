@@ -5,12 +5,19 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 
 /**
@@ -93,6 +100,91 @@ public abstract class GenericLevel extends GenericScreen {
         coinTexture=assetManager.get("gameObjects/moneda.png");
         fullKeyTexture = assetManager.get("gameObjects/llaveFull.png");
         emptyKeyTexture = assetManager.get("gameObjects/llaveEmpty.png");
+    }
+    //Method to load map
+    protected void loadMap(String map) {
+        tiledMap = assetManager.get(map);
+        render = new OrthogonalTiledMapRenderer(tiledMap);
+
+    }
+
+    //Method to create the pause
+    protected void createPauseStage() {
+        //Pause Scene
+        pauseScene = new Stage(viewHUD);
+        //Button play
+        Texture playTexture = assetManager.get("btn/playbtn.png");
+        Texture playPressTexture = assetManager.get("btn/playbtnpress.png");
+        TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(playTexture));
+        TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(playPressTexture));
+        ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
+        btnPlay.setPosition(WIDTH /2 - btnPlay.getWidth()/2, HEIGHT /2 - btnPlay.getHeight()/2);
+        btnPlay.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                resume();
+            }
+        });
+        pauseScene.addActor(btnPlay);
+        //Back Button
+        Texture backTexture = assetManager.get("btn/backbtn.png");
+        Texture backPressTexture = assetManager.get("btn/backbtnpress.png");
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backTexture));
+        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(backPressTexture));
+        ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
+        btnBack.setPosition(WIDTH /4 - btnBack.getWidth()/2, HEIGHT /2 - btnBack.getHeight()/2);
+        btnBack.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,MENU));
+            }
+        });
+        pauseScene.addActor(btnBack);
+    }
+
+    //Method to create the buttons
+    protected void createButtonStage() {
+        buttonScene = new Stage(viewHUD);
+        //Pause Button
+        Texture pauseTexture = assetManager.get("btn/pausebtn.png");
+        Texture pausePressTexture = assetManager.get("btn/pausebtnpress.png");
+        TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseTexture));
+        TextureRegionDrawable trdPausePress = new TextureRegionDrawable(new TextureRegion(pausePressTexture));
+        ImageButton btnPause = new ImageButton(trdPause,trdPausePress);
+        btnPause.setPosition(WIDTH /2 - btnPause.getWidth()/2, HEIGHT - 1.5f*btnPause.getHeight());
+        btnPause.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                pause();
+            }
+        });
+        buttonScene.addActor(btnPause);
+        //Action Button
+        Texture actionTexture = assetManager.get("gameObjects/actionbtn.png");
+        Texture actionPressTexture = assetManager.get("gameObjects/actionbtnpress.png");
+        TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
+        TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
+        ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
+        btnAction.setPosition(3*WIDTH/4, 0);
+        btnAction.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
+                {
+                    laurence.resetTimerAction();
+                    laurence.setX(laurence.getX()+18);
+                    laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+
+                }
+
+
+            }
+        });
+        buttonScene.addActor(btnAction);
     }
 
     //Method to decide if the character wins or looses (depends on the level)

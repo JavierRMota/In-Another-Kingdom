@@ -186,6 +186,7 @@ public class MainCharacter extends GameObject
             {
                 movementState = MovementState.JUMPING_END;
                 timerAction= animationSpeed*3;
+                VY=20;
                 this.y = (cy)*70;
             }
         }
@@ -217,10 +218,10 @@ public class MainCharacter extends GameObject
         TiledMapTileLayer.Cell nextCell = layer.getCell(cx+1,cy);
         if(nextCell!= null && nextCell.getTile().getProperties().get("type").equals("platform"))
         {
-            this.VX = 300;
+            //this.VX = 300;
             return false;
         }
-        this.VX =400;
+        //this.VX =400;
         return true;
     }
     public void run(SpriteBatch batch)
@@ -279,6 +280,7 @@ public class MainCharacter extends GameObject
             movementState = MovementState.RUNNING;
             timerAction=0;
             timerRunning=0;
+            x-=18;
         }
         TextureRegion region = (TextureRegion) attackingAnimation.getKeyFrame(timerAction);
         batch.draw(region, x, y);
@@ -290,6 +292,10 @@ public class MainCharacter extends GameObject
     public void resetTimerAction()
     {
         timerAction=0;
+    }
+
+    public void quickFall() {
+        VY=0;
     }
 
     public enum MovementState
