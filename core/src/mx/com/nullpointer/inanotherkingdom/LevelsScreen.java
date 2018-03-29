@@ -27,6 +27,9 @@ class LevelsScreen extends GenericScreen{
     private Texture backgroundTexture;
     private Texture titleTexture;
 
+    //Color de texto r:55 g:26 b:2
+
+
 
 
     public LevelsScreen(Main game) {
