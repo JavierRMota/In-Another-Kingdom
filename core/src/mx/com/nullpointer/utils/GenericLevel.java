@@ -168,7 +168,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
         TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
         ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
-        btnAction.setPosition(3*WIDTH/4, 0);
+        btnAction.setPosition(WIDTH/16, 0);
         btnAction.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

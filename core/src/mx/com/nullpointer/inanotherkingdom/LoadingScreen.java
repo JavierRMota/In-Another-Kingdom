@@ -200,10 +200,10 @@ public class LoadingScreen extends GenericScreen {
 
     @Override
     public void render(float delta) {
-
+        clearScreen();
         updateLoad();
         //loadingSprite.setRotation(loadingSprite.getRotation()+10*delta);
-        //batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         timerAnimation += Gdx.graphics.getDeltaTime();
         TextureRegion frame = (TextureRegion) animationLoading.getKeyFrame(timerAnimation);
         batch.begin();
