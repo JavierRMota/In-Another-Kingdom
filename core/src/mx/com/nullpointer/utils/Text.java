@@ -16,6 +16,11 @@ public class Text {
         font = new BitmapFont(Gdx.files.internal("fonts/oldEngFont.fnt"));
         font.setColor(225/255f,213/255f,164/255f,1);
     }
+    public Text(float r, float g, float b)
+    {
+        font = new BitmapFont(Gdx.files.internal("fonts/oldEngFont.fnt"));
+        font.setColor(r,g,b,1);
+    }
     public void showMsg(SpriteBatch batch, String msg, float x, float y, float size)
     {
         font.getData().setScale(size);

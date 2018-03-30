@@ -80,19 +80,38 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/aboutbtn.png",Texture.class);
                 assetManager.load("btn/aboutbtnpress.png",Texture.class);
                 assetManager.load("music/menu.mp3",Music.class);
-                assetManager.finishLoading();
                 break;
             case SETTINGS:
                 assetManager.load("music/menu.mp3",Music.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("background/menubg.png",Texture.class);
                 break;
             case LEVELS:
                 assetManager.load("music/menu.mp3",Music.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("background/menubg.png",Texture.class);
                 break;
             case ABOUT:
+                assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("music/menu.mp3",Music.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/gitbtn.png",Texture.class);
+                assetManager.load("btn/gitbtnpress.png",Texture.class);
+                assetManager.load("screens/avatarBanner.png",Texture.class);
+                assetManager.load("screens/avatarBere.png",Texture.class);
+                assetManager.load("screens/avatarCharly.png",Texture.class);
+                assetManager.load("screens/avatarEli.png",Texture.class);
+                assetManager.load("screens/avatarJavier.png",Texture.class);
+                assetManager.load("screens/avatarMarina.png",Texture.class);
                 break;
             case ARMORY:
                 assetManager.load("music/menu.mp3",Music.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("background/menubg.png",Texture.class);
                 break;
             case LVLZERO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -117,7 +136,6 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("gameObjects/moneda.png",Texture.class);
                 assetManager.load("tutorial/swipeUp.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
-                assetManager.finishLoading();
                 break;
             case LVLONE:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
