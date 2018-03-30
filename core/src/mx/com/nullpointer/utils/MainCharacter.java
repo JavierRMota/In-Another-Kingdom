@@ -301,6 +301,10 @@ public class MainCharacter extends GameObject
         VY=0;
     }
 
+    public void setTimerAction(float timerAction) {
+        this.timerAction = timerAction;
+    }
+
     public enum MovementState
     {
         RUNNING,

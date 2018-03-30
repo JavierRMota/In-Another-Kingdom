@@ -142,6 +142,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/pausebtnpress.png",Texture.class);
                 assetManager.load("gameObjects/moneda.png",Texture.class);
                 assetManager.load("tutorial/swipeUp.png",Texture.class);
+                assetManager.load("tutorial/swipeDown.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 break;
             case LVLONE:

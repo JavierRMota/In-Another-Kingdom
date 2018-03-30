@@ -31,9 +31,10 @@ public class LevelZero extends GenericLevel {
 
     //Tutorial
     private Sprite swipeUp;
+    private Sprite swipeDown;
     private Sprite swordSprite;
     private int VSWIPE= 150;
-    private boolean sword =false;
+    private boolean sword =false, fastFall =false;
 
     //Constructor
     public LevelZero(Main game, int level)
@@ -63,6 +64,9 @@ public class LevelZero extends GenericLevel {
         Texture swipeUpTexture = assetManager.get("tutorial/swipeUp.png");
         swipeUp = new Sprite(swipeUpTexture);
         swipeUp.setPosition(13*70,50);
+        Texture swipeDownTexture = assetManager.get("tutorial/swipeDown.png");
+        swipeDown = new Sprite(swipeDownTexture);
+        swipeDown.setPosition(41*70,200);
         Texture swordTexture = assetManager.get("gameObjects/actionbtn.png");
         swordSprite = new Sprite(swordTexture);
         swordSprite.setPosition(3*WIDTH/4,HEIGHT/4);
@@ -121,7 +125,19 @@ public class LevelZero extends GenericLevel {
                         || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
                     laurence.setMovementState(MainCharacter.MovementState.DODGING);
                 if(laurence.getMovementState() == MainCharacter.MovementState.FALLING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
+                {
                     laurence.quickFall();
+                    int cx = (int)(laurence.getX()+70)/70;
+                    if(cx==40)
+                    {
+                        fastFall=true;
+                        laurence.setTimerAction(0.8f);
+                    }
+
+
+
+                }
+
 
             }
         });
@@ -162,7 +178,7 @@ public class LevelZero extends GenericLevel {
     public void render(float delta) {
         int cx = (int)(laurence.getX()+70)/70;
 
-            if(gameState!=GameState.PAUSE && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING))
+            if(gameState!=GameState.PAUSE && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING) && (cx!=40 || fastFall))
             {
                 update(delta);
             }
@@ -188,7 +204,14 @@ public class LevelZero extends GenericLevel {
                 if(swipeUp.getY()>200 ||swipeUp.getY()<50)
                     VSWIPE=-VSWIPE;
                 swipeUp.draw(batch);
+            } else if(cx==40)
+            {
+                swipeDown.setY(swipeDown.getY()+delta*VSWIPE);
+                if(swipeDown.getY()>200 ||swipeDown.getY()<50)
+                    VSWIPE=-VSWIPE;
+                swipeDown.draw(batch);
             }
+
             batch.end();
             //Draw buttons and information
             batch.setProjectionMatrix(cameraHUD.combined);
@@ -328,6 +351,7 @@ public class LevelZero extends GenericLevel {
         assetManager.unload("map/bookOneBg.png");
         assetManager.unload("map/clouds.png");
         assetManager.unload("tutorial/swipeUp.png");
+        assetManager.unload("tutorial/swipeDown.png");
         assetManager.unload("gameObjects/actionbtn.png");
         assetManager.unload("characters/laurence_attacking.png");
         buttonScene.dispose();
