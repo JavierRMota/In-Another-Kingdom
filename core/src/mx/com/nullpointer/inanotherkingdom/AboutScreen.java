@@ -51,4 +51,102 @@ class AboutScreen extends GenericScreen {
         msg = new Text();
 
     }
+
+    private void createObjects() {
+        aboutStage = new Stage(view);
+
+        //Back
+        Texture backbtn = assetManager.get("btn/backbtn.png");
+        Texture backbtnpress = assetManager.get("btn/backbtnpress.png");
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backbtn));
+        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(backbtnpress));
+        ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
+        btnBack.setPosition(btnBack.getWidth()/2, HEIGHT /2 - btnBack.getHeight()/2);
+        btnBack.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game, MENU));
+
+            }
+        });
+        aboutStage.addActor(btnBack);
+
+        //Git
+        Texture gitbtn = assetManager.get("btn/gitbtn.png");
+        Texture gitbtnpress = assetManager.get("btn/gitbtnpress.png");
+        TextureRegionDrawable trdGit = new TextureRegionDrawable(new TextureRegion(gitbtn));
+        TextureRegionDrawable trdGitPress = new TextureRegionDrawable(new TextureRegion(gitbtnpress));
+        ImageButton btnGit = new ImageButton(trdGit,trdGitPress);
+        btnGit.setPosition(WIDTH/2-btnGit.getWidth()/2, HEIGHT/8 - btnGit.getHeight()/8);
+        btnGit.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                Gdx.net.openURI("https://github.com/JavierRMota/In-Another-Kingdom/");
+
+            }
+        });
+        aboutStage.addActor(btnGit);
+        Gdx.input.setInputProcessor(aboutStage);
+
+    }
+
+
+    @Override
+    public void render(float delta) {
+        clearScreen();
+
+        batch.setProjectionMatrix(camera.combined);
+
+        batch.begin();
+        batch.draw(backgroundTexture,0 ,0);
+        //Intro
+        msg.showMsg(batch,"About", WIDTH /2,7* HEIGHT /8,2);
+        msg.showMsg(batch,"Made by: ",WIDTH/2,3*HEIGHT/4,1);
+
+        //Bere
+        batch.draw(bannerTexture,WIDTH/2-bannerTexture.getWidth()/2,HEIGHT/2-bannerTexture.getHeight()/2);
+        batch.draw(bere, WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        msg.showMsg(batch,"Bere",WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/2,HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+
+        //Charly
+        batch.draw(charly, WIDTH/2-bannerTexture.getWidth()/2+charly.getWidth()+2*charly.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        msg.showMsg(batch,"Charly",WIDTH/2-bannerTexture.getWidth()/2+1.6f*charly.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+
+        //Eli
+        batch.draw(eli, WIDTH/2-bannerTexture.getWidth()/2+2*eli.getWidth()+3*eli.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        msg.showMsg(batch,"Eli",WIDTH/2-bannerTexture.getWidth()/2+2.7f*eli.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+
+        //Javier
+        batch.draw(javier, WIDTH/2-bannerTexture.getWidth()/2+3*javier.getWidth()+4*javier.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        msg.showMsg(batch,"Javier",WIDTH/2-bannerTexture.getWidth()/2+3.8f*javier.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+
+        //Marina
+        batch.draw(marina, WIDTH/2-bannerTexture.getWidth()/2+4*marina.getWidth()+5*marina.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        msg.showMsg(batch,"Marina",WIDTH/2-bannerTexture.getWidth()/2+4.9f*marina.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+
+        batch.end();
+
+        //Buttons
+        aboutStage.draw();
+
+
+    }
+    @Override
+    public void dispose()
+    {
+        assetManager.unload("music/menu.mp3");
+        assetManager.unload("btn/backbtn.png");
+        assetManager.unload("btn/backbtnpress.png");
+        assetManager.unload("btn/gitbtn.png");
+        assetManager.unload("btn/gitbtnpress.png");
+        assetManager.unload("screens/avatarBanner.png");
+        assetManager.unload("screens/avatarBere.png");
+        assetManager.unload("screens/avatarCharly.png");
+        assetManager.unload("screens/avatarEli.png");
+        assetManager.unload("screens/avatarJavier.png");
+        assetManager.unload("screens/avatarMarina.png");
+        assetManager.unload("background/menubg.png");
+    }
 }
