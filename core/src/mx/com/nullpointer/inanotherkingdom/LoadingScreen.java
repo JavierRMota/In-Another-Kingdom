@@ -136,6 +136,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/playbtnpress.png",Texture.class);
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/resetbtn.png",Texture.class);
+                assetManager.load("btn/resetbtnpress.png",Texture.class);
                 assetManager.load("btn/pausebtn.png",Texture.class);
                 assetManager.load("btn/pausebtnpress.png",Texture.class);
                 assetManager.load("gameObjects/moneda.png",Texture.class);
@@ -158,6 +160,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
                 assetManager.load("btn/playbtn.png",Texture.class);
                 assetManager.load("btn/playbtnpress.png",Texture.class);
+                assetManager.load("btn/resetbtn.png",Texture.class);
+                assetManager.load("btn/resetbtnpress.png",Texture.class);
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("btn/pausebtn.png",Texture.class);
@@ -182,6 +186,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
                 assetManager.load("btn/playbtn.png",Texture.class);
                 assetManager.load("btn/playbtnpress.png",Texture.class);
+                assetManager.load("btn/resetbtn.png",Texture.class);
+                assetManager.load("btn/resetbtnpress.png",Texture.class);
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("btn/pausebtn.png",Texture.class);
@@ -237,13 +243,13 @@ public class LoadingScreen extends GenericScreen {
                     game.setScreen(new ArmoryScreen(game));
                     break;
                 case LVLZERO:
-                    game.setScreen(new LevelZero(game));
+                    game.setScreen(new LevelZero(game,screen));
                     break;
                 case LVLONE:
-                    game.setScreen(new LevelOne(game));
+                    game.setScreen(new LevelOne(game,screen));
                     break;
                 case LVLTWO:
-                    game.setScreen(new LevelTwo(game));
+                    game.setScreen(new LevelTwo(game,screen));
                     break;
                 default:
                     Gdx.app.log("ERROR:","Screen not implemented");

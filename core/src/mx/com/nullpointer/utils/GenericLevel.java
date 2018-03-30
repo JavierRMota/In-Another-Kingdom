@@ -64,8 +64,12 @@ public abstract class GenericLevel extends GenericScreen {
     //Controlador de juego
     protected GameState gameState;
 
-    public GenericLevel(Main game) {
+    //ID
+    protected int LVL;
+
+    public GenericLevel(Main game, int level) {
         super(game);
+        LVL =level;
     }
 
     //Create STATIC Camera
@@ -112,6 +116,21 @@ public abstract class GenericLevel extends GenericScreen {
     protected void createPauseStage() {
         //Pause Scene
         pauseScene = new Stage(viewHUD);
+        //Button reset
+        Texture resetTexture =  assetManager.get("btn/resetbtn.png");
+        Texture resetPressTexture  = assetManager.get("btn/resetbtnpress.png");
+        TextureRegionDrawable trdReset = new TextureRegionDrawable(new TextureRegion(resetTexture));
+        TextureRegionDrawable trdResetPress = new TextureRegionDrawable(new TextureRegion(resetPressTexture));
+        ImageButton btnReset = new ImageButton(trdReset,trdResetPress);
+        btnReset.setPosition(3*WIDTH/4 -btnReset.getWidth()/2,HEIGHT/2-btnReset.getHeight()/2);
+        btnReset.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,LVL));
+            }
+        });
+        pauseScene.addActor(btnReset);
         //Button play
         Texture playTexture = assetManager.get("btn/playbtn.png");
         Texture playPressTexture = assetManager.get("btn/playbtnpress.png");

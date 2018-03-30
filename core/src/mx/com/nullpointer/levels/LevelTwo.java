@@ -21,9 +21,9 @@ public class LevelTwo extends GenericLevel {
 
 
     //Constructor
-    public LevelTwo(Main game)
+    public LevelTwo(Main game, int level)
     {
-        super(game);
+        super(game,level);
     }
     @Override
     public void show() {
@@ -282,6 +282,8 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("btn/backbtnpress.png");
         assetManager.unload("btn/pausebtn.png");
         assetManager.unload("btn/pausebtnpress.png");
+        assetManager.unload("btn/resetbtn.png");
+        assetManager.unload("btn/resetbtnpress.png");
         assetManager.unload("map/bookOneBg.png");
         assetManager.unload("map/clouds.png");
         assetManager.unload("gameObjects/actionbtn.png");

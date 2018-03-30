@@ -30,9 +30,9 @@ public class LevelOne extends GenericLevel {
 
 
     //Constructor
-    public LevelOne(Main game)
+    public LevelOne(Main game, int level)
     {
-        super(game);
+        super(game,level);
     }
     @Override
     public void show() {
@@ -200,6 +200,7 @@ public class LevelOne extends GenericLevel {
                 if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
                 {
                     Integer number = Integer.parseInt((String) currentCell.getTile().getProperties().get("number"));
+                    enemies++;
                     switch (number)
                     {
                         case 1:
@@ -291,6 +292,8 @@ public class LevelOne extends GenericLevel {
         assetManager.unload("btn/backbtnpress.png");
         assetManager.unload("btn/pausebtn.png");
         assetManager.unload("btn/pausebtnpress.png");
+        assetManager.unload("btn/resetbtn.png");
+        assetManager.unload("btn/resetbtnpress.png");
         assetManager.unload("map/bookOneBg.png");
         assetManager.unload("map/clouds.png");
         assetManager.unload("gameObjects/actionbtn.png");
