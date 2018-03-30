@@ -6,12 +6,10 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import mx.com.nullpointer.levels.LevelOne;
-import mx.com.nullpointer.levels.LevelZero;
+import mx.com.nullpointer.levels.*;
 import mx.com.nullpointer.utils.GenericScreen;
 
 /**
@@ -92,6 +90,15 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("background/menubg.png",Texture.class);
+                assetManager.load("niveles/uno/levelOne.png",Texture.class);
+                assetManager.load("niveles/uno/levelTwo.png",Texture.class);
+                assetManager.load("niveles/uno/levelZero.png",Texture.class);
+                assetManager.load("niveles/uno/levelOneBook.png",Texture.class);
+                assetManager.load("niveles/levelLock.png",Texture.class);
+                assetManager.load("niveles/lock.png",Texture.class);
+                assetManager.load("niveles/lockedBook.png",Texture.class);
+                assetManager.load("niveles/playbtnlevels.png",Texture.class);
+                assetManager.load("niveles/playbtnpresslevels.png",Texture.class);
                 break;
             case ABOUT:
                 assetManager.load("background/menubg.png",Texture.class);
@@ -138,6 +145,30 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 break;
             case LVLONE:
+                assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+                assetManager.load("map/nivelUno.tmx", TiledMap.class);
+                assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("map/bookOneBg.png",Texture.class);
+                assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("map/bookOneT.png",Texture.class);
+                assetManager.load("characters/laurence_descanso.png",Texture.class);
+                assetManager.load("characters/laurence_running.png",Texture.class);
+                assetManager.load("characters/tira_salto.png",Texture.class);
+                assetManager.load("characters/tira_marometa.png",Texture.class);
+                assetManager.load("characters/laurence_attacking.png", Texture.class);
+                assetManager.load("gameObjects/llaveFull.png",Texture.class);
+                assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
+                assetManager.load("btn/playbtn.png",Texture.class);
+                assetManager.load("btn/playbtnpress.png",Texture.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/pausebtn.png",Texture.class);
+                assetManager.load("btn/pausebtnpress.png",Texture.class);
+                assetManager.load("gameObjects/moneda.png",Texture.class);
+                assetManager.load("gameObjects/actionbtn.png",Texture.class);
+                assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                break;
+            case LVLTWO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 assetManager.load("map/nivelUno.tmx", TiledMap.class);
                 assetManager.load("music/nivelUno.mp3",Music.class);
@@ -212,6 +243,9 @@ public class LoadingScreen extends GenericScreen {
                     break;
                 case LVLONE:
                     game.setScreen(new LevelOne(game));
+                    break;
+                case LVLTWO:
+                    game.setScreen(new LevelTwo(game));
                     break;
                 default:
                     Gdx.app.log("ERROR:","Screen not implemented");
