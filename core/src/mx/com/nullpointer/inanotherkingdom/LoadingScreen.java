@@ -37,8 +37,6 @@ public class LoadingScreen extends GenericScreen {
     public void show() {
         backgroundTexture = new Texture("background/menubg.png");
         loadingTexture = new Texture("background/pantallaCarga.png");
-        /*loadingSprite = new Sprite(loadingTexture);
-        loadingSprite.setPosition(WIDTH /2- loadingSprite.getWidth()/2, HEIGHT /2- loadingSprite.getHeight()/2);*/
         TextureRegion region = new TextureRegion(loadingTexture);
         TextureRegion[][] frames = region.split(loadingTexture.getWidth()/6, loadingTexture.getHeight());
         animationLoading = new Animation(0.2f, frames[0][5], frames[0][2], frames[0][1]);
