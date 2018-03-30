@@ -1,6 +1,7 @@
 package mx.com.nullpointer.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -112,6 +113,62 @@ public abstract class GenericLevel extends GenericScreen {
 
     }
 
+    //Load processors
+    protected void loadInputProcessor()
+    {
+        //Multiple inputs
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        //Gesture detection
+        GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
+            @Override
+            public void onLeft() {}
+            @Override
+            public void onRight()
+            {
+                if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
+                {
+                    laurence.resetTimerAction();
+                    laurence.setX(laurence.getX()+18);
+                    laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+
+                }
+            }
+            @Override
+            public void onUp() {
+                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING
+                        || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
+                {
+                    laurence.resetTimerAction();
+                    laurence.setMovementState(MainCharacter.MovementState.JUMPING);
+                }
+
+            }
+            @Override
+            public void onDown() {
+                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
+                    laurence.setMovementState(MainCharacter.MovementState.DODGING);
+                if(laurence.getMovementState() == MainCharacter.MovementState.FALLING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
+                    laurence.quickFall();
+
+            }
+        });
+        //Set gesture input
+        inputMultiplexer.addProcessor(gestureDetector);
+        //Create stage for all buttons
+        createButtonStage();
+        inputMultiplexer.addProcessor(buttonScene);
+
+        //Create Pause Stage
+        createPauseStage();
+
+
+        //Begin input processor
+        Gdx.input.setInputProcessor(inputMultiplexer);
+        inputProcessor = inputMultiplexer;
+    }
+
     //Method to create the pause
     protected void createPauseStage() {
         //Pause Scene
@@ -172,7 +229,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseTexture));
         TextureRegionDrawable trdPausePress = new TextureRegionDrawable(new TextureRegion(pausePressTexture));
         ImageButton btnPause = new ImageButton(trdPause,trdPausePress);
-        btnPause.setPosition(WIDTH /2 - btnPause.getWidth()/2, HEIGHT - 1.5f*btnPause.getHeight());
+        btnPause.setPosition(WIDTH /16 - btnPause.getWidth()/2, HEIGHT - 1.5f*btnPause.getHeight());
         btnPause.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -182,28 +239,32 @@ public abstract class GenericLevel extends GenericScreen {
         });
         buttonScene.addActor(btnPause);
         //Action Button
-        Texture actionTexture = assetManager.get("gameObjects/actionbtn.png");
-        Texture actionPressTexture = assetManager.get("gameObjects/actionbtnpress.png");
-        TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
-        TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
-        ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
-        btnAction.setPosition(WIDTH/16, 0);
-        btnAction.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
-                {
-                    laurence.resetTimerAction();
-                    laurence.setX(laurence.getX()+18);
-                    laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+        if(LVL !=LVLZERO)
+        {
+            Texture actionTexture = assetManager.get("gameObjects/actionbtn.png");
+            Texture actionPressTexture = assetManager.get("gameObjects/actionbtnpress.png");
+            TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
+            TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
+            ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
+            btnAction.setPosition(WIDTH/16, 0);
+            btnAction.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y){
+                    super.clicked(event, x, y);
+                    if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
+                    {
+                        laurence.resetTimerAction();
+                        laurence.setX(laurence.getX()+18);
+                        laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+
+                    }
+
 
                 }
+            });
+            buttonScene.addActor(btnAction);
+        }
 
-
-            }
-        });
-        buttonScene.addActor(btnAction);
     }
 
     //Method to decide if the character wins or looses (depends on the level)

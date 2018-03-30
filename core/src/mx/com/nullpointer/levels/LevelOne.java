@@ -83,53 +83,6 @@ public class LevelOne extends GenericLevel {
     }
 
 
-    private void loadInputProcessor()
-    {
-        //Multiple inputs
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        //Gesture detection
-        GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
-            @Override
-            public void onLeft() {}
-            @Override
-            public void onRight() {}
-            @Override
-            public void onUp() {
-                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
-                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING
-                        || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
-                {
-                    laurence.resetTimerAction();
-                    laurence.setMovementState(MainCharacter.MovementState.JUMPING);
-                }
-
-            }
-            @Override
-            public void onDown() {
-                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
-                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING)
-                    laurence.setMovementState(MainCharacter.MovementState.DODGING);
-                if(laurence.getMovementState() == MainCharacter.MovementState.FALLING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
-                    laurence.quickFall();
-
-            }
-        });
-        //Set gesture input
-        inputMultiplexer.addProcessor(gestureDetector);
-        //Create stage for all buttons
-        createButtonStage();
-        inputMultiplexer.addProcessor(buttonScene);
-
-        //Create Pause Stage
-        createPauseStage();
-
-
-        //Begin input processor
-        Gdx.input.setInputProcessor(inputMultiplexer);
-        inputProcessor = inputMultiplexer;
-    }
-
-
     @Override
     public void render(float delta) {
         //Check if paused
@@ -156,6 +109,7 @@ public class LevelOne extends GenericLevel {
         //Draw buttons and information
         batch.setProjectionMatrix(cameraHUD.combined);
         batch.begin();
+        //Draw coin
         batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
         //Draw keys
         drawKeys();

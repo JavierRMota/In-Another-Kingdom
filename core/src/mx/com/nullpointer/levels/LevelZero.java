@@ -66,7 +66,7 @@ public class LevelZero extends GenericLevel {
         swipeUp.setPosition(13*70,50);
         Texture swipeDownTexture = assetManager.get("tutorial/swipeDown.png");
         swipeDown = new Sprite(swipeDownTexture);
-        swipeDown.setPosition(41*70,200);
+        swipeDown.setPosition(41*70,50);
         Texture swordTexture = assetManager.get("gameObjects/actionbtn.png");
         swordSprite = new Sprite(swordTexture);
         swordSprite.setPosition(3*WIDTH/4,HEIGHT/4);
@@ -97,8 +97,8 @@ public class LevelZero extends GenericLevel {
         objectsTwo.setPosition(objectsOne.getWidth(),-40);
     }
 
-
-    private void loadInputProcessor()
+    @Override
+    protected void loadInputProcessor()
     {
         //Multiple inputs
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -143,28 +143,11 @@ public class LevelZero extends GenericLevel {
         });
         //Set gesture input
         inputMultiplexer.addProcessor(gestureDetector);
-        //Create scene
-        buttonScene = new Stage(viewHUD);
-        //Botón Pause
-        Texture pauseTexture = assetManager.get("btn/pausebtn.png");
-        Texture pausePressTexture = assetManager.get("btn/pausebtnpress.png");
-        TextureRegionDrawable trdPause = new TextureRegionDrawable(new TextureRegion(pauseTexture));
-        TextureRegionDrawable trdPausePress = new TextureRegionDrawable(new TextureRegion(pausePressTexture));
-        ImageButton btnPause = new ImageButton(trdPause,trdPausePress);
-        btnPause.setPosition(WIDTH /2 - btnPause.getWidth()/2, HEIGHT - 1.5f*btnPause.getHeight());
-        btnPause.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                pause();
-            }
-        });
-        //Add to the scene
-        buttonScene.addActor(btnPause);
-        //Set button processor
+        //Create stage for all buttons
+        createButtonStage();
         inputMultiplexer.addProcessor(buttonScene);
 
-        //Pause Scene
+        //Create Pause Stage
         createPauseStage();
 
         //Begin input processor
