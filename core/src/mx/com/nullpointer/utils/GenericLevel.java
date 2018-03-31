@@ -29,6 +29,7 @@ public abstract class GenericLevel extends GenericScreen {
     //Maps
     protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer render;
+    protected final float MAP_WIDTH;
 
     //Character
     protected MainCharacter laurence;
@@ -44,8 +45,14 @@ public abstract class GenericLevel extends GenericScreen {
     protected Texture coinTexture;
     protected Texture emptyKeyTexture;
     protected Texture fullKeyTexture;
+    //Win and loose
+    protected Texture winLooseBackground;
+    protected Texture laurenceBurnedLoose;
+    //TEXT
+    protected Text text;
 
     //Sprites
+    //Background
     protected Sprite backgroundOne;
     protected Sprite backgroundTwo;
     protected Sprite cloudsOne;
@@ -55,11 +62,15 @@ public abstract class GenericLevel extends GenericScreen {
     protected Sprite objectsTwo;
 
 
+
+
     //Camera and scene
     protected OrthographicCamera cameraHUD;
     protected Viewport viewHUD;
     protected Stage buttonScene;
     protected Stage pauseScene;
+    protected Stage winScene;
+    protected Stage looseScene;
     protected InputProcessor inputProcessor;
 
     //Controlador de juego
@@ -68,9 +79,11 @@ public abstract class GenericLevel extends GenericScreen {
     //ID
     protected int LVL;
 
-    public GenericLevel(Main game, int level) {
+    public GenericLevel(Main game, int level, int mapWidth) {
         super(game);
         LVL =level;
+        MAP_WIDTH =mapWidth;
+
     }
 
     //Create STATIC Camera
@@ -105,6 +118,9 @@ public abstract class GenericLevel extends GenericScreen {
         coinTexture=assetManager.get("gameObjects/moneda.png");
         fullKeyTexture = assetManager.get("gameObjects/llaveFull.png");
         emptyKeyTexture = assetManager.get("gameObjects/llaveEmpty.png");
+
+        laurenceBurnedLoose = assetManager.get("characters/laurence_burned.png");
+        winLooseBackground = assetManager.get("background/winLooseBg.png");
     }
     //Method to load map
     protected void loadMap(String map) {
@@ -163,6 +179,8 @@ public abstract class GenericLevel extends GenericScreen {
         //Create Pause Stage
         createPauseStage();
 
+        //Create Win Loose Stage
+        createWinLooseStage();
 
         //Begin input processor
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -218,6 +236,104 @@ public abstract class GenericLevel extends GenericScreen {
             }
         });
         pauseScene.addActor(btnBack);
+    }
+
+    //Create win and loose stage
+    protected void createWinLooseStage()
+    {
+        winScene = new Stage();
+        looseScene = new Stage();
+
+        //Reset
+        Texture resetTexture =  assetManager.get("btn/resetdarkbtn.png");
+        Texture resetPressTexture  = assetManager.get("btn/resetdarkbtnpress.png");
+        TextureRegionDrawable trdReset = new TextureRegionDrawable(new TextureRegion(resetTexture));
+        TextureRegionDrawable trdResetPress = new TextureRegionDrawable(new TextureRegion(resetPressTexture));
+        ImageButton btnReset = new ImageButton(trdReset,trdResetPress);
+        btnReset.setPosition(WIDTH/2 -btnReset.getWidth()/2,3*HEIGHT /16-btnReset.getHeight()/4);
+        btnReset.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,LVL));
+            }
+        });
+        winScene.addActor(btnReset);
+
+        //Button next
+        Texture nextTexture = assetManager.get("btn/nextbtn.png");
+        Texture nextPressTexture = assetManager.get("btn/nextbtnpress.png");
+        TextureRegionDrawable trdNext = new TextureRegionDrawable(new TextureRegion(nextTexture));
+        TextureRegionDrawable trdNextPress = new TextureRegionDrawable(new TextureRegion(nextPressTexture));
+        ImageButton btnNext = new ImageButton(trdNext,trdNextPress);
+        btnNext.setPosition(3*WIDTH /4 - btnNext.getWidth()/2, 3*HEIGHT /16 - btnNext.getHeight()/4);
+        btnNext.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                resume();
+            }
+        });
+        winScene.addActor(btnNext);
+        //Back Button
+        Texture backTexture = assetManager.get("btn/backdarkbtn.png");
+        Texture backPressTexture = assetManager.get("btn/backdarkbtnpress.png");
+        TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backTexture));
+        TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(backPressTexture));
+        ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
+        btnBack.setPosition(WIDTH /4 - btnBack.getWidth()/2, 3*HEIGHT /16 - btnBack.getHeight()/4);
+        btnBack.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,MENU));
+            }
+        });
+        winScene.addActor(btnBack);
+
+
+        //Loose reset button
+        ImageButton btnLooseReset = new ImageButton(trdReset,trdResetPress);
+        btnLooseReset.setPosition(3*WIDTH/4 -btnLooseReset.getWidth()/2,3*HEIGHT /16-btnLooseReset.getHeight()/4);
+        btnLooseReset.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,LVL));
+            }
+        });
+        looseScene.addActor(btnLooseReset);
+
+        //Loose back button
+        ImageButton btnLooseBack = new ImageButton(trdBack,trdBackPress);
+        btnLooseBack.setPosition(WIDTH /4 - btnLooseBack.getWidth()/2, 3*HEIGHT /16 - btnLooseBack.getHeight()/4);
+        btnLooseBack.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,MENU));
+            }
+        });
+        looseScene.addActor(btnLooseBack);
+
+        //Levels Button
+        Texture levelsTexture = assetManager.get("btn/levelsdarkbtn.png");
+        Texture levelsPressTexture = assetManager.get("btn/levelsdarkbtnpress.png");
+        TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(levelsTexture));
+        TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(levelsPressTexture));
+        ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
+        btnLevels.setPosition(WIDTH /2 - btnLevels.getWidth()/2, 3*HEIGHT /16 - btnLevels.getHeight()/4);
+        btnLevels.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,LEVELS));
+            }
+        });
+        looseScene.addActor(btnLevels);
+
+        text = new Text(55/255f,26/255f,2/255f);
+
     }
 
     //Method to create the buttons
@@ -317,9 +433,17 @@ public abstract class GenericLevel extends GenericScreen {
         {
             buttonScene.draw();
         }
-        else
+        else if(gameState == GameState.PAUSE)
         {
             pauseScene.draw();
+        }
+        else if(gameState == GameState.WIN)
+        {
+            drawWin();
+        }
+        else if(gameState == GameState.LOOSE)
+        {
+           drawLoose();
         }
     }
 
@@ -416,6 +540,42 @@ public abstract class GenericLevel extends GenericScreen {
         gameState = GameState.PLAY;
         //laurence.setMovementState(MainCharacter.MovementState.RUNNING);
 
+    }
+
+    //Win
+    protected void win()
+    {
+        gameState = GameState.WIN;
+        Gdx.input.setInputProcessor(winScene);
+
+    }
+    protected void drawWin()
+    {
+        batch.begin();
+        batch.draw(winLooseBackground,0,0);
+        text.showMsg(batch, "You won!",WIDTH/2,7*HEIGHT/8,2);
+        text.showMsg(batch, ""+(keys*1000+coins*100+enemies*500),3*WIDTH/4,3*HEIGHT/4,2);
+        text.showMsg(batch, ""+coins,3*WIDTH/4,5*HEIGHT/8,2);
+        text.showMsg(batch, ""+keys,3*WIDTH/4,HEIGHT/2,2);
+
+        batch.end();
+        winScene.draw();
+    }
+    //Loose
+    protected void loose()
+    {
+        gameState = GameState.LOOSE;
+        Gdx.input.setInputProcessor(looseScene);
+    }
+    protected void drawLoose()
+    {
+        batch.begin();
+        batch.draw(winLooseBackground,0,0);
+        text.showMsg(batch, "Game Over!",WIDTH/2,7*HEIGHT/8,2);
+        batch.draw(laurenceBurnedLoose,WIDTH/8 - laurenceBurnedLoose.getWidth()/8,HEIGHT/2-laurenceBurnedLoose.getHeight()/2);
+        text.showMsg(batch, "Progress: "+String.format("%.2f",laurence.getX()/MAP_WIDTH*100) +"%",3*WIDTH/4,3*HEIGHT/4,1.5f);
+        batch.end();
+        looseScene.draw();
     }
 
 

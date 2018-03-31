@@ -27,7 +27,7 @@ import mx.com.nullpointer.utils.Text;
 public class LevelZero extends GenericLevel {
 
     //Maps
-    private static final float MAP_WIDTH = 80*70;
+
 
     //Tutorial
     private Sprite swipeUp;
@@ -39,7 +39,7 @@ public class LevelZero extends GenericLevel {
     //Constructor
     public LevelZero(Main game, int level)
     {
-        super(game,level);
+        super(game,level,80*70);
     }
     @Override
     public void show() {
@@ -150,6 +150,9 @@ public class LevelZero extends GenericLevel {
         //Create Pause Stage
         createPauseStage();
 
+        //Create Win Loose Stage
+        createWinLooseStage();
+
         //Begin input processor
         Gdx.input.setInputProcessor(inputMultiplexer);
         inputProcessor = inputMultiplexer;
@@ -161,7 +164,7 @@ public class LevelZero extends GenericLevel {
     public void render(float delta) {
         int cx = (int)(laurence.getX()+70)/70;
 
-            if(gameState!=GameState.PAUSE && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING) && (cx!=40 || fastFall))
+            if(gameState==GameState.PLAY && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING) && (cx!=40 || fastFall))
             {
                 update(delta);
             }
@@ -243,17 +246,13 @@ public class LevelZero extends GenericLevel {
     protected void winOrLoose() {
         if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
         {
-            gameState=GameState.LOOSE;
+            loose();
         }
         if(laurence.getX()>MAP_WIDTH)
         {
-            gameState=GameState.WIN;
+            win();
         }
-        if(gameState== GameState.WIN || gameState== GameState.LOOSE)
-        {
-            Gdx.app.log("Estado: ", gameState+"");
-            pause();
-        }
+
     }
 
    @Override
@@ -320,6 +319,8 @@ public class LevelZero extends GenericLevel {
         assetManager.unload("characters/laurence_running.png");
         assetManager.unload("characters/tira_salto.png");
         assetManager.unload("characters/tira_marometa.png");
+        assetManager.unload("characters/laurence_burned.png");
+        assetManager.unload("background/winLooseBg.png");
         assetManager.unload("gameObjects/llaveFull.png");
         assetManager.unload("gameObjects/llaveEmpty.png");
         assetManager.unload("gameObjects/moneda.png");
@@ -337,7 +338,17 @@ public class LevelZero extends GenericLevel {
         assetManager.unload("tutorial/swipeDown.png");
         assetManager.unload("gameObjects/actionbtn.png");
         assetManager.unload("characters/laurence_attacking.png");
+        assetManager.unload("btn/backdarkbtn.png");
+        assetManager.unload("btn/backdarkbtnpress.png");
+        assetManager.unload("btn/levelsdarkbtn.png");
+        assetManager.unload("btn/levelsdarkbtnpress.png");
+        assetManager.unload("btn/nextbtn.png");
+        assetManager.unload("btn/nextbtnpress.png");
+        assetManager.unload("btn/resetdarkbtn.png");
+        assetManager.unload("btn/resetdarkbtnpress.png");
         buttonScene.dispose();
+        looseScene.dispose();
+        winScene.dispose();
         tiledMap.dispose();
     }
 

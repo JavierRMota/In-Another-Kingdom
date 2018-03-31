@@ -17,13 +17,12 @@ import mx.com.nullpointer.utils.MainCharacter;
  */
 
 public class LevelTwo extends GenericLevel {
-    private static final float MAP_WIDTH = 200*70;
 
 
     //Constructor
     public LevelTwo(Main game, int level)
     {
-        super(game,level);
+        super(game,level,200*70);
     }
     @Override
     public void show() {
