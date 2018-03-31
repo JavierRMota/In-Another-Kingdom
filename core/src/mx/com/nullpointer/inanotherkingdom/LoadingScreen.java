@@ -132,6 +132,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_attacking.png", Texture.class);
                 assetManager.load("characters/laurence_burned.png",Texture.class);
                 assetManager.load("background/winLooseBg.png",Texture.class);
+                assetManager.load("gameObjects/llave.png",Texture.class);
+                assetManager.load("gameObjects/star.png",Texture.class);
                 assetManager.load("gameObjects/llaveFull.png",Texture.class);
                 assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
                 assetManager.load("btn/playbtn.png",Texture.class);
@@ -169,6 +171,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_attacking.png", Texture.class);
                 assetManager.load("characters/laurence_burned.png",Texture.class);
                 assetManager.load("background/winLooseBg.png",Texture.class);
+                assetManager.load("gameObjects/llave.png",Texture.class);
+                assetManager.load("gameObjects/star.png",Texture.class);
                 assetManager.load("gameObjects/llaveFull.png",Texture.class);
                 assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
                 assetManager.load("btn/playbtn.png",Texture.class);
@@ -203,6 +207,10 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/tira_salto.png",Texture.class);
                 assetManager.load("characters/tira_marometa.png",Texture.class);
                 assetManager.load("characters/laurence_attacking.png", Texture.class);
+                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("background/winLooseBg.png",Texture.class);
+                assetManager.load("gameObjects/llave.png",Texture.class);
+                assetManager.load("gameObjects/star.png",Texture.class);
                 assetManager.load("gameObjects/llaveFull.png",Texture.class);
                 assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
                 assetManager.load("btn/playbtn.png",Texture.class);
@@ -213,6 +221,14 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("btn/pausebtn.png",Texture.class);
                 assetManager.load("btn/pausebtnpress.png",Texture.class);
+                assetManager.load("btn/backdarkbtn.png",Texture.class);
+                assetManager.load("btn/backdarkbtnpress.png",Texture.class);
+                assetManager.load("btn/levelsdarkbtn.png",Texture.class);
+                assetManager.load("btn/levelsdarkbtnpress.png",Texture.class);
+                assetManager.load("btn/nextbtn.png",Texture.class);
+                assetManager.load("btn/nextbtnpress.png",Texture.class);
+                assetManager.load("btn/resetdarkbtn.png",Texture.class);
+                assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
                 assetManager.load("gameObjects/moneda.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.load("gameObjects/actionbtnpress.png",Texture.class);

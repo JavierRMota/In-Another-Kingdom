@@ -102,29 +102,29 @@ class AboutScreen extends GenericScreen {
         batch.begin();
         batch.draw(backgroundTexture,0 ,0);
         //Intro
-        msg.showMsg(batch,"About", WIDTH /2,7* HEIGHT /8,2);
-        msg.showMsg(batch,"Made by: ",WIDTH/2,3*HEIGHT/4,1);
+        msg.showMsg(batch,"About", WIDTH /2,7* HEIGHT /8,2,'c');
+        msg.showMsg(batch,"Made by: ",WIDTH/2,3*HEIGHT/4,1,'c');
 
         //Bere
         batch.draw(bannerTexture,WIDTH/2-bannerTexture.getWidth()/2,HEIGHT/2-bannerTexture.getHeight()/2);
         batch.draw(bere, WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
-        msg.showMsg(batch,"Bere",WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/2,HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+        msg.showMsg(batch,"Bere",WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/2,HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Charly
         batch.draw(charly, WIDTH/2-bannerTexture.getWidth()/2+charly.getWidth()+2*charly.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
-        msg.showMsg(batch,"Charly",WIDTH/2-bannerTexture.getWidth()/2+1.6f*charly.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+        msg.showMsg(batch,"Charly",WIDTH/2-bannerTexture.getWidth()/2+1.6f*charly.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Eli
         batch.draw(eli, WIDTH/2-bannerTexture.getWidth()/2+2*eli.getWidth()+3*eli.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
-        msg.showMsg(batch,"Eli",WIDTH/2-bannerTexture.getWidth()/2+2.7f*eli.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+        msg.showMsg(batch,"Eli",WIDTH/2-bannerTexture.getWidth()/2+2.7f*eli.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Javier
         batch.draw(javier, WIDTH/2-bannerTexture.getWidth()/2+3*javier.getWidth()+4*javier.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
-        msg.showMsg(batch,"Javier",WIDTH/2-bannerTexture.getWidth()/2+3.8f*javier.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+        msg.showMsg(batch,"Javier",WIDTH/2-bannerTexture.getWidth()/2+3.8f*javier.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Marina
         batch.draw(marina, WIDTH/2-bannerTexture.getWidth()/2+4*marina.getWidth()+5*marina.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
-        msg.showMsg(batch,"Marina",WIDTH/2-bannerTexture.getWidth()/2+4.9f*marina.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1);
+        msg.showMsg(batch,"Marina",WIDTH/2-bannerTexture.getWidth()/2+4.9f*marina.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         batch.end();
 

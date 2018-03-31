@@ -69,8 +69,8 @@ class ArmoryScreen extends GenericScreen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(backgroundTexture,0 ,0);
-        msg.showMsg(batch,"Arsenal", WIDTH /2,3* HEIGHT /4,2);
-        msg.showMsg(batch,"Proximamente", WIDTH /2, HEIGHT /2,1);
+        msg.showMsg(batch,"Arsenal", WIDTH /2,3* HEIGHT /4,2,'c');
+        msg.showMsg(batch,"Proximamente", WIDTH /2, HEIGHT /2,1,'c');
         batch.end();
         armoryStage.draw();
     }

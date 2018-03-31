@@ -40,6 +40,7 @@ public abstract class GenericLevel extends GenericScreen {
     protected Text  scoreDisplay;
     protected boolean recolectedKeys[];
     protected int middleKey;
+    protected final int TOTAL_COINS;
 
     //Textures
     protected Texture coinTexture;
@@ -48,6 +49,7 @@ public abstract class GenericLevel extends GenericScreen {
     //Win and loose
     protected Texture winLooseBackground;
     protected Texture laurenceBurnedLoose;
+    protected Texture starTexture,keyTexture;
     //TEXT
     protected Text text;
 
@@ -79,10 +81,11 @@ public abstract class GenericLevel extends GenericScreen {
     //ID
     protected int LVL;
 
-    public GenericLevel(Main game, int level, int mapWidth) {
+    public GenericLevel(Main game, int level, int mapWidth, int totalCoins) {
         super(game);
         LVL =level;
         MAP_WIDTH =mapWidth;
+        TOTAL_COINS = totalCoins;
 
     }
 
@@ -121,6 +124,8 @@ public abstract class GenericLevel extends GenericScreen {
 
         laurenceBurnedLoose = assetManager.get("characters/laurence_burned.png");
         winLooseBackground = assetManager.get("background/winLooseBg.png");
+        starTexture = assetManager.get("gameObjects/star.png");
+        keyTexture = assetManager.get("gameObjects/llave.png");
     }
     //Method to load map
     protected void loadMap(String map) {
@@ -553,11 +558,13 @@ public abstract class GenericLevel extends GenericScreen {
     {
         batch.begin();
         batch.draw(winLooseBackground,0,0);
-        text.showMsg(batch, "You won!",WIDTH/2,7*HEIGHT/8,2);
-        text.showMsg(batch, ""+(keys*1000+coins*100+enemies*500),3*WIDTH/4,3*HEIGHT/4,2);
-        text.showMsg(batch, ""+coins,3*WIDTH/4,5*HEIGHT/8,2);
-        text.showMsg(batch, ""+keys,3*WIDTH/4,HEIGHT/2,2);
-
+        text.showMsg(batch, "You won!",WIDTH/2,7*HEIGHT/8,2,'c');
+        batch.draw(starTexture,WIDTH/2,3*HEIGHT/4-starTexture.getHeight());
+        text.showMsg(batch, ""+(keys*1000+coins*100+enemies*500),5*WIDTH/8,3*HEIGHT/4,2,'l');
+        batch.draw(coinTexture,WIDTH/2,5*HEIGHT/8-coinTexture.getHeight());
+        text.showMsg(batch, coins+"/"+TOTAL_COINS,5*WIDTH/8,5*HEIGHT/8,2,'l');
+        batch.draw(keyTexture,WIDTH/2,HEIGHT/2-keyTexture.getHeight());
+        text.showMsg(batch, keys+"/3",5*WIDTH/8,HEIGHT/2,2,'l');
         batch.end();
         winScene.draw();
     }
@@ -571,9 +578,9 @@ public abstract class GenericLevel extends GenericScreen {
     {
         batch.begin();
         batch.draw(winLooseBackground,0,0);
-        text.showMsg(batch, "Game Over!",WIDTH/2,7*HEIGHT/8,2);
+        text.showMsg(batch, "Game Over!",WIDTH/2,7*HEIGHT/8,2,'c');
         batch.draw(laurenceBurnedLoose,WIDTH/8 - laurenceBurnedLoose.getWidth()/8,HEIGHT/2-laurenceBurnedLoose.getHeight()/2);
-        text.showMsg(batch, "Progress: "+String.format("%.2f",laurence.getX()/MAP_WIDTH*100) +"%",3*WIDTH/4,3*HEIGHT/4,1.5f);
+        text.showMsg(batch, "Progress: "+String.format("%.2f",laurence.getX()/MAP_WIDTH*100) +"%",3*WIDTH/4,3*HEIGHT/4,1.5f,'l');
         batch.end();
         looseScene.draw();
     }

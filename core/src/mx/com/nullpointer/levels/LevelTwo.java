@@ -22,7 +22,7 @@ public class LevelTwo extends GenericLevel {
     //Constructor
     public LevelTwo(Main game, int level)
     {
-        super(game,level,200*70);
+        super(game,level,200*70,115);
     }
     @Override
     public void show() {
@@ -104,7 +104,7 @@ public class LevelTwo extends GenericLevel {
         //Draw keys
         drawKeys();
         //Display score
-        scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
+        scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2,'c');
         //End batch
         batch.end();
         //Draw current input scene

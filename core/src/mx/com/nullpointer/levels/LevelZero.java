@@ -4,30 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericLevel;
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
-import mx.com.nullpointer.utils.Text;
 
 /**
  * Created by mota on 2/12/18.
  */
 
 public class LevelZero extends GenericLevel {
-
-    //Maps
-
 
     //Tutorial
     private Sprite swipeUp;
@@ -39,7 +27,7 @@ public class LevelZero extends GenericLevel {
     //Constructor
     public LevelZero(Main game, int level)
     {
-        super(game,level,80*70);
+        super(game,level,80*70,60);
     }
     @Override
     public void show() {
@@ -206,7 +194,7 @@ public class LevelZero extends GenericLevel {
             //Draw keys
             drawKeys();
             //Display score
-            scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2);
+            scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2,'c');
 
             //Check if we have the sword
             if(sword)
@@ -321,6 +309,8 @@ public class LevelZero extends GenericLevel {
         assetManager.unload("characters/tira_marometa.png");
         assetManager.unload("characters/laurence_burned.png");
         assetManager.unload("background/winLooseBg.png");
+        assetManager.unload("gameObjects/llave.png");
+        assetManager.unload("gameObjects/star.png");
         assetManager.unload("gameObjects/llaveFull.png");
         assetManager.unload("gameObjects/llaveEmpty.png");
         assetManager.unload("gameObjects/moneda.png");
