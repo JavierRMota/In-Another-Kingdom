@@ -205,12 +205,12 @@ class LevelsScreen extends GenericScreen{
 
 
         Preferences prefs = Gdx.app.getPreferences("Progress");
-        lvlone = prefs.getInteger("levels", 0);
-        if (lvlone >= LVLONE ){
+        lvlone = prefs.getInteger("lastLevel", 0);
+        if (lvlone >= LVLONE - 5 ){
             levelOneStage.addActor(imgLevelOne);
             levelOneStage.addActor(btnSecSub1);
         }
-        if (lvlone < LVLONE || lvlone >= 0){
+        if (lvlone < LVLONE - 5 || lvlone >= 0){
             levelOneStage.addActor(imgLevelOneLock);
         }
         else {
@@ -240,12 +240,12 @@ class LevelsScreen extends GenericScreen{
         imgLevelTwoLock.setPosition(btnThirdSub1.getX(), imgLevelTwo.getY());
 
         Preferences prefs2 = Gdx.app.getPreferences("Progress");
-        lvltwo = prefs2.getInteger("levels", 0);
-        if (lvltwo >= LVLTWO){
+        lvltwo = prefs2.getInteger("lastLevel", 0);
+        if (lvltwo >= LVLTWO - 5){
             levelOneStage.addActor(imgLevelTwo);
             levelOneStage.addActor(btnThirdSub1);
         }
-        if (lvltwo < LVLTWO || lvlone >= 0){
+        if (lvltwo < LVLTWO - 5 || lvltwo >= 0){
             levelOneStage.addActor(imgLevelTwoLock);
         }
         else {
@@ -358,6 +358,7 @@ class LevelsScreen extends GenericScreen{
         batch.draw(backgroundTexture, 0, 0);
         batch.end();
         currentScene.draw();
+
 
     }
 
