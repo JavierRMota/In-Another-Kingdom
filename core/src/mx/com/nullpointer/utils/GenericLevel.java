@@ -3,6 +3,7 @@ package mx.com.nullpointer.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -552,6 +553,18 @@ public abstract class GenericLevel extends GenericScreen {
     {
         gameState = GameState.WIN;
         Gdx.input.setInputProcessor(winScene);
+        Preferences prefs = Gdx.app.getPreferences("Progress");
+        int maxScore = prefs.getInteger("score"+(LVL-5),0);
+        int lastLevel = prefs.getInteger("lastLevel", 0);
+        if(lastLevel==LVL-5 && LVL-5 <2)
+        {
+            prefs.putInteger("lastLevel",LVL-4);
+        }
+        if(maxScore<keys*1000+coins*100+enemies*500)
+        {
+            prefs.putInteger("score"+(LVL-5),keys*1000+coins*100+enemies*500 );
+        }
+        prefs.flush();
 
     }
     protected void drawWin()
