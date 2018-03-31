@@ -580,7 +580,7 @@ public abstract class GenericLevel extends GenericScreen {
         batch.draw(winLooseBackground,0,0);
         text.showMsg(batch, "Game Over!",WIDTH/2,7*HEIGHT/8,2,'c');
         batch.draw(laurenceBurnedLoose,WIDTH/8 - laurenceBurnedLoose.getWidth()/8,HEIGHT/2-laurenceBurnedLoose.getHeight()/2);
-        text.showMsg(batch, "Progress: "+String.format("%.2f",laurence.getX()/MAP_WIDTH*100) +"%",3*WIDTH/4,3*HEIGHT/4,1.5f,'l');
+        text.showMsg(batch, "Progress: "+String.format("%.2f",laurence.getX()/MAP_WIDTH*100) +"%",WIDTH/2,3*HEIGHT/4,1.5f,'l');
         batch.end();
         looseScene.draw();
     }
