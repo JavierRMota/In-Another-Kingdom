@@ -27,6 +27,8 @@ import mx.com.nullpointer.inanotherkingdom.Main;
  */
 
 public abstract class GenericLevel extends GenericScreen {
+    //ULTIMATE LEVEL
+    protected static final int ULTIMATE_LEVEL = 2;
     //Maps
     protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer render;
@@ -266,6 +268,8 @@ public abstract class GenericLevel extends GenericScreen {
         });
         winScene.addActor(btnReset);
 
+        if(LVL-5 < ULTIMATE_LEVEL-1)
+        {
         //Button next
         Texture nextTexture = assetManager.get("btn/nextbtn.png");
         Texture nextPressTexture = assetManager.get("btn/nextbtnpress.png");
@@ -277,10 +281,11 @@ public abstract class GenericLevel extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                resume();
+                game.setScreen(new LoadingScreen(game, LVL+1));
             }
         });
         winScene.addActor(btnNext);
+        }
         //Back Button
         Texture backTexture = assetManager.get("btn/backdarkbtn.png");
         Texture backPressTexture = assetManager.get("btn/backdarkbtnpress.png");
@@ -556,7 +561,7 @@ public abstract class GenericLevel extends GenericScreen {
         Preferences prefs = Gdx.app.getPreferences("Progress");
         int maxScore = prefs.getInteger("score"+(LVL-5),0);
         int lastLevel = prefs.getInteger("lastLevel", 0);
-        if(lastLevel==LVL-5 && LVL-5 <2)
+        if(lastLevel==LVL-5 && LVL-5 <ULTIMATE_LEVEL)
         {
             prefs.putInteger("lastLevel",LVL-4);
         }
