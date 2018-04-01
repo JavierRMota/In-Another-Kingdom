@@ -261,7 +261,7 @@ class LevelsScreen extends GenericScreen{
 
         Preferences prefs2 = Gdx.app.getPreferences("Progress");
         lastLevel = prefs2.getInteger("lastLevel", 0);
-        int score3 = prefs2.getInteger("score0", 0);
+
         if (lastLevel >= LVLTWO - 5){
             levelOneStage.addActor(imgLevelTwo);
             levelOneStage.addActor(btnThirdSub1);
