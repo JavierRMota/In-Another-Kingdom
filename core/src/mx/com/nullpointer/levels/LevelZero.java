@@ -115,15 +115,12 @@ public class LevelZero extends GenericLevel {
                 if(laurence.getMovementState() == MainCharacter.MovementState.FALLING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
                 {
                     laurence.quickFall();
-                    int cx = (int)(laurence.getX()+70)/70;
-                    if(cx==40)
-                    {
-                        fastFall=true;
-                        laurence.setTimerAction(0.8f);
-                    }
-
-
-
+                }
+                int cx = (int)(laurence.getX()+70)/70;
+                if(cx==40)
+                {
+                    fastFall=true;
+                    laurence.setTimerAction(0.8f);
                 }
 
 

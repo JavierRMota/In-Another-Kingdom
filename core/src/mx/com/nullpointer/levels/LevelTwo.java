@@ -1,19 +1,14 @@
 package mx.com.nullpointer.levels;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericLevel;
-import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.utils.MainCharacter;
-
 /**
- * Created by mota on 3/28/18.
+ * Created by mota on 2/12/18.
  */
 
 public class LevelTwo extends GenericLevel {
@@ -29,7 +24,7 @@ public class LevelTwo extends GenericLevel {
         //Create the camera for all game information and buttons
         createHUD();
         //Load TiledMap
-        loadMap("map/nivelUno.tmx");
+        loadMap("map/nivelDos.tmx");
         //Load Textures
         loadTextures();
 
@@ -73,11 +68,10 @@ public class LevelTwo extends GenericLevel {
     }
 
 
-
     @Override
     public void render(float delta) {
         //Check if paused
-        if(gameState!=GameState.PAUSE)
+        if(gameState==GameState.PLAY)
         {
             update(delta);
         }
@@ -100,6 +94,7 @@ public class LevelTwo extends GenericLevel {
         //Draw buttons and information
         batch.setProjectionMatrix(cameraHUD.combined);
         batch.begin();
+        //Draw coin
         batch.draw(coinTexture,4* WIDTH /5+0.8f*coinTexture.getWidth(), HEIGHT -1.2f*coinTexture.getHeight());
         //Draw keys
         drawKeys();
@@ -144,6 +139,7 @@ public class LevelTwo extends GenericLevel {
                 if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
                 {
                     Integer number = Integer.parseInt((String) currentCell.getTile().getProperties().get("number"));
+                    enemies++;
                     switch (number)
                     {
                         case 1:
@@ -174,7 +170,7 @@ public class LevelTwo extends GenericLevel {
                 }
                 else
                 {
-                    gameState= GameState.LOOSE;
+                    loose();
                 }
 
             }
@@ -186,14 +182,11 @@ public class LevelTwo extends GenericLevel {
     protected void winOrLoose() {
         if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
         {
-            gameState=GameState.LOOSE;
+            loose();
         }
         else if(laurence.getX()>MAP_WIDTH)
-            gameState=GameState.WIN;
-        if(gameState== GameState.WIN || gameState== GameState.LOOSE)
         {
-            Gdx.app.log("Estado: ", gameState+"");
-            pause();
+            win();
         }
     }
 
@@ -219,13 +212,17 @@ public class LevelTwo extends GenericLevel {
     @Override
     public void dispose()
     {
-        assetManager.unload("map/nivelUno.tmx");
+        assetManager.unload("map/nivelDos.tmx");
         assetManager.unload("music/nivelUno.mp3");
         assetManager.unload("map/bookOneT.png");
         assetManager.unload("characters/laurence_descanso.png");
         assetManager.unload("characters/laurence_running.png");
         assetManager.unload("characters/tira_salto.png");
         assetManager.unload("characters/tira_marometa.png");
+        assetManager.unload("characters/laurence_burned.png");
+        assetManager.unload("background/winLooseBg.png");
+        assetManager.unload("gameObjects/llave.png");
+        assetManager.unload("gameObjects/star.png");
         assetManager.unload("gameObjects/llaveFull.png");
         assetManager.unload("gameObjects/llaveEmpty.png");
         assetManager.unload("gameObjects/moneda.png");
@@ -237,14 +234,26 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("btn/pausebtnpress.png");
         assetManager.unload("btn/resetbtn.png");
         assetManager.unload("btn/resetbtnpress.png");
+        assetManager.unload("btn/backdarkbtn.png");
+        assetManager.unload("btn/backdarkbtnpress.png");
+        assetManager.unload("btn/levelsdarkbtn.png");
+        assetManager.unload("btn/levelsdarkbtnpress.png");
+        assetManager.unload("btn/nextbtn.png");
+        assetManager.unload("btn/nextbtnpress.png");
+        assetManager.unload("btn/resetdarkbtn.png");
+        assetManager.unload("btn/resetdarkbtnpress.png");
         assetManager.unload("map/bookOneBg.png");
         assetManager.unload("map/clouds.png");
         assetManager.unload("gameObjects/actionbtn.png");
         assetManager.unload("gameObjects/actionbtnpress.png");
         assetManager.unload("characters/laurence_attacking.png");
         buttonScene.dispose();
+        looseScene.dispose();
+        winScene.dispose();
         tiledMap.dispose();
     }
 
 
+
 }
+
