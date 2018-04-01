@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.utils.Text;
 
 
 /**
@@ -36,13 +37,15 @@ class LevelsScreen extends GenericScreen{
 
     //Texturas
     private Texture backgroundTexture;
-    //private Texture titleTexture;
+
+    private  Stages stage;
 
 
 
-    private int lvlone, lvltwo;
+    private int lastLevel;
 
-    //Color de texto r:55 g:26 b:2
+    //Text
+    private Text text;
 
 
 
@@ -69,6 +72,10 @@ class LevelsScreen extends GenericScreen{
         levelOneStage = new Stage(view);
         levelTwoStage = new Stage(view);
         levelThreeStage = new Stage(view);
+        text = new Text(55/255f,26/255f,2/255f);
+        stage = Stages.LEVELS;
+        Preferences prefs = Gdx.app.getPreferences("Progress");
+        lastLevel = prefs.getInteger("lastLevel", 0);
 
         Gdx.input.setInputProcessor(levelsStage);
 
@@ -104,7 +111,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(levelOneStage);
+                changeScene(Stages.ONE);
             }
         });
         levelsStage.addActor(btnFirst);
@@ -120,7 +127,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(currentScene);
+
 
             }
         });
@@ -137,8 +144,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(currentScene);
-                //game.setScreen(new LevelsScreen(game));
+
 
             }
         });
@@ -162,7 +168,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LevelsScreen(game));
+                changeScene(Stages.LEVELS);
 
             }
         });
@@ -221,20 +227,17 @@ class LevelsScreen extends GenericScreen{
         imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7.5f, imgLevelOne.getHeight()/3);
 
 
-        Preferences prefs = Gdx.app.getPreferences("Progress");
-        lvlone = prefs.getInteger("lastLevel", 0);
-        if (lvlone >= LVLONE - 5){
+
+        if (lastLevel >= LVLONE - 5){
             levelOneStage.addActor(imgLevelOne);
             levelOneStage.addActor(btnSecSub1);
             levelOneStage.addActor(imgStarLevel1);
 
         }
-        else if (lvlone < LVLONE - 5 || lvlone >= 0){
+        else if (lastLevel < LVLONE - 5 || lastLevel >= 0){
             levelOneStage.addActor(imgLevelOneLock);
         }
-        else {
-            lvlone = 0;
-        }
+
 
         //Botón Subnivel 3 primer nivel
 
@@ -262,17 +265,14 @@ class LevelsScreen extends GenericScreen{
         imgLevelTwoLock.setPosition(btnThirdSub1.getX(), imgLevelTwo.getY());
 
         Preferences prefs2 = Gdx.app.getPreferences("Progress");
-        lvltwo = prefs2.getInteger("lastLevel", 0);
-        if (lvltwo >= LVLTWO - 5){
+        lastLevel = prefs2.getInteger("lastLevel", 0);
+        if (lastLevel >= LVLTWO - 5){
             levelOneStage.addActor(imgLevelTwo);
             levelOneStage.addActor(btnThirdSub1);
             levelOneStage.addActor(imgStarLevel2);
         }
-        if (lvltwo < LVLTWO - 5 || lvltwo >= 0){
+        if (lastLevel < LVLTWO - 5 || lastLevel >= 0){
             levelOneStage.addActor(imgLevelTwoLock);
-        }
-        else {
-            lvltwo = 0;
         }
 
 
@@ -291,7 +291,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game, LEVELS));
+
 
             }
         });
@@ -307,7 +307,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(currentScene);
+
 
             }
         });
@@ -323,7 +323,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(currentScene);
+
 
             }
         });
@@ -339,7 +339,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(currentScene);
+
 
             }
         });
@@ -358,7 +358,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game, LEVELS));
+                changeScene(Stages.LEVELS);
 
             }
         });
@@ -366,23 +366,74 @@ class LevelsScreen extends GenericScreen{
 
     }
 
-    private void changeScene(Stage scene) {
-        currentScene = scene;
-        Gdx.input.setInputProcessor(scene);
+    private void changeScene(Stages stage) {
+        switch (stage)
+        {
+            case LEVELS:
+                currentScene = levelsStage;
+                this.stage = Stages.LEVELS;
+                break;
+            case ONE:
+                currentScene = levelOneStage;
+                this.stage = Stages.ONE;
+                break;
+            case TWO:
+                currentScene = levelTwoStage;
+                this.stage = Stages.TWO;
+                break;
+            case THREE:
+                currentScene = levelThreeStage;
+                this.stage = Stages.THREE;
+                break;
+        }
+        Gdx.input.setInputProcessor(currentScene);
     }
 
 
     @Override
     public void render(float delta) {
         clearScreen();
-
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
         batch.end();
         currentScene.draw();
+        switch (stage)
+        {
+            case LEVELS:
+                break;
+            case ONE:
+                drawOne();
+                break;
+            case TWO:
+                drawTwo();
+                break;
+            case THREE:
+                drawThree();
+                break;
+        }
 
 
+    }
+
+    private void drawOne() {
+        batch.begin();
+        text.showMsg(batch,"LV 1", WIDTH/3+40,3*HEIGHT/4,2,'l');
+        batch.end();
+    }
+
+    private void drawTwo() {
+    }
+
+    private void drawThree() {
+    }
+
+    private enum Stages
+    {
+        LEVELS,
+        ONE,
+        TWO,
+        THREE
     }
 
     }
