@@ -2,17 +2,24 @@ package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import mx.com.nullpointer.utils.GenericScreen;
+
 
 /**
  * Created by MarinaHaro on 25/02/18.
@@ -34,6 +41,7 @@ class LevelsScreen extends GenericScreen{
 
 
     private int lvlone, lvltwo;
+
     //Color de texto r:55 g:26 b:2
 
 
@@ -146,7 +154,7 @@ class LevelsScreen extends GenericScreen{
         levelOneStage.addActor(imgBackgroundSub);
 
         //Boton back subnivel 1
-        //Botón Back
+
         ImageButton btnBackSub = new ImageButton(trdBack,trdBackPress);
         btnBackSub.setPosition(btnBackSub.getWidth()/2, MenuScreen.HEIGHT /2 - btnBackSub.getHeight()/2);
 
@@ -165,7 +173,6 @@ class LevelsScreen extends GenericScreen{
         TextureRegionDrawable trdLevelZero = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelZero.png")));
         Image imgLevelZero = new Image(trdLevelZero);
         imgLevelZero.setPosition(imgLevelZero.getWidth()/4*3, HEIGHT - imgLevelZero.getHeight()- imgLevelZero.getHeight()/5);
-        levelOneStage.addActor(imgLevelZero);
 
         TextureRegionDrawable trdFirstSub1 = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnlevels.png")));
         TextureRegionDrawable trdFirstSub1Press = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnpresslevels.png")));
@@ -179,7 +186,14 @@ class LevelsScreen extends GenericScreen{
 
             }
         });
+
+        TextureRegionDrawable trdStarLevels = new TextureRegionDrawable(new TextureRegion(new Texture("gameObjects/star.png")));
+        Image imgStarLevel0 = new Image(trdStarLevels);
+        imgStarLevel0.setPosition(btnFirstSub1.getX(), HEIGHT - imgLevelZero.getY()/3*2);
+
+        levelOneStage.addActor(imgLevelZero);
         levelOneStage.addActor(btnFirstSub1);
+        levelOneStage.addActor(imgStarLevel0);
 
         //Botón Subnivel 2 primer nivel
         TextureRegionDrawable trdLevelOne = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOne.png")));
@@ -199,18 +213,23 @@ class LevelsScreen extends GenericScreen{
             }
         });
 
+        Image imgStarLevel1 = new Image(trdStarLevels);
+        imgStarLevel1.setPosition(btnSecSub1.getX(), imgLevelOne.getY()*1.65f);
+
         TextureRegionDrawable trdLevelLock = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/levelLock.png")));
         Image imgLevelOneLock = new Image(trdLevelLock);
-        imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7, imgLevelOne.getHeight()/3);
+        imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7.5f, imgLevelOne.getHeight()/3);
 
 
         Preferences prefs = Gdx.app.getPreferences("Progress");
         lvlone = prefs.getInteger("lastLevel", 0);
-        if (lvlone >= LVLONE - 5 ){
+        if (lvlone >= LVLONE - 5){
             levelOneStage.addActor(imgLevelOne);
             levelOneStage.addActor(btnSecSub1);
+            levelOneStage.addActor(imgStarLevel1);
+
         }
-        if (lvlone < LVLONE - 5 || lvlone >= 0){
+        else if (lvlone < LVLONE - 5 || lvlone >= 0){
             levelOneStage.addActor(imgLevelOneLock);
         }
         else {
@@ -236,6 +255,9 @@ class LevelsScreen extends GenericScreen{
             }
         });
 
+        Image imgStarLevel2 = new Image(trdStarLevels);
+        imgStarLevel2.setPosition(btnThirdSub1.getX(), btnThirdSub1.getY() + imgStarLevel2.getHeight());
+
         Image imgLevelTwoLock = new Image(trdLevelLock);
         imgLevelTwoLock.setPosition(btnThirdSub1.getX(), imgLevelTwo.getY());
 
@@ -244,6 +266,7 @@ class LevelsScreen extends GenericScreen{
         if (lvltwo >= LVLTWO - 5){
             levelOneStage.addActor(imgLevelTwo);
             levelOneStage.addActor(btnThirdSub1);
+            levelOneStage.addActor(imgStarLevel2);
         }
         if (lvltwo < LVLTWO - 5 || lvltwo >= 0){
             levelOneStage.addActor(imgLevelTwoLock);
@@ -251,6 +274,7 @@ class LevelsScreen extends GenericScreen{
         else {
             lvltwo = 0;
         }
+
 
 
         //Objetos subniveles segundo nivel
@@ -339,7 +363,6 @@ class LevelsScreen extends GenericScreen{
             }
         });
         levelThreeStage.addActor(btnBackSub3);
-
 
     }
 
