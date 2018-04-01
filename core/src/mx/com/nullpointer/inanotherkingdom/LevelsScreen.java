@@ -10,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import mx.com.nullpointer.levels.LevelOne;
+import mx.com.nullpointer.utils.GenericLevel;
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.Text;
 
@@ -31,7 +34,6 @@ class LevelsScreen extends GenericScreen{
     private Texture backgroundTexture;
 
     private  Stages stage;
-
 
 
     private int lastLevel;
@@ -64,8 +66,10 @@ class LevelsScreen extends GenericScreen{
         levelOneStage = new Stage(view);
         levelTwoStage = new Stage(view);
         levelThreeStage = new Stage(view);
+
         text = new Text(55/255f,26/255f,2/255f);
         stage = Stages.LEVELS;
+
         Preferences prefs = Gdx.app.getPreferences("Progress");
         lastLevel = prefs.getInteger("lastLevel", 0);
 
@@ -219,7 +223,6 @@ class LevelsScreen extends GenericScreen{
         imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7.5f, imgLevelOne.getHeight()/3);
 
 
-
         if (lastLevel >= LVLONE - 5){
             levelOneStage.addActor(imgLevelOne);
             levelOneStage.addActor(btnSecSub1);
@@ -258,6 +261,7 @@ class LevelsScreen extends GenericScreen{
 
         Preferences prefs2 = Gdx.app.getPreferences("Progress");
         lastLevel = prefs2.getInteger("lastLevel", 0);
+        int score3 = prefs2.getInteger("score0", 0);
         if (lastLevel >= LVLTWO - 5){
             levelOneStage.addActor(imgLevelTwo);
             levelOneStage.addActor(btnThirdSub1);
@@ -409,12 +413,33 @@ class LevelsScreen extends GenericScreen{
     }
 
     private void drawOne() {
+        Preferences prefs = Gdx.app.getPreferences("Progress");
+        int score1 = prefs.getInteger("score0",0);
+        String cadenaScore1 = "";
+        cadenaScore1 = String.valueOf(score1);
+
+        int score2 = prefs.getInteger("score1",0);
+        String cadenaScore2 = "";
+        cadenaScore2 = String.valueOf(score2);
+
+        int score3 = prefs.getInteger("score2",0);
+        String cadenaScore3 = "";
+        cadenaScore3 = String.valueOf(score3);
+
         batch.begin();
-        text.showMsg(batch,"LV 1", WIDTH/3+40,3*HEIGHT/4,2,'l');
+        text.showMsg(batch,"LVL 1", WIDTH/3 - 30,HEIGHT/10*9 - 60,2,'l');
+        text.showMsg(batch, cadenaScore1, WIDTH/3 + 30,HEIGHT/4*3 - 20,2,'l');
+        if (lastLevel >= LVLONE - 5){
+        text.showMsg(batch,"LVL 2", WIDTH/7,HEIGHT/5*2,2,'l');
+        text.showMsg(batch, cadenaScore2, WIDTH/6 + 40 ,HEIGHT/4 + 32 ,2,'l');}
+        if (lastLevel >= LVLTWO - 5){
+        text.showMsg(batch,"LVL 3", WIDTH/6*4 - 20,HEIGHT/5*2,2,'l');
+        text.showMsg(batch, cadenaScore3, WIDTH/4*3 - 63 ,HEIGHT/4 + 40 ,2,'l');}
         batch.end();
     }
 
     private void drawTwo() {
+
     }
 
     private void drawThree() {
