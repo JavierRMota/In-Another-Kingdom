@@ -3,6 +3,7 @@ package mx.com.nullpointer.inanotherkingdom;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -32,11 +33,17 @@ class LevelsScreen extends GenericScreen{
 
     //Texturas
     private Texture backgroundTexture;
+    private Texture bookTexture;
+
+    private Animation animationBook;
 
     private  Stages stage;
 
 
     private int lastLevel;
+    private float timerAnimation;
+    private float x;
+    private float y;
 
     //Text
     private Text text;
@@ -52,12 +59,18 @@ class LevelsScreen extends GenericScreen{
     public void show() {
         cargarTexturas();
         crearObjetos();
+        TextureRegion region = new TextureRegion(bookTexture);
+        TextureRegion[][] frames = region.split(bookTexture.getWidth()/7, bookTexture.getHeight());
+        animationBook = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
+        animationBook.setPlayMode(Animation.PlayMode.NORMAL);
+        x = 186/2;
+        y = HEIGHT/2 - 239/2;
 
     }
 
     private void cargarTexturas() {
         backgroundTexture = new Texture("background/menubg.png");
-        //titleTexture = new Texture("logo_alargado.png");
+        bookTexture = new Texture("background/tiraLibroAbriendose.png");
 
     }
 
@@ -85,7 +98,7 @@ class LevelsScreen extends GenericScreen{
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth()/2, MenuScreen.HEIGHT/2 - btnBack.getHeight()/2);
+        btnBack.setPosition(btnBack.getWidth()/2, HEIGHT/2 - btnBack.getHeight()/2);
 
         btnBack.addListener(new ClickListener(){
             @Override
@@ -101,7 +114,7 @@ class LevelsScreen extends GenericScreen{
         TextureRegionDrawable trdFirst = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOneBook.png")));
         TextureRegionDrawable trdFirstPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOneBook.png")));
         ImageButton btnFirst = new ImageButton(trdFirst,trdFirstPress);
-        btnFirst.setPosition(btnFirst.getWidth(), MenuScreen.HEIGHT /2 - btnFirst.getHeight()/2);
+        btnFirst.setPosition(btnFirst.getWidth(), HEIGHT /2 - btnFirst.getHeight()/2);
 
         btnFirst.addListener(new ClickListener(){
             @Override
@@ -157,7 +170,9 @@ class LevelsScreen extends GenericScreen{
 
         //Boton back subnivel 1
 
-        ImageButton btnBackSub = new ImageButton(trdBack,trdBackPress);
+        TextureRegionDrawable trdBackSub = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backdarkbtn.png")));
+        TextureRegionDrawable trdBackSubPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backdarkbtnpress.png")));
+        ImageButton btnBackSub = new ImageButton(trdBackSub,trdBackSubPress);
         btnBackSub.setPosition(btnBackSub.getWidth()/2, MenuScreen.HEIGHT /2 - btnBackSub.getHeight()/2);
 
         btnBackSub.addListener(new ClickListener(){
@@ -280,7 +295,7 @@ class LevelsScreen extends GenericScreen{
         levelTwoStage.addActor(imgBackgroundSub2);
 
         //Boton back
-        ImageButton btnBackSub2 = new ImageButton(trdBack,trdBackPress);
+        ImageButton btnBackSub2 = new ImageButton(trdBackSub,trdBackSubPress);
         btnBackSub2.setPosition(btnBackSub2.getWidth()/2, MenuScreen.HEIGHT /2 - btnBackSub2.getHeight()/2);
 
         btnBackSub2.addListener(new ClickListener(){
@@ -347,7 +362,7 @@ class LevelsScreen extends GenericScreen{
         levelThreeStage.addActor(imgBackgroundSub3);
 
         //Boton back
-        ImageButton btnBackSub3 = new ImageButton(trdBack,trdBackPress);
+        ImageButton btnBackSub3 = new ImageButton(trdBackSub,trdBackSubPress);
         btnBackSub3.setPosition(btnBackSub3.getWidth()/2, MenuScreen.HEIGHT /2 - btnBackSub3.getHeight()/2);
 
         btnBackSub3.addListener(new ClickListener(){
