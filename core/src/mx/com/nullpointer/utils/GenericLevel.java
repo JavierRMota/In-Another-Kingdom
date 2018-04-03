@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -28,7 +29,7 @@ import mx.com.nullpointer.inanotherkingdom.Main;
 
 public abstract class GenericLevel extends GenericScreen {
     //ULTIMATE LEVEL
-    protected static final int ULTIMATE_LEVEL = 2;
+    protected static final int ULTIMATE_LEVEL = 3;
     //Maps
     protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer render;
@@ -52,6 +53,8 @@ public abstract class GenericLevel extends GenericScreen {
     //Win and loose
     protected Texture winLooseBackground;
     protected Texture laurenceBurnedLoose;
+    protected Texture laurenceDrownedLoose;
+    protected Texture laurenceCelebration;
     protected Texture starTexture,keyTexture;
     //TEXT
     protected Text text;
@@ -97,7 +100,7 @@ public abstract class GenericLevel extends GenericScreen {
         cameraHUD = new OrthographicCamera(WIDTH, HEIGHT);
         cameraHUD.position.set(WIDTH /2, HEIGHT /2,0);
         cameraHUD.update();
-        viewHUD = new StretchViewport(WIDTH, HEIGHT,cameraHUD);
+        viewHUD = new FitViewport(WIDTH, HEIGHT,cameraHUD);
 
     }
 
@@ -126,6 +129,8 @@ public abstract class GenericLevel extends GenericScreen {
         emptyKeyTexture = assetManager.get("gameObjects/llaveEmpty.png");
 
         laurenceBurnedLoose = assetManager.get("characters/laurence_burned.png");
+        laurenceCelebration=assetManager.get("characters/laurence_celebrating.png");
+        laurenceDrownedLoose = assetManager.get("characters/laurence_drowning.png");
         winLooseBackground = assetManager.get("background/winLooseBg.png");
         starTexture = assetManager.get("gameObjects/star.png");
         keyTexture = assetManager.get("gameObjects/llave.png");
@@ -249,8 +254,8 @@ public abstract class GenericLevel extends GenericScreen {
     //Create win and loose stage
     protected void createWinLooseStage()
     {
-        winScene = new Stage();
-        looseScene = new Stage();
+        winScene = new Stage(viewHUD);
+        looseScene = new Stage(viewHUD);
 
         //Reset
         Texture resetTexture =  assetManager.get("btn/resetdarkbtn.png");
@@ -577,6 +582,7 @@ public abstract class GenericLevel extends GenericScreen {
         batch.begin();
         batch.draw(winLooseBackground,0,0);
         text.showMsg(batch, "You won!",WIDTH/2,7*HEIGHT/8,2,'c');
+        batch.draw(laurenceCelebration,WIDTH/8 - laurenceCelebration.getWidth()/8,3*HEIGHT/8-laurenceCelebration.getHeight()/8);
         batch.draw(starTexture,WIDTH/2,3*HEIGHT/4-starTexture.getHeight());
         text.showMsg(batch, ""+(keys*1000+coins*100+enemies*500),5*WIDTH/8,3*HEIGHT/4,2,'l');
         batch.draw(coinTexture,WIDTH/2,5*HEIGHT/8-coinTexture.getHeight());
@@ -597,11 +603,15 @@ public abstract class GenericLevel extends GenericScreen {
         batch.begin();
         batch.draw(winLooseBackground,0,0);
         text.showMsg(batch, "Game Over!",WIDTH/2,7*HEIGHT/8,2,'c');
-        batch.draw(laurenceBurnedLoose,WIDTH/8 - laurenceBurnedLoose.getWidth()/8,HEIGHT/2-laurenceBurnedLoose.getHeight()/2);
+        if(laurence.getY()<0)
+            batch.draw(laurenceDrownedLoose,WIDTH/8 - laurenceDrownedLoose.getWidth()/8,3*HEIGHT/8-laurenceDrownedLoose.getHeight()/8);
+        else
+            batch.draw(laurenceBurnedLoose,WIDTH/8 - laurenceBurnedLoose.getWidth()/8,HEIGHT/2-laurenceBurnedLoose.getHeight()/2);
         text.showMsg(batch, "Progress: "+String.format("%.2f",laurence.getX()/MAP_WIDTH*100) +"%",WIDTH/2,3*HEIGHT/4,1.5f,'l');
         batch.end();
         looseScene.draw();
     }
+
 
 
 }

@@ -305,6 +305,8 @@ public class LevelZero extends GenericLevel {
         assetManager.unload("characters/tira_salto.png");
         assetManager.unload("characters/tira_marometa.png");
         assetManager.unload("characters/laurence_burned.png");
+        assetManager.unload("characters/laurence_celebrating.png");
+        assetManager.unload("characters/laurence_drowning.png");
         assetManager.unload("background/winLooseBg.png");
         assetManager.unload("gameObjects/llave.png");
         assetManager.unload("gameObjects/star.png");

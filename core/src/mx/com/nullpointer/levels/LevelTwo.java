@@ -17,7 +17,7 @@ public class LevelTwo extends GenericLevel {
     //Constructor
     public LevelTwo(Main game, int level)
     {
-        super(game,level,200*70,115);
+        super(game,level,200*70,128);
     }
     @Override
     public void show() {
@@ -38,7 +38,7 @@ public class LevelTwo extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        scoreInit(61);
+        scoreInit(113);
 
         //Input Processors
         loadInputProcessor();
@@ -212,20 +212,37 @@ public class LevelTwo extends GenericLevel {
     @Override
     public void dispose()
     {
+        //Map
         assetManager.unload("map/nivelDos.tmx");
+        //Music
         assetManager.unload("music/nivelUno.mp3");
+        //Background
         assetManager.unload("map/bookOneT.png");
+        assetManager.unload("map/bookOneBg.png");
+        assetManager.unload("map/clouds.png");
+        //Laurence animation
         assetManager.unload("characters/laurence_descanso.png");
         assetManager.unload("characters/laurence_running.png");
         assetManager.unload("characters/tira_salto.png");
         assetManager.unload("characters/tira_marometa.png");
+        assetManager.unload("characters/laurence_attacking.png");
+        //Laurence win, loose
         assetManager.unload("characters/laurence_burned.png");
+        assetManager.unload("characters/laurence_celebrating.png");
+        assetManager.unload("characters/laurence_drowning.png");
+        //Dragon
+        assetManager.unload("characters/finalboss.png");
+        assetManager.unload("characters/fireball.png");
+        assetManager.unload("characters/firabellRED.png");
+        //Background win loose
         assetManager.unload("background/winLooseBg.png");
+        //Score
         assetManager.unload("gameObjects/llave.png");
         assetManager.unload("gameObjects/star.png");
         assetManager.unload("gameObjects/llaveFull.png");
         assetManager.unload("gameObjects/llaveEmpty.png");
         assetManager.unload("gameObjects/moneda.png");
+        //Buttons
         assetManager.unload("btn/playbtn.png");
         assetManager.unload("btn/playbtnpress.png");
         assetManager.unload("btn/backbtn.png");
@@ -242,11 +259,10 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("btn/nextbtnpress.png");
         assetManager.unload("btn/resetdarkbtn.png");
         assetManager.unload("btn/resetdarkbtnpress.png");
-        assetManager.unload("map/bookOneBg.png");
-        assetManager.unload("map/clouds.png");
         assetManager.unload("gameObjects/actionbtn.png");
         assetManager.unload("gameObjects/actionbtnpress.png");
-        assetManager.unload("characters/laurence_attacking.png");
+
+
         buttonScene.dispose();
         looseScene.dispose();
         winScene.dispose();
