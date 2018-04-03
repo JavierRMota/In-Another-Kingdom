@@ -31,7 +31,6 @@ public class Enemy extends GameObject
     }
     public void moveEnemy(float delta, SpriteBatch batch)
     {
-
         x+=delta*VX;
 
         timerAnimation+=delta;
@@ -44,7 +43,5 @@ public class Enemy extends GameObject
             batch.draw(region,x,y,-region.getRegionWidth(),region.getRegionHeight());
         else
             batch.draw(region, x, y);
-
-
     }
 }
