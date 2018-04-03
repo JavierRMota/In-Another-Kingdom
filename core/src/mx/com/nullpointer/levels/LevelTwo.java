@@ -3,21 +3,32 @@ package mx.com.nullpointer.levels;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+
 import mx.com.nullpointer.inanotherkingdom.Main;
+import mx.com.nullpointer.utils.Enemy;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericLevel;
+import mx.com.nullpointer.utils.LongWeapon;
 import mx.com.nullpointer.utils.MainCharacter;
 /**
  * Created by mota on 2/12/18.
  */
 
 public class LevelTwo extends GenericLevel {
+    //Enemy
+    private Enemy finalBoss;
+    private Array<LongWeapon> fireList;
+    private float timerBall;
+    private Texture fireballBlue, fireballRed;
+    private boolean fightStart;
 
 
     //Constructor
     public LevelTwo(Main game, int level)
     {
-        super(game,level,200*70,128);
+        super(game,level,200*70,132);
     }
     @Override
     public void show() {
@@ -42,6 +53,15 @@ public class LevelTwo extends GenericLevel {
 
         //Input Processors
         loadInputProcessor();
+
+        //Create Final Boss
+        Texture boss =assetManager.get("characters/finalboss.png");
+        finalBoss = new Enemy(boss,MAP_WIDTH-boss.getWidth()/4,100);
+        fireList = new Array<LongWeapon>();
+        timerBall=0;
+        fightStart =false;
+        fireballBlue = assetManager.get("characters/fireball.png");
+        fireballRed = assetManager.get("characters/fireballRED.png");
 
         //Begin game
         gameState= GameState.PLAY;
@@ -90,6 +110,10 @@ public class LevelTwo extends GenericLevel {
         batch.begin();
         //Laurence
         laurence.render(batch);
+        //Enemies
+        finalBoss.render(batch,delta);
+        //Fireballs
+        drawFireballs();
         batch.end();
         //Draw buttons and information
         batch.setProjectionMatrix(cameraHUD.combined);
@@ -106,7 +130,89 @@ public class LevelTwo extends GenericLevel {
         drawInputScene();
     }
 
+    private void drawFireballs() {
+        updateFireballs();
+        for( LongWeapon weapon : fireList)
+        {
+            weapon.render(batch);
+        }
+    }
 
+    private void updateFireballs() {
+        TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
+        Rectangle laurenceRect = laurence.getSprite().getBoundingRectangle();
+        Rectangle enemyRect = finalBoss.getSprite().getBoundingRectangle();
+        for(int index = 0; index< fireList.size;index++)
+        {
+            LongWeapon weapon = fireList.get(index);
+            if(weapon.getX()<camera.position.x-WIDTH/2)
+            {
+                fireList.removeIndex(index);
+                continue;
+            }
+            Rectangle fireballRect = weapon.getSprite().getBoundingRectangle();
+
+            if (weapon.isBad && laurenceRect.overlaps(fireballRect))
+            {
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                {
+                    weapon.changeDirection();
+                }
+            }
+            else if(!weapon.isBad && !fightStart)
+            {
+                int cx = (int)(weapon.getX()+70)/70;
+                int cy = (int)(weapon.getY())/70;
+                TiledMapTileLayer.Cell currentCell = layer.getCell(cx,cy);
+                if(currentCell!=null)
+                {
+                    String cellType = (String) currentCell.getTile().getProperties().get("type");
+                    if(cellType.equals("enemy"))
+                    {
+                        Integer number = Integer.parseInt((String) currentCell.getTile().getProperties().get("number"));
+                        enemies++;
+                        switch (number)
+                        {
+                            case 1:
+                                layer.setCell(cx,cy,null);
+                                layer.setCell(cx,cy-1,null);
+                                layer.setCell(cx+1,cy,null);
+                                layer.setCell(cx+1,cy-1,null);
+                                break;
+                            case 2:
+                                layer.setCell(cx,cy,null);
+                                layer.setCell(cx,cy-1,null);
+                                layer.setCell(cx-1,cy,null);
+                                layer.setCell(cx-1,cy-1,null);
+                                break;
+                            case 3:
+                                layer.setCell(cx,cy,null);
+                                layer.setCell(cx,cy+1,null);
+                                layer.setCell(cx+1,cy,null);
+                                layer.setCell(cx+1,cy+1,null);
+                                break;
+                            case 4:
+                                layer.setCell(cx,cy,null);
+                                layer.setCell(cx,cy+1,null);
+                                layer.setCell(cx-1,cy,null);
+                                layer.setCell(cx-1,cy+1,null);
+                                break;
+                        }
+                        fireList.removeIndex(index);
+                    }
+                }
+            }
+            else if(fightStart && !weapon.isBad)
+            {
+
+                if(enemyRect.overlaps(fireballRect))
+                {
+                    win();
+                }
+            }
+        }
+
+    }
 
 
     private void update(float delta) {
@@ -125,7 +231,22 @@ public class LevelTwo extends GenericLevel {
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
         checkEnemies(cx,cy,layer);
-        laurence.move(layer,delta, cx, cy);
+        timerBall+=delta;
+        if(timerBall >1.5)
+        {
+            timerBall=0;
+            float posX;
+            if(fightStart)
+                posX=finalBoss.getX();
+            else
+                posX = laurence.getX()+WIDTH;
+
+            fireList.add(new LongWeapon(fireballBlue,fireballRed,posX, finalBoss.getX(),fightStart));
+        }
+        if(laurence.getX()<MAP_WIDTH - 7*WIDTH /8)
+            laurence.move(layer,delta, cx, cy);
+        else
+            fightStart= true;
         winOrLoose();
     }
 
@@ -170,7 +291,7 @@ public class LevelTwo extends GenericLevel {
                 }
                 else
                 {
-                    loose();
+                   loose();
                 }
 
             }
@@ -233,7 +354,7 @@ public class LevelTwo extends GenericLevel {
         //Dragon
         assetManager.unload("characters/finalboss.png");
         assetManager.unload("characters/fireball.png");
-        assetManager.unload("characters/firabellRED.png");
+        assetManager.unload("characters/fireballRED.png");
         //Background win loose
         assetManager.unload("background/winLooseBg.png");
         //Score
