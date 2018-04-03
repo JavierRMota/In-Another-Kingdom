@@ -10,6 +10,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -23,9 +27,10 @@ import mx.com.nullpointer.utils.GenericScreen;
 public class SettingsScreen extends GenericScreen {
 
     private Stage escenaAjustes;
-
+    private Table container;
     //Texturas
     private Texture texturaFondo;
+    private Slider sldSound;
 
     private Preferences prefsMusic = Gdx.app.getPreferences("Settings");
 
@@ -49,20 +54,26 @@ public class SettingsScreen extends GenericScreen {
     }
 
     private void crearObjetos() {
+
+
+        Skin skin = new Skin(Gdx.files.internal("skin/golden-ui-skin.json"));
+
         escenaAjustes = new Stage(view);
         //Botón Volumen
 
-        TextureRegionDrawable trdVolumen = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
-        TextureRegionDrawable trdVolumenPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
+        TextureRegionDrawable trdSound = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
+        TextureRegionDrawable trdSoundFX = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
+        TextureRegionDrawable trdMute = new TextureRegionDrawable(new TextureRegion(new Texture("btn/mute.png")));
         ImageButton btnVolumen;
 
 
+
         if(prefsMusic.getInteger("music", 0)<1){
-            btnVolumen = new ImageButton(trdVolumen,trdVolumenPress);
+            btnVolumen = new ImageButton(trdSound,trdSoundFX);
         }
 
         else{
-            btnVolumen = new ImageButton(trdVolumenPress,trdVolumen);
+            btnVolumen = new ImageButton(trdSoundFX,trdSound);
         }
 
         btnVolumen.setPosition(MenuScreen.WIDTH /2 - btnVolumen.getWidth()/2, MenuScreen.HEIGHT /2 + btnVolumen.getHeight()*1.5f);
@@ -88,35 +99,7 @@ public class SettingsScreen extends GenericScreen {
         });
         escenaAjustes.addActor(btnVolumen);
 
-        //Botón Rate
-        TextureRegionDrawable trdRate = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
-        TextureRegionDrawable trdRatePress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
-        ImageButton btnRate = new ImageButton(trdRate,trdRatePress);
-        btnRate.setPosition(MenuScreen.WIDTH /2 - btnRate.getWidth()/2, MenuScreen.HEIGHT /2);
 
-        btnRate.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                Gdx.net.openURI("http://nullpointer.com.mx");
-            }
-        });
-        escenaAjustes.addActor(btnRate);
-
-        /*/Botón SFX
-        TextureRegionDrawable trdSfx = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxxOn.png")));
-        TextureRegionDrawable trdSfxPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/sfxOff.png")));
-        ImageButton btnSfx = new ImageButton(trdSfx,trdSfxPress);
-        btnSfx.setPosition(MenuScreen.WIDTH /2 - btnSfx.getWidth()/2, MenuScreen.HEIGHT /2 -btnSfx.getHeight()*1.5f);
-
-        btnSfx.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-
-            }
-        });
-        escenaAjustes.addActor(btnSfx);*/
 
         Gdx.input.setInputProcessor(escenaAjustes);
         //Botón Back
@@ -134,6 +117,10 @@ public class SettingsScreen extends GenericScreen {
             }
         });
         escenaAjustes.addActor(btnBack);
+
+        sldSound = new Slider(0.0f, 1.0f, 0.5f, false, skin);
+        sldSound.setBounds(WIDTH/2-sldSound.getWidth()/2,3*HEIGHT/4,WIDTH/4,200);
+        escenaAjustes.addActor(sldSound);
 
     }
 
