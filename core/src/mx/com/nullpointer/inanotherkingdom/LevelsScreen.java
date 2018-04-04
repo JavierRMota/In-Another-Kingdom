@@ -440,9 +440,7 @@ class LevelsScreen extends GenericScreen{
         int score3 = prefs.getInteger("score2",0);
         String cadenaScore3 = "";
         cadenaScore3 = String.valueOf(score3);
-        /*  timerAnimation += Gdx.graphics.getDeltaTime();
-        TextureRegion region = (TextureRegion) animationBook.getKeyFrame(timerAnimation);
-        batch.draw(region, x, y);*/
+
         batch.begin();
         text.showMsg(batch,"LVL 1", WIDTH/3 - 30,HEIGHT/10*9 - 60,2,'l');
         text.showMsg(batch, cadenaScore1, WIDTH/3 + 30,HEIGHT/4*3 - 20,2,'l');
