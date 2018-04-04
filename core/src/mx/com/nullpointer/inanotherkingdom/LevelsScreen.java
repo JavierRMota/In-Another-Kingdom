@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -42,6 +43,7 @@ class LevelsScreen extends GenericScreen{
 
     private int lastLevel;
     private float timerAnimation;
+    private boolean OpenBook;
     private float x;
     private float y;
 
@@ -194,7 +196,7 @@ class LevelsScreen extends GenericScreen{
         TextureRegionDrawable trdFirstSub1 = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnlevels.png")));
         TextureRegionDrawable trdFirstSub1Press = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnpresslevels.png")));
         ImageButton btnFirstSub1 = new ImageButton(trdFirstSub1,trdFirstSub1Press);
-        btnFirstSub1.setPosition(WIDTH/3 - 30, HEIGHT/4*2 +40);
+        btnFirstSub1.setPosition(WIDTH/3 - 30 , HEIGHT/4*2 +40);
         btnFirstSub1.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -206,7 +208,7 @@ class LevelsScreen extends GenericScreen{
 
         TextureRegionDrawable trdStarLevels = new TextureRegionDrawable(new TextureRegion(new Texture("gameObjects/star.png")));
         Image imgStarLevel0 = new Image(trdStarLevels);
-        imgStarLevel0.setPosition(btnFirstSub1.getX(), HEIGHT - imgLevelZero.getY()/3*2);
+        imgStarLevel0.setPosition(btnFirstSub1.getX() , HEIGHT - imgLevelZero.getY()/3*2);
 
         levelOneStage.addActor(imgLevelZero);
         levelOneStage.addActor(btnFirstSub1);
@@ -215,12 +217,12 @@ class LevelsScreen extends GenericScreen{
         //Botón Subnivel 2 primer nivel
         TextureRegionDrawable trdLevelOne = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOne.png")));
         Image imgLevelOne = new Image(trdLevelOne);
-        imgLevelOne.setPosition(imgLevelOne.getWidth()/4*7, imgLevelOne.getHeight()/3);
+        imgLevelOne.setPosition(imgLevelOne.getWidth()/4*7 , imgLevelOne.getHeight()/3);
 
         TextureRegionDrawable trdSecSub1 = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnlevels.png")));
         TextureRegionDrawable trdSecSub1Press = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnpresslevels.png")));
         ImageButton btnSecSub1 = new ImageButton(trdSecSub1,trdSecSub1Press);
-        btnSecSub1.setPosition(imgLevelOne.getX()/2,  imgLevelOne.getHeight()/3);
+        btnSecSub1.setPosition(imgLevelOne.getX()/2 - 55,  imgLevelOne.getHeight()/3);
         btnSecSub1.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -235,7 +237,7 @@ class LevelsScreen extends GenericScreen{
 
         TextureRegionDrawable trdLevelLock = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/levelLock.png")));
         Image imgLevelOneLock = new Image(trdLevelLock);
-        imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7.5f, imgLevelOne.getHeight()/3);
+        imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7.5f - 55, imgLevelOne.getHeight()/3);
 
 
         if (lastLevel >= LVLONE - 5){
@@ -282,7 +284,7 @@ class LevelsScreen extends GenericScreen{
             levelOneStage.addActor(btnThirdSub1);
             levelOneStage.addActor(imgStarLevel2);
         }
-        if (lastLevel < LVLTWO - 5 || lastLevel >= 0){
+        if (lastLevel < LVLONE - 5 || lastLevel >= 0){
             levelOneStage.addActor(imgLevelTwoLock);
         }
 
@@ -440,13 +442,15 @@ class LevelsScreen extends GenericScreen{
         int score3 = prefs.getInteger("score2",0);
         String cadenaScore3 = "";
         cadenaScore3 = String.valueOf(score3);
-
+        /*  timerAnimation += Gdx.graphics.getDeltaTime();
+        TextureRegion region = (TextureRegion) animationBook.getKeyFrame(timerAnimation);
+        batch.draw(region, x, y);*/
         batch.begin();
         text.showMsg(batch,"LVL 1", WIDTH/3 - 30,HEIGHT/10*9 - 60,2,'l');
         text.showMsg(batch, cadenaScore1, WIDTH/3 + 30,HEIGHT/4*3 - 20,2,'l');
         if (lastLevel >= LVLONE - 5){
-        text.showMsg(batch,"LVL 2", WIDTH/7,HEIGHT/5*2,2,'l');
-        text.showMsg(batch, cadenaScore2, WIDTH/6 + 40 ,HEIGHT/4 + 32 ,2,'l');}
+        text.showMsg(batch,"LVL 2", WIDTH/7 - 45,HEIGHT/5*2,2,'l');
+        text.showMsg(batch, cadenaScore2, WIDTH/6 - 15  ,HEIGHT/4 + 32 ,2,'l');}
         if (lastLevel >= LVLTWO - 5){
         text.showMsg(batch,"LVL 3", WIDTH/6*4 - 20,HEIGHT/5*2,2,'l');
         text.showMsg(batch, cadenaScore3, WIDTH/4*3 - 63 ,HEIGHT/4 + 40 ,2,'l');}
@@ -467,6 +471,8 @@ class LevelsScreen extends GenericScreen{
         TWO,
         THREE
     }
+
+
 
     }
 
