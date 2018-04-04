@@ -11,13 +11,11 @@ public class LongWeapon extends GameObject{
     private Animation animation;
     public boolean isBad;
     private float x,y;
-    private float VX =-500;
+    private float VX =-600;
     private float VY = -250;
     private boolean fight;
-    private static int number = 0;
-    public LongWeapon(Texture bad, Texture good, float x, float maxX, boolean fight)
+    public LongWeapon(Texture bad, Texture good, float x, float y ,float maxX, boolean fight)
     {
-        number=(number+1)%3+1;
         animation = new Animation(1f, bad, good);
         sprite = new Sprite(bad);
         isBad = true;
@@ -29,7 +27,7 @@ public class LongWeapon extends GameObject{
         if(fight)
             this.y = 300;
         else
-            this.y = number*140;
+            this.y = y;
         sprite.setPosition(this.x,y);
     }
     public void changeDirection()

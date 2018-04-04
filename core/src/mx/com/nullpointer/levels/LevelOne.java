@@ -2,7 +2,15 @@ package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.GameState;
 import mx.com.nullpointer.utils.GenericLevel;
@@ -13,6 +21,8 @@ import mx.com.nullpointer.utils.MainCharacter;
 
 public class LevelOne extends GenericLevel {
 
+    private Sprite tutorialSprite;
+    private float SPEED =0.3f;
 
     //Constructor
     public LevelOne(Main game, int level)
@@ -43,6 +53,11 @@ public class LevelOne extends GenericLevel {
         //Input Processors
         loadInputProcessor();
 
+        //Tutorial
+        Texture tutorialTexture = assetManager.get("tutorial/pushButton.png");
+        tutorialSprite = new Sprite(tutorialTexture);
+        tutorialSprite.setPosition(WIDTH/16, 0);
+
         //Begin game
         gameState= GameState.PLAY;
 
@@ -63,15 +78,16 @@ public class LevelOne extends GenericLevel {
         objectsOne = new Sprite(objectTexture);
         objectsTwo = new Sprite(objectTexture);
         objectsOne.setPosition(0,-40);
-        objectsTwo.setPosition(objectsOne.getWidth(),-40);
+        objectsTwo.setPosition(objectsOne.getWidth(),0);
 
     }
 
 
     @Override
     public void render(float delta) {
+        int cx = (int)(laurence.getX()+70)/70;
         //Check if paused
-        if(gameState==GameState.PLAY)
+        if(gameState==GameState.PLAY && (cx != 10 || laurence.getMovementState()== MainCharacter.MovementState.ATTACKING))
         {
             update(delta);
         }
@@ -100,6 +116,16 @@ public class LevelOne extends GenericLevel {
         drawKeys();
         //Display score
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2,'c');
+
+        //Check tutorial
+        if(cx == 10 && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING)
+        {
+            if(tutorialSprite.getScaleX() -+0.1f*delta>1.3 ||tutorialSprite.getScaleX() -+0.1f*delta<0.8)
+                SPEED =-SPEED;
+            tutorialSprite.setScale(tutorialSprite.getScaleX() +SPEED*delta);
+            tutorialSprite.draw(batch);
+        }
+
         //End batch
         batch.end();
         //Draw current input scene
@@ -249,6 +275,7 @@ public class LevelOne extends GenericLevel {
         assetManager.unload("gameObjects/actionbtn.png");
         assetManager.unload("gameObjects/actionbtnpress.png");
         assetManager.unload("characters/laurence_attacking.png");
+        assetManager.unload("tutorial/pushButton.png");
         buttonScene.dispose();
         looseScene.dispose();
         winScene.dispose();

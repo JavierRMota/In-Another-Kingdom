@@ -215,6 +215,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                //Tutorial
+                assetManager.load("tutorial/pushButton.png", Texture.class);
                 break;
             case LVLTWO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
