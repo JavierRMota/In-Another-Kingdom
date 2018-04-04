@@ -215,6 +215,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                //Tutorial
+                assetManager.load("tutorial/pushButton.png", Texture.class);
                 break;
             case LVLTWO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -238,7 +240,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_drowning.png", Texture.class);
                 //Big dragon
                 assetManager.load("characters/finalboss.png", Texture.class);
-                assetManager.load("characters/firebalRED.png",Texture.class);
+                assetManager.load("characters/fireballRED.png",Texture.class);
+                assetManager.load("characters/fireball.png",Texture.class);
                 //Win loose background
                 assetManager.load("background/winLooseBg.png",Texture.class);
                 //Scores

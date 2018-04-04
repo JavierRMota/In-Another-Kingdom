@@ -72,13 +72,28 @@ class AboutScreen extends GenericScreen {
         });
         aboutStage.addActor(btnBack);
 
+        //Botón Rate
+        TextureRegionDrawable trdRate = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
+        TextureRegionDrawable trdRatePress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
+        ImageButton btnRate = new ImageButton(trdRate,trdRatePress);
+        btnRate.setPosition(MenuScreen.WIDTH /2 - btnRate.getWidth()/2, 25);
+
+        btnRate.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                Gdx.net.openURI("http://nullpointer.com.mx");
+            }
+        });
+        aboutStage.addActor(btnRate);
+
         //Git
         Texture gitbtn = assetManager.get("btn/gitbtn.png");
         Texture gitbtnpress = assetManager.get("btn/gitbtnpress.png");
         TextureRegionDrawable trdGit = new TextureRegionDrawable(new TextureRegion(gitbtn));
         TextureRegionDrawable trdGitPress = new TextureRegionDrawable(new TextureRegion(gitbtnpress));
         ImageButton btnGit = new ImageButton(trdGit,trdGitPress);
-        btnGit.setPosition(WIDTH/2-btnGit.getWidth()/2, HEIGHT/8 - btnGit.getHeight()/8);
+        btnGit.setPosition(WIDTH/2-btnGit.getWidth()/2, 2.5f*HEIGHT/16 - btnGit.getHeight()/16);
         btnGit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

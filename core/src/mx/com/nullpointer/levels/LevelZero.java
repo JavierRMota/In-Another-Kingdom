@@ -120,9 +120,8 @@ public class LevelZero extends GenericLevel {
                 if(cx==40)
                 {
                     fastFall=true;
-                    laurence.setTimerAction(0.8f);
+                    laurence.setTimerAction(1.5f);
                 }
-
 
             }
         });

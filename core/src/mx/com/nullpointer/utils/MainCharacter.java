@@ -305,6 +305,10 @@ public class MainCharacter extends GameObject
         this.timerAction = timerAction;
     }
 
+    public Sprite getSprite() {
+        return sprite;
+    }
+
     public enum MovementState
     {
         RUNNING,
