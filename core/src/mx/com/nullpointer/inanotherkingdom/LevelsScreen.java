@@ -282,7 +282,7 @@ class LevelsScreen extends GenericScreen{
             levelOneStage.addActor(btnThirdSub1);
             levelOneStage.addActor(imgStarLevel2);
         }
-        if (lastLevel < LVLONE - 5 || lastLevel >= 0){
+        if (lastLevel == 0 || lastLevel == 1){
             levelOneStage.addActor(imgLevelTwoLock);
         }
 
