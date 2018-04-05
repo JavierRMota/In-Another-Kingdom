@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -159,6 +160,7 @@ public abstract class GenericLevel extends GenericScreen {
                     laurence.resetTimerAction();
                     laurence.setX(laurence.getX()+18);
                     laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+                    game.playSound((Music)assetManager.get("music/sword.mp3"));
 
                 }
             }
@@ -388,6 +390,7 @@ public abstract class GenericLevel extends GenericScreen {
                         laurence.resetTimerAction();
                         laurence.setX(laurence.getX()+18);
                         laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+                        game.playSound((Music)assetManager.get("music/sword.mp3"));
 
                     }
 

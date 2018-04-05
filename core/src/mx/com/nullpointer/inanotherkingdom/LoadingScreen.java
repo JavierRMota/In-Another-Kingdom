@@ -182,6 +182,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("map/nivelUno.tmx", TiledMap.class);
                 //Music
                 assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("music/sword.mp3", Music.class);
                 //Background
                 assetManager.load("map/bookOneBg.png",Texture.class);
                 assetManager.load("map/clouds.png",Texture.class);
@@ -232,6 +233,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("map/nivelDos.tmx", TiledMap.class);
                 //Music
                 assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("music/sword.mp3", Music.class);
                 //Background
                 assetManager.load("map/bookOneBg.png",Texture.class);
                 assetManager.load("map/clouds.png",Texture.class);

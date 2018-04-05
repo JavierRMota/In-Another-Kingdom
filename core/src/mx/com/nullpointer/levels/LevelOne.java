@@ -1,6 +1,7 @@
 package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -244,6 +245,7 @@ public class LevelOne extends GenericLevel {
     {
         assetManager.unload("map/nivelUno.tmx");
         assetManager.unload("music/nivelUno.mp3");
+        assetManager.unload("music/sword.mp3");
         assetManager.unload("map/bookOneT.png");
         assetManager.unload("characters/laurence_descanso.png");
         assetManager.unload("characters/laurence_running.png");

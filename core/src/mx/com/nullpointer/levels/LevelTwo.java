@@ -417,6 +417,7 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("map/nivelDos.tmx");
         //Music
         assetManager.unload("music/nivelUno.mp3");
+        assetManager.unload("music/sword.mp3");
         //Background
         assetManager.unload("map/bookOneT.png");
         assetManager.unload("map/bookOneBg.png");
