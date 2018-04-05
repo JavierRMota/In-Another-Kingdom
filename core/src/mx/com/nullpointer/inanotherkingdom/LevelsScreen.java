@@ -62,9 +62,9 @@ class LevelsScreen extends GenericScreen{
         createObjects();
         TextureRegion region = new TextureRegion(bookTexture);
         TextureRegion[][] frames = region.split(bookTexture.getWidth()/7, bookTexture.getHeight());
-        animationBook = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
+        animationBook = new Animation(0.12f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
         animationBook.setPlayMode(Animation.PlayMode.NORMAL);
-        x = 186/2;
+        x = WIDTH/2- 186;
         y = HEIGHT/2 - 239/2;
         openBook = false;
 
@@ -413,6 +413,7 @@ class LevelsScreen extends GenericScreen{
         batch.end();
         update();
     }
+
     private void update()
     {
         if(!openBook)
@@ -442,9 +443,9 @@ class LevelsScreen extends GenericScreen{
     private void openBook() {
         timerAnimation+=Gdx.graphics.getDeltaTime();
         TextureRegion region = (TextureRegion) animationBook.getKeyFrame(timerAnimation);
-        if(timerAnimation>0.1*6)
+        if(timerAnimation>0.12*6)
         {
-            openBook= false;
+            openBook = false;
             timerAnimation=0;
         }
         batch.begin();
