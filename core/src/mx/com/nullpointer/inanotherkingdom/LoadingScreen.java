@@ -54,11 +54,19 @@ public class LoadingScreen extends GenericScreen {
             case MENU:
                 Preferences prefs = Gdx.app.getPreferences("Progress");
                 int lastLevel = prefs.getInteger("lastLevel", 0);
-                String levelTextureName;
+                String levelTextureName ="";
                 switch(lastLevel)
                 {
-                    default:
+                    case 0:
+                    case 1:
+                    case 2:
                         levelTextureName = "background/menu_bg_1.png";
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        levelTextureName = "background/menu_bg_2.png";
+                        break;
 
                 }
                 assetManager.load(levelTextureName, Texture.class);

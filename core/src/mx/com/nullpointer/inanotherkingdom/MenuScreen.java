@@ -43,17 +43,25 @@ public class MenuScreen extends GenericScreen {
     public void show() {
         Preferences prefs = Gdx.app.getPreferences("Progress");
         lastLevel = prefs.getInteger("lastLevel", 0);
-        cargarTexturas();
-        crearObjetos();
+        loadTextures();
+        createObjects();
 
     }
 
-    private void cargarTexturas() {
-        String levelTextureName;
+    private void loadTextures() {
+        String levelTextureName ="";
         switch(lastLevel)
         {
-            default:
+            case 0:
+            case 1:
+            case 2:
                 levelTextureName = "background/menu_bg_1.png";
+                break;
+            case 3:
+            case 4:
+            case 5:
+                levelTextureName = "background/menu_bg_2.png";
+                break;
 
         }
         backgroundTexture = assetManager.get(levelTextureName);
@@ -63,7 +71,7 @@ public class MenuScreen extends GenericScreen {
 
     }
 
-    private void crearObjetos() {
+    private void createObjects() {
         menuStage = new Stage(view);
 
         //Botón Play

@@ -35,15 +35,16 @@ class LevelsScreen extends GenericScreen{
     private Texture bookTexture;
 
     private Animation animationBook;
+    private float timerAnimation;
+    private boolean openBook;
+    private float x;
+    private float y;
+
 
     private  Stages stage;
 
 
     private int lastLevel;
-    private float timerAnimation;
-    private boolean OpenBook;
-    private float x;
-    private float y;
 
     //Text
     private Text text;
@@ -57,24 +58,25 @@ class LevelsScreen extends GenericScreen{
 
     @Override
     public void show() {
-        cargarTexturas();
-        crearObjetos();
+        loadTextures();
+        createObjects();
         TextureRegion region = new TextureRegion(bookTexture);
         TextureRegion[][] frames = region.split(bookTexture.getWidth()/7, bookTexture.getHeight());
         animationBook = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
         animationBook.setPlayMode(Animation.PlayMode.NORMAL);
         x = 186/2;
         y = HEIGHT/2 - 239/2;
+        openBook = false;
 
     }
 
-    private void cargarTexturas() {
+    private void loadTextures() {
         backgroundTexture = new Texture("background/menubg.png");
         bookTexture = new Texture("background/tiraLibroAbriendose.png");
 
     }
 
-    private void crearObjetos() {
+    private void createObjects() {
         levelsStage = new Stage(view);
         levelOneStage = new Stage(view);
         levelTwoStage = new Stage(view);
@@ -120,6 +122,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                openBook= true;
                 changeScene(Stages.ONE);
             }
         });
@@ -404,26 +407,49 @@ class LevelsScreen extends GenericScreen{
     @Override
     public void render(float delta) {
         clearScreen();
-        batch.setProjectionMatrix(camera.combined);
+;       batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
         batch.end();
-        currentScene.draw();
-        switch (stage)
+        update();
+    }
+    private void update()
+    {
+        if(!openBook)
         {
-            case LEVELS:
-                break;
-            case ONE:
-                drawOne();
-                break;
-            case TWO:
-                drawTwo();
-                break;
-            case THREE:
-                drawThree();
-                break;
+            currentScene.draw();
+            switch (stage)
+            {
+                case LEVELS:
+                    break;
+                case ONE:
+                    drawOne();
+                    break;
+                case TWO:
+                    drawTwo();
+                    break;
+                case THREE:
+                    drawThree();
+                    break;
+            }
         }
+        else {
+                openBook();
+            }
 
+    }
+
+    private void openBook() {
+        timerAnimation+=Gdx.graphics.getDeltaTime();
+        TextureRegion region = (TextureRegion) animationBook.getKeyFrame(timerAnimation);
+        if(timerAnimation>0.1*6)
+        {
+            openBook= false;
+            timerAnimation=0;
+        }
+        batch.begin();
+        batch.draw(region,x,y);
+        batch.end();
 
     }
 

@@ -1,5 +1,6 @@
 package mx.com.nullpointer.levels;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -60,6 +61,7 @@ public class LevelOne extends GenericLevel {
 
         //Begin game
         gameState= GameState.PLAY;
+        Gdx.input.setInputProcessor(buttonScene);
 
     }
     protected void loadBackground()
@@ -89,6 +91,8 @@ public class LevelOne extends GenericLevel {
         //Check if paused
         if(gameState==GameState.PLAY && (cx != 10 || laurence.getMovementState()== MainCharacter.MovementState.ATTACKING))
         {
+            if(cx == 10 && laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                Gdx.input.setInputProcessor(inputProcessor);
             update(delta);
         }
         //Borrar pantalla
