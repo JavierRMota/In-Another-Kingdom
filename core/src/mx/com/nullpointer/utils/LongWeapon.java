@@ -12,7 +12,7 @@ public class LongWeapon extends GameObject{
     public boolean isBad;
     private float x,y;
     private float VX =-600;
-    private float VY = -250;
+    private float VY = -220;
     private boolean fight;
     public LongWeapon(Texture bad, Texture good, float x, float y ,float maxX, boolean fight)
     {
