@@ -163,18 +163,6 @@ public class LevelTwo extends GenericLevel {
                             friendlyFireList.removeIndex(index);
                             fireList.removeIndex(index_two);
                             break;
-                        } else {
-                            int cx = (int) (weapon_two.getX() + 70) / 70;
-                            int cy = (int) (weapon_two.getY()) / 70;
-                            TiledMapTileLayer.Cell currentCell = layer.getCell(cx, cy);
-                            if (currentCell != null) {
-                                String cellType = (String) currentCell.getTile().getProperties().get("type");
-                                if (cellType.equals("platform")) {
-                                    fireList.removeIndex(index_two);
-                                    break;
-                                }
-                            }
-
                         }
 
                     } catch (Exception e) {
@@ -243,13 +231,22 @@ public class LevelTwo extends GenericLevel {
         {
 
             LongWeapon weapon = fireList.get(index);
+            int cx = (int) (weapon.getX() + 70) / 70;
+            int cy = (int) (weapon.getY()) / 70;
+            TiledMapTileLayer.Cell currentCell = layer.getCell(cx, cy);
+            if (currentCell != null) {
+                String cellType = (String) currentCell.getTile().getProperties().get("type");
+                if (cellType.equals("platform")) {
+                    fireList.removeIndex(index);
+                    break;
+                }
+            }
             if(weapon.getX()<camera.position.x-WIDTH/2)
             {
                 fireList.removeIndex(index);
                 break;
             }
             Rectangle fireballRect = weapon.getSprite().getBoundingRectangle();
-
             if (laurenceRect.overlaps(fireballRect))
             {
                 if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
@@ -335,7 +332,7 @@ public class LevelTwo extends GenericLevel {
 
     private void checkFire(float delta) {
         timerBall+=delta;
-        if(!finalBoss.isDead() && (timerBall >2 || fightStart && timerBall>1.5))
+        if(!finalBoss.isDead() && timerBall >2 )
         {
             timerBall=0;
             float posX;
