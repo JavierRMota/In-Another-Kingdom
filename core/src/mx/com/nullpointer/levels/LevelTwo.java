@@ -23,6 +23,7 @@ public class LevelTwo extends GenericLevel {
     private float timerBall;
     private Texture fireballBlue, fireballRed;
     private boolean fightStart;
+    private Texture endTexture;
 
 
     //Constructor
@@ -63,6 +64,8 @@ public class LevelTwo extends GenericLevel {
         fightStart =false;
         fireballBlue = assetManager.get("characters/fireball.png");
         fireballRed = assetManager.get("characters/fireballRED.png");
+
+        endTexture=assetManager.get("background/beta.jpg");
 
         //Begin game
         gameState= GameState.PLAY;
@@ -326,7 +329,7 @@ public class LevelTwo extends GenericLevel {
             else
                 posX = laurence.getX()+WIDTH;
 
-            fireList.add(new LongWeapon(fireballBlue,fireballRed, posX,laurence.getY()+70, finalBoss.getX(),fightStart));
+            fireList.add(new LongWeapon(fireballBlue,fireballRed, posX,laurence.getY(), finalBoss.getX(),fightStart));
         }
     }
 
@@ -438,6 +441,7 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("characters/fireballRED.png");
         //Background win loose
         assetManager.unload("background/winLooseBg.png");
+        assetManager.unload("background/beta.jpg");
         //Score
         assetManager.unload("gameObjects/llave.png");
         assetManager.unload("gameObjects/star.png");
@@ -469,6 +473,22 @@ public class LevelTwo extends GenericLevel {
         looseScene.dispose();
         winScene.dispose();
         tiledMap.dispose();
+    }
+    @Override
+    protected void drawWin()
+    {
+        batch.begin();
+        batch.draw(endTexture,0,0);
+        text.showMsg(batch, "You won!",WIDTH/2,7*HEIGHT/8,2,'c');
+        batch.draw(laurenceCelebration,WIDTH/8 - laurenceCelebration.getWidth()/8,3*HEIGHT/8-laurenceCelebration.getHeight()/8);
+        batch.draw(starTexture,WIDTH/2,3*HEIGHT/4-starTexture.getHeight());
+        text.showMsg(batch, ""+(keys*1000+coins*100+enemies*500),5*WIDTH/8,3*HEIGHT/4,2,'l');
+        batch.draw(coinTexture,WIDTH/2,5*HEIGHT/8-coinTexture.getHeight());
+        text.showMsg(batch, coins+"/"+TOTAL_COINS,5*WIDTH/8,5*HEIGHT/8,2,'l');
+        batch.draw(keyTexture,WIDTH/2,HEIGHT/2-keyTexture.getHeight());
+        text.showMsg(batch, keys+"/3",5*WIDTH/8,HEIGHT/2,2,'l');
+        batch.end();
+        winScene.draw();
     }
 
 
