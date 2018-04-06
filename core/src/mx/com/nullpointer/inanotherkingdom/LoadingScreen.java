@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 import mx.com.nullpointer.levels.*;
 import mx.com.nullpointer.utils.GenericScreen;
 
@@ -90,6 +92,9 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("background/menubg.png",Texture.class);
+                assetManager.load("skin/golden-ui-skin.json",Skin.class);
+                assetManager.load("tutorial/attack1.png",Texture.class);
+                assetManager.load("tutorial/attack2.png",Texture.class);
                 break;
             case LEVELS:
                 assetManager.load("music/menu.mp3",Music.class);

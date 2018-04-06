@@ -29,7 +29,7 @@ public class Main extends Game {
 	public void changeMusic(int screen)
 	{
 		Preferences prefs = Gdx.app.getPreferences("Settings");
-		if(prefs.getInteger("music",0)<1)
+		if(prefs.getBoolean("music",true))
 		{
 			switch (screen)
 			{
