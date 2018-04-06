@@ -93,6 +93,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("skin/golden-ui-skin.json",Skin.class);
+                assetManager.load("tutorial/attack1.png",Texture.class);
+                assetManager.load("tutorial/attack2.png",Texture.class);
                 break;
             case LEVELS:
                 assetManager.load("music/menu.mp3",Music.class);

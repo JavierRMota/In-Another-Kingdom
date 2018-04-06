@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -30,11 +31,13 @@ public class SettingsScreen extends GenericScreen {
 
     private Stage escenaAjustes;
     //Texturas
-    private Texture texturaFondo;
+    private Texture texturaFondo,imgBtn, imgSld;
     private Slider sldDiff;
+    private Slider sldAttack;
 
     private Preferences prefsMusic = Gdx.app.getPreferences("Settings");
     private Preferences prefsDiff = Gdx.app.getPreferences("Settings");
+    private Preferences prefsAttack = Gdx.app.getPreferences("Settings");
 
     private Text msg;
 
@@ -51,7 +54,8 @@ public class SettingsScreen extends GenericScreen {
     }
 
     private void cargarTexturas() {
-
+        imgBtn = assetManager.get("tutorial/attack1.png");
+        imgSld = assetManager.get("tutorial/attack2.png");
         texturaFondo = new Texture("background/menubg.png");
         msg = new Text();
 
@@ -67,10 +71,7 @@ public class SettingsScreen extends GenericScreen {
 
         TextureRegionDrawable trdSound = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
         TextureRegionDrawable trdSoundFX = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
-        TextureRegionDrawable trdMute = new TextureRegionDrawable(new TextureRegion(new Texture("btn/mute.png")));
         ImageButton btnVolumen;
-
-
 
         if(prefsMusic.getBoolean("music", true)){
             btnVolumen = new ImageButton(trdSound,trdSoundFX);
@@ -97,12 +98,14 @@ public class SettingsScreen extends GenericScreen {
                     game.changeMusic(SETTINGS);
                     prefsMusic.flush();
                 }
+                Gdx.app.log("prefs: ","Bool: " + prefsMusic.getBoolean("music") );
                 crearObjetos();
 
             }
         });
         escenaAjustes.addActor(btnVolumen);
 
+        //Slider Dificultad
         sldDiff = new Slider(300, 500, 100, false, skin);
         sldDiff.setBounds(WIDTH/2-9*sldDiff.getWidth()/8, 2*HEIGHT/5,WIDTH/4,200);
         sldDiff.setValue(prefsMusic.getInteger("Difficulty", 400));
@@ -134,11 +137,40 @@ public class SettingsScreen extends GenericScreen {
 
         });
 
+        //Slider Ataque
+
+        sldAttack = new Slider(0,1,1, false, skin);
+        sldAttack.setBounds(WIDTH/2-9*sldAttack.getWidth()/8, HEIGHT/5,WIDTH/4,200);
+        sldAttack.setValue(prefsAttack.getFloat("Mode", 0));
+        escenaAjustes.addActor(sldAttack);
+        sldAttack.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("Valor;","slider changed to: " + sldAttack.getValue());
+                if(sldAttack.getValue()==0f) {
+                    prefsAttack.putInteger("Mode", 0);
+                    prefsAttack.flush();
+                }
+                else{
+                    prefsAttack.putInteger("Mode", 1);
+                    prefsAttack.flush();
+                }
+
+                Gdx.app.log("Valor;","diff: " + prefsAttack.getInteger("Mode"));
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            };
+
+        });
+
+
         //Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtnpress.png")));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(btnBack.getWidth(), MenuScreen.HEIGHT /2 - btnBack.getHeight()/2);
+        btnBack.setPosition(btnBack.getWidth(), HEIGHT /2 - btnBack.getHeight()/2);
 
         btnBack.addListener(new ClickListener(){
             @Override
@@ -165,6 +197,9 @@ public class SettingsScreen extends GenericScreen {
         batch.draw(texturaFondo,0 ,0);
         msg.showMsg(batch,"Settings", WIDTH /2,HEIGHT-25,2,'c');
         msg.showMsg(batch,"Difficulty: ",WIDTH/2,5.2f*HEIGHT/8,1,'c');
+        msg.showMsg(batch,"Attack Mode: ",WIDTH/2,3.6f*HEIGHT/8,1,'c');
+        batch.draw(imgBtn,WIDTH/6, 3*HEIGHT/8);
+        batch.draw(imgSld,4*WIDTH/6, 3*HEIGHT/8);
         batch.end();
         escenaAjustes.draw();
 
@@ -173,5 +208,10 @@ public class SettingsScreen extends GenericScreen {
     @Override
     public void dispose() {
         assetManager.unload("skin/golden-ui-skin.json");
+        assetManager.unload("btn/musicOn.png");
+        assetManager.unload("btn/musicOff.png");
+        assetManager.unload("tutorial/attack1.png");
+        assetManager.unload("tutorial/attack2.png");
+
     }
 }

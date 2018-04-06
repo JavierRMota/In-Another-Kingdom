@@ -397,7 +397,10 @@ public abstract class GenericLevel extends GenericScreen {
 
                 }
             });
-            buttonScene.addActor(btnAction);
+            Preferences prefs = Gdx.app.getPreferences("Settings");
+            if(prefs.getInteger("Mode")==0){
+                buttonScene.addActor(btnAction);
+            }
         }
 
     }
