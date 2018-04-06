@@ -373,14 +373,22 @@ public abstract class GenericLevel extends GenericScreen {
         });
         buttonScene.addActor(btnPause);
         //Action Button
-        if(LVL !=LVLZERO)
+        Preferences prefs = Gdx.app.getPreferences("Settings");
+        if(LVL !=LVLZERO && prefs.getBoolean("mode", true))
         {
             Texture actionTexture = assetManager.get("gameObjects/actionbtn.png");
             Texture actionPressTexture = assetManager.get("gameObjects/actionbtnpress.png");
             TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
             TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
             ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
-            btnAction.setPosition(WIDTH/16, 0);
+            if(prefs.getBoolean("possition", true)){
+                btnAction.setPosition(WIDTH/16, 0);
+            }
+
+            else {
+                btnAction.setPosition(14*WIDTH/16, 0);
+            }
+
             btnAction.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
@@ -397,10 +405,9 @@ public abstract class GenericLevel extends GenericScreen {
 
                 }
             });
-            Preferences prefs = Gdx.app.getPreferences("Settings");
-            if(prefs.getInteger("Mode")==0){
-                buttonScene.addActor(btnAction);
-            }
+
+            buttonScene.addActor(btnAction);
+
         }
 
     }
