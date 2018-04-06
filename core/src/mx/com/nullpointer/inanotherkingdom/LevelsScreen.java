@@ -277,10 +277,8 @@ class LevelsScreen extends GenericScreen{
         Image imgLevelTwoLock = new Image(trdLevelLock);
         imgLevelTwoLock.setPosition(btnThirdSub1.getX(), imgLevelTwo.getY());
 
-        Preferences prefs2 = Gdx.app.getPreferences("Progress");
-        lastLevel = prefs2.getInteger("lastLevel", 0);
 
-        if (lastLevel >= LVLTWO - 5){
+        if (lastLevel >= 2){
             levelOneStage.addActor(imgLevelTwo);
             levelOneStage.addActor(btnThirdSub1);
             levelOneStage.addActor(imgStarLevel2);
