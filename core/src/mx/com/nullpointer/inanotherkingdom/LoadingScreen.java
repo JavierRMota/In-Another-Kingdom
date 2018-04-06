@@ -56,11 +56,19 @@ public class LoadingScreen extends GenericScreen {
             case MENU:
                 Preferences prefs = Gdx.app.getPreferences("Progress");
                 int lastLevel = prefs.getInteger("lastLevel", 0);
-                String levelTextureName;
+                String levelTextureName ="";
                 switch(lastLevel)
                 {
-                    default:
+                    case 0:
+                    case 1:
+                    case 2:
                         levelTextureName = "background/menu_bg_1.png";
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        levelTextureName = "background/menu_bg_2.png";
+                        break;
 
                 }
                 assetManager.load(levelTextureName, Texture.class);
@@ -177,6 +185,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("map/nivelUno.tmx", TiledMap.class);
                 //Music
                 assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("music/sword.mp3", Music.class);
                 //Background
                 assetManager.load("map/bookOneBg.png",Texture.class);
                 assetManager.load("map/clouds.png",Texture.class);
@@ -218,6 +227,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                //Tutorial
+                assetManager.load("tutorial/pushButton.png", Texture.class);
                 break;
             case LVLTWO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -225,6 +236,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("map/nivelDos.tmx", TiledMap.class);
                 //Music
                 assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("music/sword.mp3", Music.class);
                 //Background
                 assetManager.load("map/bookOneBg.png",Texture.class);
                 assetManager.load("map/clouds.png",Texture.class);
@@ -241,7 +253,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_drowning.png", Texture.class);
                 //Big dragon
                 assetManager.load("characters/finalboss.png", Texture.class);
-                assetManager.load("characters/firebalRED.png",Texture.class);
+                assetManager.load("characters/fireballRED.png",Texture.class);
+                assetManager.load("characters/fireball.png",Texture.class);
                 //Win loose background
                 assetManager.load("background/winLooseBg.png",Texture.class);
                 //Scores

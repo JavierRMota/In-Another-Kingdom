@@ -76,6 +76,10 @@ public class Main extends Game {
 	}
 	public void playSound(Music sound)
 	{
-		sound.play();
+		Preferences prefs = Gdx.app.getPreferences("Settings");
+		if(prefs.getInteger("music",0)<1)
+		{
+			sound.play();
+		}
 	}
 }

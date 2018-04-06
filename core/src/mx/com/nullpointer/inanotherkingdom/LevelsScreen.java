@@ -12,8 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import mx.com.nullpointer.levels.LevelOne;
-import mx.com.nullpointer.utils.GenericLevel;
+
 import mx.com.nullpointer.utils.GenericScreen;
 import mx.com.nullpointer.utils.Text;
 
@@ -36,14 +35,16 @@ class LevelsScreen extends GenericScreen{
     private Texture bookTexture;
 
     private Animation animationBook;
+    private float timerAnimation;
+    private boolean openBook;
+    private float x;
+    private float y;
+
 
     private  Stages stage;
 
 
     private int lastLevel;
-    private float timerAnimation;
-    private float x;
-    private float y;
 
     //Text
     private Text text;
@@ -57,24 +58,25 @@ class LevelsScreen extends GenericScreen{
 
     @Override
     public void show() {
-        cargarTexturas();
-        crearObjetos();
+        loadTextures();
+        createObjects();
         TextureRegion region = new TextureRegion(bookTexture);
         TextureRegion[][] frames = region.split(bookTexture.getWidth()/7, bookTexture.getHeight());
-        animationBook = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
+        animationBook = new Animation(0.12f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
         animationBook.setPlayMode(Animation.PlayMode.NORMAL);
-        x = 186/2;
+        x = WIDTH/2- 186;
         y = HEIGHT/2 - 239/2;
+        openBook = false;
 
     }
 
-    private void cargarTexturas() {
+    private void loadTextures() {
         backgroundTexture = new Texture("background/menubg.png");
         bookTexture = new Texture("background/tiraLibroAbriendose.png");
 
     }
 
-    private void crearObjetos() {
+    private void createObjects() {
         levelsStage = new Stage(view);
         levelOneStage = new Stage(view);
         levelTwoStage = new Stage(view);
@@ -120,6 +122,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                openBook= true;
                 changeScene(Stages.ONE);
             }
         });
@@ -194,7 +197,7 @@ class LevelsScreen extends GenericScreen{
         TextureRegionDrawable trdFirstSub1 = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnlevels.png")));
         TextureRegionDrawable trdFirstSub1Press = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnpresslevels.png")));
         ImageButton btnFirstSub1 = new ImageButton(trdFirstSub1,trdFirstSub1Press);
-        btnFirstSub1.setPosition(WIDTH/3 - 30, HEIGHT/4*2 +40);
+        btnFirstSub1.setPosition(WIDTH/3 - 30 , HEIGHT/4*2 +40);
         btnFirstSub1.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -206,7 +209,7 @@ class LevelsScreen extends GenericScreen{
 
         TextureRegionDrawable trdStarLevels = new TextureRegionDrawable(new TextureRegion(new Texture("gameObjects/star.png")));
         Image imgStarLevel0 = new Image(trdStarLevels);
-        imgStarLevel0.setPosition(btnFirstSub1.getX(), HEIGHT - imgLevelZero.getY()/3*2);
+        imgStarLevel0.setPosition(btnFirstSub1.getX() , HEIGHT - imgLevelZero.getY()/3*2);
 
         levelOneStage.addActor(imgLevelZero);
         levelOneStage.addActor(btnFirstSub1);
@@ -215,12 +218,12 @@ class LevelsScreen extends GenericScreen{
         //Botón Subnivel 2 primer nivel
         TextureRegionDrawable trdLevelOne = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOne.png")));
         Image imgLevelOne = new Image(trdLevelOne);
-        imgLevelOne.setPosition(imgLevelOne.getWidth()/4*7, imgLevelOne.getHeight()/3);
+        imgLevelOne.setPosition(imgLevelOne.getWidth()/4*7 , imgLevelOne.getHeight()/3);
 
         TextureRegionDrawable trdSecSub1 = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnlevels.png")));
         TextureRegionDrawable trdSecSub1Press = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/playbtnpresslevels.png")));
         ImageButton btnSecSub1 = new ImageButton(trdSecSub1,trdSecSub1Press);
-        btnSecSub1.setPosition(imgLevelOne.getX()/2,  imgLevelOne.getHeight()/3);
+        btnSecSub1.setPosition(imgLevelOne.getX()/2 - 55,  imgLevelOne.getHeight()/3);
         btnSecSub1.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -235,7 +238,7 @@ class LevelsScreen extends GenericScreen{
 
         TextureRegionDrawable trdLevelLock = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/levelLock.png")));
         Image imgLevelOneLock = new Image(trdLevelLock);
-        imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7.5f, imgLevelOne.getHeight()/3);
+        imgLevelOneLock.setPosition(imgLevelOne.getWidth()/4*7.5f - 55, imgLevelOne.getHeight()/3);
 
 
         if (lastLevel >= LVLONE - 5){
@@ -282,7 +285,7 @@ class LevelsScreen extends GenericScreen{
             levelOneStage.addActor(btnThirdSub1);
             levelOneStage.addActor(imgStarLevel2);
         }
-        if (lastLevel < LVLTWO - 5 || lastLevel >= 0){
+        if (lastLevel == 0 || lastLevel == 1){
             levelOneStage.addActor(imgLevelTwoLock);
         }
 
@@ -404,26 +407,50 @@ class LevelsScreen extends GenericScreen{
     @Override
     public void render(float delta) {
         clearScreen();
-        batch.setProjectionMatrix(camera.combined);
+;       batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
         batch.end();
-        currentScene.draw();
-        switch (stage)
-        {
-            case LEVELS:
-                break;
-            case ONE:
-                drawOne();
-                break;
-            case TWO:
-                drawTwo();
-                break;
-            case THREE:
-                drawThree();
-                break;
-        }
+        update();
+    }
 
+    private void update()
+    {
+        if(!openBook)
+        {
+            currentScene.draw();
+            switch (stage)
+            {
+                case LEVELS:
+                    break;
+                case ONE:
+                    drawOne();
+                    break;
+                case TWO:
+                    drawTwo();
+                    break;
+                case THREE:
+                    drawThree();
+                    break;
+            }
+        }
+        else {
+                openBook();
+            }
+
+    }
+
+    private void openBook() {
+        timerAnimation+=Gdx.graphics.getDeltaTime();
+        TextureRegion region = (TextureRegion) animationBook.getKeyFrame(timerAnimation);
+        if(timerAnimation>0.12*6)
+        {
+            openBook = false;
+            timerAnimation=0;
+        }
+        batch.begin();
+        batch.draw(region,x,y);
+        batch.end();
 
     }
 
@@ -445,8 +472,8 @@ class LevelsScreen extends GenericScreen{
         text.showMsg(batch,"LVL 1", WIDTH/3 - 30,HEIGHT/10*9 - 60,2,'l');
         text.showMsg(batch, cadenaScore1, WIDTH/3 + 30,HEIGHT/4*3 - 20,2,'l');
         if (lastLevel >= LVLONE - 5){
-        text.showMsg(batch,"LVL 2", WIDTH/7,HEIGHT/5*2,2,'l');
-        text.showMsg(batch, cadenaScore2, WIDTH/6 + 40 ,HEIGHT/4 + 32 ,2,'l');}
+        text.showMsg(batch,"LVL 2", WIDTH/7 - 45,HEIGHT/5*2,2,'l');
+        text.showMsg(batch, cadenaScore2, WIDTH/6 - 15  ,HEIGHT/4 + 32 ,2,'l');}
         if (lastLevel >= LVLTWO - 5){
         text.showMsg(batch,"LVL 3", WIDTH/6*4 - 20,HEIGHT/5*2,2,'l');
         text.showMsg(batch, cadenaScore3, WIDTH/4*3 - 63 ,HEIGHT/4 + 40 ,2,'l');}
@@ -467,6 +494,8 @@ class LevelsScreen extends GenericScreen{
         TWO,
         THREE
     }
+
+
 
     }
 
