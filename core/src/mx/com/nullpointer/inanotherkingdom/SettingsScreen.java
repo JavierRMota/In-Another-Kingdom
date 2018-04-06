@@ -35,10 +35,7 @@ public class SettingsScreen extends GenericScreen {
     private Slider sldDiff;
     private Slider sldAttack;
 
-    private Preferences prefsMusic = Gdx.app.getPreferences("Settings");
-    private Preferences prefsDiff = Gdx.app.getPreferences("Settings");
-    private Preferences prefsAttack = Gdx.app.getPreferences("Settings");
-    private Preferences prefsPossition = Gdx.app.getPreferences("Settings");
+    private Preferences preferencesTotal = Gdx.app.getPreferences("Settings");
 
     private Text msg;
 
@@ -74,7 +71,7 @@ public class SettingsScreen extends GenericScreen {
         TextureRegionDrawable trdSoundFX = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
         ImageButton btnVolumen;
 
-        if(prefsMusic.getBoolean("music", true)){
+        if(preferencesTotal.getBoolean("music", true)){
             btnVolumen = new ImageButton(trdSound,trdSoundFX);
         }
 
@@ -88,18 +85,18 @@ public class SettingsScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                if(prefsMusic.getBoolean("music", true)){
-                    prefsMusic.putBoolean("music", false);
+                if(preferencesTotal.getBoolean("music", true)){
+                    preferencesTotal.putBoolean("music", false);
                     game.stopMusic();
-                    prefsMusic.flush();
+                    preferencesTotal.flush();
 
                 }
                 else {
-                    prefsMusic.putBoolean("music", true);
+                    preferencesTotal.putBoolean("music", true);
                     game.changeMusic(SETTINGS);
-                    prefsMusic.flush();
+                    preferencesTotal.flush();
                 }
-                Gdx.app.log("prefs: ","Bool: " + prefsMusic.getBoolean("music") );
+                Gdx.app.log("prefs: ","Bool: " + preferencesTotal.getBoolean("music") );
                 crearObjetos();
 
             }
@@ -109,7 +106,7 @@ public class SettingsScreen extends GenericScreen {
         //Slider Dificultad
         sldDiff = new Slider(300, 500, 100, false, skin);
         sldDiff.setBounds(WIDTH/2-9*sldDiff.getWidth()/8, 2*HEIGHT/5,WIDTH/4,200);
-        sldDiff.setValue(prefsMusic.getInteger("Difficulty", 400));
+        sldDiff.setValue(preferencesTotal.getInteger("Difficulty", 400));
         escenaAjustes.addActor(sldDiff);
         // Slider listener
         sldDiff.addListener(new InputListener() {
@@ -117,19 +114,19 @@ public class SettingsScreen extends GenericScreen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("Valor;","slider changed to: " + sldDiff.getValue());
                 if(sldDiff.getValue()==300f) {
-                    prefsDiff.putInteger("Difficulty", 300);
-                    prefsDiff.flush();
+                    preferencesTotal.putInteger("Difficulty", 300);
+                    preferencesTotal.flush();
                 }
                 else if(sldDiff.getValue()==500f) {
-                    prefsDiff.putInteger("Difficulty", 500);
-                    prefsDiff.flush();
+                    preferencesTotal.putInteger("Difficulty", 500);
+                    preferencesTotal.flush();
                 }
                 else{
-                    prefsDiff.putInteger("Difficulty", 400);
-                    prefsDiff.flush();
+                    preferencesTotal.putInteger("Difficulty", 400);
+                    preferencesTotal.flush();
                 }
 
-                Gdx.app.log("Valor;","diff: " + prefsDiff.getInteger("Difficulty"));
+                Gdx.app.log("Valor;","diff: " + preferencesTotal.getInteger("Difficulty"));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -145,11 +142,10 @@ public class SettingsScreen extends GenericScreen {
         TextureRegionDrawable trdButton = new TextureRegionDrawable(new TextureRegion(buttonTexture));
         ImageButton btnMode;
 
-        if(prefsAttack.getBoolean("mode", true)){
+        if(preferencesTotal.getBoolean("mode", true)){
             btnMode = new ImageButton(trdButton,trdSlide);
 
         }
-
         else{
             btnMode = new ImageButton(trdSlide,trdButton);
         }
@@ -160,16 +156,10 @@ public class SettingsScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                if(prefsAttack.getBoolean("mode", true)){
-                    prefsAttack.putBoolean("mode", false);
-                    prefsAttack.flush();
 
-                }
-                else {
-                    prefsAttack.putBoolean("possition", true);
-                    prefsAttack.flush();
-                }
-                Gdx.app.log("prefs: ","Bool: " + prefsAttack.getBoolean("mode") );
+                preferencesTotal.putBoolean("mode", !preferencesTotal.getBoolean("mode", true));
+                preferencesTotal.flush();
+                Gdx.app.log("prefs: ","Bool: " + preferencesTotal.getBoolean("mode") );
                 crearObjetos();
 
             }
@@ -177,14 +167,14 @@ public class SettingsScreen extends GenericScreen {
         escenaAjustes.addActor(btnMode);
 
         //Boton elección lado
-        if(prefsAttack.getBoolean("mode",true)){
+        if(preferencesTotal.getBoolean("mode",true)){
             Texture possitionTexture = assetManager.get("btn/possitionLeft.png");
             Texture possitionRTexture = assetManager.get("btn/possitionRight.png");
             TextureRegionDrawable trdLeft= new TextureRegionDrawable(new TextureRegion(possitionTexture));
             TextureRegionDrawable trdRight = new TextureRegionDrawable(new TextureRegion(possitionRTexture));
             ImageButton btnPossition;
 
-            if(prefsPossition.getBoolean("possiton", true)){
+            if(preferencesTotal.getBoolean("position", true)){
                 btnPossition = new ImageButton(trdLeft,trdRight);
 
             }
@@ -199,16 +189,9 @@ public class SettingsScreen extends GenericScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y){
                     super.clicked(event, x, y);
-                    if(prefsPossition.getBoolean("possition", true)){
-                        prefsPossition.putBoolean("possition", false);
-                        prefsPossition.flush();
-
-                    }
-                    else {
-                        prefsPossition.putBoolean("possition", true);
-                        prefsPossition.flush();
-                    }
-                    Gdx.app.log("prefs: ","Bool: " + prefsPossition.getBoolean("possition") );
+                    preferencesTotal.putBoolean("position", !preferencesTotal.getBoolean("position", true));
+                    preferencesTotal.flush();
+                    Gdx.app.log("prefs: ","Bool: " + preferencesTotal.getBoolean("position") );
                     crearObjetos();
 
                 }
@@ -250,7 +233,7 @@ public class SettingsScreen extends GenericScreen {
         msg.showMsg(batch,"Settings", WIDTH /2,HEIGHT-25,2,'c');
         msg.showMsg(batch,"Difficulty: ",WIDTH/2,5.2f*HEIGHT/8,1,'c');
         msg.showMsg(batch,"Attack Mode: ",WIDTH/2,3.6f*HEIGHT/8,1,'c');
-        if(prefsPossition.getBoolean("possiton", true)) {
+        if(preferencesTotal.getBoolean("mode", true)) {
             msg.showMsg(batch, "Button position: ", WIDTH / 2, 2 * HEIGHT / 8, 1, 'c');
         }
         //batch.draw(imgBtn,WIDTH/6, 3*HEIGHT/8);

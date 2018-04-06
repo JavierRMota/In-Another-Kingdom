@@ -381,7 +381,7 @@ public abstract class GenericLevel extends GenericScreen {
             TextureRegionDrawable trdAction = new TextureRegionDrawable(new TextureRegion(actionTexture));
             TextureRegionDrawable trdActionPress = new TextureRegionDrawable(new TextureRegion(actionPressTexture));
             ImageButton btnAction = new ImageButton(trdAction,trdActionPress);
-            if(prefs.getBoolean("possition", true)){
+            if(prefs.getBoolean("position", true)){
                 btnAction.setPosition(WIDTH/16, 0);
             }
 
