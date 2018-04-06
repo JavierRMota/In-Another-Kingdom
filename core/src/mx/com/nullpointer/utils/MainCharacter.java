@@ -1,6 +1,7 @@
 package mx.com.nullpointer.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -17,8 +18,10 @@ public class MainCharacter extends GameObject
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation, attackingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
-    private float VY = 20, VX=400,G=30;
+    private float VY = 20, G=30;
     private float animationSpeed = 0.04f;
+    Preferences prefs = Gdx.app.getPreferences("Settings");
+    private int VX = prefs.getInteger("Difficulty",400);
 
 
     //Estados de movimiento
