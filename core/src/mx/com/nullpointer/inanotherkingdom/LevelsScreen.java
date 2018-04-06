@@ -34,11 +34,16 @@ class LevelsScreen extends GenericScreen{
     private Texture backgroundTexture;
     private Texture bookTexture;
 
+
     private Animation animationBook;
     private float timerAnimation;
     private boolean openBook;
     private float x;
     private float y;
+
+    private String textureName;
+    private String textureLockName;
+
 
 
     private  Stages stage;
@@ -130,8 +135,18 @@ class LevelsScreen extends GenericScreen{
 
 
         //Botón Segundo Nivel
-        TextureRegionDrawable trdSec = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lockedBook.png")));
-        TextureRegionDrawable trdSecPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/lock.png")));
+
+        if (lastLevel >= 3){
+            textureName = "niveles/dos/levelTwoBook.png";
+            textureLockName = "niveles/dos/levelTwoBook.png";
+        }
+        if (lastLevel < 3 || lastLevel >= 0){
+            textureName = "niveles/lockedBook.png";
+            textureLockName = "niveles/lock.png";
+
+        }
+        TextureRegionDrawable trdSec = new TextureRegionDrawable(new TextureRegion(new Texture(textureName)));
+        TextureRegionDrawable trdSecPress = new TextureRegionDrawable(new TextureRegion(new Texture(textureLockName)));
         ImageButton btnSec = new ImageButton(trdSec,trdSecPress);
         btnSec.setPosition(3*btnSec.getWidth(), MenuScreen.HEIGHT /2 - btnSec.getHeight()/2);
 
@@ -139,7 +154,9 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-
+                if (lastLevel >= 3){
+                    changeScene(Stages.TWO);
+                }
 
             }
         });
@@ -430,6 +447,7 @@ class LevelsScreen extends GenericScreen{
                 case THREE:
                     drawThree();
                     break;
+
             }
         }
         else {
