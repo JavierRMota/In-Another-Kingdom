@@ -56,7 +56,7 @@ public class LevelTwo extends GenericLevel {
 
         //Create Final Boss
         Texture boss =assetManager.get("characters/finalboss.png");
-        finalBoss = new Enemy(boss,MAP_WIDTH-boss.getWidth()/4,100);
+        finalBoss = new Enemy(boss,MAP_WIDTH-boss.getWidth()/4,100,0);
         fireList = new Array<LongWeapon>();
         friendlyFireList=new Array<LongWeapon>();
         timerBall=0;
@@ -215,7 +215,7 @@ public class LevelTwo extends GenericLevel {
                 {
                     if(enemyRect.overlaps(fireballRect))
                     {
-                        win();
+                        finalBoss.receiveDamage(20);
                     }
                 }
 
@@ -259,7 +259,7 @@ public class LevelTwo extends GenericLevel {
     protected void updateBackground(float delta) {
         cloudsOne.setX(cloudsOne.getX()-100*delta);
         cloudsTwo.setX(cloudsTwo.getX()-100*delta);
-        if(fightStart)
+        if(fightStart && !finalBoss.isDead())
         {
             objectsOne.setX(objectsOne.getX()-100*delta);
             objectsTwo.setX(objectsTwo.getX()-100*delta);
@@ -308,7 +308,7 @@ public class LevelTwo extends GenericLevel {
         checkCoins(cx,cy,layer);
         checkEnemies(cx,cy,layer);
         checkFire(delta);
-        if(laurence.getX()<MAP_WIDTH - 7*WIDTH /8)
+        if(laurence.getX()<MAP_WIDTH - 7*WIDTH /8 || finalBoss.isDead())
             laurence.move(layer,delta, cx, cy);
         else
             fightStart= true;
@@ -317,7 +317,7 @@ public class LevelTwo extends GenericLevel {
 
     private void checkFire(float delta) {
         timerBall+=delta;
-        if(timerBall >2)
+        if(timerBall >2 || fightStart && timerBall>1.5)
         {
             timerBall=0;
             float posX;
