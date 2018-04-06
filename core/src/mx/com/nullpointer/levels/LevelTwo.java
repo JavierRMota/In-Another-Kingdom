@@ -115,7 +115,8 @@ public class LevelTwo extends GenericLevel {
         //Laurence
         laurence.render(batch);
         //Enemies
-        finalBoss.render(batch,delta);
+        if(!finalBoss.isDead())
+            finalBoss.render(batch,delta);
         //Fireballs
         drawFireballs();
         batch.end();
@@ -228,6 +229,8 @@ public class LevelTwo extends GenericLevel {
                 } else {
                     if (enemyRect.overlaps(fireballRect)) {
                         finalBoss.receiveDamage(20);
+                        friendlyFireList.removeIndex(index);
+                        break;
                     }
                 }
             }catch (Exception e)
@@ -332,7 +335,7 @@ public class LevelTwo extends GenericLevel {
 
     private void checkFire(float delta) {
         timerBall+=delta;
-        if(timerBall >2 || fightStart && timerBall>1.5)
+        if(!finalBoss.isDead() && (timerBall >2 || fightStart && timerBall>1.5))
         {
             timerBall=0;
             float posX;
