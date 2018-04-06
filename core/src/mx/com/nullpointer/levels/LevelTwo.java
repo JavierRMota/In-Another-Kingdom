@@ -117,7 +117,7 @@ public class LevelTwo extends GenericLevel {
         //Enemies
         if(!finalBoss.isDead())
             finalBoss.render(batch,delta);
-        if(fightStart && (laurence.getMovementState() !=MainCharacter.MovementState.RUNNING|| laurence.getMovementState() !=MainCharacter.MovementState.ATTACKING) )
+        if(fightStart && (laurence.getMovementState() !=MainCharacter.MovementState.RUNNING && laurence.getMovementState() !=MainCharacter.MovementState.ATTACKING) )
             laurence.setMovementState(MainCharacter.MovementState.RUNNING);
         //Fireballs
         drawFireballs();
