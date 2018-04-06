@@ -117,6 +117,8 @@ public class LevelTwo extends GenericLevel {
         //Enemies
         if(!finalBoss.isDead())
             finalBoss.render(batch,delta);
+        if(fightStart && (laurence.getMovementState() !=MainCharacter.MovementState.RUNNING|| laurence.getMovementState() !=MainCharacter.MovementState.ATTACKING) )
+            laurence.setMovementState(MainCharacter.MovementState.RUNNING);
         //Fireballs
         drawFireballs();
         batch.end();
@@ -337,12 +339,16 @@ public class LevelTwo extends GenericLevel {
             timerBall=0;
             float posX;
             if(fightStart)
+            {
                 posX=finalBoss.getX();
+
+            }
             else
                 posX = laurence.getX()+WIDTH;
 
             fireList.add(new LongWeapon(fireballBlue,fireballRed, posX,laurence.getY(), finalBoss.getX(),fightStart));
         }
+
     }
 
     private void checkEnemies(int cx, int cy, TiledMapTileLayer layer) {
