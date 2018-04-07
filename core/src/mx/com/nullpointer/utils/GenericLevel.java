@@ -386,7 +386,7 @@ public abstract class GenericLevel extends GenericScreen {
             }
 
             else {
-                btnAction.setPosition(14*WIDTH/16, 0);
+                btnAction.setPosition(14*WIDTH/16- btnAction.getWidth()/2, 0);
             }
 
             btnAction.addListener(new ClickListener(){
@@ -515,8 +515,8 @@ public abstract class GenericLevel extends GenericScreen {
     }
 
     protected void updateBackground(float delta) {
-        cloudsOne.setX(cloudsOne.getX()-100*delta);
-        cloudsTwo.setX(cloudsTwo.getX()-100*delta);
+        cloudsOne.setX(cloudsOne.getX()-50*delta);
+        cloudsTwo.setX(cloudsTwo.getX()-50*delta);
         //Set clouds
         if(camera.position.x - 3*cloudsOne.getWidth()/2>cloudsOne.getX())
         {

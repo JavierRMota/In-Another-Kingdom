@@ -81,8 +81,8 @@ public class LevelZero extends GenericLevel {
         Texture objectTexture = assetManager.get("map/bookOneT.png");
         objectsOne = new Sprite(objectTexture);
         objectsTwo = new Sprite(objectTexture);
-        objectsOne.setPosition(0,-40);
-        objectsTwo.setPosition(objectsOne.getWidth(),-40);
+        objectsOne.setPosition(0,0);
+        objectsTwo.setPosition(objectsOne.getWidth(),0);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -56,13 +57,23 @@ public class LevelOne extends GenericLevel {
         loadInputProcessor();
 
         //Tutorial
-        Texture tutorialTexture = assetManager.get("tutorial/pushButton.png");
-        tutorialSprite = new Sprite(tutorialTexture);
-        tutorialSprite.setPosition(WIDTH/16, 0);
+
+        Preferences prefs = Gdx.app.getPreferences("Settings");
+        if(prefs.getBoolean("mode", true))
+        {
+            Texture tutorialTexture = assetManager.get("tutorial/pushButton.png");
+            tutorialSprite = new Sprite(tutorialTexture);
+            if(prefs.getBoolean("position", true)){
+                tutorialSprite.setPosition(WIDTH/16, 0);
+            }
+
+            else {
+                tutorialSprite.setPosition(14*WIDTH/16- tutorialSprite.getWidth()/2, 0);
+            }
+        }
 
         //Begin game
         gameState= GameState.PLAY;
-        Gdx.input.setInputProcessor(buttonScene);
 
     }
     protected void loadBackground()
@@ -80,7 +91,7 @@ public class LevelOne extends GenericLevel {
         Texture objectTexture = assetManager.get("map/bookOneT.png");
         objectsOne = new Sprite(objectTexture);
         objectsTwo = new Sprite(objectTexture);
-        objectsOne.setPosition(0,-40);
+        objectsOne.setPosition(0,0);
         objectsTwo.setPosition(objectsOne.getWidth(),0);
 
     }
@@ -89,11 +100,13 @@ public class LevelOne extends GenericLevel {
     @Override
     public void render(float delta) {
         int cx = (int)(laurence.getX()+70)/70;
+        if(cx<11 && laurence.getMovementState() != MainCharacter.MovementState.RUNNING && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING)
+        {
+            laurence.setMovementState(MainCharacter.MovementState.RUNNING);
+        }
         //Check if paused
         if(gameState==GameState.PLAY && (cx != 10 || laurence.getMovementState()== MainCharacter.MovementState.ATTACKING))
         {
-            if(cx == 10 && laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
-                Gdx.input.setInputProcessor(inputProcessor);
             update(delta);
         }
         //Borrar pantalla

@@ -21,9 +21,9 @@ android {
         applicationId 'mx.com.nullpointer.inanotherkingd'
         minSdkVersion 9
         targetSdkVersion 26
-        versionCode 4
-        versionName '0.0.4'
-        versionNameSuffix 'a'
+        versionCode 6
+        versionName '0.2'
+        versionNameSuffix 'b'
     }
     buildTypes {
         release {
