@@ -26,6 +26,8 @@ public class LevelOne extends GenericLevel {
 
     private Sprite tutorialSprite;
     private float SPEED =0.3f;
+    private Preferences prefs = Gdx.app.getPreferences("Settings");
+
 
     //Constructor
     public LevelOne(Main game, int level)
@@ -58,7 +60,7 @@ public class LevelOne extends GenericLevel {
 
         //Tutorial
 
-        Preferences prefs = Gdx.app.getPreferences("Settings");
+
         if(prefs.getBoolean("mode", true))
         {
             Texture tutorialTexture = assetManager.get("tutorial/pushButton.png");
@@ -70,6 +72,11 @@ public class LevelOne extends GenericLevel {
             else {
                 tutorialSprite.setPosition(14*WIDTH/16- tutorialSprite.getWidth()/2, 0);
             }
+        }
+        else{
+            Texture tutorialTexture = assetManager.get("tutorial/swipeRight.png");
+            tutorialSprite = new Sprite(tutorialTexture);
+            tutorialSprite.setPosition(WIDTH/2 - tutorialSprite.getWidth()/2, HEIGHT/2-tutorialSprite.getHeight()/2);
         }
 
         //Begin game
@@ -136,12 +143,22 @@ public class LevelOne extends GenericLevel {
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2,'c');
 
         //Check tutorial
-        if(cx == 10 && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING)
-        {
-            if(tutorialSprite.getScaleX() -+0.1f*delta>1.3 ||tutorialSprite.getScaleX() -+0.1f*delta<0.8)
-                SPEED =-SPEED;
-            tutorialSprite.setScale(tutorialSprite.getScaleX() +SPEED*delta);
-            tutorialSprite.draw(batch);
+        if(cx == 10 && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING) {
+            if(prefs.getBoolean("mode", true)){
+                if(tutorialSprite.getScaleX() -+0.1f*delta>1.3 ||tutorialSprite.getScaleX() -+0.1f*delta<0.8)
+                    SPEED =-SPEED;
+                tutorialSprite.setScale(tutorialSprite.getScaleX() +SPEED*delta);
+                tutorialSprite.draw(batch);
+            }
+            else{
+
+                tutorialSprite.setX(tutorialSprite.getX()+delta*150);
+                if(tutorialSprite.getX()>4.3f*WIDTH/8){
+                    tutorialSprite.setX(WIDTH/2-tutorialSprite.getWidth()/2);
+                }
+
+                tutorialSprite.draw(batch);
+            }
         }
 
         //End batch
