@@ -1,4 +1,4 @@
-package mx.com.nullpointer.utils;
+package mx.com.nullpointer.inanotherkingdom;
 
 /**
  * Created by mota on 2/13/18.

@@ -6,10 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import mx.com.nullpointer.inanotherkingdom.Main;
-import mx.com.nullpointer.utils.GameState;
-import mx.com.nullpointer.utils.GenericLevel;
 import mx.com.nullpointer.utils.GestureController;
-import mx.com.nullpointer.utils.MainCharacter;
+import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 
 /**
  * Created by mota on 2/12/18.

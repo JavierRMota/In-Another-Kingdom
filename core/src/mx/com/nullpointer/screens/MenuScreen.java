@@ -1,4 +1,4 @@
-package mx.com.nullpointer.inanotherkingdom;
+package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -9,8 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import mx.com.nullpointer.utils.Enemy;
-import mx.com.nullpointer.utils.GenericScreen;
+
+import mx.com.nullpointer.inanotherkingdom.Main;
+import mx.com.nullpointer.inanotherkingdom.FakeEnemy;
 
 /**
  * Created by Carlos Carbajal on 05-feb-18.
@@ -30,7 +31,7 @@ public class MenuScreen extends GenericScreen {
     private Texture frontTexture;
 
     //Enemigo
-    private Enemy bigDragon;
+    private FakeEnemy finalBoss;
 
 
 
@@ -162,7 +163,7 @@ public class MenuScreen extends GenericScreen {
         Gdx.input.setInputProcessor(menuStage);
 
         Texture bigDragonTexture = assetManager.get("characters/dragon_volando_tira.png");
-        bigDragon = new Enemy(bigDragonTexture);
+        finalBoss = new FakeEnemy(bigDragonTexture);
 
         //Creamos la música
         this.game.changeMusic(MENU);
@@ -177,7 +178,7 @@ public class MenuScreen extends GenericScreen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(backgroundTexture,0 ,0);
-        bigDragon.moveEnemy(delta,batch);
+        finalBoss.moveEnemy(delta,batch);
         batch.draw(frontTexture,0,0);
         //Dibujando el título
         batch.draw(titleTexture, 4* WIDTH /5 - titleTexture.getWidth()/2, 5* HEIGHT /8 );
@@ -193,10 +194,15 @@ public class MenuScreen extends GenericScreen {
         menuStage.dispose();
 
         //AssetManager libera los recursos
+        //Background
         assetManager.unload("background/menu_bg_1.png");
-        assetManager.unload("logo.png");
+        assetManager.unload("background/menu_bg_2.png");
         assetManager.unload("background/menu_bg_cover.png");
+        //Logo
+        assetManager.unload("logo.png");
+        //Bosses
         assetManager.unload("characters/dragon_volando_tira.png");
+        //Buttons
         assetManager.unload("btn/aboutbtn.png");
         assetManager.unload("btn/aboutbtnpress.png");
         assetManager.unload("btn/playbtn.png");

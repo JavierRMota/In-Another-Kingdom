@@ -1,4 +1,4 @@
-package mx.com.nullpointer.inanotherkingdom;
+package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -11,8 +11,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.levels.*;
-import mx.com.nullpointer.utils.GenericScreen;
 
 /**
  * Created by MarinaHaro on 13/03/18.
@@ -21,7 +21,6 @@ import mx.com.nullpointer.utils.GenericScreen;
 public class LoadingScreen extends GenericScreen {
 
 
-    //private Sprite loadingSprite;
     private Texture backgroundTexture;
     private Texture loadingTexture;
     private Animation animationLoading;
@@ -54,27 +53,15 @@ public class LoadingScreen extends GenericScreen {
         switch (screen)
         {
             case MENU:
-                Preferences prefs = Gdx.app.getPreferences("Progress");
-                int lastLevel = prefs.getInteger("lastLevel", 0);
-                String levelTextureName ="";
-                switch(lastLevel)
-                {
-                    case 0:
-                    case 1:
-                    case 2:
-                        levelTextureName = "background/menu_bg_1.png";
-                        break;
-                    case 3:
-                    case 4:
-                    case 5:
-                        levelTextureName = "background/menu_bg_2.png";
-                        break;
-
-                }
-                assetManager.load(levelTextureName, Texture.class);
-                assetManager.load("logo.png", Texture.class);
+                //Background
+                assetManager.load("background/menu_bg_1.png", Texture.class);
+                assetManager.load("background/menu_bg_2.png", Texture.class);
                 assetManager.load("background/menu_bg_cover.png", Texture.class);
+                //Logo
+                assetManager.load("logo.png", Texture.class);
+                //Bosses
                 assetManager.load("characters/dragon_volando_tira.png",Texture.class);
+                //Buttons
                 assetManager.load("btn/playbtn.png",Texture.class);
                 assetManager.load("btn/playbtnpress.png",Texture.class);
                 assetManager.load("btn/arsenalbtn.png",Texture.class);
@@ -85,20 +72,22 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/ajustesbtnpress.png",Texture.class);
                 assetManager.load("btn/aboutbtn.png",Texture.class);
                 assetManager.load("btn/aboutbtnpress.png",Texture.class);
+                //Music
                 assetManager.load("music/menu.mp3",Music.class);
                 break;
             case SETTINGS:
+                //Music
                 assetManager.load("music/menu.mp3",Music.class);
+                //Buttons
                 assetManager.load("btn/possitionLeft.png",Texture.class);
                 assetManager.load("btn/possitionRight.png",Texture.class);
                 assetManager.load("btn/slider.png",Texture.class);
                 assetManager.load("btn/button.png",Texture.class);
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
+                //Background
                 assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("skin/golden-ui-skin.json",Skin.class);
-                assetManager.load("tutorial/attack1.png",Texture.class);
-                assetManager.load("tutorial/attack2.png",Texture.class);
                 break;
             case LEVELS:
                 assetManager.load("music/menu.mp3",Music.class);
@@ -314,6 +303,59 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_drowning.png", Texture.class);
                 //Win loose background
                 assetManager.load("background/winLooseBg.png",Texture.class);
+                //Enemy
+                assetManager.load("characters/momia.png",Texture.class);
+                //Score
+                assetManager.load("gameObjects/llave.png",Texture.class);
+                assetManager.load("gameObjects/star.png",Texture.class);
+                assetManager.load("gameObjects/llaveFull.png",Texture.class);
+                assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
+                assetManager.load("gameObjects/moneda.png",Texture.class);
+                //Buttons
+                assetManager.load("btn/playbtn.png",Texture.class);
+                assetManager.load("btn/playbtnpress.png",Texture.class);
+                assetManager.load("btn/resetbtn.png",Texture.class);
+                assetManager.load("btn/resetbtnpress.png",Texture.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/pausebtn.png",Texture.class);
+                assetManager.load("btn/pausebtnpress.png",Texture.class);
+                assetManager.load("btn/backdarkbtn.png",Texture.class);
+                assetManager.load("btn/backdarkbtnpress.png",Texture.class);
+                assetManager.load("btn/levelsdarkbtn.png",Texture.class);
+                assetManager.load("btn/levelsdarkbtnpress.png",Texture.class);
+                assetManager.load("btn/nextbtn.png",Texture.class);
+                assetManager.load("btn/nextbtnpress.png",Texture.class);
+                assetManager.load("btn/resetdarkbtn.png",Texture.class);
+                assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
+                assetManager.load("gameObjects/actionbtn.png",Texture.class);
+                assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                break;
+            case LVLFOUR:
+                assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+                //Map
+                assetManager.load("map/nivelTres.tmx", TiledMap.class);
+                //Music
+                assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("music/sword.mp3", Music.class);
+                //Background
+                assetManager.load("map/bookTwoBg.png",Texture.class);
+                assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("map/bookTwoP.png",Texture.class);
+                //Laurence animation
+                assetManager.load("characters/laurence_descanso.png",Texture.class);
+                assetManager.load("characters/laurence_running.png",Texture.class);
+                assetManager.load("characters/tira_salto.png",Texture.class);
+                assetManager.load("characters/tira_marometa.png",Texture.class);
+                assetManager.load("characters/laurence_attacking.png", Texture.class);
+                //Laurence win, loose
+                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/laurence_celebrating.png", Texture.class);
+                assetManager.load("characters/laurence_drowning.png", Texture.class);
+                //Win loose background
+                assetManager.load("background/winLooseBg.png",Texture.class);
+                //Enemy
+                assetManager.load("characters/momia.png",Texture.class);
                 //Score
                 assetManager.load("gameObjects/llave.png",Texture.class);
                 assetManager.load("gameObjects/star.png",Texture.class);
@@ -352,7 +394,6 @@ public class LoadingScreen extends GenericScreen {
     public void render(float delta) {
         clearScreen();
         updateLoad();
-        //loadingSprite.setRotation(loadingSprite.getRotation()+10*delta);
         batch.setProjectionMatrix(camera.combined);
         timerAnimation += Gdx.graphics.getDeltaTime();
         TextureRegion frame = (TextureRegion) animationLoading.getKeyFrame(timerAnimation);
@@ -360,14 +401,12 @@ public class LoadingScreen extends GenericScreen {
         batch.draw(backgroundTexture,0 ,0);
         batch.draw(frame, x, y);
         batch.end();
-        //loadingSprite.draw(batch);
+
     }
 
 
     //Revisa como va la carga de los assets
     private void updateLoad() {
-
-
         if(assetManager.update()){
             switch (screen)
             {
@@ -398,12 +437,12 @@ public class LoadingScreen extends GenericScreen {
                 case LVLTHREE:
                     game.setScreen(new LevelThree(game,screen));
                     break;
+                case LVLFOUR:
+                    game.setScreen(new LevelFour(game,screen));
+                    break;
                 default:
                     Gdx.app.log("ERROR:","Screen not implemented");
             }
-        } else{
-            float avance = assetManager.getProgress();
-            Gdx.app.log("Avance:",avance+"");
         }
     }
 

@@ -2,22 +2,12 @@ package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
-import mx.com.nullpointer.utils.GameState;
-import mx.com.nullpointer.utils.GenericLevel;
-import mx.com.nullpointer.utils.MainCharacter;
+import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 /**
  * Created by mota on 2/12/18.
  */
@@ -32,7 +22,7 @@ public class LevelOne extends GenericLevel {
     //Constructor
     public LevelOne(Main game, int level)
     {
-        super(game,level,200*70,114);
+        super(game,level,200*70,125);
     }
     @Override
     public void show() {

@@ -1,4 +1,4 @@
-package mx.com.nullpointer.utils;
+package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -18,11 +18,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import mx.com.nullpointer.inanotherkingdom.LoadingScreen;
+import mx.com.nullpointer.screens.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
+import mx.com.nullpointer.screens.GenericScreen;
+import mx.com.nullpointer.utils.GestureController;
+import mx.com.nullpointer.inanotherkingdom.MainCharacter;
+import mx.com.nullpointer.utils.Text;
 
 /**
  * Created by mota on 3/22/18.
@@ -30,7 +33,7 @@ import mx.com.nullpointer.inanotherkingdom.Main;
 
 public abstract class GenericLevel extends GenericScreen {
     //ULTIMATE LEVEL
-    protected static final int ULTIMATE_LEVEL = 4;
+    protected static final int ULTIMATE_LEVEL = 5;
     //Maps
     protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer render;
@@ -42,7 +45,7 @@ public abstract class GenericLevel extends GenericScreen {
     //Scores
     protected int coins,keys, enemies;
     protected String coinScore;
-    protected Text  scoreDisplay;
+    protected Text scoreDisplay;
     protected boolean recolectedKeys[];
     protected int middleKey;
     protected final int TOTAL_COINS;

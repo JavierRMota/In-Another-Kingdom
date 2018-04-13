@@ -1,4 +1,4 @@
-package mx.com.nullpointer.utils;
+package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

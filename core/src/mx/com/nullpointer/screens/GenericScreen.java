@@ -1,4 +1,4 @@
-package mx.com.nullpointer.utils;
+package mx.com.nullpointer.screens;
 
 
 import com.badlogic.gdx.Gdx;
@@ -23,7 +23,7 @@ public abstract class GenericScreen implements Screen
         //Dimensiones
         public static final float WIDTH = 1280;
         public static final float HEIGHT = 720;
-        public static final int MENU = 0, SETTINGS = 1, LEVELS = 2, ABOUT = 3, ARMORY = 4, LVLZERO = 5, LVLONE = 6, LVLTWO = 7, LVLTHREE = 8;
+        public static final int MENU = 0, SETTINGS = 1, LEVELS = 2, ABOUT = 3, ARMORY = 4, LVLZERO = 5, LVLONE = 6, LVLTWO = 7, LVLTHREE = 8,LVLFOUR =9;
 
         //Cámara
         protected OrthographicCamera camera;

@@ -1,26 +1,23 @@
-package mx.com.nullpointer.inanotherkingdom;
+package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
-import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.Text;
 
 /**
@@ -31,9 +28,8 @@ public class SettingsScreen extends GenericScreen {
 
     private Stage escenaAjustes;
     //Texturas
-    private Texture texturaFondo,imgBtn, imgSld;
+    private Texture texturaFondo;
     private Slider sldDiff;
-    private Slider sldAttack;
 
     private Preferences preferencesTotal = Gdx.app.getPreferences("Settings");
 
@@ -46,29 +42,29 @@ public class SettingsScreen extends GenericScreen {
 
     @Override
     public void show() {
-        crearObjetos();
-        cargarTexturas();
+        createObjects();
+        loadTextures();
 
     }
 
-    private void cargarTexturas() {
-        imgBtn = assetManager.get("tutorial/attack1.png");
-        imgSld = assetManager.get("tutorial/attack2.png");
-        texturaFondo = new Texture("background/menubg.png");
+    private void loadTextures() {
+
+        texturaFondo = assetManager.get("background/menubg.png");
         msg = new Text();
 
     }
 
-    private void crearObjetos() {
+    private void createObjects() {
 
 
         Skin skin = new Skin(Gdx.files.internal("skin/golden-ui-skin.json"));
 
         escenaAjustes = new Stage(view);
         //Botón Volumen
-
-        TextureRegionDrawable trdSound = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOn.png")));
-        TextureRegionDrawable trdSoundFX = new TextureRegionDrawable(new TextureRegion(new Texture("btn/musicOff.png")));
+        Texture musicOn = assetManager.get("btn/musicOn.png");
+        Texture musicOff = assetManager.get("btn/musicOff.png");
+        TextureRegionDrawable trdSound = new TextureRegionDrawable(new TextureRegion(musicOn));
+        TextureRegionDrawable trdSoundFX = new TextureRegionDrawable(new TextureRegion(musicOff));
         ImageButton btnVolumen;
 
         if(preferencesTotal.getBoolean("music", true)){
@@ -96,8 +92,8 @@ public class SettingsScreen extends GenericScreen {
                     game.changeMusic(SETTINGS);
                     preferencesTotal.flush();
                 }
-                Gdx.app.log("prefs: ","Bool: " + preferencesTotal.getBoolean("music") );
-                crearObjetos();
+
+                createObjects();
 
             }
         });
@@ -112,21 +108,16 @@ public class SettingsScreen extends GenericScreen {
         sldDiff.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("Valor;","slider changed to: " + sldDiff.getValue());
                 if(sldDiff.getValue()==300f) {
                     preferencesTotal.putInteger("Difficulty", 300);
-                    preferencesTotal.flush();
                 }
                 else if(sldDiff.getValue()==500f) {
                     preferencesTotal.putInteger("Difficulty", 500);
-                    preferencesTotal.flush();
                 }
                 else{
                     preferencesTotal.putInteger("Difficulty", 400);
-                    preferencesTotal.flush();
                 }
-
-                Gdx.app.log("Valor;","diff: " + preferencesTotal.getInteger("Difficulty"));
+                preferencesTotal.flush();
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -159,8 +150,7 @@ public class SettingsScreen extends GenericScreen {
 
                 preferencesTotal.putBoolean("mode", !preferencesTotal.getBoolean("mode", true));
                 preferencesTotal.flush();
-                Gdx.app.log("prefs: ","Bool: " + preferencesTotal.getBoolean("mode") );
-                crearObjetos();
+                createObjects();
 
             }
         });
@@ -173,7 +163,6 @@ public class SettingsScreen extends GenericScreen {
             TextureRegionDrawable trdLeft= new TextureRegionDrawable(new TextureRegion(possitionTexture));
             TextureRegionDrawable trdRight = new TextureRegionDrawable(new TextureRegion(possitionRTexture));
             ImageButton btnPossition;
-
             if(preferencesTotal.getBoolean("position", true)){
                 btnPossition = new ImageButton(trdLeft,trdRight);
 
@@ -192,7 +181,7 @@ public class SettingsScreen extends GenericScreen {
                     preferencesTotal.putBoolean("position", !preferencesTotal.getBoolean("position", true));
                     preferencesTotal.flush();
                     Gdx.app.log("prefs: ","Bool: " + preferencesTotal.getBoolean("position") );
-                    crearObjetos();
+                    createObjects();
 
                 }
             });
@@ -236,8 +225,6 @@ public class SettingsScreen extends GenericScreen {
         if(preferencesTotal.getBoolean("mode", true)) {
             msg.showMsg(batch, "Button position: ", WIDTH / 2, 2 * HEIGHT / 8, 1, 'c');
         }
-        //batch.draw(imgBtn,WIDTH/6, 3*HEIGHT/8);
-        //batch.draw(imgSld,4*WIDTH/6, 3*HEIGHT/8);
         batch.end();
         escenaAjustes.draw();
 
@@ -245,9 +232,18 @@ public class SettingsScreen extends GenericScreen {
 
     @Override
     public void dispose() {
-        assetManager.unload("skin/golden-ui-skin.json");
-        assetManager.unload("tutorial/attack1.png");
-        assetManager.unload("tutorial/attack2.png");
+        //Music
+        assetManager.unload("music/menu.mp3");
+        //Buttons
+        assetManager.unload("btn/possitionLeft.png");
+        assetManager.unload("btn/possitionRight.png");
+        assetManager.unload("btn/slider.png");
+        assetManager.unload("btn/button.png");
+        assetManager.unload("btn/backbtn.png");
+        assetManager.unload("btn/backbtnpress.png");
+        //Background
+        assetManager.unload("background/menubg.png");
+
 
     }
 }

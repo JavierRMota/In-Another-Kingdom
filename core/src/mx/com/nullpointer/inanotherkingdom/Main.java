@@ -7,13 +7,15 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 
 
-import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.screens.GenericScreen;
+import mx.com.nullpointer.screens.LoadingScreen;
 
 
 public class Main extends Game {
 
 	private final AssetManager assetManager = new AssetManager();
 	private Music music;
+
 
 	
 	@Override
@@ -33,6 +35,7 @@ public class Main extends Game {
 		{
 			switch (screen)
 			{
+				case GenericScreen.SETTINGS:
 				case GenericScreen.MENU:
 					if(music!= null && music != assetManager.get("music/menu.mp3"))
 					{

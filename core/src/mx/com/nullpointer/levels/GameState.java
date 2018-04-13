@@ -1,4 +1,4 @@
-package mx.com.nullpointer.utils;
+package mx.com.nullpointer.levels;
 
 /**
  * Created by mota on 3/4/18.

@@ -1,4 +1,4 @@
-package mx.com.nullpointer.inanotherkingdom;
+package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import mx.com.nullpointer.utils.GenericScreen;
+import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.Text;
 
 /**

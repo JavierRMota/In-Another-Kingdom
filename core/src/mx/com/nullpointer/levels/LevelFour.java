@@ -1,19 +1,19 @@
 package mx.com.nullpointer.levels;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
-import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 import mx.com.nullpointer.inanotherkingdom.Mummy;
 
-public class LevelThree extends GenericLevel {
-    private  Texture mummyTexture;
+public class LevelFour extends GenericLevel {
+    private Texture mummyTexture;
     private Array<Mummy> mummies;
     //Constructor
-    public LevelThree(Main game, int level)
+    public LevelFour(Main game, int level)
     {
         super(game,level,200*70,182);
     }
@@ -222,6 +222,5 @@ public class LevelThree extends GenericLevel {
         winScene.dispose();
         tiledMap.dispose();
     }
-
 
 }

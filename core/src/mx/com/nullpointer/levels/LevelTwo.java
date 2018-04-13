@@ -6,19 +6,18 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
+import mx.com.nullpointer.inanotherkingdom.Dragon;
 import mx.com.nullpointer.inanotherkingdom.Main;
-import mx.com.nullpointer.utils.Enemy;
-import mx.com.nullpointer.utils.GameState;
-import mx.com.nullpointer.utils.GenericLevel;
-import mx.com.nullpointer.utils.LongWeapon;
-import mx.com.nullpointer.utils.MainCharacter;
+import mx.com.nullpointer.inanotherkingdom.Enemy;
+import mx.com.nullpointer.inanotherkingdom.LongWeapon;
+import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 /**
  * Created by mota on 2/12/18.
  */
 
 public class LevelTwo extends GenericLevel {
     //Enemy
-    private Enemy finalBoss;
+    private Dragon finalBoss;
     private Array<LongWeapon> fireList,friendlyFireList;
     private float timerBall;
     private Texture fireballBlue, fireballRed;
@@ -29,7 +28,7 @@ public class LevelTwo extends GenericLevel {
     //Constructor
     public LevelTwo(Main game, int level)
     {
-        super(game,level,200*70,132);
+        super(game,level,200*70,161);
     }
     @Override
     public void show() {
@@ -57,7 +56,7 @@ public class LevelTwo extends GenericLevel {
 
         //Create Final Boss
         Texture boss =assetManager.get("characters/finalboss.png");
-        finalBoss = new Enemy(boss,MAP_WIDTH-boss.getWidth()/4,100,0);
+        finalBoss = new Dragon(boss,MAP_WIDTH-boss.getWidth()/4,100);
         fireList = new Array<LongWeapon>();
         friendlyFireList=new Array<LongWeapon>();
         timerBall=0;
@@ -152,13 +151,11 @@ public class LevelTwo extends GenericLevel {
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         Rectangle laurenceRect = laurence.getSprite().getBoundingRectangle();
         Rectangle enemyRect = finalBoss.getSprite().getBoundingRectangle();
-        for(int index = 0; index< friendlyFireList.size;index++)
+        for(int index = friendlyFireList.size -1; index>=0 ;index--)
         {
-            try {
                 LongWeapon weapon = friendlyFireList.get(index);
                 Rectangle fireballRect = weapon.getSprite().getBoundingRectangle();
-                for (int index_two = 0; index_two < fireList.size; index_two++) {
-                    try {
+                for (int index_two =  fireList.size-1; index_two >=0; index_two--) {
                         LongWeapon weapon_two = fireList.get(index);
                         Rectangle fireballRectTwo = weapon_two.getSprite().getBoundingRectangle();
                         if (fireballRect.overlaps(fireballRectTwo)) {
@@ -166,10 +163,6 @@ public class LevelTwo extends GenericLevel {
                             fireList.removeIndex(index_two);
                             break;
                         }
-
-                    } catch (Exception e) {
-
-                    }
 
                 }
                 if (!fightStart) {
@@ -223,10 +216,6 @@ public class LevelTwo extends GenericLevel {
                         break;
                     }
                 }
-            }catch (Exception e)
-            {
-
-            }
 
         }
         for(int index = 0; index< fireList.size;index++)
@@ -485,28 +474,13 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("btn/resetdarkbtnpress.png");
         assetManager.unload("gameObjects/actionbtn.png");
         assetManager.unload("gameObjects/actionbtnpress.png");
-
-
+        //Dispose objects
         buttonScene.dispose();
         looseScene.dispose();
         winScene.dispose();
         tiledMap.dispose();
     }
-    @Override
-    protected void drawWin()
-    {
-        batch.begin();
-        batch.draw(endTexture,0,0);
-        scoreDisplay.showMsg(batch, "You won!",WIDTH/2,7*HEIGHT/8,2,'c');
-        batch.draw(starTexture,WIDTH/2,3*HEIGHT/4-starTexture.getHeight());
-        scoreDisplay.showMsg(batch, ""+(keys*1000+coins*100+enemies*500),5*WIDTH/8,3*HEIGHT/4,2,'l');
-        batch.draw(coinTexture,WIDTH/2,5*HEIGHT/8-coinTexture.getHeight());
-        scoreDisplay.showMsg(batch, coins+"/"+TOTAL_COINS,5*WIDTH/8,5*HEIGHT/8,2,'l');
-        batch.draw(keyTexture,WIDTH/2,HEIGHT/2-keyTexture.getHeight());
-        scoreDisplay.showMsg(batch, keys+"/3",5*WIDTH/8,HEIGHT/2,2,'l');
-        batch.end();
-        winScene.draw();
-    }
+
 
 
 
