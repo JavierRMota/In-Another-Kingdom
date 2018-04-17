@@ -44,9 +44,24 @@ public class LevelThree extends GenericLevel {
         //Begin enemies array
         mummies = new Array<Mummy>();
         mummyTexture = assetManager.get("characters/momia.png");
+        initEnemies();
 
         //Begin game
         gameState= GameState.PLAY;
+
+    }
+    protected  void initEnemies(){
+        mummies.add(new Mummy(mummyTexture,15*70,70));
+        mummies.add(new Mummy(mummyTexture,24*70,70*4));
+        mummies.add(new Mummy(mummyTexture,36*70,70));
+        mummies.add(new Mummy(mummyTexture,35*70,70*6));
+        mummies.add(new Mummy(mummyTexture,49*70,70*4));
+        mummies.add(new Mummy(mummyTexture,55*70,70));
+        mummies.add(new Mummy(mummyTexture,59*70,70*5));
+        mummies.add(new Mummy(mummyTexture,80*70,70*5));
+        mummies.add(new Mummy(mummyTexture,89*70,70*2));
+        mummies.add(new Mummy(mummyTexture,105*70,70*5));
+
 
     }
     protected void loadBackground()
@@ -124,7 +139,7 @@ public class LevelThree extends GenericLevel {
         updateCamera(delta);
         updateBackground(delta);
 
-        mummies.add(new Mummy(mummyTexture,laurence.getX()+100,70));
+
 
     }
 
