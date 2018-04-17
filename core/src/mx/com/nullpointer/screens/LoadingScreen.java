@@ -85,6 +85,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/button.png",Texture.class);
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/musicOn.png",Texture.class);
+                assetManager.load("btn/musicOff.png",Texture.class);
                 //Background
                 assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("skin/golden-ui-skin.json",Skin.class);
