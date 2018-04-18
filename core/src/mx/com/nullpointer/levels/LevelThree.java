@@ -3,6 +3,7 @@ package mx.com.nullpointer.levels;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
@@ -51,16 +52,16 @@ public class LevelThree extends GenericLevel {
 
     }
     protected  void initEnemies(){
-        mummies.add(new Mummy(mummyTexture,15*70,70));
-        mummies.add(new Mummy(mummyTexture,24*70,70*4));
-        mummies.add(new Mummy(mummyTexture,36*70,70));
-        mummies.add(new Mummy(mummyTexture,35*70,70*6));
-        mummies.add(new Mummy(mummyTexture,49*70,70*4));
-        mummies.add(new Mummy(mummyTexture,55*70,70));
-        mummies.add(new Mummy(mummyTexture,59*70,70*5));
-        mummies.add(new Mummy(mummyTexture,80*70,70*5));
-        mummies.add(new Mummy(mummyTexture,89*70,70*2));
-        mummies.add(new Mummy(mummyTexture,105*70,70*5));
+        mummies.add(new Mummy(mummyTexture,10*70,70));
+        mummies.add(new Mummy(mummyTexture,23*70,70*4));
+        mummies.add(new Mummy(mummyTexture,35*70,70));
+        mummies.add(new Mummy(mummyTexture,34*70,70*6));
+        mummies.add(new Mummy(mummyTexture,48*70,70*4));
+        mummies.add(new Mummy(mummyTexture,54*70,70));
+        mummies.add(new Mummy(mummyTexture,58*70,70*5));
+        mummies.add(new Mummy(mummyTexture,79*70,70*5));
+        mummies.add(new Mummy(mummyTexture,88*70,70*2));
+        mummies.add(new Mummy(mummyTexture,104*70,70*5));
 
 
     }
@@ -151,7 +152,7 @@ public class LevelThree extends GenericLevel {
         int cy = (int)(laurence.getY())/70;
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
-        checkEnemies(cx,cy,layer);
+        checkEnemies();
         updateMummies(layer,delta);
         laurence.move(layer,delta, cx, cy);
         winOrLoose();
@@ -167,7 +168,23 @@ public class LevelThree extends GenericLevel {
 
     }
 
-    private void checkEnemies(int cx, int cy, TiledMapTileLayer layer) {
+    private void checkEnemies() {
+        for(int index = mummies.size-1; index>=0; index--)
+        {
+            Rectangle mummyRec = mummies.get(index).getSprite().getBoundingRectangle();
+            Rectangle laurenceRec = laurence.getSprite().getBoundingRectangle();
+            if(mummyRec.overlaps(laurenceRec))
+            {
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                {
+                    mummies.removeIndex(index);
+                    return;
+                }
+                else{
+                    loose();
+                }
+            }
+        }
 
     }
 

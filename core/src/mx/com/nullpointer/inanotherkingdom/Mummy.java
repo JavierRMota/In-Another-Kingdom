@@ -1,13 +1,16 @@
 package mx.com.nullpointer.inanotherkingdom;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class Mummy extends Enemy {
-    private int VELOCITY= -200;
+    private int VELOCITY= -30;
+    boolean changeDir = false;
     public Mummy(Texture texture, float x, float y)
     {
         //Region
@@ -32,16 +35,35 @@ public class Mummy extends Enemy {
         TiledMapTileLayer.Cell nextCell;
         if(VELOCITY>0){
             nextCellDown= layer.getCell(cx+1,cy-1);
-            nextCell= layer.getCell(cx+1,cy);
+            nextCell= layer.getCell(cx+1,cy+1);
+
         }else{
             nextCellDown= layer.getCell(cx-1,cy-1);
-            nextCell= layer.getCell(cx-1,cy);
+            nextCell= layer.getCell(cx-1,cy+1);
+
         }
-        if(nextCellDown != null && !nextCellDown.getTile().getProperties().get("type").equals("plataform") || nextCell != null && nextCell.getTile().getProperties().get("type").equals("plataform"))
+        if(nextCellDown == null || nextCell != null && nextCell.getTile().getProperties().get("type").equals("plataform"))
         {
             VELOCITY=-VELOCITY;
+            changeDir = !changeDir;
+
         }
         this.x += delta*VELOCITY;
 
+    }
+    public void render(SpriteBatch batch, float delta)
+    {
+        timerAnimation+=delta;
+        TextureRegion region = (TextureRegion) animation.getKeyFrame(timerAnimation);
+        if(changeDir && !region.isFlipX())
+        {
+            region.flip(true,false);
+        }
+        else if(!changeDir && region.isFlipX())
+        {
+            region.flip(true,false);
+        }
+        batch.draw(region,x,y);
+        sprite.setPosition(x,y);
     }
 }
