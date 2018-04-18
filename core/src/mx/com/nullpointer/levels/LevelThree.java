@@ -152,8 +152,19 @@ public class LevelThree extends GenericLevel {
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
         checkEnemies(cx,cy,layer);
+        updateMummies(layer,delta);
         laurence.move(layer,delta, cx, cy);
         winOrLoose();
+    }
+
+    private void updateMummies(TiledMapTileLayer layer, float delta) {
+        for(Mummy mummy: mummies)
+        {
+            int cx = (int)(mummy.getX()+70)/70;
+            int cy = (int)(mummy.getY())/70;
+            mummy.move(layer,delta,cx,cy);
+        }
+
     }
 
     private void checkEnemies(int cx, int cy, TiledMapTileLayer layer) {

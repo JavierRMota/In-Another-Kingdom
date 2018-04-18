@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class Mummy extends Enemy {
-    private int VELOCITY= 100;
+    private int VELOCITY= -200;
     public Mummy(Texture texture, float x, float y)
     {
         //Region
@@ -16,7 +16,7 @@ public class Mummy extends Enemy {
         TextureRegion[][] characterTexture;
         characterTexture = region.split(88,133);
         //Animation
-        animation = new Animation(0.1f,
+        animation = new Animation(0.2f,
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2]);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation=0;
@@ -41,6 +41,7 @@ public class Mummy extends Enemy {
         {
             VELOCITY=-VELOCITY;
         }
+        this.x += delta*VELOCITY;
 
     }
 }
