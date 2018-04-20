@@ -429,7 +429,6 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(Stages.TWO);
                 if (lastLevel >= 3){
                     changeScene(Stages.TWO);
                 }

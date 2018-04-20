@@ -36,14 +36,14 @@ public class LoadingScreen extends GenericScreen {
 
     @Override
     public void show() {
-        backgroundTexture = new Texture("background/howTo.png");
+        backgroundTexture = new Texture("background/menubg.png");
         loadingTexture = new Texture("background/pantallaCarga.png");
         TextureRegion region = new TextureRegion(loadingTexture);
         TextureRegion[][] frames = region.split(loadingTexture.getWidth()/6, loadingTexture.getHeight());
         animationLoading = new Animation(0.1f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
         animationLoading.setPlayMode(Animation.PlayMode.LOOP);
-        x = WIDTH/9*6;
-        y = HEIGHT/13;
+        x = 454;
+        y = 245;
         loadResources();
 
     }
