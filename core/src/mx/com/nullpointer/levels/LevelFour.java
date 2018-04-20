@@ -4,9 +4,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
+import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 import mx.com.nullpointer.inanotherkingdom.Mummy;
 
 public class LevelFour extends GenericLevel {
@@ -22,7 +24,7 @@ public class LevelFour extends GenericLevel {
         //Create the camera for all game information and buttons
         createHUD();
         //Load TiledMap
-        loadMap("map/nivelTres.tmx");
+        loadMap("map/nivelCuatro.tmx");
         //Load Textures
         loadTextures();
 
@@ -36,7 +38,7 @@ public class LevelFour extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        scoreInit(113);
+        scoreInit(119);
 
         //Input Processors
         loadInputProcessor();
@@ -51,16 +53,20 @@ public class LevelFour extends GenericLevel {
 
     }
     protected  void initEnemies(){
-        mummies.add(new Mummy(mummyTexture,15*70,70));
-        mummies.add(new Mummy(mummyTexture,24*70,70*4));
-        mummies.add(new Mummy(mummyTexture,36*70,70));
-        mummies.add(new Mummy(mummyTexture,35*70,70*6));
-        mummies.add(new Mummy(mummyTexture,49*70,70*4));
-        mummies.add(new Mummy(mummyTexture,55*70,70));
-        mummies.add(new Mummy(mummyTexture,59*70,70*5));
-        mummies.add(new Mummy(mummyTexture,80*70,70*5));
-        mummies.add(new Mummy(mummyTexture,89*70,70*2));
-        mummies.add(new Mummy(mummyTexture,105*70,70*5));
+        mummies.add(new Mummy(mummyTexture,10*70,70));
+        mummies.add(new Mummy(mummyTexture,23*70,70*4));
+        mummies.add(new Mummy(mummyTexture,35*70,70));
+        mummies.add(new Mummy(mummyTexture,34*70,70*6));
+        mummies.add(new Mummy(mummyTexture,48*70,70*4));
+        mummies.add(new Mummy(mummyTexture,54*70,70));
+        mummies.add(new Mummy(mummyTexture,57*70,70*5));
+        mummies.add(new Mummy(mummyTexture,75*70,70*5));
+        mummies.add(new Mummy(mummyTexture,88*70,70));
+        mummies.add(new Mummy(mummyTexture,111*70,70));
+        mummies.add(new Mummy(mummyTexture,119*70,70*6));
+        mummies.add(new Mummy(mummyTexture,143*70,70*4));
+        mummies.add(new Mummy(mummyTexture,178*70,70));
+        mummies.add(new Mummy(mummyTexture,180*70,70*4));
 
 
     }
@@ -151,12 +157,39 @@ public class LevelFour extends GenericLevel {
         int cy = (int)(laurence.getY())/70;
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
-        checkEnemies(cx,cy,layer);
+        //checkEnemies();
+        updateMummies(layer,delta);
         laurence.move(layer,delta, cx, cy);
         winOrLoose();
     }
 
-    private void checkEnemies(int cx, int cy, TiledMapTileLayer layer) {
+    private void updateMummies(TiledMapTileLayer layer, float delta) {
+        for(Mummy mummy: mummies)
+        {
+            int cx = (int)(mummy.getX()+70)/70;
+            int cy = (int)(mummy.getY())/70;
+            mummy.move(layer,delta,cx,cy);
+        }
+
+    }
+
+    private void checkEnemies() {
+        for(int index = mummies.size-1; index>=0; index--)
+        {
+            Rectangle mummyRec = mummies.get(index).getSprite().getBoundingRectangle();
+            Rectangle laurenceRec = laurence.getSprite().getBoundingRectangle();
+            if(mummyRec.overlaps(laurenceRec))
+            {
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                {
+                    mummies.removeIndex(index);
+                    return;
+                }
+                else{
+                    loose();
+                }
+            }
+        }
 
     }
 
@@ -193,7 +226,7 @@ public class LevelFour extends GenericLevel {
     @Override
     public void dispose()
     {
-        assetManager.unload("map/nivelTres.tmx");
+        assetManager.unload("map/nivelCuatro.tmx");
         assetManager.unload("music/nivelUno.mp3");
         assetManager.unload("music/sword.mp3");
         assetManager.unload("map/bookTwoP.png");
@@ -237,6 +270,7 @@ public class LevelFour extends GenericLevel {
         winScene.dispose();
         tiledMap.dispose();
     }
+
 
 
 }
