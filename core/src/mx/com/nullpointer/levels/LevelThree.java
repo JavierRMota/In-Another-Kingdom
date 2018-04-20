@@ -16,7 +16,7 @@ public class LevelThree extends GenericLevel {
     //Constructor
     public LevelThree(Main game, int level)
     {
-        super(game,level,200*70,182);
+        super(game,level,200*70,196);
     }
     @Override
     public void show() {
@@ -37,7 +37,7 @@ public class LevelThree extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        scoreInit(113);
+        scoreInit(115);
 
         //Input Processors
         loadInputProcessor();
@@ -58,10 +58,14 @@ public class LevelThree extends GenericLevel {
         mummies.add(new Mummy(mummyTexture,34*70,70*6));
         mummies.add(new Mummy(mummyTexture,48*70,70*4));
         mummies.add(new Mummy(mummyTexture,54*70,70));
-        mummies.add(new Mummy(mummyTexture,58*70,70*5));
-        mummies.add(new Mummy(mummyTexture,79*70,70*5));
-        mummies.add(new Mummy(mummyTexture,88*70,70*2));
-        mummies.add(new Mummy(mummyTexture,104*70,70*5));
+        mummies.add(new Mummy(mummyTexture,57*70,70*5));
+        mummies.add(new Mummy(mummyTexture,75*70,70*5));
+        mummies.add(new Mummy(mummyTexture,88*70,70));
+        mummies.add(new Mummy(mummyTexture,111*70,70));
+        mummies.add(new Mummy(mummyTexture,119*70,70*6));
+        mummies.add(new Mummy(mummyTexture,143*70,70*4));
+        mummies.add(new Mummy(mummyTexture,178*70,70));
+        mummies.add(new Mummy(mummyTexture,180*70,70*4));
 
 
     }

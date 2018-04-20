@@ -336,7 +336,7 @@ public class LoadingScreen extends GenericScreen {
             case LVLFOUR:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 //Map
-                assetManager.load("map/nivelTres.tmx", TiledMap.class);
+                assetManager.load("map/nivelCuatro.tmx", TiledMap.class);
                 //Music
                 assetManager.load("music/nivelUno.mp3",Music.class);
                 assetManager.load("music/sword.mp3", Music.class);
