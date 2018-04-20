@@ -19,7 +19,8 @@ public class TutorialScreen extends GenericScreen {
 
     @Override
     public void show() {
-        backgroundTexture = new Texture("background/howTo.png");
+
+        backgroundTexture = assetManager.get("background/howTo.png");
     }
 
     @Override
@@ -29,5 +30,10 @@ public class TutorialScreen extends GenericScreen {
         batch.draw(backgroundTexture,0 ,0);
         batch.end();
 
+    }
+
+    @Override
+    public void dispose() {
+        assetManager.unload("background/howTo.png");
     }
 }

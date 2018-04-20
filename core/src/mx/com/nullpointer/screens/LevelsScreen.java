@@ -32,7 +32,8 @@ class LevelsScreen extends GenericScreen{
 
     //Texturas
     private Texture backgroundTexture;
-    private Texture bookTexture;
+    private Texture bookTexture1;
+    private Texture bookTexture2;
 
 
     private Animation animationBook;
@@ -65,10 +66,6 @@ class LevelsScreen extends GenericScreen{
     public void show() {
         loadTextures();
         createObjects();
-        TextureRegion region = new TextureRegion(bookTexture);
-        TextureRegion[][] frames = region.split(bookTexture.getWidth()/7, bookTexture.getHeight());
-        animationBook = new Animation(0.12f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
-        animationBook.setPlayMode(Animation.PlayMode.NORMAL);
         x = 454;
         y = 245;
         openBook = false;
@@ -77,7 +74,8 @@ class LevelsScreen extends GenericScreen{
 
     private void loadTextures() {
         backgroundTexture = new Texture("background/menubg.png");
-        bookTexture = new Texture("background/tiraLibroAbriendose.png");
+        bookTexture1 = new Texture("background/tiraLibroAbriendose.png");
+        bookTexture2 = new Texture("background/tiraLibroAbriendose2.png");
 
     }
 
@@ -402,6 +400,10 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                TextureRegion region = new TextureRegion(bookTexture1);
+                TextureRegion[][] frames = region.split(bookTexture1.getWidth()/7, bookTexture1.getHeight());
+                animationBook = new Animation(0.12f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
+                animationBook.setPlayMode(Animation.PlayMode.NORMAL);
                 openBook = true;
                 changeScene(Stages.ONE);
             }
@@ -429,7 +431,12 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                TextureRegion region = new TextureRegion(bookTexture2);
+                TextureRegion[][] frames = region.split(bookTexture2.getWidth()/7, bookTexture2.getHeight());
+                animationBook = new Animation(0.12f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
+                animationBook.setPlayMode(Animation.PlayMode.NORMAL);
                 if (lastLevel >= 3){
+                    openBook = true;
                     changeScene(Stages.TWO);
                 }
 
@@ -448,8 +455,6 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-
-
 
             }
         });
