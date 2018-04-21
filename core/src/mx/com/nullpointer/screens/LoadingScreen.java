@@ -255,7 +255,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/fireball.png",Texture.class);
                 //Win loose background
                 assetManager.load("background/winLooseBg.png",Texture.class);
-                assetManager.load("background/beta.jpg", Texture.class);
+                assetManager.load("background/castillo.png", Texture.class);
                 //Scores
                 assetManager.load("gameObjects/llave.png",Texture.class);
                 assetManager.load("gameObjects/star.png",Texture.class);

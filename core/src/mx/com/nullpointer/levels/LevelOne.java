@@ -16,7 +16,8 @@ public class LevelOne extends GenericLevel {
 
     private Sprite tutorialSprite;
     private float SPEED =0.3f;
-    private Preferences prefs = Gdx.app.getPreferences("Settings");
+    private Preferences prefs = Gdx.app.getPreferences("Settings"), tutorialPref = Gdx.app.getPreferences("Tutorial");
+    private boolean tutorial;
 
 
     //Constructor
@@ -49,25 +50,28 @@ public class LevelOne extends GenericLevel {
         loadInputProcessor();
 
         //Tutorial
-
-
-        if(prefs.getBoolean("mode", true))
+        tutorial = tutorialPref.getBoolean("tutorialLVL1", false);
+        if(!tutorial)
         {
-            Texture tutorialTexture = assetManager.get("tutorial/pushButton.png");
-            tutorialSprite = new Sprite(tutorialTexture);
-            if(prefs.getBoolean("position", true)){
-                tutorialSprite.setPosition(WIDTH/16, 0);
-            }
+            if(prefs.getBoolean("mode", true))
+            {
+                Texture tutorialTexture = assetManager.get("tutorial/pushButton.png");
+                tutorialSprite = new Sprite(tutorialTexture);
+                if(prefs.getBoolean("position", true)){
+                    tutorialSprite.setPosition(WIDTH/16, 0);
+                }
 
-            else {
-                tutorialSprite.setPosition(14*WIDTH/16- tutorialSprite.getWidth()/2, 0);
+                else {
+                    tutorialSprite.setPosition(14*WIDTH/16- tutorialSprite.getWidth()/2, 0);
+                }
+            }
+            else{
+                Texture tutorialTexture = assetManager.get("tutorial/swipeRight.png");
+                tutorialSprite = new Sprite(tutorialTexture);
+                tutorialSprite.setPosition(WIDTH/2 - tutorialSprite.getWidth()/2, HEIGHT/2-tutorialSprite.getHeight()/2);
             }
         }
-        else{
-            Texture tutorialTexture = assetManager.get("tutorial/swipeRight.png");
-            tutorialSprite = new Sprite(tutorialTexture);
-            tutorialSprite.setPosition(WIDTH/2 - tutorialSprite.getWidth()/2, HEIGHT/2-tutorialSprite.getHeight()/2);
-        }
+
 
         //Begin game
         gameState= GameState.PLAY;
@@ -97,12 +101,12 @@ public class LevelOne extends GenericLevel {
     @Override
     public void render(float delta) {
         int cx = (int)(laurence.getX()+70)/70;
-        if(cx<11 && laurence.getMovementState() != MainCharacter.MovementState.RUNNING && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING)
+        if(!tutorial && cx<11 && laurence.getMovementState() != MainCharacter.MovementState.RUNNING && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING)
         {
             laurence.setMovementState(MainCharacter.MovementState.RUNNING);
         }
         //Check if paused
-        if(gameState==GameState.PLAY && (cx != 10 || laurence.getMovementState()== MainCharacter.MovementState.ATTACKING))
+        if(gameState==GameState.PLAY && (!tutorial && cx != 10 || laurence.getMovementState()== MainCharacter.MovementState.ATTACKING))
         {
             update(delta);
         }
@@ -133,7 +137,7 @@ public class LevelOne extends GenericLevel {
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2,'c');
 
         //Check tutorial
-        if(cx == 10 && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING) {
+        if(!tutorial && cx == 10 && laurence.getMovementState()!= MainCharacter.MovementState.ATTACKING) {
             if(prefs.getBoolean("mode", true)){
                 if(tutorialSprite.getScaleX() -+0.1f*delta>1.3 ||tutorialSprite.getScaleX() -+0.1f*delta<0.8)
                     SPEED =-SPEED;
@@ -237,6 +241,11 @@ public class LevelOne extends GenericLevel {
         }
         else if(laurence.getX()>MAP_WIDTH)
         {
+            if(!tutorial)
+            {
+                tutorialPref.putBoolean("tutorialLVL1",true);
+                tutorialPref.flush();
+            }
             win();
         }
     }
