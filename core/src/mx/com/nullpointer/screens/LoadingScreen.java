@@ -120,11 +120,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("screens/avatarJavier.png",Texture.class);
                 assetManager.load("screens/avatarMarina.png",Texture.class);
                 break;
-            case ARMORY:
-                assetManager.load("music/menu.mp3",Music.class);
-                assetManager.load("btn/backbtn.png",Texture.class);
-                assetManager.load("btn/backbtnpress.png",Texture.class);
-                assetManager.load("background/menubg.png",Texture.class);
+            case TUTORIAL:
+                assetManager.load("background/howTo.png",Texture.class);
                 break;
             case LVLZERO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -424,8 +421,8 @@ public class LoadingScreen extends GenericScreen {
                 case ABOUT:
                     game.setScreen(new AboutScreen(game));
                     break;
-                case ARMORY:
-                    game.setScreen(new ArmoryScreen(game));
+                case TUTORIAL:
+                    game.setScreen(new TutorialScreen(game));
                     break;
                 case LVLZERO:
                     game.setScreen(new LevelZero(game,screen));
