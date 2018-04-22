@@ -2,6 +2,7 @@ package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -21,6 +22,8 @@ public class LevelZero extends GenericLevel {
     private Sprite swordSprite;
     private int VSWIPE= 150;
     private boolean sword =false, fastFall =false;
+    private Preferences tutorialPref = Gdx.app.getPreferences("Tutorial");
+    private boolean tutorial;
 
     //Constructor
     public LevelZero(Main game, int level)
@@ -47,12 +50,15 @@ public class LevelZero extends GenericLevel {
         scoreInit(34);
 
         //Tutorial
-        Texture swipeUpTexture = assetManager.get("tutorial/swipeUp.png");
-        swipeUp = new Sprite(swipeUpTexture);
-        swipeUp.setPosition(13*70,50);
-        Texture swipeDownTexture = assetManager.get("tutorial/swipeDown.png");
-        swipeDown = new Sprite(swipeDownTexture);
-        swipeDown.setPosition(41*70,50);
+        tutorial = tutorialPref.getBoolean("tutorialLVL0", false);
+        if(!tutorial) {
+            Texture swipeUpTexture = assetManager.get("tutorial/swipeUp.png");
+            swipeUp = new Sprite(swipeUpTexture);
+            swipeUp.setPosition(13 * 70, 50);
+            Texture swipeDownTexture = assetManager.get("tutorial/swipeDown.png");
+            swipeDown = new Sprite(swipeDownTexture);
+            swipeDown.setPosition(41 * 70, 50);
+        }
         Texture swordTexture = assetManager.get("gameObjects/actionbtn.png");
         swordSprite = new Sprite(swordTexture);
         swordSprite.setPosition(3*WIDTH/4,HEIGHT/4);
@@ -115,7 +121,7 @@ public class LevelZero extends GenericLevel {
                     laurence.quickFall();
                 }
                 int cx = (int)(laurence.getX()+70)/70;
-                if(cx==40)
+                if(!tutorial && cx==40)
                 {
                     fastFall=true;
                     laurence.setTimerAction(1.5f);
@@ -146,7 +152,7 @@ public class LevelZero extends GenericLevel {
     public void render(float delta) {
         int cx = (int)(laurence.getX()+70)/70;
 
-            if(gameState==GameState.PLAY && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING) && (cx!=40 || fastFall))
+            if(gameState==GameState.PLAY && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING) && (!tutorial && (cx!=40 || fastFall)))
             {
                 update(delta);
             }
@@ -166,13 +172,13 @@ public class LevelZero extends GenericLevel {
             //Laurence
             laurence.render(batch);
 
-            if(cx==13)
+            if(!tutorial && cx==13)
             {
                 swipeUp.setY(swipeUp.getY()+delta*VSWIPE);
                 if(swipeUp.getY()>200 ||swipeUp.getY()<50)
                     VSWIPE=-VSWIPE;
                 swipeUp.draw(batch);
-            } else if(cx==40)
+            } else if(!tutorial && cx==40)
             {
                 swipeDown.setY(swipeDown.getY()+delta*VSWIPE);
                 if(swipeDown.getY()>200 ||swipeDown.getY()<50)
@@ -232,6 +238,11 @@ public class LevelZero extends GenericLevel {
         }
         if(laurence.getX()>MAP_WIDTH)
         {
+            if(!tutorial)
+            {
+                tutorialPref.putBoolean("tutorialLVL0",true);
+                tutorialPref.flush();
+            }
             win();
         }
 

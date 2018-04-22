@@ -1,5 +1,7 @@
 package mx.com.nullpointer.levels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -23,6 +25,8 @@ public class LevelTwo extends GenericLevel {
     private Texture fireballBlue, fireballRed;
     private boolean fightStart;
     private Texture endTexture;
+    private Preferences tutorialPref = Gdx.app.getPreferences("Tutorial");
+    private boolean tutorial;
 
 
     //Constructor
@@ -63,8 +67,7 @@ public class LevelTwo extends GenericLevel {
         fightStart =false;
         fireballBlue = assetManager.get("characters/fireball.png");
         fireballRed = assetManager.get("characters/fireballRED.png");
-
-        endTexture=assetManager.get("background/beta.jpg");
+        endTexture=assetManager.get("background/castillo.png");
 
         //Begin game
         gameState= GameState.PLAY;
@@ -397,6 +400,11 @@ public class LevelTwo extends GenericLevel {
         }
         else if(laurence.getX()>MAP_WIDTH)
         {
+            if(!tutorial)
+            {
+                tutorialPref.putBoolean("tutorialLVL2",true);
+                tutorialPref.flush();
+            }
             win();
         }
     }
@@ -448,7 +456,7 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("characters/fireballRED.png");
         //Background win loose
         assetManager.unload("background/winLooseBg.png");
-        assetManager.unload("background/beta.jpg");
+        assetManager.unload("background/castillo.png");
         //Score
         assetManager.unload("gameObjects/llave.png");
         assetManager.unload("gameObjects/star.png");
