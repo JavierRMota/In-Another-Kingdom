@@ -106,7 +106,7 @@ public class LevelOne extends GenericLevel {
             laurence.setMovementState(MainCharacter.MovementState.RUNNING);
         }
         //Check if paused
-        if(gameState==GameState.PLAY && (!tutorial && cx != 10 || laurence.getMovementState()== MainCharacter.MovementState.ATTACKING))
+        if(gameState==GameState.PLAY && (tutorial || cx != 10 || laurence.getMovementState()== MainCharacter.MovementState.ATTACKING))
         {
             update(delta);
         }

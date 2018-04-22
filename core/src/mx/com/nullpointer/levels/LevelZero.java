@@ -152,7 +152,7 @@ public class LevelZero extends GenericLevel {
     public void render(float delta) {
         int cx = (int)(laurence.getX()+70)/70;
 
-            if(gameState==GameState.PLAY && (cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING) && (!tutorial && (cx!=40 || fastFall)))
+            if(gameState==GameState.PLAY && (tutorial || cx!=13 || laurence.getMovementState()!= MainCharacter.MovementState.RUNNING) && (tutorial || cx!=40 || fastFall))
             {
                 update(delta);
             }
