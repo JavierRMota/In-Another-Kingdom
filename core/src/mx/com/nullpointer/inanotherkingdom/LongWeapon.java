@@ -1,6 +1,7 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,8 +12,9 @@ public class LongWeapon extends GameObject{
     private Animation animation;
     public boolean isBad;
     private float x,y;
-    private float VX =-600;
-    private float VY = -220;
+    private Preferences prefs = Gdx.app.getPreferences("Settings");
+    private float VX =-600*prefs.getInteger("Difficulty",400)/400;
+    private float VY = -220*prefs.getInteger("Difficulty",400)/400;
     private boolean fight;
     public LongWeapon(Texture bad, Texture good, float x, float y ,float maxX, boolean fight)
     {

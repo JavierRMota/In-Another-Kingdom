@@ -1,6 +1,7 @@
 package mx.com.nullpointer.inanotherkingdom;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,7 +10,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class Mummy extends Enemy {
-    private int VELOCITY= -30;
+    private Preferences prefs = Gdx.app.getPreferences("Settings");
+    private int VELOCITY= -30*prefs.getInteger("Difficulty",400)/400;
     boolean changeDir = false;
     public Mummy(Texture texture, float x, float y)
     {

@@ -20,11 +20,10 @@ public class MainCharacter extends GameObject
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation, attackingAnimation;
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
+    private Preferences prefs = Gdx.app.getPreferences("Settings");
     private float VY = 20, G=30;
-    private float animationSpeed = 0.04f;
-    Preferences prefs = Gdx.app.getPreferences("Settings");
     private int VX = prefs.getInteger("Difficulty",400);
-
+    private float animationSpeed = 0.04f;
 
     //Estados de movimiento
     MovementState movementState = MovementState.RUNNING;

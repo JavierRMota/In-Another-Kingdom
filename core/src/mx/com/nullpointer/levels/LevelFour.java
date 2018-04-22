@@ -17,7 +17,7 @@ public class LevelFour extends GenericLevel {
     //Constructor
     public LevelFour(Main game, int level)
     {
-        super(game,level,200*70,183);
+        super(game,level,200*70,257);
     }
     @Override
     public void show() {
@@ -54,20 +54,22 @@ public class LevelFour extends GenericLevel {
     }
     protected  void initEnemies(){
         mummies.add(new Mummy(mummyTexture,10*70,70));
-        mummies.add(new Mummy(mummyTexture,23*70,70*4));
-        mummies.add(new Mummy(mummyTexture,35*70,70));
-        mummies.add(new Mummy(mummyTexture,34*70,70*6));
-        mummies.add(new Mummy(mummyTexture,48*70,70*4));
+        mummies.add(new Mummy(mummyTexture,22*70,70*4));
+        mummies.add(new Mummy(mummyTexture,31*70,70*6));
+        mummies.add(new Mummy(mummyTexture,34*70,70));
+        mummies.add(new Mummy(mummyTexture,42*70,70*4));
         mummies.add(new Mummy(mummyTexture,54*70,70));
-        mummies.add(new Mummy(mummyTexture,57*70,70*5));
-        mummies.add(new Mummy(mummyTexture,75*70,70*5));
-        mummies.add(new Mummy(mummyTexture,88*70,70));
-        mummies.add(new Mummy(mummyTexture,111*70,70));
-        mummies.add(new Mummy(mummyTexture,119*70,70*6));
-        mummies.add(new Mummy(mummyTexture,143*70,70*4));
-        mummies.add(new Mummy(mummyTexture,178*70,70));
-        mummies.add(new Mummy(mummyTexture,180*70,70*4));
-
+        mummies.add(new Mummy(mummyTexture,54*70,70*5));
+        mummies.add(new Mummy(mummyTexture,73*70,70));
+        mummies.add(new Mummy(mummyTexture,82*70,70*4));
+        mummies.add(new Mummy(mummyTexture,115*70,70));
+        mummies.add(new Mummy(mummyTexture,107*70,70*4));
+        mummies.add(new Mummy(mummyTexture,121*70,70*6));
+        mummies.add(new Mummy(mummyTexture,133*70,70*7));
+        mummies.add(new Mummy(mummyTexture,140*70,70));
+        mummies.add(new Mummy(mummyTexture,144*70,70*5));
+        mummies.add(new Mummy(mummyTexture,156*70,70*6));
+        mummies.add(new Mummy(mummyTexture,165*70,70*2));
 
     }
     protected void loadBackground()
@@ -157,7 +159,7 @@ public class LevelFour extends GenericLevel {
         int cy = (int)(laurence.getY())/70;
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         checkCoins(cx,cy,layer);
-        //checkEnemies();
+        checkEnemies();
         updateMummies(layer,delta);
         laurence.move(layer,delta, cx, cy);
         winOrLoose();
