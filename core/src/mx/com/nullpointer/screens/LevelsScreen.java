@@ -1,6 +1,7 @@
 package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -69,6 +70,7 @@ class LevelsScreen extends GenericScreen{
         x = 454;
         y = 245;
         openBook = false;
+        Gdx.input.setCatchBackKey(true);
 
 
     }
@@ -498,6 +500,21 @@ class LevelsScreen extends GenericScreen{
         batch.draw(backgroundTexture, 0, 0);
         batch.end();
         update();
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK))
+        {
+            switch (stage)
+            {
+                case ONE:
+                case TWO:
+                case THREE:
+                    changeScene(Stages.LEVELS);
+                    break;
+                case LEVELS:
+                    game.setScreen(new LoadingScreen(game, MENU));
+                    break;
+            }
+
+        }
     }
 
     private void update()
@@ -538,6 +555,7 @@ class LevelsScreen extends GenericScreen{
         batch.begin();
         batch.draw(region,x,y);
         batch.end();
+
 
     }
 

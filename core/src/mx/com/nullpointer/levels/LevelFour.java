@@ -196,7 +196,7 @@ public class LevelFour extends GenericLevel {
     }
 
     protected void winOrLoose() {
-        if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
+        if((laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0) && laurence.getX()<MAP_WIDTH)
         {
             loose();
         }
