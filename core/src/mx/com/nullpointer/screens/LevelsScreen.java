@@ -500,7 +500,7 @@ class LevelsScreen extends GenericScreen{
         batch.draw(backgroundTexture, 0, 0);
         batch.end();
         update();
-        if(Gdx.input.isKeyPressed(Input.Keys.BACK))
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
         {
             switch (stage)
             {
