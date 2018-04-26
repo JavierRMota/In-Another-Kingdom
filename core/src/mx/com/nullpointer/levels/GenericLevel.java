@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.com.nullpointer.screens.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.screens.GenericScreen;
+import mx.com.nullpointer.screens.MenuScreen;
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 import mx.com.nullpointer.utils.Text;
@@ -32,6 +33,8 @@ import mx.com.nullpointer.utils.Text;
  */
 
 public abstract class GenericLevel extends GenericScreen {
+
+    private Preferences prefesTotal = Gdx.app.getPreferences("Settings");
     //ULTIMATE LEVEL
     protected static final int ULTIMATE_LEVEL = 6;
     //Maps
@@ -254,6 +257,43 @@ public abstract class GenericLevel extends GenericScreen {
             }
         });
         pauseScene.addActor(btnBack);
+
+        //Botón Volumen
+
+        Texture musicOn = assetManager.get("btn/musicOn.png");
+        Texture musicOff = assetManager.get("btn/musicOff.png");
+        TextureRegionDrawable trdSound = new TextureRegionDrawable(new TextureRegion(musicOn));
+        TextureRegionDrawable trdSoundFX = new TextureRegionDrawable(new TextureRegion(musicOff));
+        ImageButton btnVolumen;
+
+        if (prefesTotal.getBoolean("music", true)) {
+            btnVolumen = new ImageButton(trdSound, trdSoundFX);
+        } else {
+            btnVolumen = new ImageButton(trdSoundFX, trdSound);
+        }
+
+        btnVolumen.setPosition(MenuScreen.WIDTH / 2 - btnVolumen.getWidth() / 2, 7 * HEIGHT / 10);
+
+        btnVolumen.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                if (prefesTotal.getBoolean("music", true)) {
+                    prefesTotal.putBoolean("music", false);
+                    game.stopMusic();
+                    prefesTotal.flush();
+
+                } else {
+                    prefesTotal.putBoolean("music", true);
+                    game.changeMusic(LVLONE);
+                    prefesTotal.flush();
+                }
+
+                createPauseStage();
+
+            }
+        });
+        pauseScene.addActor(btnVolumen);
     }
 
     //Create win and loose stage
