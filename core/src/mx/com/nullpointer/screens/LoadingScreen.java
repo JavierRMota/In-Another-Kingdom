@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.levels.*;
+import mx.com.nullpointer.utils.Text;
 
 /**
  * Created by MarinaHaro on 13/03/18.
@@ -87,9 +88,12 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("btn/musicOn.png",Texture.class);
                 assetManager.load("btn/musicOff.png",Texture.class);
+                assetManager.load("btn/reset-icon-614x460.png", Texture.class);
+                assetManager.load("btn/resetPress.png", Texture.class);
                 //Background
                 assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("skin/golden-ui-skin.json",Skin.class);
+
                 break;
             case LEVELS:
                 assetManager.load("music/menu.mp3",Music.class);
@@ -168,6 +172,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/nextbtnpress.png",Texture.class);
                 assetManager.load("btn/resetdarkbtn.png",Texture.class);
                 assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
+                assetManager.load("btn/musicOn.png",Texture.class);
+                assetManager.load("btn/musicOff.png",Texture.class);
                 //Tutorial
                 assetManager.load("tutorial/swipeUp.png",Texture.class);
                 assetManager.load("tutorial/swipeDown.png",Texture.class);
@@ -221,6 +227,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                assetManager.load("btn/musicOn.png",Texture.class);
+                assetManager.load("btn/musicOff.png",Texture.class);
                 //Tutorial
                 assetManager.load("tutorial/pushButton.png", Texture.class);
                 assetManager.load("tutorial/swipeRight.png", Texture.class);
@@ -278,11 +286,70 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                assetManager.load("btn/musicOn.png",Texture.class);
+                assetManager.load("btn/musicOff.png",Texture.class);
+                //Tutorial
+                assetManager.load("tutorial/pushButton.png", Texture.class);
+                assetManager.load("tutorial/swipeRight.png", Texture.class);
                 break;
             case LVLTHREE:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 //Map
                 assetManager.load("map/nivelTres.tmx", TiledMap.class);
+                //Music
+                assetManager.load("music/nivelUno.mp3",Music.class);
+                assetManager.load("music/sword.mp3", Music.class);
+                //Background
+                assetManager.load("map/bookTwoBg.png",Texture.class);
+                assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("map/bookTwoP.png",Texture.class);
+                assetManager.load("background/esfinge.png",Texture.class);
+                //Laurence animation
+                assetManager.load("characters/laurence_descanso.png",Texture.class);
+                assetManager.load("characters/laurence_running.png",Texture.class);
+                assetManager.load("characters/tira_salto.png",Texture.class);
+                assetManager.load("characters/tira_marometa.png",Texture.class);
+                assetManager.load("characters/laurence_attacking.png", Texture.class);
+                //Laurence win, loose
+                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/laurence_celebrating.png", Texture.class);
+                assetManager.load("characters/laurence_drowning.png", Texture.class);
+                //Win loose background
+                assetManager.load("background/winLooseBg.png",Texture.class);
+                //Enemy
+                assetManager.load("characters/momia.png",Texture.class);
+                //Score
+                assetManager.load("gameObjects/llave.png",Texture.class);
+                assetManager.load("gameObjects/star.png",Texture.class);
+                assetManager.load("gameObjects/llaveFull.png",Texture.class);
+                assetManager.load("gameObjects/llaveEmpty.png",Texture.class);
+                assetManager.load("gameObjects/moneda.png",Texture.class);
+                //Buttons
+                assetManager.load("btn/playbtn.png",Texture.class);
+                assetManager.load("btn/playbtnpress.png",Texture.class);
+                assetManager.load("btn/resetbtn.png",Texture.class);
+                assetManager.load("btn/resetbtnpress.png",Texture.class);
+                assetManager.load("btn/backbtn.png",Texture.class);
+                assetManager.load("btn/backbtnpress.png",Texture.class);
+                assetManager.load("btn/pausebtn.png",Texture.class);
+                assetManager.load("btn/pausebtnpress.png",Texture.class);
+                assetManager.load("btn/backdarkbtn.png",Texture.class);
+                assetManager.load("btn/backdarkbtnpress.png",Texture.class);
+                assetManager.load("btn/levelsdarkbtn.png",Texture.class);
+                assetManager.load("btn/levelsdarkbtnpress.png",Texture.class);
+                assetManager.load("btn/nextbtn.png",Texture.class);
+                assetManager.load("btn/nextbtnpress.png",Texture.class);
+                assetManager.load("btn/resetdarkbtn.png",Texture.class);
+                assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
+                assetManager.load("gameObjects/actionbtn.png",Texture.class);
+                assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                assetManager.load("btn/musicOn.png",Texture.class);
+                assetManager.load("btn/musicOff.png",Texture.class);
+                break;
+            case LVLFOUR:
+                assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+                //Map
+                assetManager.load("map/nivelCuatro.tmx", TiledMap.class);
                 //Music
                 assetManager.load("music/nivelUno.mp3",Music.class);
                 assetManager.load("music/sword.mp3", Music.class);
@@ -329,8 +396,10 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
                 assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
+                assetManager.load("btn/musicOn.png",Texture.class);
+                assetManager.load("btn/musicOff.png",Texture.class);
                 break;
-            case LVLFOUR:
+            case LVLFIVE:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 //Map
                 assetManager.load("map/nivelCuatro.tmx", TiledMap.class);

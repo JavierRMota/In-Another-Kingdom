@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 
 import mx.com.nullpointer.inanotherkingdom.Dragon;
 import mx.com.nullpointer.inanotherkingdom.Main;
-import mx.com.nullpointer.inanotherkingdom.Enemy;
 import mx.com.nullpointer.inanotherkingdom.LongWeapon;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 /**
@@ -108,6 +107,7 @@ public class LevelTwo extends GenericLevel {
         //Background
         batch.begin();
         drawBackground();
+        batch.draw(endTexture, MAP_WIDTH-endTexture.getWidth(),60);
         batch.end();
         //View for the map
         render.setView(camera);

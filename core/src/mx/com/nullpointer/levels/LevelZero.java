@@ -210,6 +210,7 @@ public class LevelZero extends GenericLevel {
             batch.end();
             //Check which scene to draw
             drawInputScene();
+        Gdx.app.log("render", "fps="+Gdx.graphics.getFramesPerSecond());
 
     }
 
