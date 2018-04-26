@@ -218,7 +218,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdReset = new TextureRegionDrawable(new TextureRegion(resetTexture));
         TextureRegionDrawable trdResetPress = new TextureRegionDrawable(new TextureRegion(resetPressTexture));
         ImageButton btnReset = new ImageButton(trdReset,trdResetPress);
-        btnReset.setPosition(3*WIDTH/4 -btnReset.getWidth()/2,HEIGHT/2-btnReset.getHeight()/2);
+        btnReset.setPosition(3*WIDTH/5 -btnReset.getWidth()/2,HEIGHT/2-btnReset.getHeight()/2);
         btnReset.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -233,7 +233,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(playTexture));
         TextureRegionDrawable trdPlayPress = new TextureRegionDrawable(new TextureRegion(playPressTexture));
         ImageButton btnPlay = new ImageButton(trdPlay,trdPlayPress);
-        btnPlay.setPosition(WIDTH /2 - btnPlay.getWidth()/2, HEIGHT /2 - btnPlay.getHeight()/2);
+        btnPlay.setPosition(2*WIDTH /5 - btnPlay.getWidth()/2, HEIGHT /2 - btnPlay.getHeight()/2);
         btnPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -248,7 +248,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backTexture));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(backPressTexture));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(WIDTH /4 - btnBack.getWidth()/2, HEIGHT /2 - btnBack.getHeight()/2);
+        btnBack.setPosition(WIDTH /5 - btnBack.getWidth()/2, HEIGHT /2 - btnBack.getHeight()/2);
         btnBack.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -260,8 +260,8 @@ public abstract class GenericLevel extends GenericScreen {
 
         //Botón Volumen
 
-        Texture musicOn = assetManager.get("btn/musicOn.png");
-        Texture musicOff = assetManager.get("btn/musicOff.png");
+        Texture musicOn = assetManager.get("btn/soundPause.png");
+        Texture musicOff = assetManager.get("btn/mutePause.png");
         TextureRegionDrawable trdSound = new TextureRegionDrawable(new TextureRegion(musicOn));
         TextureRegionDrawable trdSoundFX = new TextureRegionDrawable(new TextureRegion(musicOff));
         ImageButton btnVolumen;
@@ -272,7 +272,7 @@ public abstract class GenericLevel extends GenericScreen {
             btnVolumen = new ImageButton(trdSoundFX, trdSound);
         }
 
-        btnVolumen.setPosition(MenuScreen.WIDTH / 2 - btnVolumen.getWidth() / 2, 7 * HEIGHT / 10);
+        btnVolumen.setPosition(4*WIDTH/5 -btnVolumen.getWidth()/2, HEIGHT/2-btnVolumen.getHeight()/2);
 
         btnVolumen.addListener(new ClickListener() {
             @Override

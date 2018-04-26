@@ -187,8 +187,8 @@ public class SettingsScreen extends GenericScreen {
 
         //Boton Reset
 
-        TextureRegionDrawable trdReset = new TextureRegionDrawable(new TextureRegion(new Texture("btn/reset-icon-614x460.png")));
-        TextureRegionDrawable trdResetPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/resetPress.png")));
+        TextureRegionDrawable trdReset = new TextureRegionDrawable(new TextureRegion(new Texture("btn/restart.png")));
+        TextureRegionDrawable trdResetPress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/restartPress.png")));
         ImageButton btnReset = new ImageButton(trdReset, trdResetPress);
         btnReset.setPosition(WIDTH - btnReset.getWidth(), HEIGHT - btnReset.getHeight());
 
