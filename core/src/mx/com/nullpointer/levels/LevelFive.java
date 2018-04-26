@@ -1,18 +1,11 @@
 package mx.com.nullpointer.levels;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 
-import mx.com.nullpointer.Scorpion;
-import mx.com.nullpointer.inanotherkingdom.Dragon;
+import mx.com.nullpointer.inanotherkingdom.Scorpion;
 import mx.com.nullpointer.inanotherkingdom.Main;
-import mx.com.nullpointer.inanotherkingdom.Enemy;
-import mx.com.nullpointer.inanotherkingdom.LongWeapon;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 /**
  * Created by mota on 2/12/18.
