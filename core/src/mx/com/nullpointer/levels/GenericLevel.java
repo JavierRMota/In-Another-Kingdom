@@ -33,7 +33,7 @@ import mx.com.nullpointer.utils.Text;
 
 public abstract class GenericLevel extends GenericScreen {
     //ULTIMATE LEVEL
-    protected static final int ULTIMATE_LEVEL = 5;
+    protected static final int ULTIMATE_LEVEL = 6;
     //Maps
     protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer render;
