@@ -36,7 +36,7 @@ public abstract class GenericLevel extends GenericScreen {
 
     private Preferences prefesTotal = Gdx.app.getPreferences("Settings");
     //ULTIMATE LEVEL
-    protected static final int ULTIMATE_LEVEL = 5;
+    protected static final int ULTIMATE_LEVEL = 6;
     //Maps
     protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer render;

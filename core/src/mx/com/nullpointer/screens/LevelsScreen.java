@@ -18,7 +18,7 @@ import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.utils.Text;
 
 
-/**
+/*
  * Created by MarinaHaro on 25/02/18.
  */
 
