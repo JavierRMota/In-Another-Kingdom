@@ -86,7 +86,7 @@ public class MenuScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,lastLevel+5));
+                game.setScreen(new LoadingScreen(game,LVLTWO));
             }
         });
         menuStage.addActor(btnPlay);
