@@ -107,7 +107,7 @@ public class LevelTwo extends GenericLevel {
         //Background
         batch.begin();
         drawBackground();
-        batch.draw(endTexture, MAP_WIDTH-endTexture.getWidth(),60);
+        batch.draw(endTexture, MAP_WIDTH-endTexture.getWidth(),40);
         batch.end();
         //View for the map
         render.setView(camera);
