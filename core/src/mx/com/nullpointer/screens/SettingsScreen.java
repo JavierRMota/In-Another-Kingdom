@@ -122,7 +122,7 @@ public class SettingsScreen extends GenericScreen {
                 return true;
             }
 
-            ;
+
 
         });
 
@@ -280,6 +280,8 @@ public class SettingsScreen extends GenericScreen {
         assetManager.unload("btn/button.png");
         assetManager.unload("btn/backbtn.png");
         assetManager.unload("btn/backbtnpress.png");
+        assetManager.unload("btn/restart.png");
+        assetManager.unload("btn/restartPress.png");
         //Background
         assetManager.unload("background/menubg.png");
 
