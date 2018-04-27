@@ -110,6 +110,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("niveles/dos/levelFour.png",Texture.class);
                 assetManager.load("niveles/dos/levelFive.png",Texture.class);
                 assetManager.load("niveles/dos/levelTwoBook.png",Texture.class);
+                assetManager.load("niveles/tres/levelThreeBook.png",Texture.class);
                 assetManager.load("niveles/levelLock.png",Texture.class);
                 assetManager.load("background/openBook.png",Texture.class);
                 assetManager.load("btn/backdarkbtn.png",Texture.class);
