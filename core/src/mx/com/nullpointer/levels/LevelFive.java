@@ -63,7 +63,7 @@ public class LevelFive extends GenericLevel {
         //Begin enemies array
         mummies = new Array<Mummy>();
         mummyTexture = assetManager.get("characters/momia.png");
-        //initEnemies();
+        initEnemies();
 
         //Begin game
         gameState= GameState.PLAY;
@@ -82,9 +82,8 @@ public class LevelFive extends GenericLevel {
         mummies.add(new Mummy(mummyTexture,115*70,70));
         mummies.add(new Mummy(mummyTexture,107*70,70*4));
         mummies.add(new Mummy(mummyTexture,121*70,70*6));
-        mummies.add(new Mummy(mummyTexture,133*70,70*7));
-        mummies.add(new Mummy(mummyTexture,140*70,70));
-        mummies.add(new Mummy(mummyTexture,144*70,70*5));
+        mummies.add(new Mummy(mummyTexture,139*70,70));
+        mummies.add(new Mummy(mummyTexture,137*70,70*4));
         mummies.add(new Mummy(mummyTexture,156*70,70*6));
         mummies.add(new Mummy(mummyTexture,165*70,70*2));
 
