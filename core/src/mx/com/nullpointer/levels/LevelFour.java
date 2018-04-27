@@ -228,49 +228,20 @@ public class LevelFour extends GenericLevel {
     @Override
     public void dispose()
     {
+        //Map
         assetManager.unload("map/nivelCuatro.tmx");
-        assetManager.unload("music/nivelUno.mp3");
-        assetManager.unload("music/sword.mp3");
+        //Background
         assetManager.unload("map/bookTwoP.png");
-        assetManager.unload("characters/laurence_descanso.png");
-        assetManager.unload("characters/laurence_running.png");
-        assetManager.unload("characters/tira_salto.png");
-        assetManager.unload("characters/tira_marometa.png");
+        assetManager.unload("map/bookTwoBg.png");
+        assetManager.unload("map/clouds.png");
+        //Laurence win, loose
         assetManager.unload("characters/laurence_burned.png");
         assetManager.unload("characters/laurence_celebrating.png");
         assetManager.unload("characters/laurence_drowning.png");
-        assetManager.unload("background/winLooseBg.png");
+        //Enemies
         assetManager.unload("characters/momia.png");
-        assetManager.unload("gameObjects/llave.png");
-        assetManager.unload("gameObjects/star.png");
-        assetManager.unload("gameObjects/llaveFull.png");
-        assetManager.unload("gameObjects/llaveEmpty.png");
-        assetManager.unload("gameObjects/moneda.png");
-        assetManager.unload("btn/playbtn.png");
-        assetManager.unload("btn/playbtnpress.png");
-        assetManager.unload("btn/backbtn.png");
-        assetManager.unload("btn/backbtnpress.png");
-        assetManager.unload("btn/pausebtn.png");
-        assetManager.unload("btn/pausebtnpress.png");
-        assetManager.unload("btn/resetbtn.png");
-        assetManager.unload("btn/resetbtnpress.png");
-        assetManager.unload("btn/backdarkbtn.png");
-        assetManager.unload("btn/backdarkbtnpress.png");
-        assetManager.unload("btn/levelsdarkbtn.png");
-        assetManager.unload("btn/levelsdarkbtnpress.png");
-        assetManager.unload("btn/nextbtn.png");
-        assetManager.unload("btn/nextbtnpress.png");
-        assetManager.unload("btn/resetdarkbtn.png");
-        assetManager.unload("btn/resetdarkbtnpress.png");
-        assetManager.unload("map/bookTwoBg.png");
-        assetManager.unload("map/clouds.png");
-        assetManager.unload("gameObjects/actionbtn.png");
-        assetManager.unload("gameObjects/actionbtnpress.png");
-        assetManager.unload("characters/laurence_attacking.png");
-        buttonScene.dispose();
-        looseScene.dispose();
-        winScene.dispose();
-        tiledMap.dispose();
+        //Generic dispose
+        disposeGenericLevel();
     }
 
 

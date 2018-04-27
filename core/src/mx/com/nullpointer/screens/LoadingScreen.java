@@ -140,7 +140,6 @@ public class LoadingScreen extends GenericScreen {
                 //Tutorial
                 assetManager.load("tutorial/swipeUp.png",Texture.class);
                 assetManager.load("tutorial/swipeDown.png",Texture.class);
-                assetManager.load("gameObjects/actionbtn.png",Texture.class);
                 //Normal things to load
                 loadGenericLevelAssets();
                 break;
