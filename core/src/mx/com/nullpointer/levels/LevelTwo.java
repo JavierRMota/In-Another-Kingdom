@@ -433,19 +433,10 @@ public class LevelTwo extends GenericLevel {
     {
         //Map
         assetManager.unload("map/nivelDos.tmx");
-        //Music
-        assetManager.unload("music/nivelUno.mp3");
-        assetManager.unload("music/sword.mp3");
         //Background
         assetManager.unload("map/bookOneT.png");
         assetManager.unload("map/bookOneBg.png");
         assetManager.unload("map/clouds.png");
-        //Laurence animation
-        assetManager.unload("characters/laurence_descanso.png");
-        assetManager.unload("characters/laurence_running.png");
-        assetManager.unload("characters/tira_salto.png");
-        assetManager.unload("characters/tira_marometa.png");
-        assetManager.unload("characters/laurence_attacking.png");
         //Laurence win, loose
         assetManager.unload("characters/laurence_burned.png");
         assetManager.unload("characters/laurence_celebrating.png");
@@ -454,39 +445,12 @@ public class LevelTwo extends GenericLevel {
         assetManager.unload("characters/finalboss.png");
         assetManager.unload("characters/fireball.png");
         assetManager.unload("characters/fireballRED.png");
-        //Background win loose
-        assetManager.unload("background/winLooseBg.png");
         assetManager.unload("background/castillo.png");
-        //Score
-        assetManager.unload("gameObjects/llave.png");
-        assetManager.unload("gameObjects/star.png");
-        assetManager.unload("gameObjects/llaveFull.png");
-        assetManager.unload("gameObjects/llaveEmpty.png");
-        assetManager.unload("gameObjects/moneda.png");
-        //Buttons
-        assetManager.unload("btn/playbtn.png");
-        assetManager.unload("btn/playbtnpress.png");
-        assetManager.unload("btn/backbtn.png");
-        assetManager.unload("btn/backbtnpress.png");
-        assetManager.unload("btn/pausebtn.png");
-        assetManager.unload("btn/pausebtnpress.png");
-        assetManager.unload("btn/resetbtn.png");
-        assetManager.unload("btn/resetbtnpress.png");
-        assetManager.unload("btn/backdarkbtn.png");
-        assetManager.unload("btn/backdarkbtnpress.png");
-        assetManager.unload("btn/levelsdarkbtn.png");
-        assetManager.unload("btn/levelsdarkbtnpress.png");
-        assetManager.unload("btn/nextbtn.png");
-        assetManager.unload("btn/nextbtnpress.png");
-        assetManager.unload("btn/resetdarkbtn.png");
-        assetManager.unload("btn/resetdarkbtnpress.png");
-        assetManager.unload("gameObjects/actionbtn.png");
-        assetManager.unload("gameObjects/actionbtnpress.png");
-        //Dispose objects
-        buttonScene.dispose();
-        looseScene.dispose();
-        winScene.dispose();
-        tiledMap.dispose();
+        //Tutorial
+        assetManager.unload("tutorial/pushButton.png");
+        assetManager.unload("tutorial/swipeRight.png");
+        //Generic dispose
+        disposeGenericLevel();
     }
 
 
