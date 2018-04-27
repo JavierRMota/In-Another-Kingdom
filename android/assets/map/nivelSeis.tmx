@@ -37,6 +37,11 @@
     <property name="type" value="lava"/>
    </properties>
   </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="lava"/>
+   </properties>
+  </tile>
   <tile id="8">
    <properties>
     <property name="type" value="lava"/>
