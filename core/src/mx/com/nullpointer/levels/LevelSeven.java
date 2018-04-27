@@ -47,17 +47,17 @@ public class LevelSeven extends GenericLevel {
     }
     protected void loadBackground()
     {
-        Texture backgroundTexture = assetManager.get("map/bookOneBg.png");
+        Texture backgroundTexture = assetManager.get("map/bookThreeBg.png");
         backgroundOne = new Sprite(backgroundTexture);
         backgroundTwo = new Sprite(backgroundTexture);
         backgroundOne.setPosition(0,0);
         backgroundTwo.setPosition(backgroundOne.getWidth(),0);
-        Texture cloudsTexture = assetManager.get("map/clouds.png");
+        Texture cloudsTexture = assetManager.get("map/clouds_tres.png");
         cloudsOne = new Sprite(cloudsTexture);
         cloudsTwo = new Sprite(cloudsTexture);
         cloudsOne.setPosition(0,0);
         cloudsTwo.setPosition(cloudsOne.getWidth(),0);
-        Texture objectTexture = assetManager.get("map/bookOneT.png");
+        Texture objectTexture = assetManager.get("map/bookThreeF.png");
         objectsOne = new Sprite(objectTexture);
         objectsTwo = new Sprite(objectTexture);
         objectsOne.setPosition(0,0);

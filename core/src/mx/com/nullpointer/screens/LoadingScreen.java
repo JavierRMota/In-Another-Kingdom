@@ -272,7 +272,7 @@ public class LoadingScreen extends GenericScreen {
             case LVLSEVEN:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 //Map
-                assetManager.load("map/nivelUno.tmx", TiledMap.class);
+                assetManager.load("map/nivelSiete.tmx", TiledMap.class);
                 //Background
                 assetManager.load("map/bookThreeBg.png",Texture.class);
                 assetManager.load("map/clouds_tres.png",Texture.class);
