@@ -118,6 +118,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("niveles/lockedBook.png",Texture.class);
                 assetManager.load("niveles/playbtnlevels.png",Texture.class);
                 assetManager.load("niveles/playbtnpresslevels.png",Texture.class);
+                assetManager.load("btn/howto.png",Texture.class);
                 break;
             case ABOUT:
                 assetManager.load("background/menubg.png",Texture.class);

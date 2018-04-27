@@ -495,6 +495,24 @@ class LevelsScreen extends GenericScreen{
         });
         levelsStage.addActor(btnThird);
         currentScene = levelsStage;
+
+        //Boton How To
+        Texture howTexture = assetManager.get("btn/howto.png");
+        Texture howPressTexture = assetManager.get("btn/howto.png");
+        TextureRegionDrawable trdHow = new TextureRegionDrawable(new TextureRegion(howTexture));
+        TextureRegionDrawable trdHowPress = new TextureRegionDrawable(new TextureRegion(howPressTexture));
+        ImageButton btnHow = new ImageButton(trdHow,trdHowPress);
+        btnHow.setPosition(WIDTH/2-btnHow.getWidth()/2, HEIGHT/5 - btnHow.getHeight()/2);
+
+        btnHow.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,TUTORIAL));
+
+            }
+        });
+        levelsStage.addActor(btnHow);
     }
 
 

@@ -19,6 +19,7 @@ import mx.com.nullpointer.inanotherkingdom.Main;
 public class TutorialScreen extends GenericScreen {
     
     private Texture backgroundTexture;
+    private Texture bckgndTexture;
 
     private Stage tutorialStage;
 
@@ -35,10 +36,8 @@ public class TutorialScreen extends GenericScreen {
             }*/
 
         backgroundTexture = assetManager.get("background/howTo.png");
-        Gdx.input.setInputProcessor(tutorialStage);
-
+        bckgndTexture = assetManager.get("background/menubg.png");
         tutorialStage = new Stage(view);
-
 
         //Botón Back
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(new Texture("btn/backbtn.png")));
@@ -50,12 +49,12 @@ public class TutorialScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,MENU));
+                game.setScreen(new LoadingScreen(game,LEVELS));
 
             }
         });
         tutorialStage.addActor(btnBack);
-
+        Gdx.input.setInputProcessor(tutorialStage);
 
     }
 
@@ -63,7 +62,8 @@ public class TutorialScreen extends GenericScreen {
     public void render(float delta) {
         clearScreen();
         batch.begin();
-        batch.draw(backgroundTexture,0 ,0);
+        batch.draw(bckgndTexture,0 ,0);
+        batch.draw(backgroundTexture,100 ,0);
         batch.end();
         tutorialStage.draw();
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
