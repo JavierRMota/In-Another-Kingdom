@@ -194,13 +194,13 @@ class LevelsScreen extends GenericScreen{
 
 
         if (lastLevel >= 7){
-            levelTwoStage.addActor(imgLevelSeven);
-            levelTwoStage.addActor(btnSeven);
-            levelTwoStage.addActor(imgStarLevel7);
+            levelThreeStage.addActor(imgLevelSeven);
+            levelThreeStage.addActor(btnSeven);
+            levelThreeStage.addActor(imgStarLevel7);
 
         }
         else{
-            levelTwoStage.addActor(imgLevelSevenLock);
+            levelThreeStage.addActor(imgLevelSevenLock);
         }
 
 
@@ -230,12 +230,12 @@ class LevelsScreen extends GenericScreen{
 
 
         if (lastLevel >= 8){
-            levelTwoStage.addActor(imgLevelEight);
-            levelTwoStage.addActor(btnEight);
-            levelTwoStage.addActor(imgStarLevel8);
+            levelThreeStage.addActor(imgLevelEight);
+            levelThreeStage.addActor(btnEight);
+            levelThreeStage.addActor(imgStarLevel8);
         }
         else{
-            levelTwoStage.addActor(imgLevelEightLock);
+            levelThreeStage.addActor(imgLevelEightLock);
         }
 
     }
