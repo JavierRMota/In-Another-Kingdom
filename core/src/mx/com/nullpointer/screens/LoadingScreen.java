@@ -99,6 +99,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("logo_alargado.png",Texture.class);
                 assetManager.load("gameObjects/star.png",Texture.class);
+                assetManager.load("niveles/uno/levelOneBook.png",Texture.class);
                 assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("niveles/uno/levelOne.png",Texture.class);
                 assetManager.load("niveles/uno/levelTwo.png",Texture.class);

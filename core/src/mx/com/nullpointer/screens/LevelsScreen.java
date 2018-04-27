@@ -408,8 +408,9 @@ class LevelsScreen extends GenericScreen{
         levelsStage.addActor(btnBack);
 
         //Botón Primer Nivel
-        TextureRegionDrawable trdFirst = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOneBook.png")));
-        TextureRegionDrawable trdFirstPress = new TextureRegionDrawable(new TextureRegion(new Texture("niveles/uno/levelOneBook.png")));
+        Texture levelOneTexture = assetManager.get("niveles/uno/levelOneBook.png");
+        TextureRegionDrawable trdFirst = new TextureRegionDrawable(new TextureRegion(levelOneTexture));
+        TextureRegionDrawable trdFirstPress = new TextureRegionDrawable(new TextureRegion(levelOneTexture));
         ImageButton btnFirst = new ImageButton(trdFirst,trdFirstPress);
         btnFirst.setPosition(btnFirst.getWidth(), HEIGHT /2 - btnFirst.getHeight()/2);
 
