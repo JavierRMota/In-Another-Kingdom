@@ -144,6 +144,100 @@ class LevelsScreen extends GenericScreen{
         });
         levelThreeStage.addActor(btnBackSub3);
 
+        Texture levelSixTexture = assetManager.get("niveles/dos/levelThree.png");
+        TextureRegionDrawable trdSix = new TextureRegionDrawable(new TextureRegion(levelSixTexture));
+        Image imgLevelSix= new Image(trdSix);
+        imgLevelSix.setPosition(165, 393);
+
+
+        ImageButton btnSix = new ImageButton(trdPlay,trdPlayPress);
+        btnSix.setPosition(397 , 400);
+        btnSix.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,LVLTHREE));
+
+            }
+        });
+
+        Image imgStarLevel6 = new Image(trdStarLevels);
+        imgStarLevel6.setPosition(397, 454);
+
+        levelThreeStage.addActor(imgLevelSix);
+        levelThreeStage.addActor(btnSix);
+        levelThreeStage.addActor(imgStarLevel6);
+
+        //Botón Subnivel 2 primer nivel
+        Texture levelSevenTexture = assetManager.get("niveles/dos/levelFour.png");
+        TextureRegionDrawable trdLevelSeven = new TextureRegionDrawable(new TextureRegion(levelSevenTexture));
+        Image imgLevelSeven = new Image(trdLevelSeven);
+        imgLevelSeven.setPosition(384 , 91);
+
+
+        ImageButton btnSeven = new ImageButton(trdPlay,trdPlayPress);
+        btnSeven.setPosition(137,  91);
+        btnSeven.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,LVLFOUR));
+
+            }
+        });
+
+        Image imgStarLevel7 = new Image(trdStarLevels);
+        imgStarLevel7.setPosition(137, 150);
+
+        Image imgLevelSevenLock = new Image(trdLevelLock);
+        imgLevelSevenLock.setPosition(400, 91);
+
+
+        if (lastLevel >= 7){
+            levelTwoStage.addActor(imgLevelSeven);
+            levelTwoStage.addActor(btnSeven);
+            levelTwoStage.addActor(imgStarLevel7);
+
+        }
+        else{
+            levelTwoStage.addActor(imgLevelSevenLock);
+        }
+
+
+        //Botón Subnivel 3 segundo
+        Texture levelEightTexture = assetManager.get("niveles/dos/levelFive.png");
+        TextureRegionDrawable trdLevelEight = new TextureRegionDrawable(new TextureRegion(levelEightTexture));
+        Image imgLevelEight = new Image(trdLevelEight);
+        imgLevelEight.setPosition(702, 311);
+
+
+        ImageButton btnEight = new ImageButton(trdPlay,trdPlayPress);
+        btnEight.setPosition(836, 103);
+        btnEight.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game,LVLFIVE));
+
+            }
+        });
+
+        Image imgStarLevel8 = new Image(trdStarLevels);
+        imgStarLevel8.setPosition(836, 158);
+
+        Image imgLevelEightLock = new Image(trdLevelLock);
+        imgLevelEightLock.setPosition(836, 311);
+
+
+        if (lastLevel >= 8){
+            levelTwoStage.addActor(imgLevelEight);
+            levelTwoStage.addActor(btnEight);
+            levelTwoStage.addActor(imgStarLevel8);
+        }
+        else{
+            levelTwoStage.addActor(imgLevelEightLock);
+        }
+
     }
 
     private void loadSecondBook() {
@@ -663,6 +757,29 @@ class LevelsScreen extends GenericScreen{
     }
 
     private void drawThree() {
+        Preferences prefs = Gdx.app.getPreferences("Progress");
+        int score6 = prefs.getInteger("score6",0);
+        String cadenaScore6 = "";
+        cadenaScore6 = String.valueOf(score6);
+
+        int score7 = prefs.getInteger("score7",0);
+        String cadenaScore7 = "";
+        cadenaScore7 = String.valueOf(score7);
+
+        int score8 = prefs.getInteger("score8",0);
+        String cadenaScore8 = "";
+        cadenaScore8 = String.valueOf(score8);
+
+        batch.begin();
+        text.showMsg(batch,"LVL 7", 397,588,2,'l');
+        text.showMsg(batch, cadenaScore6, 457,520,2,'l');
+        if (lastLevel >= 7){
+            text.showMsg(batch,"LVL 8", 138,288,2,'l');
+            text.showMsg(batch, cadenaScore7, 199  ,212 ,2,'l');}
+        if (lastLevel >= 8){
+            text.showMsg(batch,"LVL 9", 834,288,2,'l');
+            text.showMsg(batch, cadenaScore8, 897 ,220,2,'l');}
+        batch.end();
     }
 
     private enum Stages
