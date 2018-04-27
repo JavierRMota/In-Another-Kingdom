@@ -53,8 +53,8 @@ public class LevelFive extends GenericLevel {
         loadInputProcessor();
 
         //Create Final Boss
-        Texture boss =assetManager.get("characters/finalboss.png");
-        finalBoss = new Scorpion(boss,MAP_WIDTH-boss.getWidth()/4,100);
+        Texture boss =assetManager.get("characters/finalboss_two.png");
+        finalBoss = new Scorpion(boss,MAP_WIDTH- boss.getWidth()/5,70);
 
         timerEnemy=0;
         fightStart =false;
@@ -63,7 +63,7 @@ public class LevelFive extends GenericLevel {
         //Begin enemies array
         mummies = new Array<Mummy>();
         mummyTexture = assetManager.get("characters/momia.png");
-        initEnemies();
+        //initEnemies();
 
         //Begin game
         gameState= GameState.PLAY;
@@ -124,6 +124,7 @@ public class LevelFive extends GenericLevel {
         //Background
         batch.begin();
         drawBackground();
+        batch.draw(endTexture, MAP_WIDTH-endTexture.getWidth(),40);
         batch.end();
         //View for the map
         render.setView(camera);
@@ -156,7 +157,19 @@ public class LevelFive extends GenericLevel {
 
     private void updateBoss(float delta) {
         if(!finalBoss.isDead())
+        {
             finalBoss.render(batch,delta);
+            if(!finalBoss.isAttacking()) {
+                timerEnemy += delta;
+                if(timerEnemy>1)
+                {
+                    timerEnemy=0;
+                    finalBoss.attack();
+                }
+            }
+
+        }
+
     }
 
 
@@ -223,9 +236,9 @@ public class LevelFive extends GenericLevel {
         checkCoins(cx,cy,layer);
         checkEnemies();
         updateMummies(layer,delta);
-        /*if(laurence.getX()<MAP_WIDTH - 7*WIDTH /8 || finalBoss.isDead())
+        if(laurence.getX()<MAP_WIDTH - 7*WIDTH /8 || finalBoss.isDead())
             laurence.move(layer,delta, cx, cy);
-        else*/
+        else
             fightStart= true;
         winOrLoose();
     }
@@ -254,6 +267,19 @@ public class LevelFive extends GenericLevel {
                     return;
                 }
                 else{
+                    loose();
+                }
+            }
+        }
+        if(fightStart)
+        {
+            if(finalBoss.isAttacking() && finalBoss.getTimer()>0.1*4)
+            {
+                if(laurence.getMovementState()== MainCharacter.MovementState.ATTACKING)
+                {
+                    finalBoss.receiveDamage(20);
+                }
+                else if(finalBoss.getTimer()>0.1*5){
                     loose();
                 }
             }
@@ -295,13 +321,13 @@ public class LevelFive extends GenericLevel {
     public void dispose()
     {
         //Map
-        assetManager.unload("map/nivelDos.tmx");
+        assetManager.unload("map/nivelCinco.tmx");
         //Music
         assetManager.unload("music/nivelUno.mp3");
         assetManager.unload("music/sword.mp3");
         //Background
-        assetManager.unload("map/bookOneT.png");
-        assetManager.unload("map/bookOneBg.png");
+        assetManager.unload("map/bookTwoP.png");
+        assetManager.unload("map/bookTwoBg.png");
         assetManager.unload("map/clouds.png");
         //Laurence animation
         assetManager.unload("characters/laurence_descanso.png");
@@ -314,9 +340,7 @@ public class LevelFive extends GenericLevel {
         assetManager.unload("characters/laurence_celebrating.png");
         assetManager.unload("characters/laurence_drowning.png");
         //Dragon
-        assetManager.unload("characters/finalboss.png");
-        assetManager.unload("characters/fireball.png");
-        assetManager.unload("characters/fireballRED.png");
+        assetManager.unload("characters/finalboss_two.png");
         //Background win loose
         assetManager.unload("background/winLooseBg.png");
         assetManager.unload("background/esfinge.png");
