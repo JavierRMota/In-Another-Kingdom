@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public class Scorpion extends Enemy{
-    protected int life = 100;
+    protected int life = 200;
+    protected Animation attackAnimation;
     public Scorpion(Texture texture, float x, float y)
     {
         //Animación de correr
@@ -17,9 +18,11 @@ public class Scorpion extends Enemy{
 
         characterTexture = region.split(572,412);
         animation = new Animation(0.1f,
-                characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
-                characterTexture[0][4],characterTexture[0][3],characterTexture[0][2],characterTexture[0][1]);
+                characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][2],characterTexture[0][1]);
         animation.setPlayMode(Animation.PlayMode.LOOP);
+        attackAnimation = new Animation(0.1f,
+                characterTexture[0][4],characterTexture[0][5], characterTexture[0][6],characterTexture[0][7],characterTexture[0][8],characterTexture[0][7],characterTexture[0][6], characterTexture[0][5] );
+        attackAnimation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation=0;
 
         this.x= x;
