@@ -1,5 +1,7 @@
 package mx.com.nullpointer.levels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,6 +23,7 @@ public class LevelFour extends GenericLevel {
     }
     @Override
     public void show() {
+        Gdx.input.setCatchBackKey(true);
         //Create the camera for all game information and buttons
         createHUD();
         //Load TiledMap
@@ -132,6 +135,9 @@ public class LevelFour extends GenericLevel {
         batch.end();
         //Draw current input scene
         drawInputScene();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
+            pause();
+        }
     }
 
     private void drawEnemies(float delta) {

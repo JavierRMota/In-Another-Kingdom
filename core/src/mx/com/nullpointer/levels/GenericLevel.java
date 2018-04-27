@@ -1,6 +1,7 @@
 package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
@@ -604,6 +605,7 @@ public abstract class GenericLevel extends GenericScreen {
         //laurence.setMovementState(MainCharacter.MovementState.STANDING);
 
     }
+
 
     //What we do when we resume the game
     @Override

@@ -1,6 +1,7 @@
 package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -28,6 +29,10 @@ public class TutorialScreen extends GenericScreen {
 
     @Override
     public void show() {
+        Gdx.input.setCatchBackKey(true);
+        /*if(Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
+                pause();
+            }*/
 
         backgroundTexture = assetManager.get("background/howTo.png");
         Gdx.input.setInputProcessor(tutorialStage);
@@ -61,6 +66,8 @@ public class TutorialScreen extends GenericScreen {
         batch.draw(backgroundTexture,0 ,0);
         batch.end();
         tutorialStage.draw();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
+        {game.setScreen(new LoadingScreen(game, MENU));}
 
     }
 

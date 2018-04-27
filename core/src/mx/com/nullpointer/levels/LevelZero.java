@@ -1,12 +1,14 @@
 package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import mx.com.nullpointer.inanotherkingdom.Main;
+import mx.com.nullpointer.screens.LoadingScreen;
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 
@@ -32,6 +34,7 @@ public class LevelZero extends GenericLevel {
     }
     @Override
     public void show() {
+        Gdx.input.setCatchBackKey(true);
         //Create the camera for all game information and buttons
         createHUD();
         //Load TiledMap
@@ -210,7 +213,16 @@ public class LevelZero extends GenericLevel {
             batch.end();
             //Check which scene to draw
             drawInputScene();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
+                pause();
+            }
+
+
+
+
+
         Gdx.app.log("render", "fps="+Gdx.graphics.getFramesPerSecond());
+
 
     }
 
