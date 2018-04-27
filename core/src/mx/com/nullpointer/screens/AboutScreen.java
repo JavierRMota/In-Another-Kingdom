@@ -1,6 +1,7 @@
 package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -37,6 +38,7 @@ class AboutScreen extends GenericScreen {
     public void show() {
         loadTextures();
         createObjects();
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -145,6 +147,9 @@ class AboutScreen extends GenericScreen {
 
         //Buttons
         aboutStage.draw();
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
+        {game.setScreen(new LoadingScreen(game, MENU));}
 
 
     }

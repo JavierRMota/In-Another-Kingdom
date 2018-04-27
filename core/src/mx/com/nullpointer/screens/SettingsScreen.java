@@ -47,6 +47,7 @@ public class SettingsScreen extends GenericScreen {
     public void show() {
         createObjects();
         loadTextures();
+        Gdx.input.setCatchBackKey(true);
 
 
     }
@@ -266,6 +267,8 @@ public class SettingsScreen extends GenericScreen {
         }
         batch.end();
         escenaAjustes.draw();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
+        {game.setScreen(new LoadingScreen(game, MENU));}
 
     }
 
