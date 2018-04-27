@@ -202,6 +202,7 @@ public class SettingsScreen extends GenericScreen {
                             prefsProgress.remove("score"+i);
                         }
                         prefsProgress.remove("lastLevel");
+                        prefsProgress.flush();
                         preferencesTotal.remove("music");
                         preferencesTotal.remove("Difficulty");
                         preferencesTotal.remove("mode");
