@@ -21,7 +21,7 @@ public class MainCharacter extends GameObject
     private float timerRunning, timerAction;
     private float x,y; //Coordenadas de dónde se moverá
     private Preferences prefs = Gdx.app.getPreferences("Settings");
-    private float VY = 20*400/prefs.getInteger("Difficulty",400), G=30*400/prefs.getInteger("Difficulty",400);
+    private float VY = 20, G=30;
     private int VX = prefs.getInteger("Difficulty",400);
     private float animationSpeed = 0.04f;
 
@@ -31,6 +31,17 @@ public class MainCharacter extends GameObject
 
     public MainCharacter(Texture standingTexture,Texture runningTexture,Texture jumpingTexture, Texture dodgingTexture, Texture attackingTexture)
     {
+        //Cargamos el salto
+        switch (prefs.getInteger("Difficulty",400))
+        {
+            case 300:
+                VY = 25;
+                break;
+            case 500:
+                animationSpeed = 0.03f;
+                break;
+        }
+
         //Cargamos las animaciones
 
         //Animación de correr

@@ -28,7 +28,7 @@ public class LevelFive extends GenericLevel {
     //Constructor
     public LevelFive(Main game, int level)
     {
-        super(game,level,200*70,229);
+        super(game,level,200*70,254);
     }
     @Override
     public void show() {
@@ -50,7 +50,7 @@ public class LevelFive extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        scoreInit(113);
+        scoreInit(119);
 
         //Input Processors
         loadInputProcessor();
@@ -283,7 +283,7 @@ public class LevelFive extends GenericLevel {
             {
                 if(laurence.getMovementState()== MainCharacter.MovementState.ATTACKING)
                 {
-                    finalBoss.receiveDamage(20);
+                    finalBoss.receiveDamage(30);
                 }
                 else if(finalBoss.getTimer()>0.1*5){
                     loose();

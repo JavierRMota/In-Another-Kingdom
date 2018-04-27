@@ -250,6 +250,37 @@ public class LoadingScreen extends GenericScreen {
                 //Normal things to load
                 loadGenericLevelAssets();
                 break;
+            case LVLSIX:
+                assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+                //Map
+                assetManager.load("map/nivelSeis.tmx", TiledMap.class);
+                //Background
+                assetManager.load("map/bookOneBg.png",Texture.class);
+                assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("map/bookOneT.png",Texture.class);
+                //Laurence win, loose
+                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/laurence_celebrating.png", Texture.class);
+                assetManager.load("characters/laurence_drowning.png", Texture.class);
+
+                //Normal things to load
+                loadGenericLevelAssets();
+                break;
+            case LVLSEVEN:
+                assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+                //Map
+                assetManager.load("map/nivelUno.tmx", TiledMap.class);
+                //Background
+                assetManager.load("map/bookOneBg.png",Texture.class);
+                assetManager.load("map/clouds.png",Texture.class);
+                assetManager.load("map/bookOneT.png",Texture.class);
+                //Laurence win, loose
+                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/laurence_celebrating.png", Texture.class);
+                assetManager.load("characters/laurence_drowning.png", Texture.class);
+                //Normal things to load
+                loadGenericLevelAssets();
+                break;
             default:
                 Gdx.app.log("ERROR","Screen not implemented");
 
@@ -352,6 +383,12 @@ public class LoadingScreen extends GenericScreen {
                     break;
                 case LVLFIVE:
                     game.setScreen(new LevelFive(game,screen));
+                    break;
+                case LVLSIX:
+                    game.setScreen(new LevelSix(game,screen));
+                    break;
+                case LVLSEVEN:
+                    game.setScreen(new LevelSeven(game,screen));
                     break;
                 default:
                     Gdx.app.log("ERROR:","Screen not implemented");

@@ -9,9 +9,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 
-public class LevelSix extends GenericLevel {
+public class LevelSeven extends GenericLevel {
     //Constructor
-    public LevelSix(Main game, int level)
+    public LevelSeven(Main game, int level)
     {
         super(game,level,200*70,125);
     }
@@ -21,7 +21,7 @@ public class LevelSix extends GenericLevel {
         //Create the camera for all game information and buttons
         createHUD();
         //Load TiledMap
-        loadMap("map/nivelSeis.tmx");
+        loadMap("map/nivelSiete.tmx");
         //Load Textures
         loadTextures();
 
@@ -216,7 +216,7 @@ public class LevelSix extends GenericLevel {
     @Override
     public void dispose()
     {
-        assetManager.unload("map/nivelSeis.tmx");
+        assetManager.unload("map/nivelSiete.tmx");
 
         assetManager.unload("map/bookOneT.png");
         assetManager.unload("map/bookOneBg.png");
@@ -230,3 +230,4 @@ public class LevelSix extends GenericLevel {
         disposeGenericLevel();
     }
 }
+
