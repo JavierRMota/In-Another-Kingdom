@@ -86,8 +86,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backbtnpress.png",Texture.class);
                 assetManager.load("btn/musicOn.png",Texture.class);
                 assetManager.load("btn/musicOff.png",Texture.class);
-                assetManager.load("btn/reset-icon-614x460.png", Texture.class);
-                assetManager.load("btn/resetPress.png", Texture.class);
+                assetManager.load("btn/restart.png", Texture.class);
+                assetManager.load("btn/restartPress.png", Texture.class);
                 //Background
                 assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("skin/golden-ui-skin.json",Skin.class);
@@ -300,8 +300,8 @@ public class LoadingScreen extends GenericScreen {
         assetManager.load("btn/resetdarkbtnpress.png",Texture.class);
         assetManager.load("gameObjects/actionbtn.png",Texture.class);
         assetManager.load("gameObjects/actionbtnpress.png",Texture.class);
-        assetManager.load("btn/musicOn.png",Texture.class);
-        assetManager.load("btn/musicOff.png",Texture.class);
+        assetManager.load("btn/mutePause.png",Texture.class);
+        assetManager.load("btn/soundPause.png",Texture.class);
 
     }
 
