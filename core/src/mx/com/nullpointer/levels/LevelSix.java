@@ -13,7 +13,7 @@ public class LevelSix extends GenericLevel {
     //Constructor
     public LevelSix(Main game, int level)
     {
-        super(game,level,200*70,125);
+        super(game,level,200*70,174);
     }
     @Override
     public void show() {
