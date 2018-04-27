@@ -156,7 +156,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,LVLTHREE));
+                game.setScreen(new LoadingScreen(game,LVLSIX));
 
             }
         });
@@ -181,7 +181,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,LVLFOUR));
+                game.setScreen(new LoadingScreen(game,LVLSEVEN));
 
             }
         });
@@ -217,7 +217,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,LVLFIVE));
+                game.setScreen(new LoadingScreen(game,LVLSEVEN));
 
             }
         });
