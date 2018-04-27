@@ -105,6 +105,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("niveles/uno/levelTwo.png",Texture.class);
                 assetManager.load("niveles/uno/levelZero.png",Texture.class);
                 assetManager.load("niveles/uno/levelOneBook.png",Texture.class);
+                assetManager.load("niveles/tres/levelThreeBook.png",Texture.class);
                 assetManager.load("niveles/dos/levelThree.png",Texture.class);
                 assetManager.load("niveles/dos/levelFour.png",Texture.class);
                 assetManager.load("niveles/dos/levelFive.png",Texture.class);
@@ -255,9 +256,9 @@ public class LoadingScreen extends GenericScreen {
                 //Map
                 assetManager.load("map/nivelSeis.tmx", TiledMap.class);
                 //Background
-                assetManager.load("map/bookOneBg.png",Texture.class);
-                assetManager.load("map/clouds.png",Texture.class);
-                assetManager.load("map/bookOneT.png",Texture.class);
+                assetManager.load("map/bookThreeBg.png",Texture.class);
+                assetManager.load("map/clouds_tres.png",Texture.class);
+                assetManager.load("map/bookThreeF.png",Texture.class);
                 //Laurence win, loose
                 assetManager.load("characters/laurence_burned.png",Texture.class);
                 assetManager.load("characters/laurence_celebrating.png", Texture.class);
@@ -271,9 +272,9 @@ public class LoadingScreen extends GenericScreen {
                 //Map
                 assetManager.load("map/nivelUno.tmx", TiledMap.class);
                 //Background
-                assetManager.load("map/bookOneBg.png",Texture.class);
-                assetManager.load("map/clouds.png",Texture.class);
-                assetManager.load("map/bookOneT.png",Texture.class);
+                assetManager.load("map/bookThreeBg.png",Texture.class);
+                assetManager.load("map/clouds_tres.png",Texture.class);
+                assetManager.load("map/bookThreeF.png",Texture.class);
                 //Laurence win, loose
                 assetManager.load("characters/laurence_burned.png",Texture.class);
                 assetManager.load("characters/laurence_celebrating.png", Texture.class);

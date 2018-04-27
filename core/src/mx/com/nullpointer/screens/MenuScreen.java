@@ -63,6 +63,11 @@ public class MenuScreen extends GenericScreen {
             case 5:
                 levelTextureName = "background/menu_bg_2.png";
                 break;
+            case 6:
+            case 7:
+            case 8:
+                levelTextureName = "background/menu_bg_1.png";
+                break;
 
         }
         backgroundTexture = assetManager.get(levelTextureName);

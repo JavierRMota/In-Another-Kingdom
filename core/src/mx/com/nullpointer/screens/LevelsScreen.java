@@ -465,8 +465,8 @@ class LevelsScreen extends GenericScreen{
 
         //Botón Tercer Nivel
         if (lastLevel >= 6){
-            textureNormal = assetManager.get("niveles/dos/levelTwoBook.png");
-            textureLock = assetManager.get("niveles/dos/levelTwoBook.png");
+            textureNormal = assetManager.get("niveles/tres/levelThreeBook.png");
+            textureLock = assetManager.get("niveles/tres/levelThreeBook.png");
         }else {
             textureNormal = assetManager.get("niveles/lockedBook.png");
             textureLock = assetManager.get("niveles/lock.png");

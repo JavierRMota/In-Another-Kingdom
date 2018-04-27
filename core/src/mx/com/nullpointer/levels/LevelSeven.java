@@ -218,9 +218,9 @@ public class LevelSeven extends GenericLevel {
     {
         assetManager.unload("map/nivelSiete.tmx");
 
-        assetManager.unload("map/bookOneT.png");
-        assetManager.unload("map/bookOneBg.png");
-        assetManager.unload("map/clouds.png");
+        assetManager.unload("map/bookThreeF.png");
+        assetManager.unload("map/bookThreeBg.png");
+        assetManager.unload("map/clouds_tres.png");
 
         assetManager.unload("characters/laurence_burned.png");
         assetManager.unload("characters/laurence_celebrating.png");
