@@ -24,6 +24,9 @@ public class LevelSeven extends GenericLevel {
         loadMap("map/nivelSiete.tmx");
         //Load Textures
         loadTextures();
+        //Win and loose
+        loadWinLooseTextures("characters/laurence_falling_three.png","characters/laurence_celebrating_three.png","characters/laurence_burned.png");
+
 
         //Load Character
         loadCharacter();
@@ -35,7 +38,7 @@ public class LevelSeven extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        scoreInit(61);
+        scoreInit(105);
 
         //Input Processors
         loadInputProcessor();
@@ -223,9 +226,8 @@ public class LevelSeven extends GenericLevel {
         assetManager.unload("map/clouds_tres.png");
 
         assetManager.unload("characters/laurence_burned.png");
-        assetManager.unload("characters/laurence_celebrating.png");
-        assetManager.unload("characters/laurence_drowning.png");
-
+        assetManager.unload("characters/laurence_celebrating_three.png");
+        assetManager.unload("characters/laurence_falling_three.png");
         //Generic dispose
         disposeGenericLevel();
     }

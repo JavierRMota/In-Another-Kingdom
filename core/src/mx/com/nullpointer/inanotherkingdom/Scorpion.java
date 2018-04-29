@@ -23,7 +23,7 @@ public class Scorpion extends Enemy{
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][2],characterTexture[0][1]);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         attackAnimation = new Animation(0.1f,
-                characterTexture[0][4],characterTexture[0][5], characterTexture[0][6],characterTexture[0][7],characterTexture[0][8],characterTexture[0][7],characterTexture[0][6], characterTexture[0][5] );
+                characterTexture[0][4],characterTexture[1][0], characterTexture[1][1],characterTexture[1][2],characterTexture[1][3],characterTexture[1][2],characterTexture[1][1], characterTexture[1][0] );
         attackAnimation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation=0;
 

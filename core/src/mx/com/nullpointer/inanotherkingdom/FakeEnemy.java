@@ -26,6 +26,21 @@ public class FakeEnemy extends Enemy {
         sprite.setPosition(x,y);
 
     }
+    public FakeEnemy(Texture texture, float y) {
+        //Animación de correr
+        TextureRegion region = new TextureRegion(texture);
+        //Tamaño
+        TextureRegion[][] characterTexture = region.split(572,412);
+        animation = new Animation(0.1f,
+                characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][2],characterTexture[0][1]);
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+        timerAnimation=0;
+        x= GenericScreen.WIDTH;
+        this.y= y;
+        sprite = new Sprite(characterTexture[0][0]);
+        sprite.setPosition(x,this.y);
+
+    }
     public void moveEnemy(float delta, SpriteBatch batch)
     {
         x+=delta*VX;

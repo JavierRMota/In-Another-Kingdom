@@ -135,13 +135,15 @@ public abstract class GenericLevel extends GenericScreen {
         coinTexture=assetManager.get("gameObjects/moneda.png");
         fullKeyTexture = assetManager.get("gameObjects/llaveFull.png");
         emptyKeyTexture = assetManager.get("gameObjects/llaveEmpty.png");
-
-        laurenceBurnedLoose = assetManager.get("characters/laurence_burned.png");
-        laurenceCelebration=assetManager.get("characters/laurence_celebrating.png");
-        laurenceDrownedLoose = assetManager.get("characters/laurence_drowning.png");
         winLooseBackground = assetManager.get("background/winLooseBg.png");
         starTexture = assetManager.get("gameObjects/star.png");
         keyTexture = assetManager.get("gameObjects/llave.png");
+    }
+    protected void loadWinLooseTextures(String fall, String celebrate, String kill)
+    {
+        laurenceBurnedLoose = assetManager.get(kill);
+        laurenceCelebration=assetManager.get(celebrate);
+        laurenceDrownedLoose = assetManager.get(fall);
     }
     //Method to load map
     protected void loadMap(String map) {

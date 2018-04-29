@@ -41,6 +41,8 @@ public class LevelZero extends GenericLevel {
         loadMap("map/nivelCero.tmx");
         //Load Textures
         loadTextures();
+        //Win and loose
+        loadWinLooseTextures("characters/laurence_drowning.png","characters/laurence_celebrating.png","characters/laurence_burned.png");
         //loadCharacter
         loadCharacter();
         //Load background

@@ -66,7 +66,7 @@ public class MenuScreen extends GenericScreen {
             case 6:
             case 7:
             case 8:
-                levelTextureName = "background/menu_bg_1.png";
+                levelTextureName = "background/menu_bg_3.png";
                 break;
 
         }
@@ -166,9 +166,17 @@ public class MenuScreen extends GenericScreen {
         menuStage.addActor(btnAbout);
 
         Gdx.input.setInputProcessor(menuStage);
+        if(lastLevel<3)
+        {
+            Texture bigDragonTexture = assetManager.get("characters/dragon_volando_tira.png");
+            finalBoss = new FakeEnemy(bigDragonTexture);
+        }
+        else{
+            Texture scorpionTexture = assetManager.get("characters/finalboss_two.png");
+            finalBoss = new FakeEnemy(scorpionTexture,190);
+        }
 
-        Texture bigDragonTexture = assetManager.get("characters/dragon_volando_tira.png");
-        finalBoss = new FakeEnemy(bigDragonTexture);
+
 
         //Creamos la música
         this.game.changeMusic(MENU);
@@ -202,11 +210,13 @@ public class MenuScreen extends GenericScreen {
         //Background
         assetManager.unload("background/menu_bg_1.png");
         assetManager.unload("background/menu_bg_2.png");
+        assetManager.unload("background/menu_bg_3.png");
         assetManager.unload("background/menu_bg_cover.png");
         //Logo
         assetManager.unload("logo.png");
         //Bosses
         assetManager.unload("characters/dragon_volando_tira.png");
+        assetManager.unload("characters/finalboss_two.png");
         //Buttons
         assetManager.unload("btn/aboutbtn.png");
         assetManager.unload("btn/aboutbtnpress.png");

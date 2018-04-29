@@ -45,6 +45,8 @@ public class LevelFive extends GenericLevel {
 
         //Load background
         loadBackground();
+        //Win and loose
+        loadWinLooseTextures("characters/laurence_falling.png","characters/laurence_celebrating_two.png","characters/laurence_tangled.png");
 
         //Music adjustments
         this.game.changeMusic(LVLZERO);
@@ -333,9 +335,9 @@ public class LevelFive extends GenericLevel {
         assetManager.unload("map/bookTwoBg.png");
         assetManager.unload("map/clouds.png");
         //Laurence win, loose
-        assetManager.unload("characters/laurence_burned.png");
-        assetManager.unload("characters/laurence_celebrating.png");
-        assetManager.unload("characters/laurence_drowning.png");
+        assetManager.unload("characters/laurence_tangled.png");
+        assetManager.unload("characters/laurence_celebrating_two.png");
+        assetManager.unload("characters/laurence_falling.png");
         //Enemies
         assetManager.unload("characters/momia.png");
         assetManager.unload("characters/finalboss_two.png");

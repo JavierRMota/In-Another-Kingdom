@@ -13,7 +13,7 @@ public class LevelSix extends GenericLevel {
     //Constructor
     public LevelSix(Main game, int level)
     {
-        super(game,level,200*70,174);
+        super(game,level,200*70,198);
     }
     @Override
     public void show() {
@@ -24,6 +24,9 @@ public class LevelSix extends GenericLevel {
         loadMap("map/nivelSeis.tmx");
         //Load Textures
         loadTextures();
+        //Win and loose
+        loadWinLooseTextures("characters/laurence_falling_three.png","characters/laurence_celebrating_three.png","characters/laurence_burned.png");
+
 
         //Load Character
         loadCharacter();
@@ -35,7 +38,7 @@ public class LevelSix extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        scoreInit(61);
+        scoreInit(101);
 
         //Input Processors
         loadInputProcessor();
@@ -223,8 +226,8 @@ public class LevelSix extends GenericLevel {
         assetManager.unload("map/clouds_tres.png");
 
         assetManager.unload("characters/laurence_burned.png");
-        assetManager.unload("characters/laurence_celebrating.png");
-        assetManager.unload("characters/laurence_drowning.png");
+        assetManager.unload("characters/laurence_celebrating_three.png");
+        assetManager.unload("characters/laurence_falling_three.png");
 
         //Generic dispose
         disposeGenericLevel();

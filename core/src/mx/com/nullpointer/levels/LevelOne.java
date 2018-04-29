@@ -41,6 +41,8 @@ public class LevelOne extends GenericLevel {
 
         //Load background
         loadBackground();
+        //Win and loose
+        loadWinLooseTextures("characters/laurence_drowning.png","characters/laurence_celebrating.png","characters/laurence_burned.png");
 
         //Music adjustments
         this.game.changeMusic(LVLZERO);
