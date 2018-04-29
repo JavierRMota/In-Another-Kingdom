@@ -35,6 +35,7 @@ class LevelsScreen extends GenericScreen{
     private Texture backgroundTexture;
     private Texture bookTexture1;
     private Texture bookTexture2;
+    private Texture bookTexture3;
 
     private TextureRegionDrawable trdPlay;
     private TextureRegionDrawable trdPlayPress;
@@ -83,8 +84,7 @@ class LevelsScreen extends GenericScreen{
         backgroundTexture = new Texture("background/menubg.png");
         bookTexture1 = new Texture("background/tiraLibroAbriendose.png");
         bookTexture2 = new Texture("background/tiraLibroAbriendose2.png");
-
-
+        bookTexture3 = new Texture("background/tiraLibroAbriendose3.png");
 
 
         Texture playButtonTexture = assetManager.get("niveles/playbtnlevels.png");
@@ -168,7 +168,7 @@ class LevelsScreen extends GenericScreen{
         levelThreeStage.addActor(btnSix);
         levelThreeStage.addActor(imgStarLevel6);
 
-        //Botón Subnivel 2 primer nivel
+
         Texture levelSevenTexture = assetManager.get("niveles/dos/levelFour.png");
         TextureRegionDrawable trdLevelSeven = new TextureRegionDrawable(new TextureRegion(levelSevenTexture));
         Image imgLevelSeven = new Image(trdLevelSeven);
@@ -204,7 +204,7 @@ class LevelsScreen extends GenericScreen{
         }
 
 
-        //Botón Subnivel 3 segundo
+        //
         Texture levelEightTexture = assetManager.get("niveles/dos/levelFive.png");
         TextureRegionDrawable trdLevelEight = new TextureRegionDrawable(new TextureRegion(levelEightTexture));
         Image imgLevelEight = new Image(trdLevelEight);
@@ -576,8 +576,8 @@ class LevelsScreen extends GenericScreen{
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
                 if (lastLevel >= 6){
-                    TextureRegion region = new TextureRegion(bookTexture2);
-                    TextureRegion[][] frames = region.split(bookTexture2.getWidth()/7, bookTexture2.getHeight());
+                    TextureRegion region = new TextureRegion(bookTexture3);
+                    TextureRegion[][] frames = region.split(bookTexture3.getWidth()/7, bookTexture3.getHeight());
                     animationBook = new Animation(0.12f, frames[0][0], frames[0][1], frames[0][2], frames[0][3], frames[0][4], frames[0][5]);
                     animationBook.setPlayMode(Animation.PlayMode.NORMAL);
                     openBook = true;

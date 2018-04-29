@@ -55,7 +55,7 @@ public class LoadingScreen extends GenericScreen {
                 //Background
                 assetManager.load("background/menu_bg_1.png", Texture.class);
                 assetManager.load("background/menu_bg_2.png", Texture.class);
-                assetManager.load("background/menu_bg_3.png", Texture.class);
+                //assetManager.load("background/menu_bg_3.png", Texture.class);
                 assetManager.load("background/menu_bg_cover.png", Texture.class);
                 //Logo
                 assetManager.load("logo.png", Texture.class);

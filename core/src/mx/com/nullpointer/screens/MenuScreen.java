@@ -66,7 +66,7 @@ public class MenuScreen extends GenericScreen {
             case 6:
             case 7:
             case 8:
-                levelTextureName = "background/menu_bg_3.png";
+                levelTextureName = "background/menu_bg_2.png";
                 break;
 
         }
@@ -210,7 +210,7 @@ public class MenuScreen extends GenericScreen {
         //Background
         assetManager.unload("background/menu_bg_1.png");
         assetManager.unload("background/menu_bg_2.png");
-        assetManager.unload("background/menu_bg_3.png");
+        //assetManager.unload("background/menu_bg_3.png");
         assetManager.unload("background/menu_bg_cover.png");
         //Logo
         assetManager.unload("logo.png");
