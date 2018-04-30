@@ -237,7 +237,7 @@ public class LevelEight extends GenericLevel {
         assetManager.unload("characters/laurence_celebrating_three.png");
         assetManager.unload("characters/laurence_falling_three.png");
 
-        assetManager.unload("characters/finalboss_three");
+        assetManager.unload("characters/finalboss_three.png");
 
         //Generic dispose
         disposeGenericLevel();

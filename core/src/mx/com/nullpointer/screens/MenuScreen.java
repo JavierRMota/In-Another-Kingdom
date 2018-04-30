@@ -184,7 +184,7 @@ public class MenuScreen extends GenericScreen {
             case 7:
             case 8:
                 Texture dinosaurTexture = assetManager.get("characters/finalboss_three.png");
-                finalBoss = new FakeEnemy(dinosaurTexture,190,lastLevel);
+                finalBoss = new FakeEnemy(dinosaurTexture,70,lastLevel);
                 break;
 
         }
@@ -229,7 +229,7 @@ public class MenuScreen extends GenericScreen {
         //Bosses
         assetManager.unload("characters/dragon_volando_tira.png");
         assetManager.unload("characters/finalboss_two.png");
-        assetManager.unload("characters/finalboss_three");
+        assetManager.unload("characters/finalboss_three.png");
         //Buttons
         assetManager.unload("btn/aboutbtn.png");
         assetManager.unload("btn/aboutbtnpress.png");
