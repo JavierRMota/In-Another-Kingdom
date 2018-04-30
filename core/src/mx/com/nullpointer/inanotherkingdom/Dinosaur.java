@@ -15,7 +15,7 @@ public class Dinosaur extends Enemy {
         TextureRegion[][] characterTexture;
 
         characterTexture = region.split(350,360);
-        animation = new Animation(0.1f,
+        animation =new Animation(0.1f,
                 characterTexture[0][0],characterTexture[0][1],characterTexture[0][2], characterTexture[0][3],
                 characterTexture[0][4],characterTexture[0][3],characterTexture[0][2],characterTexture[0][1]);
         animation.setPlayMode(Animation.PlayMode.LOOP);

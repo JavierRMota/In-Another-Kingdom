@@ -66,7 +66,7 @@ public class MenuScreen extends GenericScreen {
             case 6:
             case 7:
             case 8:
-                levelTextureName = "background/menu_bg_2.png";
+                levelTextureName = "background/menu_bg_3.png";
                 break;
 
         }
@@ -166,16 +166,28 @@ public class MenuScreen extends GenericScreen {
         menuStage.addActor(btnAbout);
 
         Gdx.input.setInputProcessor(menuStage);
-        if(lastLevel<3)
+        switch(lastLevel)
         {
-            Texture bigDragonTexture = assetManager.get("characters/dragon_volando_tira.png");
-            finalBoss = new FakeEnemy(bigDragonTexture);
-        }
-        else{
-            Texture scorpionTexture = assetManager.get("characters/finalboss_two.png");
-            finalBoss = new FakeEnemy(scorpionTexture,190);
-        }
+            case 0:
+            case 1:
+            case 2:
+                Texture bigDragonTexture = assetManager.get("characters/dragon_volando_tira.png");
+                finalBoss = new FakeEnemy(bigDragonTexture,lastLevel);
+                break;
+            case 3:
+            case 4:
+            case 5:
+                Texture scorpionTexture = assetManager.get("characters/finalboss_two.png");
+                finalBoss = new FakeEnemy(scorpionTexture,190,lastLevel);
+                break;
+            case 6:
+            case 7:
+            case 8:
+                Texture dinosaurTexture = assetManager.get("characters/finalboss_three.png");
+                finalBoss = new FakeEnemy(dinosaurTexture,190,lastLevel);
+                break;
 
+        }
 
 
         //Creamos la música
@@ -210,13 +222,14 @@ public class MenuScreen extends GenericScreen {
         //Background
         assetManager.unload("background/menu_bg_1.png");
         assetManager.unload("background/menu_bg_2.png");
-        //assetManager.unload("background/menu_bg_3.png");
+        assetManager.unload("background/menu_bg_3.png");
         assetManager.unload("background/menu_bg_cover.png");
         //Logo
         assetManager.unload("logo.png");
         //Bosses
         assetManager.unload("characters/dragon_volando_tira.png");
         assetManager.unload("characters/finalboss_two.png");
+        assetManager.unload("characters/finalboss_three");
         //Buttons
         assetManager.unload("btn/aboutbtn.png");
         assetManager.unload("btn/aboutbtnpress.png");

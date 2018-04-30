@@ -17,8 +17,8 @@ import mx.com.nullpointer.screens.GenericScreen;
 
 public class MainCharacter extends GameObject
 {
-    private Animation runningAnimation,jumpingAnimation,dodgingAnimation, attackingAnimation;
-    private float timerRunning, timerAction;
+    private Animation runningAnimation,jumpingAnimation,dodgingAnimation, attackingAnimation, airAttackAnimation;
+    private float timerRunning, timerAction,timerAirAttack;
     private float x,y; //Coordenadas de dónde se moverá
     private Preferences prefs = Gdx.app.getPreferences("Settings");
     private float VY = 20, G=30;
@@ -58,15 +58,13 @@ public class MainCharacter extends GameObject
         //Animación de saltar
         region = new TextureRegion(jumpingTexture);
         //Tamaño
-        characterTexture = region.split(133,137);
+        characterTexture = region.split(105,115);
         /*jumpingAnimation = new Animation(animationSpeed,
-                characterTexture[0][4],characterTexture[0][5],characterTexture[0][6],characterTexture[0][7],
+                characterTexture[0][7],
                 characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
                 characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);*/
         jumpingAnimation = new Animation(animationSpeed,
-                characterTexture[0][7],
-                characterTexture[0][8],characterTexture[0][9],characterTexture[0][10],characterTexture[0][11],
-                characterTexture[0][12],characterTexture[0][13],characterTexture[0][14],characterTexture[0][15]);
+                characterTexture[0][0], characterTexture[0][1],characterTexture[0][2],characterTexture[0][3],characterTexture[0][4]);
         jumpingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
         //Animación de agacharse
@@ -92,13 +90,12 @@ public class MainCharacter extends GameObject
         //Inicializamos timers
         timerRunning = 0;
         timerAction = 0;
+        timerAirAttack = 0;
 
         // Quieto
         sprite = new Sprite(standingTexture);
         sprite.setPosition(0,64);
 
-        //Start speed
-        //TODO after we get the preferences
 
         //Posición
         x = GenericScreen.WIDTH /8;
@@ -257,21 +254,21 @@ public class MainCharacter extends GameObject
         }
         if(movementState== MovementState.FALLING)
         {
-            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*3);
+            TextureRegion region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*4);
             batch.draw(region,x,y);
 
         }
         else
         {
-            if(movementState== MovementState.JUMPING_END && timerAction >animationSpeed*6)
+            if(movementState== MovementState.JUMPING_END)
             {
                 movementState =MovementState.RUNNING;
                 timerAction=0;
                 timerRunning=0;
             }
             TextureRegion region;
-            if(timerAction>=animationSpeed*3 && movementState == MovementState.JUMPING)
-                region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*3);
+            if(timerAction>=animationSpeed*4 && movementState == MovementState.JUMPING)
+                region = (TextureRegion) jumpingAnimation.getKeyFrame(animationSpeed*4);
             else
                 region = (TextureRegion) jumpingAnimation.getKeyFrame(timerAction);
             batch.draw(region,x,y);
@@ -332,7 +329,8 @@ public class MainCharacter extends GameObject
         JUMPING_END,
         DODGING,
         STANDING,
-        ATTACKING
+        ATTACKING,
+        AIR_ATTACKING
     }
 
 

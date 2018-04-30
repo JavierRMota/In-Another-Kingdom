@@ -116,7 +116,7 @@ public abstract class GenericLevel extends GenericScreen {
     protected void loadCharacter() {
         Texture standing = assetManager.get("characters/laurence_descanso.png");
         Texture running = assetManager.get("characters/laurence_running.png");
-        Texture jumping = assetManager.get("characters/tira_salto.png");
+        Texture jumping = assetManager.get("characters/laurence_jumping.png");
         Texture dodging = assetManager.get("characters/tira_marometa.png");
         Texture attacking = assetManager.get("characters/laurence_attacking.png");
 
@@ -680,7 +680,7 @@ public abstract class GenericLevel extends GenericScreen {
         //Laurence animation
         assetManager.unload("characters/laurence_descanso.png");
         assetManager.unload("characters/laurence_running.png");
-        assetManager.unload("characters/tira_salto.png");
+        assetManager.unload("characters/laurence_jumping.png");
         assetManager.unload("characters/tira_marometa.png");
         assetManager.unload("characters/laurence_attacking.png");
         //Background win loose

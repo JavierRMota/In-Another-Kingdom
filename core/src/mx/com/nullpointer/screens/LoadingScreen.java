@@ -55,13 +55,14 @@ public class LoadingScreen extends GenericScreen {
                 //Background
                 assetManager.load("background/menu_bg_1.png", Texture.class);
                 assetManager.load("background/menu_bg_2.png", Texture.class);
-                //assetManager.load("background/menu_bg_3.png", Texture.class);
+                assetManager.load("background/menu_bg_3.png", Texture.class);
                 assetManager.load("background/menu_bg_cover.png", Texture.class);
                 //Logo
                 assetManager.load("logo.png", Texture.class);
                 //Bosses
                 assetManager.load("characters/dragon_volando_tira.png",Texture.class);
                 assetManager.load("characters/finalboss_two.png",Texture.class);
+                assetManager.load("characters/finalboss_three.png",Texture.class);
                 //Buttons
                 assetManager.load("btn/playbtn.png",Texture.class);
                 assetManager.load("btn/playbtnpress.png",Texture.class);
@@ -286,6 +287,23 @@ public class LoadingScreen extends GenericScreen {
                 //Normal things to load
                 loadGenericLevelAssets();
                 break;
+            case LVLEIGHT:
+                assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+                //Map
+                assetManager.load("map/nivelOcho.tmx", TiledMap.class);
+                //Background
+                assetManager.load("map/bookThreeBg.png",Texture.class);
+                assetManager.load("map/clouds_tres.png",Texture.class);
+                assetManager.load("map/bookThreeF.png",Texture.class);
+                //Laurence win, loose
+                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/laurence_celebrating_three.png", Texture.class);
+                assetManager.load("characters/laurence_falling_three.png", Texture.class);
+                //Final boss
+                assetManager.load("characters/finalboss_three.png",Texture.class);
+                //Normal things to load
+                loadGenericLevelAssets();
+                break;
             default:
                 Gdx.app.log("ERROR","Screen not implemented");
 
@@ -312,7 +330,7 @@ public class LoadingScreen extends GenericScreen {
         //Laurence animation
         assetManager.load("characters/laurence_descanso.png",Texture.class);
         assetManager.load("characters/laurence_running.png",Texture.class);
-        assetManager.load("characters/tira_salto.png",Texture.class);
+        assetManager.load("characters/laurence_jumping.png",Texture.class);
         assetManager.load("characters/tira_marometa.png",Texture.class);
         assetManager.load("characters/laurence_attacking.png", Texture.class);
         //Win loose background
@@ -394,6 +412,9 @@ public class LoadingScreen extends GenericScreen {
                     break;
                 case LVLSEVEN:
                     game.setScreen(new LevelSeven(game,screen));
+                    break;
+                case LVLEIGHT:
+                    game.setScreen(new LevelEight(game,screen));
                     break;
                 default:
                     Gdx.app.log("ERROR:","Screen not implemented");
