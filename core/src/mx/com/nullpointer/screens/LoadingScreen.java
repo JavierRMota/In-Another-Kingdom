@@ -114,6 +114,9 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("niveles/dos/levelFive.png",Texture.class);
                 assetManager.load("niveles/dos/levelTwoBook.png",Texture.class);
                 assetManager.load("niveles/tres/levelThreeBook.png",Texture.class);
+                assetManager.load("niveles/tres/levelSix.png",Texture.class);
+                assetManager.load("niveles/tres/levelSeven.png",Texture.class);
+                assetManager.load("niveles/tres/levelEight.png",Texture.class);
                 assetManager.load("niveles/levelLock.png",Texture.class);
                 assetManager.load("background/openBook.png",Texture.class);
                 assetManager.load("btn/backdarkbtn.png",Texture.class);
@@ -123,6 +126,10 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("niveles/playbtnlevels.png",Texture.class);
                 assetManager.load("niveles/playbtnpresslevels.png",Texture.class);
                 assetManager.load("btn/howto.png",Texture.class);
+                assetManager.load("background/menubg.png",Texture.class);
+                assetManager.load("background/tiraLibroAbriendose.png",Texture.class);
+                assetManager.load("background/tiraLibroAbriendose2.png",Texture.class);
+                assetManager.load("background/tiraLibroAbriendose3.png",Texture.class);
                 break;
             case ABOUT:
                 assetManager.load("background/menubg.png",Texture.class);

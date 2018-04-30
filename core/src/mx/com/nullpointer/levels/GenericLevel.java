@@ -241,7 +241,7 @@ public abstract class GenericLevel extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                resume();
+                resumeGame();
             }
         });
         pauseScene.addActor(btnPlay);
@@ -610,11 +610,17 @@ public abstract class GenericLevel extends GenericScreen {
 
 
     //What we do when we resume the game
-    @Override
-    public void resume() {
+    public void resumeGame() {
         Gdx.input.setInputProcessor(inputProcessor);
         gameState = GameState.PLAY;
         //laurence.setMovementState(MainCharacter.MovementState.RUNNING);
+
+    }
+    @Override
+    public void resume() {
+        /*Gdx.input.setInputProcessor(inputProcessor);
+        gameState = GameState.PLAY;*/
+
 
     }
 

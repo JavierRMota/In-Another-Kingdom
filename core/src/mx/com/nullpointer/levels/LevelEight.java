@@ -48,7 +48,7 @@ public class LevelEight extends GenericLevel {
 
         //Create Final Boss
         Texture boss =assetManager.get("characters/finalboss_three.png");
-        finalBoss = new Dinosaur(boss,40,70);
+        finalBoss = new Dinosaur(boss,-300,50);
 
 
         //Begin game
@@ -128,9 +128,13 @@ public class LevelEight extends GenericLevel {
         updateState(delta);
         updateCamera(delta);
         updateBackground(delta);
+        updateBoss(delta);
 
     }
 
+    private void updateBoss(float delta) {
+        finalBoss.run(delta);
+    }
 
 
     private void updateState(float delta)
@@ -192,6 +196,7 @@ public class LevelEight extends GenericLevel {
         }
 
 
+
     }
 
     protected void winOrLoose() {
@@ -209,7 +214,7 @@ public class LevelEight extends GenericLevel {
     private void updateCamera(float delta) {
         //Para que la cámara avance sola hasta el final de la pantalla
         float posX;
-        if(laurence.getX()>= camera.position.x-3*WIDTH/8)
+        if(laurence.getX()>= camera.position.x-WIDTH/4)
             posX = camera.position.x+delta*laurence.getVelocity();
         else if(laurence.getX()>=camera.position.x-WIDTH/2)
             posX =camera.position.x+delta*laurence.getVelocity()*0.8f;

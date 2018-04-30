@@ -81,10 +81,10 @@ class LevelsScreen extends GenericScreen{
     }
 
     private void loadTextures() {
-        backgroundTexture = new Texture("background/menubg.png");
-        bookTexture1 = new Texture("background/tiraLibroAbriendose.png");
-        bookTexture2 = new Texture("background/tiraLibroAbriendose2.png");
-        bookTexture3 = new Texture("background/tiraLibroAbriendose3.png");
+        backgroundTexture = assetManager.get("background/menubg.png");
+        bookTexture1 = assetManager.get("background/tiraLibroAbriendose.png");
+        bookTexture2 =assetManager.get("background/tiraLibroAbriendose2.png");
+        bookTexture3 = assetManager.get("background/tiraLibroAbriendose3.png");
 
 
         Texture playButtonTexture = assetManager.get("niveles/playbtnlevels.png");
@@ -144,7 +144,7 @@ class LevelsScreen extends GenericScreen{
         });
         levelThreeStage.addActor(btnBackSub3);
 
-        Texture levelSixTexture = assetManager.get("niveles/dos/levelThree.png");
+        Texture levelSixTexture = assetManager.get("niveles/dos/levelSix.png");
         TextureRegionDrawable trdSix = new TextureRegionDrawable(new TextureRegion(levelSixTexture));
         Image imgLevelSix= new Image(trdSix);
         imgLevelSix.setPosition(165, 393);
@@ -169,7 +169,7 @@ class LevelsScreen extends GenericScreen{
         levelThreeStage.addActor(imgStarLevel6);
 
 
-        Texture levelSevenTexture = assetManager.get("niveles/dos/levelFour.png");
+        Texture levelSevenTexture = assetManager.get("niveles/dos/levelSeven.png");
         TextureRegionDrawable trdLevelSeven = new TextureRegionDrawable(new TextureRegion(levelSevenTexture));
         Image imgLevelSeven = new Image(trdLevelSeven);
         imgLevelSeven.setPosition(384 , 91);
@@ -205,7 +205,7 @@ class LevelsScreen extends GenericScreen{
 
 
         //
-        Texture levelEightTexture = assetManager.get("niveles/dos/levelFive.png");
+        Texture levelEightTexture = assetManager.get("niveles/dos/levelEight.png");
         TextureRegionDrawable trdLevelEight = new TextureRegionDrawable(new TextureRegion(levelEightTexture));
         Image imgLevelEight = new Image(trdLevelEight);
         imgLevelEight.setPosition(702, 311);
@@ -217,7 +217,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,LVLSEVEN));
+                game.setScreen(new LoadingScreen(game,LVLEIGHT));
 
             }
         });

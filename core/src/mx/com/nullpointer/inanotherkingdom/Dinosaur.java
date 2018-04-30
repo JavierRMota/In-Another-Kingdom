@@ -1,12 +1,14 @@
 package mx.com.nullpointer.inanotherkingdom;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Dinosaur extends Enemy {
-    protected int life = 100;
+    protected int VX ;
     public Dinosaur(Texture texture, float x, float y)
     {
         //Animación de correr
@@ -20,18 +22,16 @@ public class Dinosaur extends Enemy {
                 characterTexture[0][4]);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation=0;
+        Preferences prefs = Gdx.app.getPreferences("Settings");
+        VX = prefs.getInteger("Difficulty",400)+ 10*prefs.getInteger("Difficulty",400)/400;
 
         this.x= x;
         this.y=y;
         sprite = new Sprite(characterTexture[0][0]);
         sprite.setPosition(this.x,this.y);
     }
-    public boolean isDead()
+    public void run(float delta)
     {
-        return life < 1;
-    }
-    public void receiveDamage(int damage)
-    {
-        life-=damage;
+        this.x+=VX*delta;
     }
 }
