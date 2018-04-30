@@ -144,7 +144,7 @@ class LevelsScreen extends GenericScreen{
         });
         levelThreeStage.addActor(btnBackSub3);
 
-        Texture levelSixTexture = assetManager.get("niveles/dos/levelSix.png");
+        Texture levelSixTexture = assetManager.get("niveles/tres/levelSix.png");
         TextureRegionDrawable trdSix = new TextureRegionDrawable(new TextureRegion(levelSixTexture));
         Image imgLevelSix= new Image(trdSix);
         imgLevelSix.setPosition(165, 393);
@@ -169,7 +169,7 @@ class LevelsScreen extends GenericScreen{
         levelThreeStage.addActor(imgStarLevel6);
 
 
-        Texture levelSevenTexture = assetManager.get("niveles/dos/levelSeven.png");
+        Texture levelSevenTexture = assetManager.get("niveles/tres/levelSeven.png");
         TextureRegionDrawable trdLevelSeven = new TextureRegionDrawable(new TextureRegion(levelSevenTexture));
         Image imgLevelSeven = new Image(trdLevelSeven);
         imgLevelSeven.setPosition(384 , 91);
@@ -205,7 +205,7 @@ class LevelsScreen extends GenericScreen{
 
 
         //
-        Texture levelEightTexture = assetManager.get("niveles/dos/levelEight.png");
+        Texture levelEightTexture = assetManager.get("niveles/tres/levelEight.png");
         TextureRegionDrawable trdLevelEight = new TextureRegionDrawable(new TextureRegion(levelEightTexture));
         Image imgLevelEight = new Image(trdLevelEight);
         imgLevelEight.setPosition(702, 311);
