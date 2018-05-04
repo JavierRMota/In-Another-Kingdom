@@ -32,7 +32,7 @@ public class MenuScreen extends GenericScreen {
     private Texture titleTexture;
     private Texture backgroundTexture;
     private Texture frontTexture;
-    private Skin skin = new Skin(Gdx.files.internal("skin/golden-ui-skin.json"));
+    private Skin skin = new Skin(Gdx.files.internal("skin/cloud/cloud-form-ui.json"));
 
     //Enemigo
     private FakeEnemy finalBoss;

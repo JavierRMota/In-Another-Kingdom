@@ -34,7 +34,8 @@ public class SettingsScreen extends GenericScreen {
     //Texturas
     private Texture texturaFondo;
     private Slider sldDiff;
-    private Skin skin = new Skin(Gdx.files.internal("skin/golden-ui-skin.json"));
+    private Skin skin = new Skin(Gdx.files.internal("skin/golden/golden-ui-skin.json"));
+    private Skin uiSkin = new Skin(Gdx.files.internal("skin/cloud/cloud-form-ui.json"));
     private Preferences preferencesTotal = Gdx.app.getPreferences("Settings");
 
     private Text msg;
@@ -194,7 +195,7 @@ public class SettingsScreen extends GenericScreen {
         btnReset.setPosition(WIDTH - btnReset.getWidth(), HEIGHT - btnReset.getHeight());
 
         btnReset.addListener(new ClickListener() {
-            Dialog resetDia = new Dialog("Reset Progress", skin){
+            Dialog resetDia = new Dialog("Reset Progress", uiSkin){
                 public void result(Object obj) {
                     if(obj.equals(true)){
                         Preferences prefsProgress = Gdx.app.getPreferences("Progress");
