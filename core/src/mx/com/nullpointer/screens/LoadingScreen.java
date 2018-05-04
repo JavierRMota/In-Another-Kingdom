@@ -93,7 +93,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/restartPress.png", Texture.class);
                 //Background
                 assetManager.load("background/menubg.png",Texture.class);
-                assetManager.load("skin/golden-ui-skin.json",Skin.class);
+                assetManager.load("skin/golden/golden-ui-skin.json",Skin.class);
+                assetManager.load("skin/cloud/cloud-form-ui.json",Skin.class);
 
                 break;
             case LEVELS:
