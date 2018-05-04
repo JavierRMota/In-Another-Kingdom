@@ -143,7 +143,7 @@ public class LevelSix extends GenericLevel {
             String cellType = (String) currentCell.getTile().getProperties().get("type");
             if(cellType.equals("enemy"))
             {
-                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
                 {
                     Integer number = Integer.parseInt((String) currentCell.getTile().getProperties().get("number"));
                     enemies++;

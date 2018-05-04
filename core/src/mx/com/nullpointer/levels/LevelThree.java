@@ -187,7 +187,7 @@ public class LevelThree extends GenericLevel {
             Rectangle laurenceRec = laurence.getSprite().getBoundingRectangle();
             if(mummyRec.overlaps(laurenceRec))
             {
-                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
                 {
                     mummies.removeIndex(index);
                     return;

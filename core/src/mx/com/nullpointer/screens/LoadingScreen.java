@@ -308,6 +308,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("characters/laurence_falling_three.png", Texture.class);
                 //Final boss
                 assetManager.load("characters/finalboss_three.png",Texture.class);
+                //Tutorial
+                assetManager.load("tutorial/swipeDown.png",Texture.class);
                 //Normal things to load
                 loadGenericLevelAssets();
                 break;
@@ -343,6 +345,7 @@ public class LoadingScreen extends GenericScreen {
         assetManager.load("characters/laurence_jumping.png",Texture.class);
         assetManager.load("characters/tira_marometa.png",Texture.class);
         assetManager.load("characters/laurence_attacking.png", Texture.class);
+        assetManager.load("characters/laurence_air_attack.png", Texture.class);
         //Win loose background
         assetManager.load("background/winLooseBg.png",Texture.class);
         //Music

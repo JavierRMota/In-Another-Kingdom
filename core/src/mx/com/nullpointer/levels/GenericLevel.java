@@ -119,6 +119,7 @@ public abstract class GenericLevel extends GenericScreen {
         Texture jumping = assetManager.get("characters/laurence_jumping.png");
         Texture dodging = assetManager.get("characters/tira_marometa.png");
         Texture attacking = assetManager.get("characters/laurence_attacking.png");
+        Texture airAttacking = assetManager.get("characters/laurence_air_attack.png");
 
         //Load Character
         laurence = new MainCharacter(
@@ -126,7 +127,8 @@ public abstract class GenericLevel extends GenericScreen {
                 running, //Running Position
                 jumping, //Jumping Position
                 dodging, //Dodging Position
-                attacking);//Attacking position
+                attacking,
+                airAttacking);//Attacking position
     }
 
     //Method to load score textures
@@ -170,7 +172,11 @@ public abstract class GenericLevel extends GenericScreen {
                     laurence.setX(laurence.getX()+18);
                     laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
                     game.playSound((Music)assetManager.get("music/sword.mp3"));
-
+                } else if (laurence.getMovementState() == MainCharacter.MovementState.JUMPING || laurence.getMovementState()== MainCharacter.MovementState.FALLING)
+                {
+                    laurence.resetAirAttackTimer();
+                    laurence.setMovementState(MainCharacter.MovementState.AIR_ATTACKING);
+                    game.playSound((Music)assetManager.get("music/sword.mp3"));
                 }
             }
             @Override
@@ -446,6 +452,11 @@ public abstract class GenericLevel extends GenericScreen {
                         laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
                         game.playSound((Music)assetManager.get("music/sword.mp3"));
 
+                    } else if (laurence.getMovementState() == MainCharacter.MovementState.JUMPING || laurence.getMovementState()== MainCharacter.MovementState.FALLING)
+                    {
+                        laurence.resetAirAttackTimer();
+                        laurence.setMovementState(MainCharacter.MovementState.AIR_ATTACKING);
+                        game.playSound((Music)assetManager.get("music/sword.mp3"));
                     }
 
 

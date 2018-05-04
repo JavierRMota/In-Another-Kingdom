@@ -29,7 +29,7 @@ public class MainCharacter extends GameObject
     MovementState movementState = MovementState.RUNNING;
 
 
-    public MainCharacter(Texture standingTexture,Texture runningTexture,Texture jumpingTexture, Texture dodgingTexture, Texture attackingTexture)
+    public MainCharacter(Texture standingTexture,Texture runningTexture,Texture jumpingTexture, Texture dodgingTexture, Texture attackingTexture, Texture airAttackTexture)
     {
         //Cargamos el salto
         switch (prefs.getInteger("Difficulty",400))
@@ -87,6 +87,16 @@ public class MainCharacter extends GameObject
                 characterTexture[0][6],characterTexture[0][7],characterTexture[0][8]);
         attackingAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
+        //Animación de atacar aerea
+        region = new TextureRegion(airAttackTexture);
+        characterTexture = region.split(140,155);
+        airAttackAnimation = new Animation(animationSpeed,
+                characterTexture[0][0], characterTexture[0][1],characterTexture[0][2],
+                characterTexture[0][3], characterTexture[0][4],characterTexture[0][5],
+                characterTexture[0][6]
+                );
+
+
         //Inicializamos timers
         timerRunning = 0;
         timerAction = 0;
@@ -107,47 +117,41 @@ public class MainCharacter extends GameObject
     }
 
     public void render(SpriteBatch batch) {
-        //If running we just call the proper function
-        if (movementState == MovementState.RUNNING)
+        switch (movementState)
         {
-            run(batch);
-            if(timerAction!=0)
+            case RUNNING:
+                run(batch);
+                if(timerAction!=0)
+                    timerAction=0;
+                break;
+            case FALLING:
+            case JUMPING:
+            case JUMPING_END:
+                jump(batch);
+                if(timerRunning!=0)
+                    timerRunning=0;
+                break;
+            case AIR_ATTACKING:
+                airAttack(batch);
+                if(timerRunning!=0)
+                    timerRunning=0;
+                break;
+            case ATTACKING:
+                attack(batch);
+                if(timerRunning!=0)
+                    timerRunning=0;
+                break;
+            case DODGING:
+                dodge(batch);
+                if(timerRunning!=0)
+                    timerRunning=0;
+                break;
+            case STANDING:
+                timerRunning=0;
                 timerAction=0;
+                this.draw(batch);
         }
-        //If jumping or at any jumping state we call the proper function
-        else if (movementState == MovementState.JUMPING
-                        || movementState == MovementState.FALLING
-                        || movementState == MovementState.JUMPING_END )
-        {
-            jump(batch);
-            if(timerRunning!=0)
-                timerRunning=0;
 
-        }
-        //If attacking we just print and change back
-        else if(movementState == MovementState.ATTACKING)
-        {
-            attack(batch);
-            if(timerRunning!=0)
-                timerRunning=0;
-        }
-        //If dodging we just call the proper function
-        else if(movementState == MovementState.DODGING)
-        {
-
-            dodge(batch);
-            if(timerRunning!=0)
-                timerRunning=0;
-
-        }
-        //If standing we just draw the character
-        else if(movementState == MovementState.STANDING)
-        {
-            timerRunning=0;
-            timerAction=0;
-            this.draw(batch);
-
-        }
     }
     //Getters
     public float getX()
@@ -197,7 +201,7 @@ public class MainCharacter extends GameObject
                && currentCellDown.getTile().getProperties().get("type").equals("platform")
                 )
         {
-            if(movementState == MovementState.FALLING)
+            if(movementState == MovementState.FALLING || movementState == MovementState.AIR_ATTACKING)
             {
                 movementState = MovementState.JUMPING_END;
                 timerAction= animationSpeed*3;
@@ -206,14 +210,14 @@ public class MainCharacter extends GameObject
             }
         }
         //Si  no es cualquiera de los puede caer
-        else if(this.movementState != MovementState.JUMPING && this.movementState != MovementState.FALLING)
+        else if(this.movementState != MovementState.JUMPING && this.movementState != MovementState.FALLING && this.movementState != MovementState.AIR_ATTACKING)
         {
             this.movementState = MovementState.FALLING;
             timerAction=2*VY/G;
         }
 
 
-        if(this.movementState==MovementState.FALLING)
+        if(this.movementState==MovementState.FALLING || this.movementState == MovementState.AIR_ATTACKING)
         {
             this.y+=timerAction*VY-0.5*G*timerAction*timerAction;
         }
@@ -275,6 +279,19 @@ public class MainCharacter extends GameObject
         }
 
     }
+    public void airAttack(SpriteBatch batch)
+    {
+        timerAirAttack+=Gdx.graphics.getDeltaTime();
+        timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
+        if (timerAirAttack>animationSpeed*6)
+        {
+            movementState= MovementState.FALLING;
+        }
+        else {
+            TextureRegion region = (TextureRegion) airAttackAnimation.getKeyFrame(timerAirAttack);
+            batch.draw(region,x,y);
+        }
+    }
    public void dodge(SpriteBatch batch)
     {
         timerAction += Gdx.graphics.getDeltaTime();
@@ -295,7 +312,6 @@ public class MainCharacter extends GameObject
             movementState = MovementState.RUNNING;
             timerAction=0;
             timerRunning=0;
-            x-=18;
         }
         TextureRegion region = (TextureRegion) attackingAnimation.getKeyFrame(timerAction);
         batch.draw(region, x, y);
@@ -319,6 +335,10 @@ public class MainCharacter extends GameObject
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public void resetAirAttackTimer() {
+        timerAirAttack=0;
     }
 
     public enum MovementState

@@ -250,12 +250,12 @@ public class LevelTwo extends GenericLevel {
             Rectangle fireballRect = weapon.getSprite().getBoundingRectangle();
             if (laurenceRect.overlaps(fireballRect))
             {
-                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
                 {
                     weapon.changeDirection();
                     friendlyFireList.add(weapon);
                     fireList.removeIndex(index);
-                }else if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING){
+                }else{
 
                     loose();
                 }
@@ -357,7 +357,7 @@ public class LevelTwo extends GenericLevel {
             String cellType = (String) currentCell.getTile().getProperties().get("type");
             if(cellType.equals("enemy"))
             {
-                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
                 {
                     Integer number = Integer.parseInt((String) currentCell.getTile().getProperties().get("number"));
                     enemies++;

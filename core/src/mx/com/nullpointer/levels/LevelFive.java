@@ -269,7 +269,7 @@ public class LevelFive extends GenericLevel {
             Rectangle laurenceRec = laurence.getSprite().getBoundingRectangle();
             if(mummyRec.overlaps(laurenceRec))
             {
-                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING)
+                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
                 {
                     mummies.removeIndex(index);
                     return;
@@ -283,7 +283,7 @@ public class LevelFive extends GenericLevel {
         {
             if(finalBoss.isAttacking() && finalBoss.getTimer()>0.1*4)
             {
-                if(laurence.getMovementState()== MainCharacter.MovementState.ATTACKING)
+                if(laurence.getMovementState()== MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
                 {
                     finalBoss.receiveDamage(30);
                 }
