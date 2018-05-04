@@ -1,12 +1,15 @@
 package mx.com.nullpointer.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -29,6 +32,7 @@ public class MenuScreen extends GenericScreen {
     private Texture titleTexture;
     private Texture backgroundTexture;
     private Texture frontTexture;
+    private Skin skin = new Skin(Gdx.files.internal("skin/golden-ui-skin.json"));
 
     //Enemigo
     private FakeEnemy finalBoss;
@@ -46,6 +50,7 @@ public class MenuScreen extends GenericScreen {
         lastLevel = prefs.getInteger("lastLevel", 0);
         loadTextures();
         createObjects();
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -209,6 +214,24 @@ public class MenuScreen extends GenericScreen {
         batch.draw(titleTexture, 4* WIDTH /5 - titleTexture.getWidth()/2, 5* HEIGHT /8 );
         batch.end();
         menuStage.draw();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACK))
+        {Dialog exitDia = new Dialog("Exit", skin){
+            public void result(Object obj) {
+                if(obj.equals(true)){
+                    Gdx.app.exit();
+                    System.exit(-1);
+                }
+                else{
+                    remove();
+                }
+            }
+        };
+
+            exitDia.text("Are you sure you wanna exit?");
+            exitDia.button("Yes", true);
+            exitDia.button("No", false);
+            exitDia.show(menuStage);
+        }
     }
 
     @Override

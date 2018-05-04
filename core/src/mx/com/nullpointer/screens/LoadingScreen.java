@@ -311,6 +311,9 @@ public class LoadingScreen extends GenericScreen {
                 //Normal things to load
                 loadGenericLevelAssets();
                 break;
+            case SPLASH:
+                assetManager.load("screens/splashNull.png", Texture.class);
+                break;
             default:
                 Gdx.app.log("ERROR","Screen not implemented");
 
@@ -423,6 +426,7 @@ public class LoadingScreen extends GenericScreen {
                 case LVLEIGHT:
                     game.setScreen(new LevelEight(game,screen));
                     break;
+                case SPLASH:
                 default:
                     Gdx.app.log("ERROR:","Screen not implemented");
             }
