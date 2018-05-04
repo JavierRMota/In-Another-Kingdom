@@ -1,7 +1,6 @@
 package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
@@ -24,7 +23,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import mx.com.nullpointer.screens.LoadingScreen;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.screens.GenericScreen;
-import mx.com.nullpointer.screens.MenuScreen;
 import mx.com.nullpointer.utils.GestureController;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 import mx.com.nullpointer.utils.Text;
@@ -174,7 +172,7 @@ public abstract class GenericLevel extends GenericScreen {
                     game.playSound((Music)assetManager.get("music/sword.mp3"));
                 } else if (laurence.getMovementState() == MainCharacter.MovementState.JUMPING || laurence.getMovementState()== MainCharacter.MovementState.FALLING)
                 {
-                    laurence.resetAirAttackTimer();
+                    laurence.resetSecondaryActionTimer();
                     laurence.setMovementState(MainCharacter.MovementState.AIR_ATTACKING);
                     game.playSound((Music)assetManager.get("music/sword.mp3"));
                 }
@@ -454,7 +452,7 @@ public abstract class GenericLevel extends GenericScreen {
 
                     } else if (laurence.getMovementState() == MainCharacter.MovementState.JUMPING || laurence.getMovementState()== MainCharacter.MovementState.FALLING)
                     {
-                        laurence.resetAirAttackTimer();
+                        laurence.resetSecondaryActionTimer();
                         laurence.setMovementState(MainCharacter.MovementState.AIR_ATTACKING);
                         game.playSound((Music)assetManager.get("music/sword.mp3"));
                     }

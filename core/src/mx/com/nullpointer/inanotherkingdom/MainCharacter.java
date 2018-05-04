@@ -18,7 +18,7 @@ import mx.com.nullpointer.screens.GenericScreen;
 public class MainCharacter extends GameObject
 {
     private Animation runningAnimation,jumpingAnimation,dodgingAnimation, attackingAnimation, airAttackAnimation;
-    private float timerRunning, timerAction,timerAirAttack;
+    private float timerRunning, timerAction, timerSecondaryAction;
     private float x,y; //Coordenadas de dónde se moverá
     private Preferences prefs = Gdx.app.getPreferences("Settings");
     private float VY = 20, G=30;
@@ -100,7 +100,7 @@ public class MainCharacter extends GameObject
         //Inicializamos timers
         timerRunning = 0;
         timerAction = 0;
-        timerAirAttack = 0;
+        timerSecondaryAction = 0;
 
         // Quieto
         sprite = new Sprite(standingTexture);
@@ -112,7 +112,7 @@ public class MainCharacter extends GameObject
         y = 70;
     }
 
-    public  float getVelocity() {
+    public  int getVelocity() {
         return VX;
     }
 
@@ -281,14 +281,14 @@ public class MainCharacter extends GameObject
     }
     public void airAttack(SpriteBatch batch)
     {
-        timerAirAttack+=Gdx.graphics.getDeltaTime();
+        timerSecondaryAction +=Gdx.graphics.getDeltaTime();
         timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
-        if (timerAirAttack>animationSpeed*6)
+        if (timerSecondaryAction >animationSpeed*6)
         {
             movementState= MovementState.FALLING;
         }
         else {
-            TextureRegion region = (TextureRegion) airAttackAnimation.getKeyFrame(timerAirAttack);
+            TextureRegion region = (TextureRegion) airAttackAnimation.getKeyFrame(timerSecondaryAction);
             batch.draw(region,x,y);
         }
     }
@@ -337,8 +337,12 @@ public class MainCharacter extends GameObject
         return sprite;
     }
 
-    public void resetAirAttackTimer() {
-        timerAirAttack=0;
+    public void resetSecondaryActionTimer() {
+        timerSecondaryAction =0;
+    }
+
+    public void setVelocity(int vx) {
+        this.VX = vx;
     }
 
     public enum MovementState

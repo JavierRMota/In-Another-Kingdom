@@ -2,6 +2,9 @@ package mx.com.nullpointer.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -9,10 +12,17 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import mx.com.nullpointer.inanotherkingdom.Dinosaur;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
+import mx.com.nullpointer.utils.GestureController;
 
 public class LevelEight extends GenericLevel {
     private Texture endTexture;
     private Dinosaur finalBoss;
+    private boolean tutorial,speedUp;
+    private int VELOCITY, SPEEDUPVELOCITY;
+    private float speedTimer;
+    private Sprite swipeDown;
+    private int VSWIPE= 150;
+    private Preferences tutorialPref = Gdx.app.getPreferences("Tutorial");
     //Constructor
     public LevelEight(Main game, int level)
     {
@@ -54,6 +64,84 @@ public class LevelEight extends GenericLevel {
         //Begin game
         gameState= GameState.PLAY;
 
+        VELOCITY= laurence.getVelocity();
+        SPEEDUPVELOCITY = VELOCITY*2;
+        speedTimer=0;
+
+        //Tutorial
+        tutorial = tutorialPref.getBoolean("tutorialLVL8", false);
+        if(!tutorial) {
+            Texture swipeDownTexture = assetManager.get("tutorial/swipeDown.png");
+            swipeDown = new Sprite(swipeDownTexture);
+            swipeDown.setPosition(41 * 70, 50);
+        }
+
+    }
+    //Load processors
+    @Override
+    protected void loadInputProcessor()
+    {
+        //Multiple inputs
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        //Gesture detection
+        GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
+            @Override
+            public void onLeft() {}
+            @Override
+            public void onRight()
+            {
+                if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
+                {
+                    laurence.resetTimerAction();
+                    laurence.setX(laurence.getX()+18);
+                    laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
+                    game.playSound((Music)assetManager.get("music/sword.mp3"));
+                } else if (laurence.getMovementState() == MainCharacter.MovementState.JUMPING || laurence.getMovementState()== MainCharacter.MovementState.FALLING)
+                {
+                    laurence.resetSecondaryActionTimer();
+                    laurence.setMovementState(MainCharacter.MovementState.AIR_ATTACKING);
+                    game.playSound((Music)assetManager.get("music/sword.mp3"));
+                }
+            }
+            @Override
+            public void onUp() {
+                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING
+                        || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
+                {
+                    laurence.resetTimerAction();
+                    laurence.setMovementState(MainCharacter.MovementState.JUMPING);
+                }
+
+            }
+            @Override
+            public void onDown() {
+                if(!speedUp && (laurence.getMovementState()== MainCharacter.MovementState.RUNNING
+                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING))
+                {
+                    laurence.setVelocity(SPEEDUPVELOCITY);
+                    speedUp=true;
+                }
+                if(laurence.getMovementState() == MainCharacter.MovementState.FALLING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
+                    laurence.quickFall();
+
+            }
+        });
+        //Set gesture input
+        inputMultiplexer.addProcessor(gestureDetector);
+        //Create stage for all buttons
+        createButtonStage();
+        inputMultiplexer.addProcessor(buttonScene);
+
+        //Create Pause Stage
+        createPauseStage();
+
+        //Create Win Loose Stage
+        createWinLooseStage();
+
+        //Begin input processor
+        Gdx.input.setInputProcessor(inputMultiplexer);
+        inputProcessor = inputMultiplexer;
     }
     protected void loadBackground()
     {
@@ -78,9 +166,10 @@ public class LevelEight extends GenericLevel {
 
     @Override
     public void render(float delta) {
+        int cx = (int)(laurence.getX()+70)/70;
 
         //Check if paused
-        if(gameState==GameState.PLAY)
+        if(gameState==GameState.PLAY && (tutorial || cx!=13 || speedUp))
         {
             update(delta);
         }
@@ -111,13 +200,25 @@ public class LevelEight extends GenericLevel {
         //Display score
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2,'c');
 
+        if(!tutorial && cx==13)
+        {
+            swipeDown.setY(swipeDown.getY()+delta*VSWIPE);
+            if(swipeDown.getY()>200 ||swipeDown.getY()<50)
+                VSWIPE=-VSWIPE;
+            swipeDown.draw(batch);
+        }
+
 
         //End batch
         batch.end();
         //Draw current input scene
         drawInputScene();
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
-            pause();
+            if(gameState==GameState.PLAY)
+            {
+                pause();
+            }
+
         }
     }
 
@@ -206,6 +307,11 @@ public class LevelEight extends GenericLevel {
         }
         else if(laurence.getX()>MAP_WIDTH)
         {
+            if(!tutorial)
+            {
+                tutorialPref.putBoolean("tutorialLVL8",true);
+                tutorialPref.flush();
+            }
             win();
         }
     }
