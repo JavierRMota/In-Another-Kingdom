@@ -6,9 +6,8 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 
-
 import mx.com.nullpointer.screens.GenericScreen;
-import mx.com.nullpointer.screens.LoadingScreen;
+import mx.com.nullpointer.screens.SplashScreen;
 
 
 public class Main extends Game {
@@ -20,7 +19,7 @@ public class Main extends Game {
 	
 	@Override
 	public void create () {
-		setScreen(new LoadingScreen(this, GenericScreen.MENU    ));
+		setScreen(new SplashScreen(this));
 
 
 	}
