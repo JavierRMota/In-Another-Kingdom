@@ -44,7 +44,7 @@ public class SplashScreen extends GenericScreen {
 
     @Override
     public void render(float delta) {
-        clearScreen(25/255f,158/255f,218/255f);
+        clearScreen();
         timer+=delta;
         if(timer>2)
         {
