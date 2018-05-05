@@ -78,8 +78,8 @@ public class LevelFive extends GenericLevel {
         mummies.add(new Mummy(mummyTexture,10*70,70));
         mummies.add(new Mummy(mummyTexture,22*70,70*4));
         mummies.add(new Mummy(mummyTexture,31*70,70*6));
-        mummies.add(new Mummy(mummyTexture,34*70,70));
         mummies.add(new Mummy(mummyTexture,42*70,70*4));
+        mummies.add(new Mummy(mummyTexture,46*70,70));
         mummies.add(new Mummy(mummyTexture,54*70,70));
         mummies.add(new Mummy(mummyTexture,54*70,70*5));
         mummies.add(new Mummy(mummyTexture,73*70,70));
@@ -302,6 +302,10 @@ public class LevelFive extends GenericLevel {
         }
         else if(laurence.getX()>MAP_WIDTH)
         {
+            if(gameState!=GameState.WIN)
+            {
+                score+=2000;
+            }
             win();
         }
     }

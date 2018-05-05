@@ -51,6 +51,9 @@ public abstract class GenericLevel extends GenericScreen {
     protected boolean recolectedKeys[];
     protected int middleKey;
     protected final int TOTAL_COINS;
+    protected int score=0;
+    protected boolean scoreSet = false;
+    protected String difficulty ="";
 
     //Textures
     protected Texture coinTexture;
@@ -315,7 +318,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdReset = new TextureRegionDrawable(new TextureRegion(resetTexture));
         TextureRegionDrawable trdResetPress = new TextureRegionDrawable(new TextureRegion(resetPressTexture));
         ImageButton btnReset = new ImageButton(trdReset,trdResetPress);
-        btnReset.setPosition(WIDTH/2 -btnReset.getWidth()/2,3*HEIGHT /16-btnReset.getHeight()/4);
+        btnReset.setPosition(WIDTH/2 -btnReset.getWidth()/2,HEIGHT /8-btnReset.getHeight()/4);
         btnReset.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -333,7 +336,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdNext = new TextureRegionDrawable(new TextureRegion(nextTexture));
         TextureRegionDrawable trdNextPress = new TextureRegionDrawable(new TextureRegion(nextPressTexture));
         ImageButton btnNext = new ImageButton(trdNext,trdNextPress);
-        btnNext.setPosition(3*WIDTH /4 - btnNext.getWidth()/2, 3*HEIGHT /16 - btnNext.getHeight()/4);
+        btnNext.setPosition(3*WIDTH /4 - btnNext.getWidth()/2, HEIGHT /8 - btnNext.getHeight()/4);
         btnNext.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -349,7 +352,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdBack = new TextureRegionDrawable(new TextureRegion(backTexture));
         TextureRegionDrawable trdBackPress = new TextureRegionDrawable(new TextureRegion(backPressTexture));
         ImageButton btnBack = new ImageButton(trdBack,trdBackPress);
-        btnBack.setPosition(WIDTH /4 - btnBack.getWidth()/2, 3*HEIGHT /16 - btnBack.getHeight()/4);
+        btnBack.setPosition(WIDTH /4 - btnBack.getWidth()/2, HEIGHT /8 - btnBack.getHeight()/4);
         btnBack.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -362,7 +365,7 @@ public abstract class GenericLevel extends GenericScreen {
 
         //Loose reset button
         ImageButton btnLooseReset = new ImageButton(trdReset,trdResetPress);
-        btnLooseReset.setPosition(3*WIDTH/4 -btnLooseReset.getWidth()/2,3*HEIGHT /16-btnLooseReset.getHeight()/4);
+        btnLooseReset.setPosition(3*WIDTH/4 -btnLooseReset.getWidth()/2,HEIGHT /8-btnLooseReset.getHeight()/4);
         btnLooseReset.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -374,7 +377,7 @@ public abstract class GenericLevel extends GenericScreen {
 
         //Loose back button
         ImageButton btnLooseBack = new ImageButton(trdBack,trdBackPress);
-        btnLooseBack.setPosition(WIDTH /4 - btnLooseBack.getWidth()/2, 3*HEIGHT /16 - btnLooseBack.getHeight()/4);
+        btnLooseBack.setPosition(WIDTH /4 - btnLooseBack.getWidth()/2, HEIGHT /8 - btnLooseBack.getHeight()/4);
         btnLooseBack.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -390,7 +393,7 @@ public abstract class GenericLevel extends GenericScreen {
         TextureRegionDrawable trdLevels = new TextureRegionDrawable(new TextureRegion(levelsTexture));
         TextureRegionDrawable trdLevelsPress = new TextureRegionDrawable(new TextureRegion(levelsPressTexture));
         ImageButton btnLevels = new ImageButton(trdLevels,trdLevelsPress);
-        btnLevels.setPosition(WIDTH /2 - btnLevels.getWidth()/2, 3*HEIGHT /16 - btnLevels.getHeight()/4);
+        btnLevels.setPosition(WIDTH /2 - btnLevels.getWidth()/2, HEIGHT /8- btnLevels.getHeight()/4);
         btnLevels.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -611,8 +614,11 @@ public abstract class GenericLevel extends GenericScreen {
     //What we do when we press pause
     @Override
     public void pause() {
-        gameState=GameState.PAUSE;
-        Gdx.input.setInputProcessor(pauseScene);
+        if(gameState!= GameState.WIN && gameState!= GameState.LOOSE)
+        {
+            gameState=GameState.PAUSE;
+            Gdx.input.setInputProcessor(pauseScene);
+        }
         //laurence.setMovementState(MainCharacter.MovementState.STANDING);
 
     }
@@ -636,7 +642,25 @@ public abstract class GenericLevel extends GenericScreen {
     //Win
     protected void win()
     {
-        gameState = GameState.WIN;
+        if(gameState!= GameState.WIN)
+        {
+            score +=keys*1000+coins*100+enemies*500;
+            Preferences diffPref =  Gdx.app.getPreferences("Settings");
+            switch (diffPref.getInteger("Difficulty",400))
+            {
+                case 500:
+                    score*=1.5;
+                    difficulty="Hard x1.5";
+                    break;
+                case 300:
+                    score*=0.5;
+                    difficulty="Easy x0.5";
+                    break;
+                default:
+                    difficulty="Normal x1";
+            }
+            gameState=GameState.WIN;
+        }
         Gdx.input.setInputProcessor(winScene);
         Preferences prefs = Gdx.app.getPreferences("Progress");
         int maxScore = prefs.getInteger("score"+(LVL-5),0);
@@ -645,25 +669,29 @@ public abstract class GenericLevel extends GenericScreen {
         {
             prefs.putInteger("lastLevel",LVL-4);
         }
-        if(maxScore<keys*1000+coins*100+enemies*500)
+        if(maxScore<score)
         {
-            prefs.putInteger("score"+(LVL-5),keys*1000+coins*100+enemies*500 );
+            prefs.putInteger("score"+(LVL-5),score );
         }
         prefs.flush();
 
     }
     protected void drawWin()
     {
+
+
+
         batch.begin();
         batch.draw(winLooseBackground,0,0);
         text.showMsg(batch, "You won!",WIDTH/2,7*HEIGHT/8,2,'c');
         batch.draw(laurenceCelebration,WIDTH/8 - laurenceCelebration.getWidth()/8,3*HEIGHT/8-laurenceCelebration.getHeight()/8);
         batch.draw(starTexture,WIDTH/2,3*HEIGHT/4-starTexture.getHeight());
-        text.showMsg(batch, ""+(keys*1000+coins*100+enemies*500),5*WIDTH/8,3*HEIGHT/4,2,'l');
+        text.showMsg(batch, ""+score,5*WIDTH/8,3*HEIGHT/4,2,'l');
         batch.draw(coinTexture,WIDTH/2,5*HEIGHT/8-coinTexture.getHeight());
         text.showMsg(batch, coins+"/"+TOTAL_COINS,5*WIDTH/8,5*HEIGHT/8,2,'l');
         batch.draw(keyTexture,WIDTH/2,HEIGHT/2-keyTexture.getHeight());
         text.showMsg(batch, keys+"/3",5*WIDTH/8,HEIGHT/2,2,'l');
+        text.showMsg(batch, difficulty,5*WIDTH/8,3*HEIGHT/8,2,'l');
         batch.end();
         winScene.draw();
     }

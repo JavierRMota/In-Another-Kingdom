@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Dinosaur extends Enemy {
-    protected int VX ;
+    protected float VX ;
     public Dinosaur(Texture texture, float x, float y)
     {
         //Animación de correr
@@ -23,7 +23,7 @@ public class Dinosaur extends Enemy {
         animation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation=0;
         Preferences prefs = Gdx.app.getPreferences("Settings");
-        VX = prefs.getInteger("Difficulty",400)+ 10*prefs.getInteger("Difficulty",400)/400;
+        VX = prefs.getInteger("Difficulty",400)*1.2f;
 
         this.x= x;
         this.y=y;

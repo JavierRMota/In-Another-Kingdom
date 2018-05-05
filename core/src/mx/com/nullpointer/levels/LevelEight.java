@@ -26,7 +26,7 @@ public class LevelEight extends GenericLevel {
     //Constructor
     public LevelEight(Main game, int level)
     {
-        super(game,level,200*70,198);
+        super(game,level,200*70,265);
     }
     @Override
     public void show() {
@@ -40,7 +40,6 @@ public class LevelEight extends GenericLevel {
         //Win and loose
         loadWinLooseTextures("characters/laurence_falling_three.png","characters/laurence_celebrating_three.png","characters/laurence_burned.png");
 
-
         //Load Character
         loadCharacter();
 
@@ -51,14 +50,14 @@ public class LevelEight extends GenericLevel {
         this.game.changeMusic(LVLZERO);
 
         //Score initialization
-        scoreInit(101);
+        scoreInit(166);
 
         //Input Processors
         loadInputProcessor();
 
         //Create Final Boss
         Texture boss =assetManager.get("characters/finalboss_three.png");
-        finalBoss = new Dinosaur(boss,-300,50);
+        finalBoss = new Dinosaur(boss,-500,50);
 
 
         //Begin game
@@ -73,7 +72,7 @@ public class LevelEight extends GenericLevel {
         if(!tutorial) {
             Texture swipeDownTexture = assetManager.get("tutorial/swipeDown.png");
             swipeDown = new Sprite(swipeDownTexture);
-            swipeDown.setPosition(41 * 70, 50);
+            swipeDown.setPosition(16 * 70, 50);
         }
 
     }
@@ -169,7 +168,7 @@ public class LevelEight extends GenericLevel {
         int cx = (int)(laurence.getX()+70)/70;
 
         //Check if paused
-        if(gameState==GameState.PLAY && (tutorial || cx!=13 || speedUp))
+        if(gameState==GameState.PLAY && (tutorial || cx!=16 || speedUp))
         {
             update(delta);
         }
@@ -189,6 +188,13 @@ public class LevelEight extends GenericLevel {
         //Laurence
         laurence.render(batch);
         finalBoss.render(batch,delta);
+        if(!tutorial && cx==16)
+        {
+            swipeDown.setY(swipeDown.getY()+delta*VSWIPE);
+            if(swipeDown.getY()>200 ||swipeDown.getY()<50)
+                VSWIPE=-VSWIPE;
+            swipeDown.draw(batch);
+        }
         batch.end();
         //Draw buttons and information
         batch.setProjectionMatrix(cameraHUD.combined);
@@ -200,13 +206,7 @@ public class LevelEight extends GenericLevel {
         //Display score
         scoreDisplay.showMsg(batch, coinScore,9* WIDTH /10, HEIGHT,2,'c');
 
-        if(!tutorial && cx==13)
-        {
-            swipeDown.setY(swipeDown.getY()+delta*VSWIPE);
-            if(swipeDown.getY()>200 ||swipeDown.getY()<50)
-                VSWIPE=-VSWIPE;
-            swipeDown.draw(batch);
-        }
+
 
 
         //End batch
@@ -235,6 +235,10 @@ public class LevelEight extends GenericLevel {
 
     private void updateBoss(float delta) {
         finalBoss.run(delta);
+        if(finalBoss.getX()+finalBoss.getSprite().getWidth()/2>= laurence.getX()+laurence.getSprite().getWidth())
+        {
+            loose();
+        }
     }
 
 
@@ -243,6 +247,17 @@ public class LevelEight extends GenericLevel {
         int cx = (int)(laurence.getX()+70)/70;
         int cy = (int)(laurence.getY())/70;
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
+        if(speedUp)
+        {
+            speedTimer +=delta;
+            if(speedTimer>1)
+            {
+                speedTimer=0;
+                speedUp = false;
+                laurence.setVelocity(VELOCITY);
+            }
+
+        }
         checkCoins(cx,cy,layer);
         checkEnemies(cx,cy,layer);
         laurence.move(layer,delta, cx, cy);
@@ -304,6 +319,7 @@ public class LevelEight extends GenericLevel {
         if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
         {
             loose();
+
         }
         else if(laurence.getX()>MAP_WIDTH)
         {

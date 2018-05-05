@@ -412,6 +412,11 @@ public class LevelTwo extends GenericLevel {
                 tutorialPref.putBoolean("tutorialLVL2",true);
                 tutorialPref.flush();
             }
+            if(gameState!=GameState.WIN)
+            {
+                score+=2000;
+            }
+
             win();
         }
     }
