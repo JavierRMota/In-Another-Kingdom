@@ -78,7 +78,7 @@ class AboutScreen extends GenericScreen {
         TextureRegionDrawable trdRate = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
         TextureRegionDrawable trdRatePress = new TextureRegionDrawable(new TextureRegion(new Texture("btn/rate.png")));
         ImageButton btnRate = new ImageButton(trdRate,trdRatePress);
-        btnRate.setPosition(MenuScreen.WIDTH /2 - btnRate.getWidth()/2, 25);
+        btnRate.setPosition(WIDTH /2 - btnRate.getWidth()/2, 20);
 
         btnRate.addListener(new ClickListener(){
             @Override
@@ -95,7 +95,7 @@ class AboutScreen extends GenericScreen {
         TextureRegionDrawable trdGit = new TextureRegionDrawable(new TextureRegion(gitbtn));
         TextureRegionDrawable trdGitPress = new TextureRegionDrawable(new TextureRegion(gitbtnpress));
         ImageButton btnGit = new ImageButton(trdGit,trdGitPress);
-        btnGit.setPosition(WIDTH/2-btnGit.getWidth()/2, 2.5f*HEIGHT/16 - btnGit.getHeight()/16);
+        btnGit.setPosition(WIDTH/2-btnGit.getWidth()/2, 2.5f*HEIGHT/16 -15 - btnGit.getHeight()/16);
         btnGit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -119,30 +119,33 @@ class AboutScreen extends GenericScreen {
         batch.begin();
         batch.draw(backgroundTexture,0 ,0);
         //Intro
-        msg.showMsg(batch,"About", WIDTH /2,7* HEIGHT /8,2,'c');
-        msg.showMsg(batch,"Made by: ",WIDTH/2,3*HEIGHT/4,1,'c');
+        msg.showMsg(batch,"About", WIDTH /2,7* HEIGHT/8,2,'c');
+        msg.showMsg(batch,"Made by: ",WIDTH/2,3*HEIGHT/4 +15,1,'c');
 
         //Bere
-        batch.draw(bannerTexture,WIDTH/2-bannerTexture.getWidth()/2,HEIGHT/2-bannerTexture.getHeight()/2);
-        batch.draw(bere, WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        batch.draw(bannerTexture,WIDTH/2-bannerTexture.getWidth()/2,HEIGHT/2-bannerTexture.getHeight()/2 );
+        batch.draw(bere, WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5+30);
         msg.showMsg(batch,"Bere",WIDTH/2-bannerTexture.getWidth()/2+bere.getWidth()/2,HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Charly
-        batch.draw(charly, WIDTH/2-bannerTexture.getWidth()/2+charly.getWidth()+2*charly.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        batch.draw(charly, WIDTH/2-bannerTexture.getWidth()/2+charly.getWidth()+2*charly.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5 + 30);
         msg.showMsg(batch,"Charly",WIDTH/2-bannerTexture.getWidth()/2+1.6f*charly.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Eli
-        batch.draw(eli, WIDTH/2-bannerTexture.getWidth()/2+2*eli.getWidth()+3*eli.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        batch.draw(eli, WIDTH/2-bannerTexture.getWidth()/2+2*eli.getWidth()+3*eli.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5 + 30);
         msg.showMsg(batch,"Eli",WIDTH/2-bannerTexture.getWidth()/2+2.7f*eli.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Javier
-        batch.draw(javier, WIDTH/2-bannerTexture.getWidth()/2+3*javier.getWidth()+4*javier.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        batch.draw(javier, WIDTH/2-bannerTexture.getWidth()/2+3*javier.getWidth()+4*javier.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5+ 30);
         msg.showMsg(batch,"Javier",WIDTH/2-bannerTexture.getWidth()/2+3.8f*javier.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
         //Marina
-        batch.draw(marina, WIDTH/2-bannerTexture.getWidth()/2+4*marina.getWidth()+5*marina.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5);
+        batch.draw(marina, WIDTH/2-bannerTexture.getWidth()/2+4*marina.getWidth()+5*marina.getWidth()/16,HEIGHT/2-2*bere.getHeight()/5 + 30);
         msg.showMsg(batch,"Marina",WIDTH/2-bannerTexture.getWidth()/2+4.9f*marina.getWidth(),HEIGHT/2-5*bannerTexture.getHeight()/16,1,'c');
 
+        //
+        msg.showMsg(batch, "Proyecto de desarrollo de videojuegos", WIDTH/4*3, HEIGHT/5+30, 1, 'c' );
+        msg.showMsg(batch, "softdev.j@gmail.com", WIDTH/5*4, HEIGHT/5, 1, 'c' );
         batch.end();
 
         //Buttons
