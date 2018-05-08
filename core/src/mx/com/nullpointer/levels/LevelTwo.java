@@ -161,18 +161,20 @@ public class LevelTwo extends GenericLevel {
         TiledMapTileLayer layer = (TiledMapTileLayer)tiledMap.getLayers().get(0);
         Rectangle laurenceRect = laurence.getSprite().getBoundingRectangle();
         Rectangle enemyRect = finalBoss.getSprite().getBoundingRectangle();
-        for(int index = friendlyFireList.size -1; index>=0 ;index--)
+        try
         {
+            for(int index = 0; index<friendlyFireList.size ;index++)
+            {
                 LongWeapon weapon = friendlyFireList.get(index);
                 Rectangle fireballRect = weapon.getSprite().getBoundingRectangle();
-                for (int index_two =  fireList.size-1; index_two >=0; index_two--) {
-                        LongWeapon weapon_two = fireList.get(index);
-                        Rectangle fireballRectTwo = weapon_two.getSprite().getBoundingRectangle();
-                        if (fireballRect.overlaps(fireballRectTwo)) {
-                            friendlyFireList.removeIndex(index);
-                            fireList.removeIndex(index_two);
-                            break;
-                        }
+                for (int index_two = 0; index_two <fireList.size; index_two++) {
+                    LongWeapon weapon_two = fireList.get(index);
+                    Rectangle fireballRectTwo = weapon_two.getSprite().getBoundingRectangle();
+                    if (fireballRect.overlaps(fireballRectTwo)) {
+                        friendlyFireList.removeIndex(index);
+                        fireList.removeIndex(index_two);
+                        return;
+                    }
 
                 }
                 if (!fightStart) {
@@ -211,11 +213,11 @@ public class LevelTwo extends GenericLevel {
                                     break;
                             }
                             friendlyFireList.removeIndex(index);
-                            break;
+                            return;
 
                         } else if (cellType.equals("platform")) {
                             friendlyFireList.removeIndex(index);
-                            break;
+                            return;
                         }
                     }
 
@@ -223,45 +225,52 @@ public class LevelTwo extends GenericLevel {
                     if (enemyRect.overlaps(fireballRect)) {
                         finalBoss.receiveDamage(20);
                         friendlyFireList.removeIndex(index);
-                        break;
+                        return;
                     }
                 }
 
+            }
+            for(int index = 0; index< fireList.size;index++)
+            {
+
+                LongWeapon weapon = fireList.get(index);
+                int cx = (int) (weapon.getX() + 70) / 70;
+                int cy = (int) (weapon.getY()) / 70;
+                TiledMapTileLayer.Cell currentCell = layer.getCell(cx, cy);
+                if (currentCell != null) {
+                    String cellType = (String) currentCell.getTile().getProperties().get("type");
+                    if (cellType.equals("platform")) {
+                        fireList.removeIndex(index);
+                        return;
+                    }
+                }
+                if(weapon.getX()<camera.position.x-WIDTH/2)
+                {
+                    fireList.removeIndex(index);
+                    return;
+                }
+                Rectangle fireballRect = weapon.getSprite().getBoundingRectangle();
+                if (laurenceRect.overlaps(fireballRect))
+                {
+                    if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
+                    {
+                        weapon.changeDirection();
+                        friendlyFireList.add(weapon);
+                        fireList.removeIndex(index);
+                        return;
+                    }else if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING){
+
+                        loose();
+                    }
+                }
+
+            }
         }
-        for(int index = 0; index< fireList.size;index++)
+        catch(Exception e)
         {
 
-            LongWeapon weapon = fireList.get(index);
-            int cx = (int) (weapon.getX() + 70) / 70;
-            int cy = (int) (weapon.getY()) / 70;
-            TiledMapTileLayer.Cell currentCell = layer.getCell(cx, cy);
-            if (currentCell != null) {
-                String cellType = (String) currentCell.getTile().getProperties().get("type");
-                if (cellType.equals("platform")) {
-                    fireList.removeIndex(index);
-                    break;
-                }
-            }
-            if(weapon.getX()<camera.position.x-WIDTH/2)
-            {
-                fireList.removeIndex(index);
-                break;
-            }
-            Rectangle fireballRect = weapon.getSprite().getBoundingRectangle();
-            if (laurenceRect.overlaps(fireballRect))
-            {
-                if(laurence.getMovementState() == MainCharacter.MovementState.ATTACKING  || laurence.getMovementState() == MainCharacter.MovementState.AIR_ATTACKING)
-                {
-                    weapon.changeDirection();
-                    friendlyFireList.add(weapon);
-                    fireList.removeIndex(index);
-                }else if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING){
-
-                    loose();
-                }
-            }
-
         }
+
     }
 
 
