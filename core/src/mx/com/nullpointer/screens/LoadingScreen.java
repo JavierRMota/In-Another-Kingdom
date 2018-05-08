@@ -310,7 +310,7 @@ public class LoadingScreen extends GenericScreen {
                 //Final boss
                 assetManager.load("characters/finalboss_three.png",Texture.class);
                 //Tutorial
-                assetManager.load("tutorial/swipeDown.png",Texture.class);
+                assetManager.load("tutorial/pushButton.png",Texture.class);
                 //Normal things to load
                 loadGenericLevelAssets();
                 break;

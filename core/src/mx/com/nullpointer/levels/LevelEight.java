@@ -4,15 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-
+import com.badlogic.gdx.math.Vector2;
 import mx.com.nullpointer.inanotherkingdom.Dinosaur;
 import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
-import mx.com.nullpointer.utils.GestureController;
 
 public class LevelEight extends GenericLevel {
     private Texture endTexture;
@@ -20,8 +19,8 @@ public class LevelEight extends GenericLevel {
     private boolean tutorial,speedUp;
     private int VELOCITY, SPEEDUPVELOCITY;
     private float speedTimer;
-    private Sprite swipeDown;
-    private int VSWIPE= 150;
+    private Sprite tutorialSprite;
+    private float SPEED =0.3f;
     private Preferences tutorialPref = Gdx.app.getPreferences("Tutorial");
     //Constructor
     public LevelEight(Main game, int level)
@@ -55,6 +54,12 @@ public class LevelEight extends GenericLevel {
         //Input Processors
         loadInputProcessor();
 
+        InputMultiplexer inputMultiplexer = (InputMultiplexer) inputProcessor;
+        //Add tap
+        inputMultiplexer.addProcessor(new GestureDetector(new TapDetector()));
+        Gdx.input.setInputProcessor(inputMultiplexer);
+        inputProcessor= inputMultiplexer;
+
         //Create Final Boss
         Texture boss =assetManager.get("characters/finalboss_three.png");
         finalBoss = new Dinosaur(boss,-500,50);
@@ -70,78 +75,13 @@ public class LevelEight extends GenericLevel {
         //Tutorial
         tutorial = tutorialPref.getBoolean("tutorialLVL8", false);
         if(!tutorial) {
-            Texture swipeDownTexture = assetManager.get("tutorial/swipeDown.png");
-            swipeDown = new Sprite(swipeDownTexture);
-            swipeDown.setPosition(16 * 70, 50);
+            Texture tapTexture = assetManager.get("tutorial/pushButton.png");
+            tutorialSprite = new Sprite(tapTexture);
+            tutorialSprite.setPosition(16 * 70, HEIGHT/2-tapTexture.getHeight()/2);
         }
 
     }
-    //Load processors
-    @Override
-    protected void loadInputProcessor()
-    {
-        //Multiple inputs
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        //Gesture detection
-        GestureController gestureDetector = new GestureController(new GestureController.DirectionListener() {
-            @Override
-            public void onLeft() {}
-            @Override
-            public void onRight()
-            {
-                if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING)
-                {
-                    laurence.resetTimerAction();
-                    laurence.setX(laurence.getX()+18);
-                    laurence.setMovementState(MainCharacter.MovementState.ATTACKING);
-                    game.playSound((Music)assetManager.get("music/sword.mp3"));
-                } else if (laurence.getMovementState() == MainCharacter.MovementState.JUMPING || laurence.getMovementState()== MainCharacter.MovementState.FALLING)
-                {
-                    laurence.resetSecondaryActionTimer();
-                    laurence.setMovementState(MainCharacter.MovementState.AIR_ATTACKING);
-                    game.playSound((Music)assetManager.get("music/sword.mp3"));
-                }
-            }
-            @Override
-            public void onUp() {
-                if(laurence.getMovementState()== MainCharacter.MovementState.RUNNING
-                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING
-                        || laurence.getMovementState() == MainCharacter.MovementState.JUMPING_END)
-                {
-                    laurence.resetTimerAction();
-                    laurence.setMovementState(MainCharacter.MovementState.JUMPING);
-                }
 
-            }
-            @Override
-            public void onDown() {
-                if(!speedUp && (laurence.getMovementState()== MainCharacter.MovementState.RUNNING
-                        || laurence.getMovementState() == MainCharacter.MovementState.STANDING))
-                {
-                    laurence.setVelocity(SPEEDUPVELOCITY);
-                    speedUp=true;
-                }
-                if(laurence.getMovementState() == MainCharacter.MovementState.FALLING || laurence.getMovementState() == MainCharacter.MovementState.JUMPING)
-                    laurence.quickFall();
-
-            }
-        });
-        //Set gesture input
-        inputMultiplexer.addProcessor(gestureDetector);
-        //Create stage for all buttons
-        createButtonStage();
-        inputMultiplexer.addProcessor(buttonScene);
-
-        //Create Pause Stage
-        createPauseStage();
-
-        //Create Win Loose Stage
-        createWinLooseStage();
-
-        //Begin input processor
-        Gdx.input.setInputProcessor(inputMultiplexer);
-        inputProcessor = inputMultiplexer;
-    }
     protected void loadBackground()
     {
         Texture backgroundTexture = assetManager.get("map/bookThreeBg.png");
@@ -190,10 +130,10 @@ public class LevelEight extends GenericLevel {
         finalBoss.render(batch,delta);
         if(!tutorial && cx==16)
         {
-            swipeDown.setY(swipeDown.getY()+delta*VSWIPE);
-            if(swipeDown.getY()>200 ||swipeDown.getY()<50)
-                VSWIPE=-VSWIPE;
-            swipeDown.draw(batch);
+            if(tutorialSprite.getScaleX() -+0.1f*delta>1.3 ||tutorialSprite.getScaleX() -+0.1f*delta<0.8)
+                SPEED =-SPEED;
+            tutorialSprite.setScale(tutorialSprite.getScaleX() +SPEED*delta);
+            tutorialSprite.draw(batch);
         }
         batch.end();
         //Draw buttons and information
@@ -366,7 +306,69 @@ public class LevelEight extends GenericLevel {
 
         assetManager.unload("characters/finalboss_three.png");
 
+        //Tutorial
+        assetManager.unload("tutorial/pushButton.png");
+
         //Generic dispose
         disposeGenericLevel();
+    }
+
+    public class TapDetector implements GestureDetector.GestureListener {
+
+        @Override
+        public boolean touchDown(float x, float y, int pointer, int button) {
+
+            return false;
+        }
+
+        @Override
+        public boolean tap(float x, float y, int count, int button) {
+            if(!speedUp && (laurence.getMovementState()== MainCharacter.MovementState.RUNNING
+                    || laurence.getMovementState() == MainCharacter.MovementState.STANDING))
+            {
+                laurence.setVelocity(SPEEDUPVELOCITY);
+                speedUp=true;
+            }
+            return true;
+        }
+
+        @Override
+        public boolean longPress(float x, float y) {
+
+            return false;
+        }
+
+        @Override
+        public boolean fling(float velocityX, float velocityY, int button) {
+
+            return false;
+        }
+
+        @Override
+        public boolean pan(float x, float y, float deltaX, float deltaY) {
+
+            return false;
+        }
+
+        @Override
+        public boolean panStop(float x, float y, int pointer, int button) {
+
+            return false;
+        }
+
+        @Override
+        public boolean zoom (float originalDistance, float currentDistance){
+
+            return false;
+        }
+
+        @Override
+        public boolean pinch (Vector2 initialFirstPointer, Vector2 initialSecondPointer, Vector2 firstPointer, Vector2 secondPointer){
+
+            return false;
+        }
+        @Override
+        public void pinchStop () {
+        }
     }
 }
