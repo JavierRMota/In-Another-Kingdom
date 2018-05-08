@@ -255,7 +255,7 @@ public class LevelTwo extends GenericLevel {
                     weapon.changeDirection();
                     friendlyFireList.add(weapon);
                     fireList.removeIndex(index);
-                }else{
+                }else if(laurence.getMovementState() == MainCharacter.MovementState.RUNNING){
 
                     loose();
                 }

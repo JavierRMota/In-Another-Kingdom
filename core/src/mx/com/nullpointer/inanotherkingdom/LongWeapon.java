@@ -12,9 +12,8 @@ public class LongWeapon extends GameObject{
     private Animation animation;
     public boolean isBad;
     private float x,y;
-    private Preferences prefs = Gdx.app.getPreferences("Settings");
-    private float VX =-600*prefs.getInteger("Difficulty",400)/400;
-    private float VY = -220*prefs.getInteger("Difficulty",400)/400;
+    private float VX =-600;
+    private float VY = -220;
     private boolean fight;
     public LongWeapon(Texture bad, Texture good, float x, float y ,float maxX, boolean fight)
     {
@@ -31,6 +30,14 @@ public class LongWeapon extends GameObject{
         else
             this.y = y;
         sprite.setPosition(this.x,y);
+        Preferences prefs = Gdx.app.getPreferences("Settings");
+        switch (prefs.getInteger("Difficulty",400))
+        {
+            case 500:
+                VX*=1.3;
+                VY*=1.3;
+                break;
+        }
     }
     public void changeDirection()
     {

@@ -169,7 +169,7 @@ public class LevelFive extends GenericLevel {
             finalBoss.render(batch,delta);
             if(!finalBoss.isAttacking()) {
                 timerEnemy += delta;
-                if(timerEnemy>1)
+                if(timerEnemy>1.5)
                 {
                     timerEnemy=0;
                     finalBoss.attack();
@@ -244,10 +244,13 @@ public class LevelFive extends GenericLevel {
         checkCoins(cx,cy,layer);
         checkEnemies();
         updateMummies(layer,delta);
-        if(laurence.getX()<MAP_WIDTH - 7*WIDTH /8 || finalBoss.isDead())
+        if(laurence.getX()<MAP_WIDTH - WIDTH /2 || finalBoss.isDead())
             laurence.move(layer,delta, cx, cy);
-        else
-            fightStart= true;
+        else if(!fightStart) {
+                fightStart= true;
+                timerEnemy=0;
+        }
+
         winOrLoose();
     }
 

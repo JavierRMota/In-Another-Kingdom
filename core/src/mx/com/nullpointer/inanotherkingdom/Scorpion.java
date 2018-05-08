@@ -10,7 +10,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Scorpion extends Enemy{
     protected int life = 200;
     protected Animation attackAnimation;
-    protected boolean attack = false;
+    protected Animation damageAnimation;
+    protected boolean attack = false, damaged= false;
     public Scorpion(Texture texture, float x, float y)
     {
         //Animación de correr
@@ -25,9 +26,11 @@ public class Scorpion extends Enemy{
         attackAnimation = new Animation(0.1f,
                 characterTexture[0][4],characterTexture[1][0], characterTexture[1][1],characterTexture[1][2],characterTexture[1][3],characterTexture[1][2],characterTexture[1][1], characterTexture[1][0] );
         attackAnimation.setPlayMode(Animation.PlayMode.LOOP);
+        damageAnimation = new Animation(0.1f,characterTexture[1][4],characterTexture[1][2]);
+        damageAnimation.setPlayMode(Animation.PlayMode.LOOP);
         timerAnimation=0;
 
-        this.x= x;
+        this.x= x-20;
         this.y=y;
         sprite = new Sprite(characterTexture[0][0]);
         sprite.setPosition(this.x,this.y);
@@ -44,6 +47,8 @@ public class Scorpion extends Enemy{
     {
         life-=damage;
         attack=false;
+        damaged= true;
+        timerAnimation=0;
     }
 
     public void attack() {
@@ -56,7 +61,15 @@ public class Scorpion extends Enemy{
     {
         timerAnimation+=delta;
         TextureRegion region;
-        if(attack)
+        if(damaged)
+        {
+            region = (TextureRegion) damageAnimation.getKeyFrame(timerAnimation);
+            if(timerAnimation >0.4f)
+            {
+                damaged= false;
+                timerAnimation=0;
+            }
+        }else if(attack)
         {
             region = (TextureRegion) attackAnimation.getKeyFrame(timerAnimation);
             if(timerAnimation>0.1f*8)

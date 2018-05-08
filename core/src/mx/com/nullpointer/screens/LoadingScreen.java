@@ -273,7 +273,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("map/clouds_tres.png",Texture.class);
                 assetManager.load("map/bookThreeF.png",Texture.class);
                 //Laurence win, loose
-                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/laurence_poisoned.png",Texture.class);
                 assetManager.load("characters/laurence_celebrating_three.png", Texture.class);
                 assetManager.load("characters/laurence_falling_three.png", Texture.class);
 
@@ -289,7 +289,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("map/clouds_tres.png",Texture.class);
                 assetManager.load("map/bookThreeF.png",Texture.class);
                 //Laurence win, loose
-                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/laurence_poisoned.png",Texture.class);
                 assetManager.load("characters/laurence_celebrating_three.png", Texture.class);
                 assetManager.load("characters/laurence_falling_three.png", Texture.class);
                 //Normal things to load
@@ -304,7 +304,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("map/clouds_tres.png",Texture.class);
                 assetManager.load("map/bookThreeF.png",Texture.class);
                 //Laurence win, loose
-                assetManager.load("characters/laurence_burned.png",Texture.class);
+                assetManager.load("characters/dinosaur_loose.png",Texture.class);
                 assetManager.load("characters/laurence_celebrating_three.png", Texture.class);
                 assetManager.load("characters/laurence_falling_three.png", Texture.class);
                 //Final boss

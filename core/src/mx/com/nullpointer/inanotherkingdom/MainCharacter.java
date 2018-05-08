@@ -312,6 +312,7 @@ public class MainCharacter extends GameObject
             movementState = MovementState.RUNNING;
             timerAction=0;
             timerRunning=0;
+            this.x-=18;
         }
         TextureRegion region = (TextureRegion) attackingAnimation.getKeyFrame(timerAction);
         batch.draw(region, x, y);

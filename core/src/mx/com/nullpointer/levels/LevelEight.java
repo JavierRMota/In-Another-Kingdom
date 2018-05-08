@@ -38,7 +38,7 @@ public class LevelEight extends GenericLevel {
         //Load Textures
         loadTextures();
         //Win and loose
-        loadWinLooseTextures("characters/laurence_falling_three.png","characters/laurence_celebrating_three.png","characters/laurence_burned.png");
+        loadWinLooseTextures("characters/laurence_falling_three.png","characters/laurence_celebrating_three.png","characters/dinosaur_loose.png");
 
         //Load Character
         loadCharacter();
@@ -360,7 +360,7 @@ public class LevelEight extends GenericLevel {
         assetManager.unload("map/bookThreeBg.png");
         assetManager.unload("map/clouds_tres.png");
 
-        assetManager.unload("characters/laurence_burned.png");
+        assetManager.unload("characters/dinosaur_loose.png");
         assetManager.unload("characters/laurence_celebrating_three.png");
         assetManager.unload("characters/laurence_falling_three.png");
 
