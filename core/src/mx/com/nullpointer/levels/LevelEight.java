@@ -14,7 +14,7 @@ import mx.com.nullpointer.inanotherkingdom.Main;
 import mx.com.nullpointer.inanotherkingdom.MainCharacter;
 
 public class LevelEight extends GenericLevel {
-    private Texture endTexture;
+    private boolean endCrying;
     private Dinosaur finalBoss;
     private boolean tutorial,speedUp;
     private int VELOCITY, SPEEDUPVELOCITY;
@@ -67,6 +67,7 @@ public class LevelEight extends GenericLevel {
 
         //Begin game
         gameState= GameState.PLAY;
+        endCrying =false;
 
         VELOCITY= laurence.getVelocity();
         SPEEDUPVELOCITY = VELOCITY*2;
@@ -174,11 +175,32 @@ public class LevelEight extends GenericLevel {
     }
 
     private void updateBoss(float delta) {
-        finalBoss.run(delta);
-        if(finalBoss.getX()+finalBoss.getSprite().getWidth()/2>= laurence.getX()+laurence.getSprite().getWidth())
+        if(finalBoss.getX()< MAP_WIDTH-WIDTH/2)
         {
-            loose();
+            finalBoss.run(delta);
+            if(finalBoss.getX()+finalBoss.getSprite().getWidth()/2>= laurence.getX()+laurence.getSprite().getWidth())
+            {
+                loose();
+            }else if(laurence.getX() >MAP_WIDTH-WIDTH/2 && finalBoss.getX()< MAP_WIDTH-WIDTH-finalBoss.getSprite().getWidth())
+            {
+                finalBoss.setX(MAP_WIDTH-WIDTH-finalBoss.getSprite().getWidth()+1);
+
+            }
+        }else {
+            if(finalBoss.isCrying())
+            {
+                if(finalBoss.getTimerAnimation() >0.1*6)
+                {
+                    win();
+                }
+
+            }else {
+                    finalBoss.cry();
+            }
+
+
         }
+
     }
 
 
@@ -263,8 +285,9 @@ public class LevelEight extends GenericLevel {
             {
                 tutorialPref.putBoolean("tutorialLVL8",true);
                 tutorialPref.flush();
+                tutorial = true;
             }
-            win();
+            //win();
         }else if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
         {
             loose();
