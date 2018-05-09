@@ -175,7 +175,7 @@ public class LevelZero extends GenericLevel {
             //Draw objects
             batch.begin();
             //Laurence
-            laurence.render(batch);
+            laurence.render(batch, gameState);
 
             if(!tutorial && cx==13)
             {
@@ -247,10 +247,7 @@ public class LevelZero extends GenericLevel {
     }
 
     protected void winOrLoose() {
-        if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
-        {
-            loose();
-        }
+
         if(laurence.getX()>MAP_WIDTH)
         {
             if(!tutorial)
@@ -259,6 +256,9 @@ public class LevelZero extends GenericLevel {
                 tutorialPref.flush();
             }
             win();
+        } else if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
+        {
+            loose();
         }
 
     }

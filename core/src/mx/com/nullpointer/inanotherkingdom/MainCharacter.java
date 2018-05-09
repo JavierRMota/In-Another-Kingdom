@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
+import mx.com.nullpointer.levels.GameState;
 import mx.com.nullpointer.screens.GenericScreen;
 
 /**
@@ -116,7 +117,7 @@ public class MainCharacter extends GameObject
         return VX;
     }
 
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch, GameState state) {
         switch (movementState)
         {
             case RUNNING:
@@ -127,22 +128,22 @@ public class MainCharacter extends GameObject
             case FALLING:
             case JUMPING:
             case JUMPING_END:
-                jump(batch);
+                jump(batch, state);
                 if(timerRunning!=0)
                     timerRunning=0;
                 break;
             case AIR_ATTACKING:
-                airAttack(batch);
+                airAttack(batch, state);
                 if(timerRunning!=0)
                     timerRunning=0;
                 break;
             case ATTACKING:
-                attack(batch);
+                attack(batch, state);
                 if(timerRunning!=0)
                     timerRunning=0;
                 break;
             case DODGING:
-                dodge(batch);
+                dodge(batch, state);
                 if(timerRunning!=0)
                     timerRunning=0;
                 break;
@@ -249,9 +250,10 @@ public class MainCharacter extends GameObject
         TextureRegion region = (TextureRegion) runningAnimation.getKeyFrame(timerRunning);
         batch.draw(region, x, y);
     }
-    public void jump(SpriteBatch batch)
+    public void jump(SpriteBatch batch, GameState state)
     {
-        timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
+        if(state== GameState.PLAY)
+            timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
         if (VY*timerAction-timerAction*G*0.5*timerAction<0  && movementState!=MovementState.FALLING && movementState!=MovementState.JUMPING_END)
         {
             movementState= MovementState.FALLING;
@@ -279,10 +281,13 @@ public class MainCharacter extends GameObject
         }
 
     }
-    public void airAttack(SpriteBatch batch)
+    public void airAttack(SpriteBatch batch, GameState state)
     {
-        timerSecondaryAction +=Gdx.graphics.getDeltaTime();
-        timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
+        if(state== GameState.PLAY)
+        {
+            timerSecondaryAction +=Gdx.graphics.getDeltaTime();
+            timerAction+=Gdx.graphics.getDeltaTime()*1.4f;
+        }
         if (timerSecondaryAction >animationSpeed*6)
         {
             movementState= MovementState.FALLING;
@@ -292,9 +297,12 @@ public class MainCharacter extends GameObject
             batch.draw(region,x,y);
         }
     }
-   public void dodge(SpriteBatch batch)
-    {
+   public void dodge(SpriteBatch batch, GameState state)
+   {
+       if(state== GameState.PLAY)
+       {
         timerAction += Gdx.graphics.getDeltaTime();
+       }
         if(timerAction>=animationSpeed*12)
         {
             movementState = MovementState.RUNNING;
@@ -304,9 +312,12 @@ public class MainCharacter extends GameObject
         TextureRegion region = (TextureRegion) dodgingAnimation.getKeyFrame(timerAction);
         batch.draw(region, x, y);
     }
-    public void attack(SpriteBatch batch)
+    public void attack(SpriteBatch batch, GameState state)
     {
-        timerAction += Gdx.graphics.getDeltaTime();
+        if(state== GameState.PLAY)
+        {
+            timerAction += Gdx.graphics.getDeltaTime();
+        }
         if(timerAction>=animationSpeed*9)
         {
             movementState = MovementState.RUNNING;

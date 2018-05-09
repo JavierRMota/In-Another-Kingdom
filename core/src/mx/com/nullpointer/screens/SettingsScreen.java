@@ -199,7 +199,7 @@ public class SettingsScreen extends GenericScreen {
                 public void result(Object obj) {
                     if(obj.equals(true)){
                         Preferences prefsProgress = Gdx.app.getPreferences("Progress");
-                        for(int i =0; i<prefsProgress.getInteger("lastLevel",0);i++){
+                        for(int i =0; i<=prefsProgress.getInteger("lastLevel",0);i++){
                             prefsProgress.remove("score"+i);
                         }
                         prefsProgress.remove("lastLevel");
@@ -210,6 +210,11 @@ public class SettingsScreen extends GenericScreen {
                         preferencesTotal.remove("position");
                         preferencesTotal.remove("");
                         preferencesTotal.flush();
+                        Preferences tutorials =   Gdx.app.getPreferences("Tutorial");
+                        tutorials.remove("tutorialLVL1");
+                        tutorials.remove("tutorialLVL0");
+                        tutorials.remove("tutorialLVL8");
+                        tutorials.flush();
                         remove();
                         createObjects();
                     }

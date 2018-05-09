@@ -119,7 +119,7 @@ public class LevelFour extends GenericLevel {
         //Draw objects
         batch.begin();
         //Laurence
-        laurence.render(batch);
+        laurence.render(batch, gameState);
         //Enemies
         drawEnemies(delta);
         batch.end();
@@ -204,13 +204,12 @@ public class LevelFour extends GenericLevel {
     }
 
     protected void winOrLoose() {
-        if((laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0) && laurence.getX()<MAP_WIDTH)
-        {
-            loose();
-        }
-        else if(laurence.getX()>MAP_WIDTH)
+        if(laurence.getX()>MAP_WIDTH)
         {
             win();
+        } else if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
+        {
+            loose();
         }
     }
 

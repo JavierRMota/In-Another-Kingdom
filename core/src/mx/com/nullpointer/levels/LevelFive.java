@@ -136,7 +136,7 @@ public class LevelFive extends GenericLevel {
         //Draw objects
         batch.begin();
         //Laurence
-        laurence.render(batch);
+        laurence.render(batch, gameState);
         //Enemies
         drawEnemies(delta);
         //For the fight
@@ -167,9 +167,9 @@ public class LevelFive extends GenericLevel {
         if(!finalBoss.isDead())
         {
             finalBoss.render(batch,delta);
-            if(!finalBoss.isAttacking()) {
+            if(!finalBoss.isAttacking() && gameState == GameState.PLAY) {
                 timerEnemy += delta;
-                if(timerEnemy>1.5)
+                if(timerEnemy>2)
                 {
                     timerEnemy=0;
                     finalBoss.attack();
@@ -299,17 +299,17 @@ public class LevelFive extends GenericLevel {
     }
 
     protected void winOrLoose() {
-        if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
-        {
-            loose();
-        }
-        else if(laurence.getX()>MAP_WIDTH)
+
+        if(laurence.getX()>MAP_WIDTH)
         {
             if(gameState!=GameState.WIN)
             {
                 score+=2000;
             }
             win();
+        } else if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
+        {
+            loose();
         }
     }
 

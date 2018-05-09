@@ -37,6 +37,11 @@
     <property name="type" value="lava"/>
    </properties>
   </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="lava"/>
+   </properties>
+  </tile>
   <tile id="8">
    <properties>
     <property name="type" value="lava"/>
@@ -103,48 +108,48 @@
   </tile>
  </tileset>
  <tileset firstgid="25" name="enemigos_tres" tilewidth="70" tileheight="70" tilecount="8" columns="4">
-   <image source="enemigos_tres.png" width="280" height="140"/>
-   <tile id="0">
-    <properties>
-     <property name="number" value="1"/>
-     <property name="type" value="enemy"/>
-    </properties>
-    <animation>
-     <frame tileid="0" duration="400"/>
-     <frame tileid="2" duration="400"/>
-    </animation>
-   </tile>
-   <tile id="1">
-    <properties>
-     <property name="number" value="2"/>
-     <property name="type" value="enemy"/>
-    </properties>
-    <animation>
-     <frame tileid="1" duration="400"/>
-     <frame tileid="3" duration="400"/>
-    </animation>
-   </tile>
-   <tile id="4">
-    <properties>
-     <property name="number" value="3"/>
-     <property name="type" value="enemy"/>
-    </properties>
-    <animation>
-     <frame tileid="4" duration="400"/>
-     <frame tileid="6" duration="400"/>
-    </animation>
-   </tile>
-   <tile id="5">
-    <properties>
-     <property name="number" value="4"/>
-     <property name="type" value="enemy"/>
-    </properties>
-    <animation>
-     <frame tileid="5" duration="400"/>
-     <frame tileid="7" duration="400"/>
-    </animation>
-   </tile>
-  </tileset>
+  <image source="enemigos_tres.png" width="280" height="140"/>
+  <tile id="0">
+   <properties>
+    <property name="number" value="1"/>
+    <property name="type" value="enemy"/>
+   </properties>
+   <animation>
+    <frame tileid="0" duration="400"/>
+    <frame tileid="2" duration="400"/>
+   </animation>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="number" value="2"/>
+    <property name="type" value="enemy"/>
+   </properties>
+   <animation>
+    <frame tileid="1" duration="400"/>
+    <frame tileid="3" duration="400"/>
+   </animation>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="number" value="3"/>
+    <property name="type" value="enemy"/>
+   </properties>
+   <animation>
+    <frame tileid="4" duration="400"/>
+    <frame tileid="6" duration="400"/>
+   </animation>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="number" value="4"/>
+    <property name="type" value="enemy"/>
+   </properties>
+   <animation>
+    <frame tileid="5" duration="400"/>
+    <frame tileid="7" duration="400"/>
+   </animation>
+  </tile>
+ </tileset>
  <layer name="Tile Layer 1" width="200" height="11" opacity="0.97">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

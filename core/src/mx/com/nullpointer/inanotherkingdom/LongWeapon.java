@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import mx.com.nullpointer.levels.GameState;
+
 
 public class LongWeapon extends GameObject{
     private Animation animation;
@@ -45,12 +47,15 @@ public class LongWeapon extends GameObject{
         isBad =!isBad;
         VY=-VY;
     }
-    public void render(SpriteBatch batch)
+    public void render(SpriteBatch batch, GameState state)
     {
         Texture region;
-        x+= VX* Gdx.graphics.getDeltaTime();
-        if(fight)
-            y+= VY*Gdx.graphics.getDeltaTime();
+        if(state == GameState.PLAY)
+        {
+            x+= VX* Gdx.graphics.getDeltaTime();
+            if(fight)
+                y+= VY*Gdx.graphics.getDeltaTime();
+        }
         if(isBad)
             region = (Texture) animation.getKeyFrame(0);
         else

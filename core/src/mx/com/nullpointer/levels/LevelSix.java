@@ -91,7 +91,7 @@ public class LevelSix extends GenericLevel {
         //Draw objects
         batch.begin();
         //Laurence
-        laurence.render(batch);
+        laurence.render(batch, gameState);
         batch.end();
         //Draw buttons and information
         batch.setProjectionMatrix(cameraHUD.combined);
@@ -187,13 +187,13 @@ public class LevelSix extends GenericLevel {
     }
 
     protected void winOrLoose() {
-        if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
-        {
-            loose();
-        }
-        else if(laurence.getX()>MAP_WIDTH)
+
+        if(laurence.getX()>MAP_WIDTH)
         {
             win();
+        } else if(laurence.getX()< camera.position.x-3* WIDTH /4 || laurence.getY()<0)
+        {
+            loose();
         }
     }
 
