@@ -127,6 +127,8 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("niveles/playbtnlevels.png",Texture.class);
                 assetManager.load("niveles/playbtnpresslevels.png",Texture.class);
                 assetManager.load("btn/howto.png",Texture.class);
+                assetManager.load("btn/storybtn.png",Texture.class);
+                assetManager.load("btn/storybtnpress.png",Texture.class);
                 assetManager.load("background/menubg.png",Texture.class);
                 assetManager.load("background/tiraLibroAbriendose.png",Texture.class);
                 assetManager.load("background/tiraLibroAbriendose2.png",Texture.class);

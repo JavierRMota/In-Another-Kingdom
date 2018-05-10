@@ -597,7 +597,7 @@ class LevelsScreen extends GenericScreen{
         TextureRegionDrawable trdHow = new TextureRegionDrawable(new TextureRegion(howTexture));
         TextureRegionDrawable trdHowPress = new TextureRegionDrawable(new TextureRegion(howPressTexture));
         ImageButton btnHow = new ImageButton(trdHow,trdHowPress);
-        btnHow.setPosition(WIDTH/2-btnHow.getWidth()/2, HEIGHT/5 - btnHow.getHeight()/2);
+        btnHow.setPosition(WIDTH/2-btnHow.getWidth()/2, HEIGHT/5 - 3*btnHow.getHeight()/2);
 
         btnHow.addListener(new ClickListener(){
             @Override
@@ -608,6 +608,24 @@ class LevelsScreen extends GenericScreen{
             }
         });
         levelsStage.addActor(btnHow);
+
+        //Boton Story
+        Texture storyTexture = assetManager.get("btn/storybtn.png");
+        Texture storyPressTexture = assetManager.get("btn/storybtnpress.png");
+        TextureRegionDrawable trdStory = new TextureRegionDrawable(new TextureRegion(storyTexture));
+        TextureRegionDrawable trdStoryPress = new TextureRegionDrawable(new TextureRegion(storyPressTexture));
+        ImageButton btnStory = new ImageButton(trdStory,trdStoryPress);
+        btnStory.setPosition(WIDTH/2-btnStory.getWidth()/2, HEIGHT/5);
+
+        btnStory.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                game.setScreen(new LoadingScreen(game, STORY));
+
+            }
+        });
+        levelsStage.addActor(btnStory);
     }
 
 
@@ -789,6 +807,45 @@ class LevelsScreen extends GenericScreen{
         ONE,
         TWO,
         THREE
+    }
+    @Override
+    public void dispose()
+    {
+        assetManager.unload("music/menu.mp3");
+        assetManager.unload("btn/backbtn.png");
+        assetManager.unload("btn/backbtnpress.png");
+        assetManager.unload("logo_alargado.png");
+        assetManager.unload("gameObjects/star.png");
+        assetManager.unload("niveles/uno/levelOneBook.png");
+        assetManager.unload("background/menubg.png");
+        assetManager.unload("niveles/uno/levelOne.png");
+        assetManager.unload("niveles/uno/levelTwo.png");
+        assetManager.unload("niveles/uno/levelZero.png");
+        assetManager.unload("niveles/uno/levelOneBook.png");
+        assetManager.unload("niveles/tres/levelThreeBook.png");
+        assetManager.unload("niveles/dos/levelThree.png");
+        assetManager.unload("niveles/dos/levelFour.png");
+        assetManager.unload("niveles/dos/levelFive.png");
+        assetManager.unload("niveles/dos/levelTwoBook.png");
+        assetManager.unload("niveles/tres/levelThreeBook.png");
+        assetManager.unload("niveles/tres/levelSix.png");
+        assetManager.unload("niveles/tres/levelSeven.png");
+        assetManager.unload("niveles/tres/levelEight.png");
+        assetManager.unload("niveles/levelLock.png");;
+        assetManager.unload("background/openBook.png");
+        assetManager.unload("btn/backdarkbtn.png");
+        assetManager.unload("btn/backdarkbtnpress.png");
+        assetManager.unload("niveles/lock.png");
+        assetManager.unload("niveles/lockedBook.png");
+        assetManager.unload("niveles/playbtnlevels.png");
+        assetManager.unload("niveles/playbtnpresslevels.png");
+        assetManager.unload("btn/howto.png");
+        assetManager.unload("btn/storybtn.png");
+        assetManager.unload("btn/storybtnpress.png");
+        assetManager.unload("background/menubg.png");
+        assetManager.unload("background/tiraLibroAbriendose.png");
+        assetManager.unload("background/tiraLibroAbriendose2.png");
+        assetManager.unload("background/tiraLibroAbriendose3.png");
     }
 
 

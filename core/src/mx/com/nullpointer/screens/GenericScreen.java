@@ -23,7 +23,7 @@ public abstract class GenericScreen implements Screen
         //Dimensiones
         public static final float WIDTH = 1280;
         public static final float HEIGHT = 720;
-        public static final int MENU = 0, SETTINGS = 1, LEVELS = 2, ABOUT = 3, TUTORIAL = 4, LVLZERO = 5, LVLONE = 6, LVLTWO = 7, LVLTHREE = 8,LVLFOUR =9, LVLFIVE =10, LVLSIX = 11, LVLSEVEN = 12, LVLEIGHT = 13, SPLASH=20, STORY = 21;
+        public static final int MENU = 0, SETTINGS = 1, LEVELS = 2, ABOUT = 3, TUTORIAL = 4, LVLZERO = 5, LVLONE = 6, LVLTWO = 7, LVLTHREE = 8,LVLFOUR =9, LVLFIVE =10, LVLSIX = 11, LVLSEVEN = 12, LVLEIGHT = 13, STORY = 21;
 
         //Cámara
         protected OrthographicCamera camera;

@@ -28,17 +28,12 @@ public class StoryScreen extends GenericScreen {
     private Texture story7;
     private Texture story8;
 
-    private Stage stage1;
-    private Stage stage2;
-    private Stage stage3;
-    private Stage stage4;
-    private Stage stage5;
-    private Stage stage6;
-    private Stage stage7;
-    private Stage stage8;
+    private Stage storyStage;
+    private Stage continueStage;
+
     private Stage currentStage;
 
-    private Stages stage;
+    private int part;
 
     public StoryScreen(Main game)
     {
@@ -53,9 +48,9 @@ public class StoryScreen extends GenericScreen {
         loadScenes();
         loadObjects();
 
-        currentStage = stage1;
+        currentStage = storyStage;
         Gdx.input.setInputProcessor(currentStage);
-        stage = Stages.ONE;
+        part=1;
 
     }
 
@@ -72,7 +67,7 @@ public class StoryScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                game.setScreen(new LoadingScreen(game,MENU));
+                game.setScreen(new LoadingScreen(game,LEVELS));
 
             }
         });
@@ -90,159 +85,28 @@ public class StoryScreen extends GenericScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                changeScene(Stages.TWO);
+                part+=1;
+                if(part>=8)
+                {
+                    currentStage = continueStage;
+                    Gdx.input.setInputProcessor(currentStage);
+
+                }
 
             }
         });
+        storyStage.addActor(btnNext1);
 
-        TextureRegionDrawable trdStory1 = new TextureRegionDrawable(new TextureRegion(story1));
-        Image imgStory1 = new Image(trdStory1);
-        imgStory1.setPosition(0, 0);
-        stage1.addActor(imgStory1);
-        stage1.addActor(btnNext1);
-
-        //Escena 2
-        ImageButton btnNext2 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext2.setPosition(WIDTH - btnNext2.getWidth(), HEIGHT/2 - btnNext2.getHeight()/2);
-
-        btnNext2.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                changeScene(Stages.THREE);
-
-            }
-        });
-
-
-        TextureRegionDrawable trdStory2 = new TextureRegionDrawable(new TextureRegion(story2));
-        Image imgStory2 = new Image(trdStory2);
-        imgStory2.setPosition(0, 0);
-        stage2.addActor(imgStory2);
-        stage2.addActor(btnNext2);
-
-
-        //Escena 3
-        ImageButton btnNext3 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext3.setPosition(WIDTH - btnNext3.getWidth(), HEIGHT/2 - btnNext3.getHeight()/2);
-
-        btnNext3.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                changeScene(Stages.FOUR);
-
-            }
-        });
-
-
-        TextureRegionDrawable trdStory3 = new TextureRegionDrawable(new TextureRegion(story3));
-        Image imgStory3 = new Image(trdStory3);
-        imgStory3.setPosition(0, 0);
-        stage3.addActor(imgStory3);
-        stage3.addActor(btnNext3);
-
-        //Escena 4
-        ImageButton btnNext4 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext4.setPosition(WIDTH - btnNext4.getWidth(), HEIGHT/2 - btnNext4.getHeight()/2);
-
-        btnNext4.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                changeScene(Stages.FIVE);
-
-            }
-        });
-
-        TextureRegionDrawable trdStory4 = new TextureRegionDrawable(new TextureRegion(story4));
-        Image imgStory4 = new Image(trdStory4);
-        imgStory4.setPosition(0, 0);
-        stage4.addActor(imgStory4);
-        stage4.addActor(btnNext4);
-
-
-        //Escena 5
-        ImageButton btnNext5 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext5.setPosition(WIDTH - btnNext5.getWidth(), HEIGHT/2 - btnNext5.getHeight()/2);
-
-        btnNext5.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                changeScene(Stages.SIX);
-
-            }
-        });
-
-        TextureRegionDrawable trdStory5 = new TextureRegionDrawable(new TextureRegion(story5));
-        Image imgStory5 = new Image(trdStory5);
-        imgStory5.setPosition(0, 0);
-        stage5.addActor(imgStory5);
-        stage5.addActor(btnNext5);
-
-        //Escena 6
-        ImageButton btnNext6 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext6.setPosition(WIDTH - btnNext6.getWidth(), HEIGHT/2 - btnNext6.getHeight()/2);
-
-        btnNext6.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                changeScene(Stages.SEVEN);
-
-            }
-        });
-
-        TextureRegionDrawable trdStory6 = new TextureRegionDrawable(new TextureRegion(story6));
-        Image imgStory6 = new Image(trdStory6);
-        imgStory6.setPosition(0, 0);
-        stage6.addActor(imgStory6);
-        stage6.addActor(btnNext6);
-
-        //Escena 7
-        ImageButton btnNext7 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext7.setPosition(WIDTH - btnNext7.getWidth(), HEIGHT/2 - btnNext7.getHeight()/2);
-
-        btnNext7.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                changeScene(Stages.EIGHT);
-
-            }
-        });
-
-        TextureRegionDrawable trdStory7 = new TextureRegionDrawable(new TextureRegion(story7));
-        Image imgStory7 = new Image(trdStory7);
-        imgStory7.setPosition(0, 0);
-        stage7.addActor(imgStory7);
-        stage7.addActor(btnNext7);
 
         //Escena 8
-        TextureRegionDrawable trdStory8 = new TextureRegionDrawable(new TextureRegion(story8));
-        Image imgStory8 = new Image(trdStory8);
-        imgStory8.setPosition(0, 0);
-        stage8.addActor(imgStory8);
-        stage8.addActor(btnBack);
+        continueStage.addActor(btnBack);
     }
 
     private void loadScenes() {
-        stage1 = new Stage(view);
+        continueStage = new Stage(view);
 
-        stage2 = new Stage(view);
+        storyStage = new Stage(view);
 
-        stage3 = new Stage(view);
-
-        stage4 = new Stage(view);
-
-        stage5 = new Stage(view);
-
-        stage6 = new Stage(view);
-
-        stage7 = new Stage(view);
-
-        stage8 = new Stage(view);
     }
 
 
@@ -265,6 +129,33 @@ public class StoryScreen extends GenericScreen {
         //Projection matrix
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        switch (part)
+        {
+            case 1:
+                batch.draw(story1,0,0);
+                break;
+            case 2:
+                batch.draw(story2,0,0);
+                break;
+            case 3:
+                batch.draw(story3,0,0);
+                break;
+            case 4:
+                batch.draw(story4,0,0);
+                break;
+            case 5:
+                batch.draw(story5,0,0);
+                break;
+            case 6:
+                batch.draw(story6,0,0);
+                break;
+            case 7:
+                batch.draw(story7,0,0);
+                break;
+            case 8:
+                batch.draw(story8,0,0);
+                break;
+        }
         batch.end();
         currentStage.draw();
 
@@ -274,52 +165,7 @@ public class StoryScreen extends GenericScreen {
     }
 
 
-    private void changeScene(Stages stage) {
-        switch (stage)
-        {
-            case ONE:
-                this.stage = Stages.ONE;
-                currentStage = stage1;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-            case TWO:
-                this.stage = Stages.TWO;
-                currentStage = stage2;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-            case THREE:
-                this.stage = Stages.THREE;
-                currentStage = stage3;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-            case FOUR:
-                this.stage = Stages.FOUR;
-                currentStage = stage4;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-            case FIVE:
-                this.stage = Stages.FIVE;
-                currentStage = stage5;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-            case SIX:
-                this.stage = Stages.SIX;
-                currentStage = stage6;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-            case SEVEN:
-                this.stage = Stages.SEVEN;
-                currentStage = stage7;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-            case EIGHT:
-                this.stage = Stages.EIGHT;
-                currentStage = stage8;
-                Gdx.input.setInputProcessor(currentStage);
-                break;
-        }
 
-    }
 
     @Override
     public void dispose() {
@@ -337,15 +183,5 @@ public class StoryScreen extends GenericScreen {
         assetManager.unload("btn/nextbtnpress.png");
     }
 
-    private enum Stages
-    {
-        ONE,
-        TWO,
-        THREE,
-        FOUR,
-        FIVE,
-        SIX,
-        SEVEN,
-        EIGHT
-    }
+
 }
