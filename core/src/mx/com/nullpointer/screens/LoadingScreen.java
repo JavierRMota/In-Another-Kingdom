@@ -137,14 +137,21 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("music/menu.mp3",Music.class);
                 assetManager.load("btn/backbtn.png",Texture.class);
                 assetManager.load("btn/backbtnpress.png",Texture.class);
-                assetManager.load("btn/gitbtn.png",Texture.class);
-                assetManager.load("btn/gitbtnpress.png",Texture.class);
-                assetManager.load("screens/avatarBanner.png",Texture.class);
+                assetManager.load("btn/ackbtn.png",Texture.class);
+                assetManager.load("btn/ackbtnpress.png",Texture.class);
+                assetManager.load("btn/contactbtn.png",Texture.class);
+                assetManager.load("btn/contactbtnpress.png",Texture.class);
                 assetManager.load("screens/avatarBere.png",Texture.class);
                 assetManager.load("screens/avatarCharly.png",Texture.class);
                 assetManager.load("screens/avatarEli.png",Texture.class);
                 assetManager.load("screens/avatarJavier.png",Texture.class);
                 assetManager.load("screens/avatarMarina.png",Texture.class);
+                assetManager.load("screens/fotoEli.png",Texture.class);
+                assetManager.load("screens/fotoBere.png",Texture.class);
+                assetManager.load("screens/fotoCharly.png",Texture.class);
+                assetManager.load("screens/fotoJavier.png",Texture.class);
+                assetManager.load("screens/fotoMarina.png",Texture.class);
+
                 break;
             case TUTORIAL:
                 assetManager.load("background/howTo.png",Texture.class);
