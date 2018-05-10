@@ -154,7 +154,9 @@ public class LoadingScreen extends GenericScreen {
 
                 break;
             case TUTORIAL:
-                //assetManager.load("background/howTo.png",Texture.class);
+                assetManager.load("background/howTo.png",Texture.class);
+                break;
+            /*case TUTORIAL:
                 assetManager.load("story/1.png", Texture.class);
                 assetManager.load("story/2.png", Texture.class);
                 assetManager.load("story/3.png", Texture.class);
@@ -167,7 +169,7 @@ public class LoadingScreen extends GenericScreen {
                 assetManager.load("btn/backdarkbtnpress.png", Texture.class);
                 assetManager.load("btn/nextbtn.png", Texture.class);
                 assetManager.load("btn/nextbtnpress.png", Texture.class);
-                break;
+                break;*/
             case LVLZERO:
                 assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 //Map
@@ -417,8 +419,11 @@ public class LoadingScreen extends GenericScreen {
                     game.setScreen(new AboutScreen(game));
                     break;
                 case TUTORIAL:
-                    game.setScreen(new StoryScreen(game));
+                    game.setScreen(new TutorialScreen(game));
                     break;
+                /*case STORY:
+                    game.setScreen(new StoryScreen(game));
+                    break;*/
                 case LVLZERO:
                     game.setScreen(new LevelZero(game,screen));
                     break;

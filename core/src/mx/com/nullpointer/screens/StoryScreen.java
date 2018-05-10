@@ -84,7 +84,7 @@ public class StoryScreen extends GenericScreen {
         TextureRegionDrawable trdNext1 = new TextureRegionDrawable(new TextureRegion(nextTexture));
         TextureRegionDrawable trdNextPress1 = new TextureRegionDrawable(new TextureRegion(nextPressTexture));
         ImageButton btnNext1 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext1.setPosition(WIDTH - 3*btnNext1.getWidth()/2, HEIGHT/2 - btnNext1.getHeight()/2);
+        btnNext1.setPosition(WIDTH - btnNext1.getWidth(), HEIGHT/2 - btnNext1.getHeight()/2);
 
         btnNext1.addListener(new ClickListener(){
             @Override
@@ -103,7 +103,7 @@ public class StoryScreen extends GenericScreen {
 
         //Escena 2
         ImageButton btnNext2 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext2.setPosition(WIDTH - 3*btnNext2.getWidth()/2, HEIGHT/2 - btnNext2.getHeight()/2);
+        btnNext2.setPosition(WIDTH - btnNext2.getWidth(), HEIGHT/2 - btnNext2.getHeight()/2);
 
         btnNext2.addListener(new ClickListener(){
             @Override
@@ -124,7 +124,7 @@ public class StoryScreen extends GenericScreen {
 
         //Escena 3
         ImageButton btnNext3 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext3.setPosition(WIDTH - 3*btnNext3.getWidth()/2, HEIGHT/2 - btnNext3.getHeight()/2);
+        btnNext3.setPosition(WIDTH - btnNext3.getWidth(), HEIGHT/2 - btnNext3.getHeight()/2);
 
         btnNext3.addListener(new ClickListener(){
             @Override
@@ -144,7 +144,7 @@ public class StoryScreen extends GenericScreen {
 
         //Escena 4
         ImageButton btnNext4 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext4.setPosition(WIDTH - 3*btnNext4.getWidth()/2, HEIGHT/2 - btnNext4.getHeight()/2);
+        btnNext4.setPosition(WIDTH - btnNext4.getWidth(), HEIGHT/2 - btnNext4.getHeight()/2);
 
         btnNext4.addListener(new ClickListener(){
             @Override
@@ -164,7 +164,7 @@ public class StoryScreen extends GenericScreen {
 
         //Escena 5
         ImageButton btnNext5 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext5.setPosition(WIDTH - 3*btnNext5.getWidth()/2, HEIGHT/2 - btnNext5.getHeight()/2);
+        btnNext5.setPosition(WIDTH - btnNext5.getWidth(), HEIGHT/2 - btnNext5.getHeight()/2);
 
         btnNext5.addListener(new ClickListener(){
             @Override
@@ -183,9 +183,9 @@ public class StoryScreen extends GenericScreen {
 
         //Escena 6
         ImageButton btnNext6 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext6.setPosition(WIDTH - 3*btnNext6.getWidth()/2, HEIGHT/2 - btnNext6.getHeight()/2);
+        btnNext6.setPosition(WIDTH - btnNext6.getWidth(), HEIGHT/2 - btnNext6.getHeight()/2);
 
-        btnNext4.addListener(new ClickListener(){
+        btnNext6.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
@@ -202,7 +202,7 @@ public class StoryScreen extends GenericScreen {
 
         //Escena 7
         ImageButton btnNext7 = new ImageButton(trdNext1,trdNextPress1);
-        btnNext7.setPosition(WIDTH - 3*btnNext7.getWidth()/2, HEIGHT/2 - btnNext7.getHeight()/2);
+        btnNext7.setPosition(WIDTH - btnNext7.getWidth(), HEIGHT/2 - btnNext7.getHeight()/2);
 
         btnNext7.addListener(new ClickListener(){
             @Override
@@ -220,7 +220,6 @@ public class StoryScreen extends GenericScreen {
         stage7.addActor(btnNext7);
 
         //Escena 8
-
         TextureRegionDrawable trdStory8 = new TextureRegionDrawable(new TextureRegion(story8));
         Image imgStory8 = new Image(trdStory8);
         imgStory8.setPosition(0, 0);
@@ -280,43 +279,43 @@ public class StoryScreen extends GenericScreen {
         {
             case ONE:
                 this.stage = Stages.ONE;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage1;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
             case TWO:
                 this.stage = Stages.TWO;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage2;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
             case THREE:
                 this.stage = Stages.THREE;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage3;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
             case FOUR:
                 this.stage = Stages.FOUR;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage4;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
             case FIVE:
                 this.stage = Stages.FIVE;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage5;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
             case SIX:
                 this.stage = Stages.SIX;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage6;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
             case SEVEN:
                 this.stage = Stages.SEVEN;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage7;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
             case EIGHT:
                 this.stage = Stages.EIGHT;
-                Gdx.input.setInputProcessor(currentStage);
                 currentStage = stage8;
+                Gdx.input.setInputProcessor(currentStage);
                 break;
         }
 
