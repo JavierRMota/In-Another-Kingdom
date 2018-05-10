@@ -98,7 +98,7 @@ class LevelsScreen extends GenericScreen{
         trdBackgroundSub = new TextureRegionDrawable(new TextureRegion(openBookTexture));
         trdBackSub = new TextureRegionDrawable(new TextureRegion(backDark));
         trdBackSubPress = new TextureRegionDrawable(new TextureRegion(backDarkPress));
-        Texture starTexture =assetManager.get("gameObjects/star.png");
+        Texture starTexture = assetManager.get("gameObjects/star.png");
         trdStarLevels = new TextureRegionDrawable(new TextureRegion(starTexture));
         Texture levelLockTexture = assetManager.get("niveles/levelLock.png");
         trdLevelLock = new TextureRegionDrawable(new TextureRegion(levelLockTexture));
@@ -543,6 +543,7 @@ class LevelsScreen extends GenericScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+
                 if (lastLevel >= 3){
                     TextureRegion region = new TextureRegion(bookTexture2);
                     TextureRegion[][] frames = region.split(bookTexture2.getWidth()/7, bookTexture2.getHeight());
